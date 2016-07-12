@@ -15,10 +15,18 @@
 @property(nonatomic , strong)NSString *intro;
 @property(nonatomic , strong)NSString *title;
 @property(nonatomic , strong)NSString *coverMiddle;
+@property(nonatomic , strong)NSString *coverPath;
+@property(nonatomic , strong)NSString *footnote;
+@property(nonatomic , strong)NSString *subtitle;
+
+
 
 
 +(NSMutableArray *)focusImages:(NSDictionary *)dic;
 
 +(NSMutableArray *)editorRecommendAlbums:(NSDictionary *)dic;
+
++(NSMutableArray *)specialColumn:(NSDictionary *)dic;
+
 
 @end

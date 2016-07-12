@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790C09311D34A00B00D384A7 /* dot_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 790C09301D34A00B00D384A7 /* dot_circle.png */; };
+		790C09341D34B60300D384A7 /* DiscoverCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C09331D34B60300D384A7 /* DiscoverCollectView.m */; };
+		790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */; };
+		790C093D1D34E13100D384A7 /* specialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093C1D34E13100D384A7 /* specialView.m */; };
+		790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */; };
 		798076B01D339EAD0095911D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 798076AF1D339EAD0095911D /* main.m */; };
 		798076B91D339EAD0095911D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798076B71D339EAD0095911D /* Main.storyboard */; };
 		798076BB1D339EAD0095911D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 798076BA1D339EAD0095911D /* Assets.xcassets */; };
@@ -62,6 +67,15 @@
 
 /* Begin PBXFileReference section */
 		260B59A7AA144B1900F9994B /* Pods-Product-BB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Product-BB.release.xcconfig"; path = "Pods/Target Support Files/Pods-Product-BB/Pods-Product-BB.release.xcconfig"; sourceTree = "<group>"; };
+		790C09301D34A00B00D384A7 /* dot_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot_circle.png; sourceTree = "<group>"; };
+		790C09321D34B60300D384A7 /* DiscoverCollectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverCollectView.h; sourceTree = "<group>"; };
+		790C09331D34B60300D384A7 /* DiscoverCollectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverCollectView.m; sourceTree = "<group>"; };
+		790C09351D34B65300D384A7 /* DiscoverCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverCollectionViewCell.h; sourceTree = "<group>"; };
+		790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverCollectionViewCell.m; sourceTree = "<group>"; };
+		790C093B1D34E13100D384A7 /* specialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = specialView.h; sourceTree = "<group>"; };
+		790C093C1D34E13100D384A7 /* specialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = specialView.m; sourceTree = "<group>"; };
+		790C093E1D34F4B200D384A7 /* hotRecommendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hotRecommendsModel.h; sourceTree = "<group>"; };
+		790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hotRecommendsModel.m; sourceTree = "<group>"; };
 		798076AB1D339EAD0095911D /* Product-BB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Product-BB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		798076AF1D339EAD0095911D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		798076B81D339EAD0095911D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -275,6 +289,8 @@
 			children = (
 				798077441D33E04C0095911D /* focusImagesModel.h */,
 				798077451D33E04C0095911D /* focusImagesModel.m */,
+				790C093E1D34F4B200D384A7 /* hotRecommendsModel.h */,
+				790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -284,6 +300,12 @@
 			children = (
 				798077471D33EFE00095911D /* editorRecommendAlbumsTableViewCell.h */,
 				798077481D33EFE00095911D /* editorRecommendAlbumsTableViewCell.m */,
+				790C093B1D34E13100D384A7 /* specialView.h */,
+				790C093C1D34E13100D384A7 /* specialView.m */,
+				790C09321D34B60300D384A7 /* DiscoverCollectView.h */,
+				790C09331D34B60300D384A7 /* DiscoverCollectView.m */,
+				790C09351D34B65300D384A7 /* DiscoverCollectionViewCell.h */,
+				790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -489,6 +511,7 @@
 				798077111D33A1FA0095911D /* 0001 2.png */,
 				798077121D33A1FA0095911D /* music_icon_play_highlighted@3x.png */,
 				798077131D33A1FA0095911D /* music_icon_stop_highlighted@3x.png */,
+				790C09301D34A00B00D384A7 /* dot_circle.png */,
 				798077301D33BAE50095911D /* 订阅.png */,
 				7980772E1D33BAE10095911D /* 发现.png */,
 				798077321D33BAE90095911D /* 我的.png */,
@@ -580,6 +603,7 @@
 				TargetAttributes = {
 					798076AA1D339EAD0095911D = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 5YJ4376P85;
 					};
 					798076C31D339EAD0095911D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -620,6 +644,7 @@
 				798077351D33BAEC0095911D /* download下载.png in Resources */,
 				798077311D33BAE50095911D /* 订阅.png in Resources */,
 				798077171D33A1FA0095911D /* music_icon_stop_highlighted@3x.png in Resources */,
+				790C09311D34A00B00D384A7 /* dot_circle.png in Resources */,
 				798077161D33A1FA0095911D /* music_icon_play_highlighted@3x.png in Resources */,
 				7980772F1D33BAE10095911D /* 发现.png in Resources */,
 				798077181D33A1FA0095911D /* tabbar_bg@3x.png in Resources */,
@@ -704,10 +729,13 @@
 			files = (
 				7980772D1D33A2DA0095911D /* RootTabBarViewController.m in Sources */,
 				7980770B1D33A12C0095911D /* RequestManager.m in Sources */,
+				790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */,
+				790C09341D34B60300D384A7 /* DiscoverCollectView.m in Sources */,
 				7980770F1D33A1560095911D /* UIView+TWFrame.m in Sources */,
 				7980771E1D33A2340095911D /* DownLoadViewController.m in Sources */,
 				798077491D33EFE00095911D /* editorRecommendAlbumsTableViewCell.m in Sources */,
 				798077461D33E04C0095911D /* focusImagesModel.m in Sources */,
+				790C093D1D34E13100D384A7 /* specialView.m in Sources */,
 				7980772A1D33A26A0095911D /* SubscriptionViewController.m in Sources */,
 				798077211D33A23F0095911D /* MineViewController.m in Sources */,
 				7980771B1D33A2260095911D /* DiscoverViewController.m in Sources */,
@@ -717,6 +745,7 @@
 				798077271D33A2540095911D /* RootViewController.m in Sources */,
 				7980770A1D33A12C0095911D /* NSString+Html.m in Sources */,
 				798077401D33CA470095911D /* MusicManager.m in Sources */,
+				790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */,
 				798077241D33A24A0095911D /* PlayViewController.m in Sources */,
 				798077091D33A12C0095911D /* CircleAnimation.m in Sources */,
 			);
@@ -861,7 +890,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				INFOPLIST_FILE = "Product-BB/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -876,7 +905,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				INFOPLIST_FILE = "Product-BB/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";

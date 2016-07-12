@@ -9,6 +9,10 @@
 #import "DiscoverViewController.h"
 #import "CarouselView.h"
 #import "focusImagesModel.h"
+#import "editorRecommendAlbumsTableViewCell.h"
+#import "DiscoverCollectView.h"
+#import "specialView.h"
+#import "hotRecommendsModel.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UIScrollView *scr;
 @property (nonatomic , strong)UISegmentedControl *seg;
@@ -16,6 +20,15 @@
 @property (nonatomic , strong)NSMutableArray *focusImages;
 @property (nonatomic , strong)UITableView *tableView;
 @property (nonatomic , strong)CarouselView *car;
+@property (nonatomic , strong)NSMutableArray *cellArray;//小便推荐
+@property (nonatomic , strong)NSMutableArray *specialColumnArray;//精品停单
+@property (nonatomic , strong)NSMutableArray *arr;
+@property (nonatomic , strong)DiscoverCollectView *discell;
+@property (nonatomic , strong)specialView *special;
+@property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
+@property (nonatomic , strong)NSMutableArray *titleArray;
+
+
 @end
 
 @implementation DiscoverViewController
@@ -28,17 +41,62 @@
     titleLabel.text = @"珠穆朗玛FM";
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.view addSubview:titleLabel];
+    [self creatdiscell];
     [self creatScr];
     [self creatSeg];
     [self creatLine];
     [self creatCarouse];
+    [self creatBigArray];
+    [self creatTitleArray];
     [self creatTable];
-    
-    
-    // Do any additional setup after loading the view.
+   
 }
 
--(void)creatCarouse
+
+-(void)creatTitleArray
+{
+    [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.titleArray = [hotRecommendsModel title:dic];
+        
+        NSLog(@"%@",self.titleArray);
+        [self.tableView reloadData];
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+
+-(void)creatBigArray;
+{
+    [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.bigArray = [hotRecommendsModel hotRecommends:dic];
+        [self.tableView reloadData];
+        //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+-(void)creatdiscell  //小编推荐
+{
+    self.cellArray = [NSMutableArray array];
+    [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
+        self.discell = [[DiscoverCollectView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,(kScreenWidth - 40) / 3 + 90) imageURLs:self.cellArray];
+        [self.tableView reloadData];
+        
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+
+}
+
+
+
+-(void)creatCarouse//轮播图
 {
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -114,7 +172,7 @@
 
 -(void)creatTable
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - self.tabBarController.tabBar.frame.size.height) style:(UITableViewStylePlain)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.scr addSubview:self.tableView];
@@ -123,37 +181,103 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
-        
-    }
-    if (indexPath.section == 0) {
+    if (indexPath.section==0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
+            
+        }
         [cell.contentView addSubview:self.car];
+        return cell;
+    }else  if (indexPath.section == 1){
+        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sss"];
+        if (!cell) {
+            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
+            
+        }
+        [cell.contentView addSubview:self.discell];
+        [cell.more1Btn setTitle:@"小编推荐" forState:(UIControlStateNormal)];
+        
+        return cell;
+    }else if (indexPath.section == 2) {
+        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ssss"];
+        if (!cell) {
+            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ssss"];
+        }
+        
+        [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self.specialColumnArray = [focusImagesModel specialColumn:dic];
+            for (int i = 0; i < self.specialColumnArray.count; i++) {
+                focusImagesModel *model = self.specialColumnArray[i];
+                specialView *special = [[specialView alloc]initWithFrame:CGRectMake(0, 40 + 110 * i, kScreenWidth, 110) model:model];
+                [cell.contentView addSubview:special];
+            }
+            [cell.more1Btn setTitle:dic[@"specialColumn"][@"title"] forState:(UIControlStateNormal)];
+        } error:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+        return cell;
+    }else{
+        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sssss"];
+        if (!cell) {
+            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sssss"];
+            
+        }
+        NSMutableArray *muarr = [NSMutableArray array];
+        muarr = self.bigArray[indexPath.section - 3];
+        DiscoverCollectView *dis = [[DiscoverCollectView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,(kScreenWidth - 40) / 3 + 90) imageURLs:muarr];
+        hotRecommendsModel *model = self.titleArray[indexPath.section - 3];
+        [cell.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
+        [cell.contentView addSubview:dis];
+        return cell;
     }
+
+        
     
-    return cell;
+    
+    
+    
+    
+    
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     return 1;
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return self.bigArray.count + 3;
 }
+
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 250;
+    
+    
+    
+    
+    if (indexPath.section == 1) {
+        
+        return (kScreenWidth - 40) / 3 + 90 + 40;
+    }if (indexPath.section == 2) {
+        
+        return 260;
     }else{
-        return 150;
+        return 250;
     }
+    
+    
 }
+
+
 
 
 
