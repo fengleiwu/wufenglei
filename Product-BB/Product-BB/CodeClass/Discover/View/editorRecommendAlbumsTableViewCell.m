@@ -21,6 +21,17 @@
 }
 
 
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.more1Btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        self.more1Btn.frame = CGRectMake(5, 0, kScreenWidth / 2, 20);
+        self.more2Btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        
+    }
+    return self;
+}
 
 
 
