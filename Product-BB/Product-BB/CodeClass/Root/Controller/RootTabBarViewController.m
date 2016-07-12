@@ -37,6 +37,9 @@
     [self.btn addTarget:self action:@selector(playAction) forControlEvents:(UIControlEventTouchUpInside)];
     imageV.image = [UIImage imageNamed:@"tabbar_bg@3x"];
     [self.tabBar insertSubview:imageV atIndex:0];
+    //覆盖原生Tabbar的上横线
+    [[UITabBar appearance] setShadowImage:[self createImageWithColor:[UIColor clearColor]]];
+    [[UITabBar appearance] setBackgroundImage:[self createImageWithColor:[UIColor clearColor]]];
     [self creatTab:disc title:@"发现" name:@"" image:[UIImage imageNamed:@"发现"]];
     [self creatTab:sub title:@"订阅听" name:@"" image:[UIImage imageNamed:@"订阅"]];
     [self creatTab:play title:nil name:nil image:nil];
@@ -74,7 +77,18 @@
     }
 }
 
-
+#pragma mark ----- 覆盖线条方法 -----
+-(UIImage *)createImageWithColor:(UIColor*) color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
 
 //#pragma mark ----btnAction
 //-(void)playAction
