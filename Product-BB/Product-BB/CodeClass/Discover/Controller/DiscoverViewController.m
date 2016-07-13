@@ -7,6 +7,7 @@
 //
 
 #import "DiscoverViewController.h"
+#import "BroadcastViewController.h"
 #import "CarouselView.h"
 #import "focusImagesModel.h"
 #import "editorRecommendAlbumsTableViewCell.h"
@@ -25,6 +26,7 @@
 @property (nonatomic , strong)NSMutableArray *cellArray;//小便推荐
 @property (nonatomic , strong)NSMutableArray *specialColumnArray;//精品停单
 @property (nonatomic , strong)NSMutableArray *arr;
+@property (nonatomic, strong)BroadcastViewController *broadVC;
 @property (nonatomic , strong)DiscoverCollectView *discell;
 @property (nonatomic , strong)specialView *special;
 @property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
@@ -53,6 +55,7 @@
     [self creatBigArray];
     [self creatTitleArray];
     [self creatTable];
+<<<<<<< HEAD
     [self creatdownCarouse];
     [self creatBottomPic];
 }
@@ -95,8 +98,19 @@
     } error:^(NSError *error) {
         
     }];
+=======
+    [self.scr addSubview:self.broadVC.view];
+>>>>>>> 24810c994c96348a32109ef2d09133802275f379
 }
 
+#pragma mark ----- 创建广播视图 -----
+-(BroadcastViewController *)broadVC{
+    if (!_broadVC) {
+        _broadVC = [[BroadcastViewController alloc]init];
+        _broadVC.view.frame = CGRectMake(kScreenWidth * 2, 0, kScreenWidth, self.scr.height);
+    }
+    return _broadVC;
+}
 
 -(void)creatTitleArray
 {
@@ -225,6 +239,7 @@
     self.scr.delegate = self;
     self.scr.bounces = NO;
     self.scr.showsHorizontalScrollIndicator = NO;
+    self.scr.pagingEnabled = YES;
     [self.view addSubview:self.scr];
 }
 
