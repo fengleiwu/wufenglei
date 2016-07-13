@@ -14,6 +14,8 @@
 #import "DiscoverCollectView.h"
 #import "specialView.h"
 #import "hotRecommendsModel.h"
+#import "WEBModel.h"
+#import "DiscoverWebViewController.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UIScrollView *scr;
 @property (nonatomic , strong)UISegmentedControl *seg;
@@ -29,7 +31,10 @@
 @property (nonatomic , strong)specialView *special;
 @property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
 @property (nonatomic , strong)NSMutableArray *titleArray;
-
+@property (nonatomic , strong)NSMutableArray *bottomPicArray;
+@property (nonatomic , strong)NSMutableArray *bigBottomPicArray;
+@property (nonatomic , strong)CarouselView *bottomPic;
+@property (nonatomic , strong)UILabel *titleLabel;
 
 @end
 
@@ -37,12 +42,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
-    titleLabel.font = [UIFont systemFontOfSize:20];
-    titleLabel.textColor = [UIColor redColor];
-    titleLabel.text = @"珠穆朗玛FM";
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
+    self.titleLabel.font = [UIFont systemFontOfSize:20];
+    self.titleLabel.textColor = [UIColor redColor];
+    self.titleLabel.text = @"珠穆朗玛FM";
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.view addSubview:titleLabel];
+    [self.navigationController.view addSubview:self.titleLabel];
     [self creatdiscell];
     [self creatScr];
     [self creatSeg];
@@ -51,8 +56,43 @@
     [self creatBigArray];
     [self creatTitleArray];
     [self creatTable];
-    [self.scr addSubview:self.broadVC.view];
+    [self creatdownCarouse];
+    [self creatBottomPic];
 }
+
+
+
+-(void)creatBottomPic
+{
+    self.bottomPicArray = [NSMutableArray array];
+    [RequestManager requestWithUrlString:KwebViewURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.bigBottomPicArray = [WEBModel webWith:dic];
+        for (WEBModel *model in self.bigBottomPicArray) {
+            [self.bottomPicArray addObject:model.cover];
+        }
+        self.bottomPic = [[CarouselView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80) imageURLs:self.bottomPicArray];
+        __block DiscoverViewController *dis = self;
+        
+        NSMutableArray *array = self.bigBottomPicArray;
+        self.bottomPic.imageClick = ^(NSInteger index)
+        {
+            WEBModel *model = array[index];
+            DiscoverWebViewController *discover = [[DiscoverWebViewController alloc]init];
+            discover.webURL = model.link;
+            
+            UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:discover];
+            [dis presentViewController:navc animated:YES completion:nil];
+        };
+        [self.tableView reloadData];
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+
+
 
 #pragma mark ----- 创建广播视图 -----
 -(BroadcastViewController *)broadVC{
@@ -124,6 +164,32 @@
 }
 
 
+-(void)creatdownCarouse
+{
+    CGFloat f = (kScreenWidth - 160) / 4;
+    [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDictionary *dic1 = dic[@"discoveryColumns"];
+        NSArray *list = dic1[@"list"];
+        for (int i = 0; i < 4; i++) {
+            UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(20 + 2 * 20 * i + f * i, 160, f, f)];
+            NSDictionary *dic2 = list[i];
+            [imageV sd_setImageWithURL:[NSURL URLWithString:dic2[@"coverPath"]]];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20 + 2 * 20 * i + f * i, f + 160 , f, 20)];
+            label.text = dic2[@"title"];
+            label.font = [UIFont systemFontOfSize:13];
+            label.textAlignment = NSTextAlignmentCenter;
+            [self.tableView addSubview:imageV];
+            [self.tableView addSubview:label];
+        }
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+
+
+
 #pragma mark ----creatseg---
 -(void)creatSeg
 {
@@ -183,7 +249,7 @@
 
 -(void)creatTable
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - self.tabBarController.tabBar.frame.size.height) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - self.tabBarController.tabBar.frame.size.height - 30) style:(UITableViewStylePlain)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.scr addSubview:self.tableView];
@@ -215,26 +281,52 @@
         if (!cell) {
             cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ssss"];
         }
-        
         [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
             self.specialColumnArray = [focusImagesModel specialColumn:dic];
             for (int i = 0; i < self.specialColumnArray.count; i++) {
                 focusImagesModel *model = self.specialColumnArray[i];
                 specialView *special = [[specialView alloc]initWithFrame:CGRectMake(0, 40 + 110 * i, kScreenWidth, 110) model:model];
                 [cell.contentView addSubview:special];
+                [self.tableView reloadData];
             }
             [cell.more1Btn setTitle:dic[@"specialColumn"][@"title"] forState:(UIControlStateNormal)];
         } error:^(NSError *error) {
             NSLog(@"%@",error);
         }];
-        
+        return cell;
+    }else if(indexPath.section == self.bigArray.count + 3){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aa"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aa"];
+        }
+        UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        btn.frame = CGRectMake(10, 0, kScreenWidth / 2 - 10, 40);
+        [btn setTitle:@"查看更多分类" forState:(UIControlStateNormal)];
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIButton *btn1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        btn1.frame = CGRectMake(kScreenWidth / 2, 0, kScreenWidth / 2 - 10, 40);
+        [btn1 setTitle:@">" forState:(UIControlStateNormal)];
+        [btn setTintColor:[UIColor grayColor]];
+        [btn1 setTintColor:[UIColor grayColor]];
+        btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [cell.contentView addSubview:btn1];
+        [cell.contentView addSubview:btn];
+        [btn addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
+        [btn1 addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
+        return cell;
+    }else if (indexPath.section == self.bigArray.count + 4){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aaa"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aaa"];
+        }
+        [cell.contentView addSubview:self.bottomPic];
         return cell;
     }else{
         editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sssss"];
         if (!cell) {
             cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sssss"];
-            
         }
         NSMutableArray *muarr = [NSMutableArray array];
         muarr = self.bigArray[indexPath.section - 3];
@@ -244,9 +336,6 @@
         [cell.contentView addSubview:dis];
         return cell;
     }
-
-        
-    
     
     
     
@@ -264,7 +353,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.bigArray.count + 3;
+ return self.bigArray.count + 5;
 }
 
 
@@ -275,11 +364,15 @@
     
     
     
+    if (indexPath.section == self.bigArray.count + 4) {
+        return 80;
+    }
+    if (indexPath.section == self.bigArray.count + 3) {
+        return 40;
+    }
     if (indexPath.section == 1) {
-        
         return (kScreenWidth - 40) / 3 + 90 + 40;
     }if (indexPath.section == 2) {
-        
         return 260;
     }else{
         return 250;
@@ -289,7 +382,12 @@
 }
 
 
-
+-(void)btnAction
+{
+    self.seg.selectedSegmentIndex = 1;
+    CGPoint point = CGPointMake(kScreenWidth, 0);
+    self.scr.contentOffset = point;
+}
 
 
 - (void)didReceiveMemoryWarning {

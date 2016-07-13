@@ -11,6 +11,8 @@
 		790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */; };
 		790C093D1D34E13100D384A7 /* specialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093C1D34E13100D384A7 /* specialView.m */; };
 		790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */; };
+		7946EBD31D35DAEB00AA9712 /* WEBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD21D35DAEB00AA9712 /* WEBModel.m */; };
+		7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */; };
 		794F75D01D353CAA00E55381 /* BroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 794F75C41D353CAA00E55381 /* BroadcastViewController.m */; };
 		794F75D11D353CAA00E55381 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 794F75C71D353CAA00E55381 /* LocationModel.m */; };
 		794F75D21D353CAA00E55381 /* RankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 794F75C91D353CAA00E55381 /* RankModel.m */; };
@@ -90,6 +92,10 @@
 		790C093C1D34E13100D384A7 /* specialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = specialView.m; sourceTree = "<group>"; };
 		790C093E1D34F4B200D384A7 /* hotRecommendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hotRecommendsModel.h; sourceTree = "<group>"; };
 		790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hotRecommendsModel.m; sourceTree = "<group>"; };
+		7946EBD11D35DAEB00AA9712 /* WEBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEBModel.h; sourceTree = "<group>"; };
+		7946EBD21D35DAEB00AA9712 /* WEBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBModel.m; sourceTree = "<group>"; };
+		7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverWebViewController.h; sourceTree = "<group>"; };
+		7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverWebViewController.m; sourceTree = "<group>"; };
 		794F75C31D353CAA00E55381 /* BroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastViewController.h; sourceTree = "<group>"; };
 		794F75C41D353CAA00E55381 /* BroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BroadcastViewController.m; sourceTree = "<group>"; };
 		794F75C61D353CAA00E55381 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
@@ -385,6 +391,8 @@
 			children = (
 				798077191D33A2260095911D /* DiscoverViewController.h */,
 				7980771A1D33A2260095911D /* DiscoverViewController.m */,
+				7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */,
+				7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -392,6 +400,8 @@
 		798076E81D33A05C0095911D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7946EBD11D35DAEB00AA9712 /* WEBModel.h */,
+				7946EBD21D35DAEB00AA9712 /* WEBModel.m */,
 				798077441D33E04C0095911D /* focusImagesModel.h */,
 				798077451D33E04C0095911D /* focusImagesModel.m */,
 				790C093E1D34F4B200D384A7 /* hotRecommendsModel.h */,
@@ -824,6 +834,7 @@
 			files = (
 				7980772D1D33A2DA0095911D /* RootTabBarViewController.m in Sources */,
 				7980770B1D33A12C0095911D /* RequestManager.m in Sources */,
+				7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */,
 				790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */,
 				794F75D21D353CAA00E55381 /* RankModel.m in Sources */,
 				790C09341D34B60300D384A7 /* DiscoverCollectView.m in Sources */,
@@ -844,6 +855,7 @@
 				7980770A1D33A12C0095911D /* NSString+Html.m in Sources */,
 				798077401D33CA470095911D /* MusicManager.m in Sources */,
 				790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */,
+				7946EBD31D35DAEB00AA9712 /* WEBModel.m in Sources */,
 				798077241D33A24A0095911D /* PlayViewController.m in Sources */,
 				794F75D31D353CAA00E55381 /* TypeModel.m in Sources */,
 				794F75D11D353CAA00E55381 /* LocationModel.m in Sources */,
