@@ -18,6 +18,7 @@
 @property (nonatomic, strong)NSMutableArray *AllArr;
 @property (nonatomic, strong)NSMutableArray *loactionArr;
 @property (nonatomic, strong)UIView *broadcastTypeV;
+@property (nonatomic, strong)UIView *sectionV;
 @property (nonatomic, strong)UIView *moreV1;
 @property (nonatomic, strong)UIView *moreV2;
 @property (nonatomic, strong)UIView *buttonV;
@@ -99,16 +100,16 @@
 
 #pragma mark ----- 创建电台类型视图 -----
 -(void)cbroadcastTypeV{
-//    if (!_broadcastTypeV) {
         self.broadcastTypeV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, self.view.height*2/5)];
-        self.broadcastTypeV.backgroundColor = [UIColor whiteColor];
-        [self.broadcastTypeV addSubview:self.buttonV];
-        [self.broadcastTypeV addSubview:self.loaclB];
-        [self.broadcastTypeV addSubview:self.nationB];
-        [self.broadcastTypeV addSubview:self.provinceB];
-        [self.broadcastTypeV addSubview:self.networkB];
-//    }
-//    return _broadcastTypeV;
+    self.sectionV = [[UIView alloc]initWithFrame:CGRectMake(0, self.broadcastTypeV.height -10,kScreenWidth, 10)];
+    self.sectionV.backgroundColor = PKCOLOR(245, 243, 248);
+    self.broadcastTypeV.backgroundColor = [UIColor whiteColor];
+    [self.broadcastTypeV addSubview:self.sectionV];
+    [self.broadcastTypeV addSubview:self.buttonV];
+    [self.broadcastTypeV addSubview:self.loaclB];
+    [self.broadcastTypeV addSubview:self.nationB];
+    [self.broadcastTypeV addSubview:self.provinceB];
+    [self.broadcastTypeV addSubview:self.networkB];
 }
 
 #pragma mark ----- 创建电台按钮所在视图 -----
@@ -154,15 +155,15 @@
 #pragma mark ----- 电台视图伸缩1 -----
 -(void)nextView2:(UIButton *)button{
     button = [self.view viewWithTag:999];
-    [self.broadcastTypeV removeFromSuperview];
-    [self cbroadcastTypeV];
-//    [self.tableV beginUpdates];
-    self.tableV.tableHeaderView = self.broadcastTypeV;
-//    [self.tableV endUpdates];
-//    [self.tableV reloadData];
-    self.broadcastTypeV.frame = CGRectMake(0, 0, kScreenWidth, self.view.height*2/5 + self.buttonV.height);
-    self.buttonV.height = self.view.height*2/5  -20;
-//    self.tableV.tableHeaderView.height = self.view.height*2/5 + self.buttonV.height;
+    CGRect newFrame = self.broadcastTypeV.frame;
+    newFrame.size.height = newFrame.size.height + self.buttonV.frame.size.height;
+    self.broadcastTypeV.frame = newFrame;
+    self.buttonV.height = self.view.height*2/5  -30;
+    self.sectionV.frame = CGRectMake(0, self.broadcastTypeV.height -10, kScreenWidth, 10);
+    [self.tableV setTableHeaderView:self.broadcastTypeV];
+    [self.tableV beginUpdates];
+    [self.tableV setTableHeaderView:self.broadcastTypeV];
+    [self.tableV endUpdates];
     [self.tableV reloadData];
     
     NSInteger count = 0;
@@ -182,7 +183,7 @@
     }
     _typeB = [UIButton buttonWithType:UIButtonTypeSystem];
     _typeB.frame = CGRectMake(3 * (_buttonWidth/4)-4,3 * (_buttonHeight/2)-2,_buttonWidth/4 -4, _buttonHeight/2-8);
-    _typeB.backgroundColor = PKCOLOR(245, 245, 245);
+    _typeB.backgroundColor = PKCOLOR(248, 248, 255);
     _typeB.tag = 998;
     [_typeB setImage:[UIImage imageNamed:@"箭头 (1).png"] forState:UIControlStateNormal];
     _typeB.tintColor = [UIColor orangeColor];
@@ -193,8 +194,15 @@
 
 #pragma mark ----- 电台伸缩2 -----
 -(void)nextView3:(UIButton *)button{
-   _broadcastTypeV.frame = CGRectMake(0, 0, kScreenWidth, self.view.height*2/5);
-    _buttonV.frame = CGRectMake(10, self.broadcastTypeV.height/2 +10, kScreenWidth - 20, self.broadcastTypeV.height/2 -20);
+    CGRect newFrame = self.broadcastTypeV.frame;
+    newFrame.size.height = self.view.height*2/5;
+    self.broadcastTypeV.frame = newFrame;
+    self.buttonV.height = self.broadcastTypeV.height/2 -20;
+    self.sectionV.frame = CGRectMake(0, self.broadcastTypeV.height -10, kScreenWidth, 10);
+    [self.tableV beginUpdates];
+    [self.tableV setTableHeaderView:self.broadcastTypeV];
+    [self.tableV endUpdates];
+    [self.tableV reloadData];
     for (TypeModel *model in self.typeArr) {
             button = [self.view viewWithTag:[model.idd integerValue]];
             [button removeFromSuperview];
@@ -279,8 +287,12 @@
         button.tintColor = [UIColor orangeColor];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(24, 0, 100, self.view.height/9-10)];
         label.text = @"早安·上海";
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth - 55, 0, 55, self.view.height/9-10)];
+        label1.text = @"更多 >";
+        label1.textColor = [UIColor lightGrayColor];
         [_moreV1 addSubview:button];
         [_moreV1 addSubview:label];
+        [_moreV1 addSubview:label1];
     }
     return _moreV1;
 }
@@ -295,8 +307,12 @@
         button.tintColor = [UIColor orangeColor];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(24, 0, 100, self.view.height/9-10)];
         label.text = @"排行榜";
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth - 55, 0, 55, self.view.height/9-10)];
+        label1.text = @"更多 >";
+        label1.textColor = [UIColor lightGrayColor];
         [_moreV2 addSubview:button];
         [_moreV2 addSubview:label];
+        [_moreV2 addSubview:label1];
     }
     return _moreV2;
 }

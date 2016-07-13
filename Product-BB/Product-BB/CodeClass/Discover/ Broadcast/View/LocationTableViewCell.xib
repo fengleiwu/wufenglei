@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -40,7 +41,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obK-9S-fob">
-                        <rect key="frame" x="314" y="40" width="32" height="32"/>
+                        <rect key="frame" x="338" y="40" width="32" height="33"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="obK-9S-fob" secondAttribute="height" id="s4Z-iZ-fXx"/>
                         </constraints>
@@ -50,10 +51,10 @@
                 <constraints>
                     <constraint firstItem="CRj-SG-cc0" firstAttribute="leading" secondItem="vdV-ZR-erg" secondAttribute="trailing" constant="10" id="2Y4-Hx-Wu5"/>
                     <constraint firstAttribute="bottomMargin" secondItem="rOM-3e-PuZ" secondAttribute="bottom" constant="7" id="2nI-kk-8cj"/>
-                    <constraint firstItem="obK-9S-fob" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="948-0J-qlv"/>
+                    <constraint firstItem="obK-9S-fob" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="948-0J-qlv"/>
                     <constraint firstItem="rOM-3e-PuZ" firstAttribute="top" secondItem="piB-8v-btw" secondAttribute="bottom" constant="10" id="DdZ-rX-cSc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="CRj-SG-cc0" secondAttribute="trailing" constant="100" id="Dsg-Al-8PI"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="obK-9S-fob" secondAttribute="bottom" constant="20" id="FLX-jd-3Jg"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="obK-9S-fob" secondAttribute="bottom" constant="25" id="FLX-jd-3Jg"/>
                     <constraint firstItem="piB-8v-btw" firstAttribute="leading" secondItem="vdV-ZR-erg" secondAttribute="trailing" constant="10" id="Feg-7Z-Fcz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="rOM-3e-PuZ" secondAttribute="trailing" constant="100" id="IBV-Vn-peb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="piB-8v-btw" secondAttribute="trailing" constant="100" id="RYp-mT-0XO"/>
