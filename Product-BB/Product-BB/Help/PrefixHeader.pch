@@ -23,5 +23,7 @@
 
 #define KtheSameURL @"http://mobile.ximalaya.com/mobile/discovery/v2/recommend/hotAndGuess?code=43_310000_3100&device=iPhone&version=4.3.98"
 
+#define KwebViewURL @"http://adse.ximalaya.com/ting?appid=0&device=iPhone&name=find_banner&network=WIFI&operator=3&scale=2&version=4.3.98"
+
 
 #endif /* PrefixHeader_pch */
