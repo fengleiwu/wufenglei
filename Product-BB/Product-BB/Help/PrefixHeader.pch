@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  Product-BB
+//
+//  Created by lanou on 16/7/11.
+//  Copyright © 2016年 lanou. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#define  PKCOLOR(R,G,B) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:1.0]
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#import <UIImageView+WebCache.h>
+#import <MJRefresh.h>
+#import <FMDB.h>
+#import <AFNetworking.h>
+#import "RequestManager.h"
+#import "UIView+TWFrame.h"
+#define KfocusImagesURL @"http://mobile.ximalaya.com/mobile/discovery/v4/recommends?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
+#define KbroadcastURL @"http://live.ximalaya.com/live-web/v4/homepage?device=iPhone"
+#define KtheSameURL @"http://mobile.ximalaya.com/mobile/discovery/v2/recommend/hotAndGuess?code=43_310000_3100&device=iPhone&version=4.3.98"
+
+
+#endif /* PrefixHeader_pch */
