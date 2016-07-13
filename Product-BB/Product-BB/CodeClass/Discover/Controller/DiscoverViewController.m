@@ -167,6 +167,7 @@
     self.scr.delegate = self;
     self.scr.bounces = NO;
     self.scr.showsHorizontalScrollIndicator = NO;
+    self.scr.pagingEnabled = YES;
     [self.view addSubview:self.scr];
 }
 
