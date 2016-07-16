@@ -20,7 +20,10 @@
 #import "specialTableViewCell.h"
 #import "qualityGoodsTableViewController.h"
 #import "ListenDetailViewController.h"
-#import "AnchorTableView.h"
+//#import "AnchorTableView.h"
+
+#import "AnchorTableViewController.h"
+
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UIScrollView *scr;
 @property (nonatomic , strong)UISegmentedControl *seg;
@@ -40,7 +43,10 @@
 @property (nonatomic , strong)NSMutableArray *bigBottomPicArray;
 @property (nonatomic , strong)CarouselView *bottomPic;
 @property (nonatomic , strong)UILabel *titleLabel;
-@property (nonatomic , strong)AnchorTableView *anchor;
+//@property (nonatomic , strong)AnchorTableView *anchor;
+
+@property (nonatomic , strong)AnchorTableViewController *anchor;
+
 @end
 
 @implementation DiscoverViewController
@@ -57,8 +63,11 @@
     [self creatTable];
     [self creatdownCarouse];
     [self creatBottomPic];
-    
-    [self.scr addSubview:self.anchor];
+    self.anchor = [AnchorTableViewController shareManager];
+    [self.anchor creatTableView:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
+    //self.anchor.view = [[UIView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
+    [self addChildViewController:self.anchor];
+    [self.scr addSubview:self.anchor.table];
     self.cellArray = [NSMutableArray array];
     
     
@@ -130,13 +139,15 @@
 }
 
 
--(AnchorTableView *)anchor
-{
-    if (!_anchor) {
-        _anchor = [[AnchorTableView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
-    }
-    return _anchor;
-}
+//-(AnchorTableViewController *)anchor
+//{
+//    if (!_anchor) {
+//    }
+//    _anchor = [[AnchorTableViewController alloc]init];
+//    _anchor.view = [[UIView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
+//    
+//    return _anchor;
+//}
 
 #pragma mark ----- 创建广播视图 -----
 -(BroadcastViewController *)broadVC{

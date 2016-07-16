@@ -53,10 +53,11 @@
 		7955C89D1D39C8F30052EBBC /* AnchorCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89C1D39C8F30052EBBC /* AnchorCollectionView.m */; };
 		7955C8A01D39C9EA0052EBBC /* AnchorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89F1D39C9EA0052EBBC /* AnchorCollectionViewCell.m */; };
 		7955C8A31D39D4020052EBBC /* AnchorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8A21D39D4020052EBBC /* AnchorTableViewCell.m */; };
-		7955C8A61D39D63C0052EBBC /* AnchorTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8A51D39D63C0052EBBC /* AnchorTableView.m */; };
 		7955C8A91D39FB7F0052EBBC /* AnchorSongerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8A81D39FB7F0052EBBC /* AnchorSongerTableViewCell.m */; };
 		7955C8AB1D3A05940052EBBC /* user_group_man_man.png in Resources */ = {isa = PBXBuildFile; fileRef = 7955C8AA1D3A05940052EBBC /* user_group_man_man.png */; };
 		7955C8AD1D3A07D70052EBBC /* add_user_group.png in Resources */ = {isa = PBXBuildFile; fileRef = 7955C8AC1D3A07D70052EBBC /* add_user_group.png */; };
+		7955C8B01D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8AF1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m */; };
+		7955C8B31D3A2E160052EBBC /* AnchorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8B21D3A2E160052EBBC /* AnchorTableViewController.m */; };
 		798076B01D339EAD0095911D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 798076AF1D339EAD0095911D /* main.m */; };
 		798076B91D339EAD0095911D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798076B71D339EAD0095911D /* Main.storyboard */; };
 		798076BB1D339EAD0095911D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 798076BA1D339EAD0095911D /* Assets.xcassets */; };
@@ -187,12 +188,14 @@
 		7955C89F1D39C9EA0052EBBC /* AnchorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorCollectionViewCell.m; sourceTree = "<group>"; };
 		7955C8A11D39D4020052EBBC /* AnchorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorTableViewCell.h; sourceTree = "<group>"; };
 		7955C8A21D39D4020052EBBC /* AnchorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorTableViewCell.m; sourceTree = "<group>"; };
-		7955C8A41D39D63C0052EBBC /* AnchorTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorTableView.h; sourceTree = "<group>"; };
-		7955C8A51D39D63C0052EBBC /* AnchorTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorTableView.m; sourceTree = "<group>"; };
 		7955C8A71D39FB7F0052EBBC /* AnchorSongerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorSongerTableViewCell.h; sourceTree = "<group>"; };
 		7955C8A81D39FB7F0052EBBC /* AnchorSongerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorSongerTableViewCell.m; sourceTree = "<group>"; };
 		7955C8AA1D3A05940052EBBC /* user_group_man_man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_group_man_man.png; sourceTree = "<group>"; };
 		7955C8AC1D3A07D70052EBBC /* add_user_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_user_group.png; sourceTree = "<group>"; };
+		7955C8AE1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnchorSuperStarTableViewController.h; path = ../View/AnchorSuperStarTableViewController.h; sourceTree = "<group>"; };
+		7955C8AF1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnchorSuperStarTableViewController.m; path = ../View/AnchorSuperStarTableViewController.m; sourceTree = "<group>"; };
+		7955C8B11D3A2E160052EBBC /* AnchorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorTableViewController.h; sourceTree = "<group>"; };
+		7955C8B21D3A2E160052EBBC /* AnchorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorTableViewController.m; sourceTree = "<group>"; };
 		798076AB1D339EAD0095911D /* Product-BB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Product-BB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		798076AF1D339EAD0095911D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		798076B81D339EAD0095911D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -395,6 +398,10 @@
 		7955C8951D39C2910052EBBC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7955C8AE1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.h */,
+				7955C8AF1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m */,
+				7955C8B11D3A2E160052EBBC /* AnchorTableViewController.h */,
+				7955C8B21D3A2E160052EBBC /* AnchorTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -417,8 +424,6 @@
 				7955C89F1D39C9EA0052EBBC /* AnchorCollectionViewCell.m */,
 				7955C8A11D39D4020052EBBC /* AnchorTableViewCell.h */,
 				7955C8A21D39D4020052EBBC /* AnchorTableViewCell.m */,
-				7955C8A41D39D63C0052EBBC /* AnchorTableView.h */,
-				7955C8A51D39D63C0052EBBC /* AnchorTableView.m */,
 				7955C8A71D39FB7F0052EBBC /* AnchorSongerTableViewCell.h */,
 				7955C8A81D39FB7F0052EBBC /* AnchorSongerTableViewCell.m */,
 			);
@@ -1043,6 +1048,7 @@
 				798077461D33E04C0095911D /* focusImagesModel.m in Sources */,
 				7916686A1D3671D2009A3613 /* VeryBigTabView.m in Sources */,
 				7946EBE41D35EB2500AA9712 /* recommendMoreModel.m in Sources */,
+				7955C8B01D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m in Sources */,
 				7946EBEA1D3619A400AA9712 /* AlbumDetailModel.m in Sources */,
 				7980772A1D33A26A0095911D /* SubscriptionViewController.m in Sources */,
 				79A28AF21D37484700EBEBA8 /* ContentTableViewCell.m in Sources */,
@@ -1051,7 +1057,6 @@
 				798077211D33A23F0095911D /* MineViewController.m in Sources */,
 				79E323421D38AF2200B716B5 /* qualityGoodsTableViewController.m in Sources */,
 				7946EBDF1D35E7C400AA9712 /* AdjustHeight.m in Sources */,
-				7955C8A61D39D63C0052EBBC /* AnchorTableView.m in Sources */,
 				7980771B1D33A2260095911D /* DiscoverViewController.m in Sources */,
 				79A28AF51D374E9800EBEBA8 /* ContentIntroductTableViewCell.m in Sources */,
 				798076B01D339EAD0095911D /* main.m in Sources */,
@@ -1072,6 +1077,7 @@
 				7946EBDC1D35E4E600AA9712 /* recommendMoreTableViewCell.m in Sources */,
 				794F75D31D353CAA00E55381 /* TypeModel.m in Sources */,
 				794F75D11D353CAA00E55381 /* LocationModel.m in Sources */,
+				7955C8B31D3A2E160052EBBC /* AnchorTableViewController.m in Sources */,
 				79E323001D3899FA00B716B5 /* qualityGoodsModel.m in Sources */,
 				7955C8A01D39C9EA0052EBBC /* AnchorCollectionViewCell.m in Sources */,
 				798077091D33A12C0095911D /* CircleAnimation.m in Sources */,

@@ -18,6 +18,18 @@
     }
 }
 
++(NSMutableArray *)famousMyID:(NSDictionary *)dic
+{
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    NSArray *famous = dic[@"famous"];
+    for (NSDictionary *dic1 in famous) {
+        AnchorModel *model = [[AnchorModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr addObject:model.myId];
+    }
+    return arr;
+}
 
 +(NSMutableArray *)songer:(NSDictionary *)dic
 {
@@ -57,6 +69,7 @@
     }
     return arr;
 }
+
 
 
 +(NSMutableArray *)famous:(NSDictionary *)dic
@@ -113,7 +126,17 @@
 }
 
 
-
++(NSMutableArray *)moreSuperStar:(NSDictionary *)dic
+{
+    NSMutableArray *arr = [NSMutableArray array];
+    NSArray *list = dic[@"list"];
+    for (NSDictionary *dic1 in list) {
+        AnchorModel *model = [[AnchorModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr addObject:model];
+    }
+    return arr;
+}
 
 
 

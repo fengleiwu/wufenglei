@@ -28,6 +28,7 @@
 
 +(NSMutableArray *)famous:(NSDictionary *)dic;
 
+
 +(NSMutableArray *)normal:(NSDictionary *)dic;
 
 +(NSMutableArray *)famousTitle:(NSDictionary *)dic;
@@ -35,5 +36,10 @@
 +(NSMutableArray *)normalTitle:(NSDictionary *)dic;
 
 +(NSMutableArray *)songer:(NSDictionary *)dic;
+
++(NSMutableArray *)famousMyID:(NSDictionary *)dic;
+
++(NSMutableArray *)moreSuperStar:(NSDictionary *)dic;
+
 
 @end

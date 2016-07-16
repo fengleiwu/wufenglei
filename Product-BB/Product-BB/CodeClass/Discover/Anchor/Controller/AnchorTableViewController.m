@@ -1,61 +1,97 @@
 //
-//  AnchorTableView.m
+//  AnchorTableViewController.m
 //  Product-BB
 //
 //  Created by lanou on 16/7/16.
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
-#import "AnchorTableView.h"
+#import "AnchorTableViewController.h"
+#import "AnchorTableViewCell.h"
+#import "AnchorModel.h"
 #import "AnchorSongerTableViewCell.h"
+#import "AnchorSuperStarTableViewController.h"
+@interface AnchorTableViewController ()<UITableViewDataSource , UITableViewDelegate>
 
-@interface AnchorTableView()<UITableViewDataSource , UITableViewDelegate>
+//@property(nonatomic , strong)UITableView *table;
+@property(nonatomic , strong)NSMutableArray *famousArr;
+@property(nonatomic , strong)NSMutableArray *famousTitle;
+@property(nonatomic , strong)NSMutableArray *famousMyIDArr;
 
+@property(nonatomic , strong)NSMutableArray *songerArray;
+@property(nonatomic , strong)NSMutableArray *normalArray;
+@property(nonatomic , strong)NSMutableArray *normaleTitleArray;
 @end
 
+@implementation AnchorTableViewController
 
-@implementation AnchorTableView
--(instancetype)initWithFrame:(CGRect)frame
++(AnchorTableViewController *)shareManager
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-        [self creatTableView];
-        self.songerArray = [NSMutableArray array];
-        [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-           self.famousArr = [AnchorModel famous:dic];
-            self.famousTitle = [AnchorModel famousTitle:dic];
-            self.songerArray = [AnchorModel songer:dic];
-            self.normalArray = [AnchorModel normal:dic];
-            self.normaleTitleArray = [AnchorModel normalTitle:dic];
-//            for (int i = 0; i < self.normalArray.count - 1; i++) {
-//                NSDictionary *dic = self.normalArray[i];
-//                NSMutableArray *arr = dic[self.normaleTitleArray[i]];
-//                [arr removeLastObject];
-//                [self.normaleTitleArray addObject:dic];
-//            }
-            NSLog(@"%@",self.normalArray);
-            //NSLog(@"////////////%@",self.famousArr);
-            //NSLog(@"%@",self.songerArray);
-            [self.table reloadData];
-        } error:^(NSError *error) {
-            
-        }];
-    }
-    return self;
+    static AnchorTableViewController *anchor = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        anchor = [[AnchorTableViewController alloc]init];
+    });
+    return anchor;
 }
 
--(void)creatTableView{
-    //self.view.frame = CGRectMake(0, 60, kScreenWidth, kScreenHeight);
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height) style:(UITableViewStylePlain)];
+-(void)creatTableView:(CGRect)frame
+{
+    [self creatTableView1:frame];
+    self.songerArray = [NSMutableArray array];
+    [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.famousArr = [AnchorModel famous:dic];
+        self.famousTitle = [AnchorModel famousTitle:dic];
+        self.songerArray = [AnchorModel songer:dic];
+        self.normalArray = [AnchorModel normal:dic];
+        self.normaleTitleArray = [AnchorModel normalTitle:dic];
+        self.famousMyIDArr = [AnchorModel famousMyID:dic];
+        [self.table reloadData];
+    } error:^(NSError *error) {
+        
+    }];
+
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    
+    self.songerArray = [NSMutableArray array];
+    [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.famousArr = [AnchorModel famous:dic];
+        self.famousTitle = [AnchorModel famousTitle:dic];
+        self.songerArray = [AnchorModel songer:dic];
+        self.normalArray = [AnchorModel normal:dic];
+        self.normaleTitleArray = [AnchorModel normalTitle:dic];
+        self.famousMyIDArr = [AnchorModel famousMyID:dic];
+//                NSLog(@"%@",self.normalArray);
+//        NSLog(@"////////////%@",self.famousArr);
+        //NSLog(@"%@",self.songerArray);
+        [self.table reloadData];
+    } error:^(NSError *error) {
+        
+    }];
+
+    
+    
+    // Do any additional setup after loading the view.
+}
+
+
+-(void)creatTableView1:(CGRect)frame
+{  //self.view.frame = CGRectMake(0, 60, kScreenWidth, kScreenHeight);
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 4, 0, frame.size.width,frame.size.height) style:(UITableViewStylePlain)];
     self.table.separatorColor = [UIColor grayColor];
     self.table.separatorInset = UIEdgeInsetsMake(5, 5, 5, 5);
     self.table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.table.delegate = self;
     self.table.dataSource = self;
     //self.table.rowHeight = self.height;
-    [self addSubview:self.table];
+    [self.view addSubview:self.table];
 }
 
 
@@ -90,6 +126,8 @@
             [cell.more1Btn setTitle:self.normaleTitleArray[indexPath.section - 4] forState:(UIControlStateNormal)];
             [cell creatCell:arr];
         }
+        [cell.more1Btn addTarget:self action:@selector(moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [cell.more2Btn addTarget:self action:@selector(moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         return cell;
     }else{
         AnchorSongerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sss"];
@@ -105,6 +143,14 @@
     
 }
 
+-(void)moreAction:(UIButton *)btn
+{
+    AnchorSongerTableViewCell *cell = (AnchorSongerTableViewCell *)btn.superview.superview;
+    NSIndexPath *path = [self.table indexPathForCell:cell];
+    AnchorSuperStarTableViewController *superS = [[AnchorSuperStarTableViewController alloc]init];
+    superS.MyID = self.famousMyIDArr[path.section];
+    [UIView transitionFromView:self toView:superS.view duration:1 options:UIViewAnimationOptionLayoutSubviews completion:nil];
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -116,13 +162,13 @@
 {
     if (indexPath.section == 3) {
         return 120;
-
+        
     }if (indexPath.section > 3) {
         return (kScreenWidth - 40) / 3 + 140;
     }
     else{
         return ((kScreenWidth - 40) / 3 + 120) * 2;
-
+        
     }
 }
 
@@ -159,15 +205,20 @@
     }
 }
 
+
+
+
+
+
+
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 */
-
-
-
 
 @end
