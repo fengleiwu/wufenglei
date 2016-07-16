@@ -7,17 +7,136 @@
 //
 
 #import "BroadcastListViewController.h"
+#import "LocationTableViewCell.h"
+#import "BroadListModel.h"
+#import "MusicplayViewController.h"
+#import "BroadMusicModel.h"
 
-@interface BroadcastListViewController ()
+@interface BroadcastListViewController ()<UITableViewDataSource, UITableViewDelegate>
+// typeArr loactionArr RankArr
+@property (nonatomic, strong) NSMutableArray *modelArray;
+
+@property (nonatomic, strong) UITableView *tableV;
+
 
 @end
 
 @implementation BroadcastListViewController
 
+- (NSMutableArray *)modelArray {
+    if (!_modelArray) {
+        _modelArray = [NSMutableArray array];
+    }
+    return _modelArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
+    [self requestData];
+    // 创建 tableView
+    [self creatTableView];
+    
+    
 }
+
+#pragma mark --- 数据请求
+- (void)requestData {
+    NSString *url = [[NSString alloc]init];
+    
+    if (self.categoryId != 0) {
+       url = [NSString stringWithFormat:@"http://live.ximalaya.com/live-web/v2/radio/category?categoryId=%ld&device=iPhone&pageNum=1&pageSize=30", self.categoryId];
+        self.navigationItem.title = self.topTitleName;
+    } else if (self.locationId != 0) {
+        url = @"http://live.ximalaya.com/live-web/v1/radio/local?device=iPhone&pageNum=1&pageSize=30";
+        self.navigationItem.title = @"你好·上海";
+    } else if (self.rankId != 0) {
+        url = @"http://live.ximalaya.com/live-web/v3/radio/hot?device=iPhone&pageNum=1&pageSize=30";
+        self.navigationItem.title = @"电台排行榜";
+    } else if (self.topBtnTag == 1) {
+        url = @"http://live.ximalaya.com/live-web/v2/radio/province?device=iPhone&pageNum=1&pageSize=30&provinceCode=310000&statEvent=pageview%2Fradiolist%40%E6%9C%AC%E5%9C%B0%E5%8F%B0&statModule=%E6%9C%AC%E5%9C%B0%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
+        self.navigationItem.title = @"本地台";
+    } else if (self.topBtnTag == 2) {
+        url = @"http://live.ximalaya.com/live-web/v2/radio/national?device=iPhone&pageNum=1&pageSize=30&statEvent=pageview%2Fradiolist%40%E5%9B%BD%E5%AE%B6%E5%8F%B0&statModule=%E5%9B%BD%E5%AE%B6%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
+        self.navigationItem.title = @"国家台";
+    } else if (self.topBtnTag == 3) {
+        url = @"";
+        self.navigationItem.title = @"";
+    } else if (self.topBtnTag == 4) {
+        url = @"http://live.ximalaya.com/live-web/v2/radio/network?device=iPhone&pageNum=1&pageSize=30&statEvent=pageview%2Fradiolist%40%E7%BD%91%E7%BB%9C%E5%8F%B0&statModule=%E7%BD%91%E7%BB%9C%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
+        self.navigationItem.title = @"网络台";
+    } else {
+        NSLog(@"cuo wu");
+    }
+    
+    [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        self.modelArray = [BroadListModel modelConfigureWithDic:dic];
+        
+        [self.tableV reloadData];
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark --- 创建 tableVIew
+- (void)creatTableView {
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
+    self.tableV.rowHeight = 100;
+    self.tableV.dataSource = self;
+    self.tableV.delegate = self;
+    [self.tableV registerNib:[UINib nibWithNibName:@"LocationTableViewCell" bundle:nil] forCellReuseIdentifier:@"locationCell"];
+    [self.view addSubview:self.tableV];
+    
+}
+
+#pragma mark --- tableView 代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.modelArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LocationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"locationCell" forIndexPath:indexPath];
+    BroadListModel *model = self.modelArray[indexPath.row];
+    [cell CellConfigureWithBroadListModel:model];
+    cell.playB.tag = indexPath.row + 100;
+    [cell.playB addTarget:self action:@selector(playAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    return cell;
+}
+
+- (void)playAction:(UIButton *)button {
+    MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    [self.navigationController pushViewController:playVC animated:YES];
+    
+    BroadListModel *model = self.modelArray[button.tag - 100];
+    playVC.playPath32 = model.playUrl1;
+    playVC.newmodelArray = self.modelArray;
+    
+    if ([playVC.playPath32 containsString:@"m3u8"]) {
+        playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+    }
+    [MyPlayerManager defaultManager].index = button.tag - 100;
+    [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    [self.navigationController pushViewController:playVC animated:YES];
+    
+    BroadListModel *model = self.modelArray[indexPath.row];
+    playVC.playPath32 = model.playUrl1;
+    playVC.newmodelArray = self.modelArray;
+    
+    if ([playVC.playPath32 containsString:@"m3u8"]) {
+        playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+    }
+    [MyPlayerManager defaultManager].index = indexPath.row;
+    [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -10,7 +10,7 @@
 #import "DiscoverViewController.h"
 #import "DownLoadViewController.h"
 #import "MineViewController.h"
-#import "PlayViewController.h"
+#import "MusicplayViewController.h"
 #import "SubscriptionViewController.h"
 @interface RootTabBarViewController ()
 @property (nonatomic , strong)UIButton *btn;
@@ -26,7 +26,7 @@
     self.isPlay = NO;
     DiscoverViewController *disc = [[DiscoverViewController alloc]init];
     SubscriptionViewController *sub = [[SubscriptionViewController alloc]init];
-    PlayViewController *play = [[PlayViewController alloc]init];
+    MusicplayViewController *play = [[MusicplayViewController alloc]init];
     DownLoadViewController *down = [[DownLoadViewController alloc]init];
     MineViewController *mine = [[MineViewController alloc]init];
     UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, -16, self.tabBar.frame.size.width, self.tabBar.frame.size.height +20)];

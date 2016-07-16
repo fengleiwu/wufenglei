@@ -149,7 +149,7 @@
     NSIndexPath *path = [self.table indexPathForCell:cell];
     AnchorSuperStarTableViewController *superS = [[AnchorSuperStarTableViewController alloc]init];
     superS.MyID = self.famousMyIDArr[path.section];
-    [UIView transitionFromView:self toView:superS.view duration:1 options:UIViewAnimationOptionLayoutSubviews completion:nil];
+    [UIView transitionFromView:self.view toView:superS.view duration:1 options:UIViewAnimationOptionLayoutSubviews completion:nil];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

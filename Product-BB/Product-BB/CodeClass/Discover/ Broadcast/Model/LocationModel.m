@@ -20,10 +20,13 @@
     NSArray *arr = data[@"localRadios"];
     for (NSDictionary *dic in arr) {
         LocationModel *model = [[LocationModel alloc]init];
+        model.idd = dic[@"id"];
+        model.playUrl1 = dic[@"playUrl"][@"aac24"];
         [model setValuesForKeysWithDictionary:dic];
         [Arr addObject:model];
     }
     return Arr;
 }
+
 
 @end

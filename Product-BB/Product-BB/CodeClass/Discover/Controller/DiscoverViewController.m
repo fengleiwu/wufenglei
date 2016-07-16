@@ -165,7 +165,7 @@
 -(BroadcastViewController *)broadVC{
     if (!_broadVC) {
         _broadVC = [[BroadcastViewController alloc]init];
-        _broadVC.view.frame = CGRectMake(kScreenWidth * 2, 0, kScreenWidth, self.scr.height);
+        _broadVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.scr.height);
     }
     return _broadVC;
 }

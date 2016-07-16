@@ -18,6 +18,7 @@
     [super viewDidLoad];
     NSString *url = @"http://mobile.ximalaya.com/mobile/discovery/v1/anchor/famous?category_id=2&device=iPhone&page=1&per_page=20&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1";
     NSString *url1 = [url stringByReplacingOccurrencesOfString:@"category_id=2" withString:[NSString stringWithFormat:@"category_id=%@",self.MyID]];
+    NSLog(@"url1 ===== %@", url1);
     self.title = self.titleL;
     
     // Uncomment the following line to preserve selection between presentations.
@@ -35,12 +36,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
     return 0;
 }
 

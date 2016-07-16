@@ -29,9 +29,21 @@
 }
 
 -(void)CellConfigureWithModel:(RankModel *)model{
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge] completed:nil];
+    
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     self.titleL.text = model.name;
     self.programL.text = [NSString stringWithFormat:@"直播中：%@",model.programName];
+    self.playCountL.text = [NSString stringWithFormat:@"收听人数：%.1lf万",(CGFloat)[model.playCount integerValue]/10000];
+}
+
+- (void)CellConfigureWithBroadListModel:(BroadListModel *)model {
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall]];
+    self.titleL.text = model.name;
+    if (model.programName == nil) {
+        self.programL.text = @"网络错误";
+    } else {
+        self.programL.text = [NSString stringWithFormat:@"直播中：%@",model.programName];
+    }
     self.playCountL.text = [NSString stringWithFormat:@"收听人数：%.1lf万",(CGFloat)[model.playCount integerValue]/10000];
 }
 

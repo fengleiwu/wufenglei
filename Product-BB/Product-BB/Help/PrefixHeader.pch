@@ -21,6 +21,9 @@
 #import "RequestManager.h"
 #import "UIView+TWFrame.h"
 #import "AdjustHeight.h"
+#import "MyPlayerManager.h"
+
+
 #define KfocusImagesURL @"http://mobile.ximalaya.com/mobile/discovery/v4/recommends?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
 // 最下面的 collection
 #define KCategoryBottomURL @"http://mobile.ximalaya.com/mobile/discovery/v1/categories?device=android&picVersion=11&scale=2"

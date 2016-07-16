@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationModel.h"
 #import "RankModel.h"
+#import "BroadListModel.h"
 @interface LocationTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageV;
 @property (weak, nonatomic) IBOutlet UILabel *titleL;
@@ -19,4 +20,7 @@
 -(void)cellConfigureWithModel:(LocationModel *)model;
 
 -(void)CellConfigureWithModel:(RankModel *)model;
+
+- (void)CellConfigureWithBroadListModel:(BroadListModel *)model;
+
 @end
