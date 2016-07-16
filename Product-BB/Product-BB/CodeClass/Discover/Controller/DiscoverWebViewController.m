@@ -20,10 +20,9 @@
     
     self.web = [[UIWebView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.web loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.webURL]]];
-    NSLog(@"%@",self.webURL);
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = item;
-    self.navigationController.navigationBar.translucent = YES;
+    //self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:self.web];
     // Do any additional setup after loading the view.
 }

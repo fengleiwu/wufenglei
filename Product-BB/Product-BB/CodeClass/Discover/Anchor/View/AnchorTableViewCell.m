@@ -1,15 +1,14 @@
 //
-//  editorRecommendAlbumsTableViewCell.m
+//  AnchorTableViewCell.m
 //  Product-BB
 //
-//  Created by lanou on 16/7/11.
+//  Created by lanou on 16/7/16.
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
-#import "editorRecommendAlbumsTableViewCell.h"
+#import "AnchorTableViewCell.h"
 
-#define kSwidth (kScreenWidth - 20) / 3
-@implementation editorRecommendAlbumsTableViewCell
+@implementation AnchorTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -20,8 +19,6 @@
 
     // Configure the view for the selected state
 }
-
-
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -42,11 +39,13 @@
     return self;
 }
 
--(void)creatCell:(NSMutableArray *)arr{
-    self.disc = [[DiscoverCollectView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,(kScreenWidth - 40) / 3 + 90) imageURLs:arr];
+
+-(void)creatCell:(NSMutableArray *)arr
+{
+    
+    self.disc = [[AnchorCollectionView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,((kScreenWidth - 40) / 3 + 120) * 2) imageURLs:arr];
     
     [self.contentView addSubview:self.disc];
 }
-
 
 @end

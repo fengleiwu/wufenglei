@@ -19,6 +19,8 @@
 
 @implementation RootTabBarViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isPlay = NO;
@@ -37,6 +39,7 @@
     [self.btn addTarget:self action:@selector(playAction) forControlEvents:(UIControlEventTouchUpInside)];
     imageV.image = [UIImage imageNamed:@"tabbar_bg@3x"];
     [self.tabBar insertSubview:imageV atIndex:0];
+    self.tabBar.tintColor = [UIColor orangeColor];
     //覆盖原生Tabbar的上横线
     [[UITabBar appearance] setShadowImage:[self createImageWithColor:[UIColor clearColor]]];
     [[UITabBar appearance] setBackgroundImage:[self createImageWithColor:[UIColor clearColor]]];
@@ -45,6 +48,7 @@
     [self creatTab:play title:nil name:nil image:nil];
     [self creatTab:down title:@"下载听" name:@"" image:[UIImage imageNamed:@"download下载"]];
     [self creatTab:mine title:@"我的" name:@"" image:[UIImage imageNamed:@"我的"]];
+    
     [self.view addSubview:self.btn];
     
     
@@ -63,6 +67,7 @@
     naVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:image tag:100];
     [self addChildViewController:naVC];
 }
+
 
 
 #pragma mark ---btnAction

@@ -12,10 +12,15 @@
 #import "focusImagesModel.h"
 #import "editorRecommendAlbumsTableViewCell.h"
 #import "DiscoverCollectView.h"
-#import "specialView.h"
 #import "hotRecommendsModel.h"
 #import "WEBModel.h"
 #import "DiscoverWebViewController.h"
+#import "recommendMoreViewController.h"
+#import "AlbumDetailViewController.h"
+#import "specialTableViewCell.h"
+#import "qualityGoodsTableViewController.h"
+#import "ListenDetailViewController.h"
+#import "AnchorTableView.h"
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UIScrollView *scr;
 @property (nonatomic , strong)UISegmentedControl *seg;
@@ -28,36 +33,68 @@
 @property (nonatomic , strong)NSMutableArray *arr;
 @property (nonatomic, strong)BroadcastViewController *broadVC;
 @property (nonatomic , strong)DiscoverCollectView *discell;
-@property (nonatomic , strong)specialView *special;
+//@property (nonatomic , strong)specialView *special;
 @property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
 @property (nonatomic , strong)NSMutableArray *titleArray;
 @property (nonatomic , strong)NSMutableArray *bottomPicArray;
 @property (nonatomic , strong)NSMutableArray *bigBottomPicArray;
 @property (nonatomic , strong)CarouselView *bottomPic;
 @property (nonatomic , strong)UILabel *titleLabel;
-
+@property (nonatomic , strong)AnchorTableView *anchor;
 @end
 
 @implementation DiscoverViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
-    self.titleLabel.font = [UIFont systemFontOfSize:20];
-    self.titleLabel.textColor = [UIColor redColor];
-    self.titleLabel.text = @"珠穆朗玛FM";
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.view addSubview:self.titleLabel];
-    [self creatdiscell];
     [self creatScr];
-    [self creatSeg];
     [self creatLine];
+    [self creatSeg];
     [self creatCarouse];
     [self creatBigArray];
     [self creatTitleArray];
     [self creatTable];
     [self creatdownCarouse];
     [self creatBottomPic];
+    
+    [self.scr addSubview:self.anchor];
+    self.cellArray = [NSMutableArray array];
+    
+    
+    
+    [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
+        [self.tableView reloadData];
+        } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+
+    [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.specialColumnArray = [focusImagesModel specialColumn:dic];
+        [self.tableView reloadData];
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.translucent = NO;
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
+    self.titleLabel.font = [UIFont systemFontOfSize:20];
+    self.titleLabel.textColor = [UIColor redColor];
+    self.titleLabel.text = @"珠穆朗玛FM";
+    [self.navigationController.view addSubview:self.titleLabel];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.titleLabel removeFromSuperview];
 }
 
 
@@ -82,7 +119,8 @@
             discover.webURL = model.link;
             
             UINavigationController *navc = [[UINavigationController alloc]initWithRootViewController:discover];
-            [dis presentViewController:navc animated:YES completion:nil];
+            dis.tabBarController.tabBar.hidden = YES;
+         [dis presentViewController:navc animated:YES completion:nil];
         };
         [self.tableView reloadData];
         
@@ -92,7 +130,13 @@
 }
 
 
-
+-(AnchorTableView *)anchor
+{
+    if (!_anchor) {
+        _anchor = [[AnchorTableView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
+    }
+    return _anchor;
+}
 
 #pragma mark ----- 创建广播视图 -----
 -(BroadcastViewController *)broadVC{
@@ -109,7 +153,6 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.titleArray = [hotRecommendsModel title:dic];
         
-        NSLog(@"%@",self.titleArray);
         [self.tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@",error);
@@ -129,24 +172,10 @@
     }];
 }
 
--(void)creatdiscell  //小编推荐
-{
-    self.cellArray = [NSMutableArray array];
-    [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
-        self.discell = [[DiscoverCollectView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,(kScreenWidth - 40) / 3 + 90) imageURLs:self.cellArray];
-        [self.tableView reloadData];
-        
-    } error:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-
-}
 
 
 
--(void)creatCarouse//轮播图
+-(void)creatCarouse//最上面轮播图
 {
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -156,7 +185,7 @@
             [picArray addObject:model.pic];
         }
         self.car = [[CarouselView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150) imageURLs:picArray];
-        [self.tableView reloadData];
+            [self.tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -164,7 +193,7 @@
 }
 
 
--(void)creatdownCarouse
+-(void)creatdownCarouse//轮播图下面
 {
     CGFloat f = (kScreenWidth - 160) / 4;
     [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
@@ -172,22 +201,41 @@
         NSDictionary *dic1 = dic[@"discoveryColumns"];
         NSArray *list = dic1[@"list"];
         for (int i = 0; i < 4; i++) {
-            UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(20 + 2 * 20 * i + f * i, 160, f, f)];
+            UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+            btn.tag = i + 1;
+            btn.frame = CGRectMake(20 + 2 * 20 * i + f * i, 160, f, f + 20);
+            [btn addTarget:self action:@selector(tingAction:) forControlEvents:(UIControlEventTouchUpInside)];
+            UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, f, f)];
             NSDictionary *dic2 = list[i];
             [imageV sd_setImageWithURL:[NSURL URLWithString:dic2[@"coverPath"]]];
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20 + 2 * 20 * i + f * i, f + 160 , f, 20)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, f , f, 20)];
             label.text = dic2[@"title"];
             label.font = [UIFont systemFontOfSize:13];
             label.textAlignment = NSTextAlignmentCenter;
-            [self.tableView addSubview:imageV];
-            [self.tableView addSubview:label];
+            [btn addSubview:imageV];
+            [btn addSubview:label];
+            [self.tableView addSubview:btn];
         }
     } error:^(NSError *error) {
         
     }];
 }
 
-
+-(void)tingAction:(UIButton *)btn
+{
+    if (btn.tag == 1) {
+        AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+        album.url = @"3985798";
+        album.inter = 4;
+        [self.navigationController pushViewController:album animated:YES];
+    }else if (btn.tag == 2){
+        NSLog(@"2");
+    }else if (btn.tag == 3){
+        NSLog(@"3");
+    }else if (btn.tag == 4){
+        NSLog(@"4");
+    }
+}
 
 
 #pragma mark ----creatseg---
@@ -204,6 +252,7 @@
     [self.seg setTitleTextAttributes:dic1 forState:(UIControlStateNormal)];
     [self.seg addTarget:self action:@selector(segAction) forControlEvents:(UIControlEventValueChanged)];
     self.seg.selectedSegmentIndex = 0;
+    
     [self.view addSubview:self.seg];
 }
 
@@ -228,7 +277,7 @@
 #pragma mark --- creatScr
 -(void)creatScr
 {
-    self.scr = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.seg.bounds.size.height + 20 , kScreenWidth, kScreenHeight - (self.seg.bounds.size.height + 20))];
+    self.scr = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20 , kScreenWidth, kScreenHeight - (self.seg.bounds.size.height + 20))];
     self.scr.contentSize = CGSizeMake(5 * kScreenWidth, 0);
     self.scr.delegate = self;
     self.scr.bounces = NO;
@@ -244,12 +293,11 @@
     CGRect frame = self.lineView.frame;
     frame.origin.x = self.seg.selectedSegmentIndex * (kScreenWidth / 5);
     self.lineView.frame = frame;
-
 }
 
 -(void)creatTable
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - self.tabBarController.tabBar.frame.size.height - 30) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, self.scr.frame.size.height - self.tabBarController.tabBar.frame.size.height - 50) style:(UITableViewStylePlain)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.scr addSubview:self.tableView];
@@ -262,44 +310,40 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
-            
-        }
+            }
         [cell.contentView addSubview:self.car];
         return cell;
     }else  if (indexPath.section == 1){
-        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sss"];
-        if (!cell) {
-            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
-            
-        }
-        [cell.contentView addSubview:self.discell];
-        [cell.more1Btn setTitle:@"小编推荐" forState:(UIControlStateNormal)];
-        
-        return cell;
-    }else if (indexPath.section == 2) {
-        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ssss"];
-        if (!cell) {
-            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ssss"];
-        }
-        [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            
-            self.specialColumnArray = [focusImagesModel specialColumn:dic];
-            for (int i = 0; i < self.specialColumnArray.count; i++) {
-                focusImagesModel *model = self.specialColumnArray[i];
-                specialView *special = [[specialView alloc]initWithFrame:CGRectMake(0, 40 + 110 * i, kScreenWidth, 110) model:model];
-                [cell.contentView addSubview:special];
-                [self.tableView reloadData];
+        editorRecommendAlbumsTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"sss"];
+        if (!cell1) {
+            cell1 = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
             }
-            [cell.more1Btn setTitle:dic[@"specialColumn"][@"title"] forState:(UIControlStateNormal)];
-        } error:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
-        return cell;
+        [cell1 creatCell:self.cellArray];
+        cell1.disc.imageClick = ^(NSInteger inter)
+        {
+            AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+                        focusImagesModel *model = self.cellArray[inter];
+                    album.url = model.albumId;
+            album.inter = 4;
+            self.tabBarController.tabBar.hidden = YES;
+[self.navigationController pushViewController:album animated:YES];
+        };
+        [cell1.more1Btn setTitle:@"小编推荐" forState:(UIControlStateNormal)];
+        [cell1.more1Btn addTarget:self action:@selector(recommendMoreAction) forControlEvents:(UIControlEventTouchUpInside)];
+        [cell1.more2Btn addTarget:self action:@selector(recommendMoreAction) forControlEvents:(UIControlEventTouchUpInside)];
+        return cell1;
+    }else if (indexPath.section == 2) {
+        specialTableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"ssss"];
+        if (!cell2) {
+            cell2 = [[specialTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ssss"];
+        }
+        focusImagesModel *model = self.specialColumnArray[indexPath.row];
+        [cell2 creatSpecialCell:model];
+        return cell2;
     }else if(indexPath.section == self.bigArray.count + 3){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aa"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aa"];
+        UITableViewCell *cell3 = [tableView dequeueReusableCellWithIdentifier:@"aa"];
+        if (!cell3) {
+            cell3 = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aa"];
         }
         UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         btn.frame = CGRectMake(10, 0, kScreenWidth / 2 - 10, 40);
@@ -311,44 +355,54 @@
         [btn setTintColor:[UIColor grayColor]];
         [btn1 setTintColor:[UIColor grayColor]];
         btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [cell.contentView addSubview:btn1];
-        [cell.contentView addSubview:btn];
+        [cell3.contentView addSubview:btn1];
+        [cell3.contentView addSubview:btn];
         [btn addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
         [btn1 addTarget:self action:@selector(btnAction) forControlEvents:(UIControlEventTouchUpInside)];
-        return cell;
+        return cell3;
     }else if (indexPath.section == self.bigArray.count + 4){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aaa"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aaa"];
+        UITableViewCell *cell4 = [tableView dequeueReusableCellWithIdentifier:@"aaa"];
+        if (!cell4) {
+            cell4 = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"aaa"];
         }
-        [cell.contentView addSubview:self.bottomPic];
-        return cell;
+        [cell4.contentView addSubview:self.bottomPic];
+        return cell4;
     }else{
-        editorRecommendAlbumsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sssss"];
-        if (!cell) {
-            cell = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sssss"];
+        editorRecommendAlbumsTableViewCell *cell5 = [tableView dequeueReusableCellWithIdentifier:@"sssss"];
+        if (!cell5) {
+            cell5 = [[editorRecommendAlbumsTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sssss"];
         }
         NSMutableArray *muarr = [NSMutableArray array];
         muarr = self.bigArray[indexPath.section - 3];
-        DiscoverCollectView *dis = [[DiscoverCollectView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth,(kScreenWidth - 40) / 3 + 90) imageURLs:muarr];
+
         hotRecommendsModel *model = self.titleArray[indexPath.section - 3];
-        [cell.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
-        [cell.contentView addSubview:dis];
-        return cell;
+        [cell5.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
+        [cell5 creatCell:muarr];
+        cell5.disc.imageClick = ^(NSInteger inter){
+            hotRecommendsModel *model = muarr[inter];
+            AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+            album.url = model.albumId;
+            if (indexPath.section == 3) {
+                album.inter = inter;
+            }else{
+                album.inter = 4;
+            }
+            self.tabBarController.tabBar.hidden = YES;
+
+            [self.navigationController pushViewController:album animated:YES];
+        };
+        return cell5;
     }
-    
-    
-    
-    
-    
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+    if (section == 2) {
+        return 2;
+    }else{
     return 1;
-    
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -356,14 +410,8 @@
  return self.bigArray.count + 5;
 }
 
-
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    
-    
     if (indexPath.section == self.bigArray.count + 4) {
         return 80;
     }
@@ -373,12 +421,55 @@
     if (indexPath.section == 1) {
         return (kScreenWidth - 40) / 3 + 90 + 40;
     }if (indexPath.section == 2) {
-        return 260;
+        return 110;
     }else{
         return 250;
     }
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    UIButton *more1Btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    more1Btn.frame = CGRectMake(5, 0, (kScreenWidth - 10) / 2, 40);
+    UIButton *more2Btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    [more1Btn setTitle:@"精品听单" forState:(UIControlStateNormal)];
+    more2Btn.frame = CGRectMake((kScreenWidth - 10) / 2 + 5, 0, (kScreenWidth - 10) / 2, 40);
+    more2Btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [more2Btn setTitle:@"更多 >" forState:(UIControlStateNormal)];
+    [more1Btn addTarget:self action:@selector(turnToQualityGoodsAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    [more2Btn addTarget:self action:@selector(turnToQualityGoodsAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    more2Btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    more1Btn.tintColor = [UIColor blackColor];
+    more2Btn.tintColor = [UIColor grayColor];
+    more1Btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [view1 addSubview:more1Btn];
+    [view1 addSubview:more2Btn];
     
-    
+    return view1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 2) {
+        return 40;
+    }else{
+        return 0;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2) {
+        focusImagesModel *model = self.specialColumnArray[indexPath.row];
+        ListenDetailViewController *listen = [[ListenDetailViewController alloc]init];
+        listen.listenTitle = model.title;
+        listen.type = model.contentType;
+        listen.listenId = model.specialId;
+        self.tabBarController.tabBar.hidden = YES;
+
+        [self.navigationController pushViewController:listen animated:YES];
+    }
 }
 
 
@@ -389,11 +480,22 @@
     self.scr.contentOffset = point;
 }
 
+-(void)recommendMoreAction
+{
+    recommendMoreViewController *recommend = [[recommendMoreViewController alloc]init];
+    self.tabBarController.tabBar.hidden = YES;
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+[self.navigationController pushViewController:recommend animated:YES];
 }
+
+
+-(void)turnToQualityGoodsAction:(UIButton *)btn
+{
+    qualityGoodsTableViewController *quality = [[qualityGoodsTableViewController alloc]init];
+    self.tabBarController.tabBar.hidden = YES;
+    [self.navigationController pushViewController:quality animated:YES];
+}
+
 
 /*
 #pragma mark - Navigation

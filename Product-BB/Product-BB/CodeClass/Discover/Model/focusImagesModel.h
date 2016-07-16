@@ -18,6 +18,8 @@
 @property(nonatomic , strong)NSString *coverPath;
 @property(nonatomic , strong)NSString *footnote;
 @property(nonatomic , strong)NSString *subtitle;
+@property(nonatomic , strong)NSString *specialId;
+@property(nonatomic , strong)NSString *contentType;
 
 
 
