@@ -19,7 +19,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRj-SG-cc0">
                         <rect key="frame" x="137" y="18" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piB-8v-btw">
@@ -34,12 +34,6 @@
                         <color key="textColor" red="0.74888553319999995" green="0.75422518869999999" blue="0.77024415540000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdV-ZR-erg">
-                        <rect key="frame" x="14" y="18" width="84" height="75"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="vdV-ZR-erg" secondAttribute="height" id="2RV-i7-73P"/>
-                        </constraints>
-                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obK-9S-fob">
                         <rect key="frame" x="338" y="40" width="32" height="33"/>
                         <constraints>
@@ -47,6 +41,12 @@
                         </constraints>
                         <state key="normal" image="播放.png"/>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdV-ZR-erg">
+                        <rect key="frame" x="14" y="18" width="84" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="vdV-ZR-erg" secondAttribute="height" id="2RV-i7-73P"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="CRj-SG-cc0" firstAttribute="leading" secondItem="vdV-ZR-erg" secondAttribute="trailing" constant="10" id="2Y4-Hx-Wu5"/>

@@ -7,7 +7,7 @@
 //
 
 #import "AnchorTableViewController.h"
-#import "AnchorTableViewCell.h"
+#import "OtherAnchorTableViewCell.h"
 #import "AnchorModel.h"
 #import "AnchorSongerTableViewCell.h"
 #import "AnchorSuperStarTableViewController.h"
@@ -109,9 +109,9 @@
 {
     if (indexPath.section != 3) {
         
-        AnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
+        OtherAnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
         if (!cell) {
-            cell = [[AnchorTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
+            cell = [[OtherAnchorTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
         }
         if (indexPath.section >= 0 && indexPath.section <= 2) {
             NSDictionary *dic = self.famousArr[indexPath.section];

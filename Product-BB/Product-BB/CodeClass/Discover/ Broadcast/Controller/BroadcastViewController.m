@@ -7,6 +7,7 @@
 //
 
 #import "BroadcastViewController.h"
+#import "BroadcastListViewController.h"
 #import "LocationTableViewCell.h"
 #import "LocationModel.h"
 #import "RankModel.h"
@@ -17,6 +18,7 @@
 @property (nonatomic, strong)NSMutableArray *RankArr;
 @property (nonatomic, strong)NSMutableArray *AllArr;
 @property (nonatomic, strong)NSMutableArray *loactionArr;
+@property (nonatomic, strong)UITapGestureRecognizer *tap;
 @property (nonatomic, strong)UIView *broadcastTypeV;
 @property (nonatomic, strong)UIView *sectionV;
 @property (nonatomic, strong)UIView *moreV1;
@@ -24,9 +26,8 @@
 @property (nonatomic, strong)UIView *buttonV;
 @property (nonatomic, strong)UIView *loaclV;
 @property (nonatomic, strong)UIView *nationV;
-@property (nonatomic, strong)UIButton *nationB;
-@property (nonatomic, strong)UIButton *provinceB;
-@property (nonatomic, strong)UIButton *networkB;
+@property (nonatomic, strong)UIView *provinceV;
+@property (nonatomic, strong)UIView *networkV;
 @property (nonatomic, strong)UIButton *typeB;
 @end
 
@@ -87,11 +88,10 @@
     NSLog(@"error == %@",error);
 }];
 }
-
 #pragma mark ----- 创建总tableView -----
 -(UITableView *)tableV{
     if (!_tableV) {
-        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, self.navigationController.navigationBar.height, self.view.frame.size.width, self.view.frame.size.height-84-self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
+        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-84-self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
         _tableV.delegate = self;
         _tableV.dataSource = self;
         [self.tableV registerNib:[UINib nibWithNibName:@"LocationTableViewCell" bundle:nil] forCellReuseIdentifier:@"locationCell"];
@@ -109,10 +109,10 @@
     [self.broadcastTypeV addSubview:self.buttonV];
     [self.broadcastTypeV addSubview:self.loaclV];
     [self.broadcastTypeV addSubview:self.nationV];
-    [self.broadcastTypeV addSubview:self.provinceB];
-    [self.broadcastTypeV addSubview:self.networkB];
+    [self.broadcastTypeV addSubview:self.provinceV];
+    [self.broadcastTypeV addSubview:self.networkV];
 }
-//nsl
+
 #pragma mark ----- 创建电台按钮所在视图 -----
 -(UIView *)buttonV{
     if (!_buttonV) {
@@ -147,6 +147,7 @@
         count++;
     }
 }
+
 
 #pragma mark ----- 电台跳转方法 -----
 -(void)nextView1:(UIButton *)button{
@@ -233,21 +234,6 @@
 }
 
 #pragma mark ----- 创建国家电台按钮 -----
--(UIButton *)nationB{
-    if (!_nationB) {
-        _nationB = [UIButton buttonWithType:UIButtonTypeSystem];
-        _nationB.frame = CGRectMake(kScreenWidth/4, 0, kScreenWidth/4, self.broadcastTypeV.height/2);
-        [_nationB setImage:[UIImage imageNamed:@"五星国旗.png"] forState:UIControlStateNormal];
-        _nationB.imageEdgeInsets = UIEdgeInsetsMake(0,0,40,_nationB.titleLabel.bounds.size.width);
-        [_nationB setTitle:@"国家台" forState:UIControlStateNormal];
-        _nationB.titleLabel.font = [UIFont systemFontOfSize:18];
-        [_nationB setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _nationB.titleEdgeInsets = UIEdgeInsetsMake(50, _nationB.titleLabel.bounds.size.width-80, 0, 0);
-        _nationB.tintColor = [UIColor orangeColor];
-    }
-    return _nationB;
-}
-
 -(UIView *)nationV{
     if (!_nationV) {
         _nationV = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth/4, 0, kScreenWidth/4, self.broadcastTypeV.height/2)];
@@ -267,35 +253,41 @@
 }
 
 #pragma mark ----- 创建省市电台按钮 -----
--(UIButton *)provinceB{
-    if (!_provinceB) {
-        _provinceB = [UIButton buttonWithType:UIButtonTypeSystem];
-        _provinceB.frame = CGRectMake(kScreenWidth/2, 0, kScreenWidth/4, self.broadcastTypeV.height/2);
-        [_provinceB setImage:[UIImage imageNamed:@"省_1.png"] forState:UIControlStateNormal];
-        _provinceB.imageEdgeInsets = UIEdgeInsetsMake(0,0,40,_provinceB.titleLabel.bounds.size.width);
-        [_provinceB setTitle:@"省市台" forState:UIControlStateNormal];
-        _provinceB.titleLabel.font = [UIFont systemFontOfSize:18];
-        [_provinceB setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _provinceB.titleEdgeInsets = UIEdgeInsetsMake(50, _provinceB.titleLabel.bounds.size.width-80, 0, 0);
-        _provinceB.tintColor = [UIColor orangeColor];
+-(UIView *)provinceV{
+    if (!_provinceV) {
+        _provinceV = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/4, self.broadcastTypeV.height/2)];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        button.frame = CGRectMake(kScreenWidth/8 -30,_provinceV.height/5, 60, _provinceV.height*2/5);
+        [button setImage:[UIImage imageNamed:@"省_1.png"] forState:UIControlStateNormal];
+        button.tintColor = [UIColor orangeColor];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/8-30, _provinceV.height*3/5, 60, _provinceV.height/5)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"省市台";
+        label.font = [UIFont systemFontOfSize:18];
+        label.textColor = [UIColor grayColor];
+        [_provinceV addSubview:label];
+        [_provinceV addSubview: button];
     }
-    return _provinceB;
+    return _provinceV;
 }
 
 #pragma mark ----- 创建网络电台按钮 -----
--(UIButton *)networkB{
-    if (!_networkB) {
-        _networkB = [UIButton buttonWithType:UIButtonTypeSystem];
-        _networkB.frame = CGRectMake(kScreenWidth*3/4, 0, kScreenWidth/4, self.broadcastTypeV.height/2);
-        [_networkB setImage:[UIImage imageNamed:@"娱乐_音乐电台.png"] forState:UIControlStateNormal];
-        _networkB.imageEdgeInsets = UIEdgeInsetsMake(0,0,40,_networkB.titleLabel.bounds.size.width);
-        [_networkB setTitle:@"网络台" forState:UIControlStateNormal];
-        _networkB.titleLabel.font = [UIFont systemFontOfSize:18];
-        [_networkB setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _networkB.titleEdgeInsets = UIEdgeInsetsMake(50, _networkB.titleLabel.bounds.size.width-80, 0, 0);
-        _networkB.tintColor = [UIColor orangeColor];
+-(UIView *)networkV{
+    if (!_networkV) {
+        _networkV = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth*3/4, 0, kScreenWidth/4, self.broadcastTypeV.height/2)];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        button.frame = CGRectMake(kScreenWidth/8 -30,_networkV.height/5, 60, _networkV.height*2/5);
+        [button setImage:[UIImage imageNamed:@"娱乐_音乐电台.png"] forState:UIControlStateNormal];
+        button.tintColor = [UIColor orangeColor];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/8-30, _networkV.height*3/5, 60, _networkV.height/5)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"网络台";
+        label.font = [UIFont systemFontOfSize:18];
+        label.textColor = [UIColor grayColor];
+        [_networkV addSubview:label];
+        [_networkV addSubview: button];
     }
-    return _networkB;
+    return _networkV;
 }
 
 #pragma mark ----- 创建tableViewSection视图 -----
@@ -384,7 +376,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",indexPath.section);
+//    NSLog(@"%ld",indexPath.section);
     if (indexPath.section == 0) {
         LocationModel *model = self.loactionArr[indexPath.row];
         LocationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"locationCell" forIndexPath:indexPath];

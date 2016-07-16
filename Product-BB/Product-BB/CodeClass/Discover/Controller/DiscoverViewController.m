@@ -34,26 +34,39 @@
 @property (nonatomic , strong)NSMutableArray *cellArray;//小便推荐
 @property (nonatomic , strong)NSMutableArray *specialColumnArray;//精品停单
 @property (nonatomic , strong)NSMutableArray *arr;
+@property (nonatomic, strong)UIViewController *subVC;
 @property (nonatomic, strong)BroadcastViewController *broadVC;
 @property (nonatomic , strong)DiscoverCollectView *discell;
-//@property (nonatomic , strong)specialView *special;
 @property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
 @property (nonatomic , strong)NSMutableArray *titleArray;
+@property (nonatomic, strong)NSMutableArray *controllers;
 @property (nonatomic , strong)NSMutableArray *bottomPicArray;
 @property (nonatomic , strong)NSMutableArray *bigBottomPicArray;
 @property (nonatomic , strong)CarouselView *bottomPic;
 @property (nonatomic , strong)UILabel *titleLabel;
-//@property (nonatomic , strong)AnchorTableView *anchor;
 
 @property (nonatomic , strong)AnchorTableViewController *anchor;
 
 @end
 
 @implementation DiscoverViewController
+-(NSMutableArray *)bigArray{
+    if (!_bigArray) {
+        _bigArray = [NSMutableArray array];
+    }
+    return _bigArray;
+}
+
+-(NSMutableArray *)titleArray{
+    if (!_titleArray) {
+        _titleArray = [NSMutableArray array];
+    }
+    return _titleArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
+    self.controllers = [@[ @"CategoryViewController", @"BroadcastViewController",@"RankViewController"] mutableCopy];
     [self creatScr];
     [self creatLine];
     [self creatSeg];
@@ -65,7 +78,6 @@
     [self creatBottomPic];
     self.anchor = [AnchorTableViewController shareManager];
     [self.anchor creatTableView:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
-    //self.anchor.view = [[UIView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
     [self addChildViewController:self.anchor];
     [self.scr addSubview:self.anchor.table];
     self.cellArray = [NSMutableArray array];
@@ -89,7 +101,7 @@
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.translucent = NO;
@@ -294,6 +306,17 @@
     self.scr.bounces = NO;
     self.scr.showsHorizontalScrollIndicator = NO;
     self.scr.pagingEnabled = YES;
+    for (NSInteger i = 0; i < 4; i++) {
+        if (i == 0) {
+            
+        }  else {
+            self.subVC = [[NSClassFromString(self.controllers[i-1]) alloc]init];
+            self.subVC.view.frame = CGRectMake(kScreenWidth * i, 0, kScreenWidth, kScreenHeight);
+            [self addChildViewController:self.subVC];
+            [self.scr addSubview:self.subVC.view];
+        }
+    }
+    [self.view addSubview:self.scr];
     [self.view addSubview:self.scr];
 }
 
