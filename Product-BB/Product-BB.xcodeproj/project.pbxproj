@@ -32,6 +32,7 @@
 		790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */; };
 		790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */; };
 		7916686A1D3671D2009A3613 /* VeryBigTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791668691D3671D2009A3613 /* VeryBigTabView.m */; };
+		791D93FC1D3B671E00A2DABB /* DiscoverCListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791D93FB1D3B671E00A2DABB /* DiscoverCListViewController.m */; };
 		7946EBD31D35DAEB00AA9712 /* WEBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD21D35DAEB00AA9712 /* WEBModel.m */; };
 		7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */; };
 		7946EBD91D35E46F00AA9712 /* recommendMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD81D35E46F00AA9712 /* recommendMoreViewController.m */; };
@@ -206,6 +207,8 @@
 		790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hotRecommendsModel.m; sourceTree = "<group>"; };
 		791668681D3671D2009A3613 /* VeryBigTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeryBigTabView.h; sourceTree = "<group>"; };
 		791668691D3671D2009A3613 /* VeryBigTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeryBigTabView.m; sourceTree = "<group>"; };
+		791D93FA1D3B671E00A2DABB /* DiscoverCListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverCListViewController.h; sourceTree = "<group>"; };
+		791D93FB1D3B671E00A2DABB /* DiscoverCListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverCListViewController.m; sourceTree = "<group>"; };
 		7946EBD11D35DAEB00AA9712 /* WEBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEBModel.h; sourceTree = "<group>"; };
 		7946EBD21D35DAEB00AA9712 /* WEBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBModel.m; sourceTree = "<group>"; };
 		7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverWebViewController.h; sourceTree = "<group>"; };
@@ -679,6 +682,8 @@
 				79E323411D38AF2200B716B5 /* qualityGoodsTableViewController.m */,
 				79E323431D38CE9600B716B5 /* ListenDetailViewController.h */,
 				79E323441D38CE9600B716B5 /* ListenDetailViewController.m */,
+				791D93FA1D3B671E00A2DABB /* DiscoverCListViewController.h */,
+				791D93FB1D3B671E00A2DABB /* DiscoverCListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1323,6 +1328,7 @@
 				7980772D1D33A2DA0095911D /* RootTabBarViewController.m in Sources */,
 				79E323451D38CE9600B716B5 /* ListenDetailViewController.m in Sources */,
 				7980770B1D33A12C0095911D /* RequestManager.m in Sources */,
+				791D93FC1D3B671E00A2DABB /* DiscoverCListViewController.m in Sources */,
 				7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */,
 				7900E14D1D3A78A300E3676C /* RankModel.m in Sources */,
 				79F43F551D3A3AFB002BE16F /* AnchorOtherViewController.m in Sources */,

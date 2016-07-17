@@ -83,7 +83,7 @@
     self.cellArray = [NSMutableArray array];
     
     
-    
+    //焦点图数据请求
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
@@ -115,11 +115,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self.titleLabel removeFromSuperview];
 }
 
 
-
+#pragma mark ----- 良品数据请求 -----
 -(void)creatBottomPic
 {
     self.bottomPicArray = [NSMutableArray array];

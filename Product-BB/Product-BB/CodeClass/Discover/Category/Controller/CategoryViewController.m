@@ -147,7 +147,7 @@
             CategoryListViewController *cListVC = [[CategoryListViewController alloc]init];
             cListVC.titleStr = model.title;
             cListVC.idd = [model.myid integerValue];
-            self.tabBarController.tabBar.hidden = YES;
+            
             [self.navigationController pushViewController:cListVC animated:YES];
             return;
         }
@@ -171,6 +171,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self.titleLabel removeFromSuperview];
 }
 
