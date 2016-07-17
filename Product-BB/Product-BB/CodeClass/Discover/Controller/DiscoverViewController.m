@@ -8,6 +8,7 @@
 
 #import "DiscoverViewController.h"
 #import "BroadcastViewController.h"
+#import "CategoryListViewController.h"
 #import "CarouselView.h"
 #import "focusImagesModel.h"
 #import "editorRecommendAlbumsTableViewCell.h"
@@ -25,27 +26,29 @@
 #import "AnchorTableViewController.h"
 
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
-@property (nonatomic , strong)UIScrollView *scr;
-@property (nonatomic , strong)UISegmentedControl *seg;
-@property (nonatomic , strong)UIView *lineView;
-@property (nonatomic , strong)NSMutableArray *focusImages;
-@property (nonatomic , strong)UITableView *tableView;
-@property (nonatomic , strong)CarouselView *car;
-@property (nonatomic , strong)NSMutableArray *cellArray;//小便推荐
-@property (nonatomic , strong)NSMutableArray *specialColumnArray;//精品停单
-@property (nonatomic , strong)NSMutableArray *arr;
+@property (nonatomic, strong)UIScrollView *scr;
+@property (nonatomic, strong)UISegmentedControl *seg;
+@property (nonatomic, strong)UIView *lineView;
+@property (nonatomic, strong)NSMutableArray *focusImages;
+@property (nonatomic, strong)UITableView *tableView;
+@property (nonatomic, strong)CarouselView *car;
+@property (nonatomic, strong)NSMutableArray *cellArray;//小便推荐
+@property (nonatomic, strong)NSMutableArray *specialColumnArray;//精品停单
+@property (nonatomic, strong)NSMutableArray *arr;
 @property (nonatomic, strong)UIViewController *subVC;
 @property (nonatomic, strong)BroadcastViewController *broadVC;
-@property (nonatomic , strong)DiscoverCollectView *discell;
-@property (nonatomic , strong)NSMutableArray *bigArray;//一样的东西
-@property (nonatomic , strong)NSMutableArray *titleArray;
+@property (nonatomic, strong)DiscoverCollectView *discell;
+@property (nonatomic, strong)NSMutableArray *bigArray;//一样的东西
+@property (nonatomic, strong)NSMutableArray *bigTingDanArr;
+@property (nonatomic, strong)NSMutableArray *titleArray;
 @property (nonatomic, strong)NSMutableArray *controllers;
-@property (nonatomic , strong)NSMutableArray *bottomPicArray;
-@property (nonatomic , strong)NSMutableArray *bigBottomPicArray;
-@property (nonatomic , strong)CarouselView *bottomPic;
-@property (nonatomic , strong)UILabel *titleLabel;
-
-@property (nonatomic , strong)AnchorTableViewController *anchor;
+@property (nonatomic, strong)NSMutableArray *TingListArr;
+@property (nonatomic, strong)NSMutableArray *TingListURLArr;
+@property (nonatomic, strong)NSMutableArray *bottomPicArray;
+@property (nonatomic, strong)NSMutableArray *bigBottomPicArray;
+@property (nonatomic, strong)CarouselView *bottomPic;
+@property (nonatomic, strong)UILabel *titleLabel;
+@property (nonatomic, strong)AnchorTableViewController *anchor;
 
 @end
 
@@ -64,12 +67,33 @@
     return _titleArray;
 }
 
+-(NSMutableArray *)TingListArr{
+    if (!_TingListArr) {
+        _TingListArr = [NSMutableArray array];
+    }
+    return _TingListArr;
+}
+
+-(NSMutableArray *)bigTingDanArr{
+    if (!_bigTingDanArr) {
+        _bigTingDanArr = [NSMutableArray array];
+    }
+    return _bigTingDanArr;
+}
+
+-(NSMutableArray *)TingListURLArr{
+    if (!_TingListURLArr) {
+        _TingListURLArr = [NSMutableArray arrayWithObjects:KShanghaiURL,KMustListenURL,KBuyGoodURL, nil];
+    }
+    return _TingListURLArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.controllers = [@[ @"CategoryViewController", @"BroadcastViewController",@"RankViewController"] mutableCopy];
     [self creatScr];
-    [self creatLine];
     [self creatSeg];
+    [self creatLine];
     [self creatCarouse];
     [self creatBigArray];
     [self creatTitleArray];
@@ -115,7 +139,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = YES;
     [self.titleLabel removeFromSuperview];
 }
 
@@ -183,12 +206,18 @@
     }];
 }
 
-
+#pragma mark ----- 数据请求——多条听单 -----
 -(void)creatBigArray;
 {
     [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.bigArray = [hotRecommendsModel hotRecommends:dic];
+        NSLog(@"%@",self.bigArray);
+//        for (hotRecommendsModel *model in self.bigArray) {
+//            [self.bigTingDanArr addObject:model.categoryId];
+//            NSLog(@"%@",self.bigTingDanArr);
+//        }
+//        NSLog(@"%@",self.bigTingDanArr);
         [self.tableView reloadData];
         //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
     } error:^(NSError *error) {
@@ -234,6 +263,7 @@
             [imageV sd_setImageWithURL:[NSURL URLWithString:dic2[@"coverPath"]]];
             UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, f , f, 20)];
             label.text = dic2[@"title"];
+            [self.TingListArr addObject:dic2[@"title"]];
             label.font = [UIFont systemFontOfSize:13];
             label.textAlignment = NSTextAlignmentCenter;
             [btn addSubview:imageV];
@@ -245,19 +275,25 @@
     }];
 }
 
+#pragma mark ----- 听XXX方法 -----
 -(void)tingAction:(UIButton *)btn
 {
+    CategoryListViewController *cateVC = [[CategoryListViewController alloc]init];
+    cateVC.titleStr = self.TingListArr[btn.tag - 1];
     if (btn.tag == 1) {
         AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
         album.url = @"3985798";
         album.inter = 4;
         [self.navigationController pushViewController:album animated:YES];
     }else if (btn.tag == 2){
-        NSLog(@"2");
+        cateVC.URLLStr = self.TingListURLArr[btn.tag-2];
+        [self.navigationController pushViewController:cateVC animated:YES];
     }else if (btn.tag == 3){
-        NSLog(@"3");
+        cateVC.URLLStr = self.TingListURLArr[btn.tag-2];
+        [self.navigationController pushViewController:cateVC animated:YES];
     }else if (btn.tag == 4){
-        NSLog(@"4");
+        cateVC.URLLStr = self.TingListURLArr[btn.tag-2];
+        [self.navigationController pushViewController:cateVC animated:YES];
     }
 }
 
@@ -412,6 +448,8 @@
 
         hotRecommendsModel *model = self.titleArray[indexPath.section - 3];
         [cell5.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
+        cell5.more1Btn.tag = indexPath.section;
+        cell5.more2Btn.tag = indexPath.section;
         [cell5.more1Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell5.more2Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell5 creatCell:muarr];
@@ -528,7 +566,8 @@
 
 -(void)cell5moreAction:(UIButton *)button
 {
-    NSLog(@"wuwuwuwuwuwu");
+   CategoryListViewController *cateVC = [[CategoryListViewController alloc]init]; 
+    NSLog(@"%ld",button.tag);
 }
 
 

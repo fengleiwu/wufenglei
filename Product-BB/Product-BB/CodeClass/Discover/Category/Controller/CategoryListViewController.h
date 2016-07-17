@@ -11,6 +11,7 @@
 @interface CategoryListViewController : UIViewController
 @property (nonatomic, strong)NSString *titleStr;
 @property (nonatomic, strong)NSString *tableStr;
+@property (nonatomic, strong)NSString *URLLStr;
 @property (nonatomic, assign)NSInteger idd;
 @property (nonatomic, assign)NSInteger keyId;
 @property (nonatomic, assign)NSInteger conset;

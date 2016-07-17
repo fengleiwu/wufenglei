@@ -10,6 +10,7 @@
 
 @interface TableListModel : NSObject
 @property (nonatomic, strong)NSString *coverLarge;
+@property (nonatomic, strong)NSString *albumCoverUrl290;
 @property (nonatomic, strong)NSString *intro;
 @property (nonatomic, strong)NSString *title;
 @property (nonatomic, strong)NSString *playsCounts;

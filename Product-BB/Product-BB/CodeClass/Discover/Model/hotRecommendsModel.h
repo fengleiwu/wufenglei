@@ -19,6 +19,7 @@
 @property(nonatomic , strong)NSString *playsCounts;
 @property(nonatomic , strong)NSString *score;
 @property(nonatomic , strong)NSString *tracks;
+@property (nonatomic, strong)NSString *categoryId;
 
 
 +(NSMutableArray *)hotRecommends:(NSDictionary *)dic;

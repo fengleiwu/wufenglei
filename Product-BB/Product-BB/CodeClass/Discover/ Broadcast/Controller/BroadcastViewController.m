@@ -95,7 +95,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = YES;
 }
 
 
@@ -202,6 +201,7 @@
 #pragma mark --- 点击上面四个按钮 页面跳转
 - (void)topAction:(UIButton *)button {
     BroadcastListViewController *broadVC = [[BroadcastListViewController alloc]init];
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:broadVC animated:YES];
     broadVC.topBtnTag = button.tag;
     
@@ -248,6 +248,7 @@
     BroadcastListViewController *broadVC = [[BroadcastListViewController alloc]init];
     broadVC.categoryId = button.tag;
     broadVC.topTitleName = button.titleLabel.text;
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:broadVC animated:YES];
     
 }
@@ -362,6 +363,7 @@
     }else {
         broadVC.rankId = 1;
     }
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:broadVC animated:YES];
 }
 
@@ -470,6 +472,7 @@
  
     
     //    [self presentViewController:broadVC animated:YES completion:nil];
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:playVC animated:YES];
 
 }

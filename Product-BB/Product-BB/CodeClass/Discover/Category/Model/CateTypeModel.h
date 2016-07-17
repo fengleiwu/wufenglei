@@ -11,6 +11,9 @@
 @interface CateTypeModel : NSObject
 @property (nonatomic, strong)NSString *keywordName;
 @property (nonatomic, strong)NSString *keywordId;
+@property (nonatomic, strong)NSString *idd;
+@property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)NSString *key;
 @property (nonatomic, assign)BOOL isCellSelected;
 
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;

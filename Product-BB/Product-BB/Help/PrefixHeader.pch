@@ -25,6 +25,12 @@
 
 
 #define KfocusImagesURL @"http://mobile.ximalaya.com/mobile/discovery/v4/recommends?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
+#define KShanghaiURL @"http://mobile.ximalaya.com/mobile/discovery/v1/city/tab?code=43_310000_3100&device=iPhone&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&version=4.3.9"
+#define KShanghaiTableURL @"http://mobile.ximalaya.com/mobile/discovery/v1/city/metadataAlbum?calcDimension=hot&categoryId=22&code=43_310000_3100&device=iPhone&pageId=1&pageSize=20&version=4.3.98"
+#define KMustListenURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=ranking%3Aalbum%3Asubscribed%3A30%3A0&pageId=1&pageSize=1&scale=2"
+#define KMustListenTableURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_3_ranking%3Aalbum%3Asubscribed%3A30%3A3&pageId=1&pageSize=20&scale=2"
+#define KBuyGoodURL @"http://mobile.ximalaya.com/mobile/discovery/v3/category/recommends?categoryId=33&contentType=album&device=iPhone&scale=2&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&version=4.3.98"
+#define KBuyGoodTableURL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/keyword/albums?calcDimension=hot&categoryId=33&device=iPhone&keywordId=373&pageId=1&pageSize=20&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&status=0"
 // 最下面的 collection
 #define KCategoryBottomURL @"http://mobile.ximalaya.com/mobile/discovery/v1/categories?device=android&picVersion=11&scale=2"
 #define KbroadcastURL @"http://live.ximalaya.com/live-web/v4/homepage?device=iPhone"

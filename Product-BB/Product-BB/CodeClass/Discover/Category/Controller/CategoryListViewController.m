@@ -17,6 +17,7 @@
 @property (nonatomic, strong)UIScrollView *largeScrollV;
 @property (nonatomic, strong)NSMutableArray *tableArr;
 @property (nonatomic, strong)NSMutableArray *urlIdArr;
+@property (nonatomic, strong)NSMutableArray *iddArr;
 @property (nonatomic, strong)NSMutableArray *collectionArr;
 @property (nonatomic, strong)UICollectionView *collectionV;
 @end
@@ -41,6 +42,13 @@
         _urlIdArr = [NSMutableArray array];
     }
     return _urlIdArr;
+}
+
+-(NSMutableArray *)iddArr{
+    if (!_iddArr) {
+        _iddArr = [NSMutableArray array];
+    }
+    return _iddArr;
 }
 
 - (void)viewDidLoad {
@@ -143,20 +151,38 @@
     TableListModel *model = self.tableArr[indexPath.row];
     DetailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
     [cell cellConfigureWithModel:model];
+    if ([self.URLLStr isEqualToString:KMustListenURL]) {
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.albumCoverUrl290] completed:nil];
+    }
     return cell;
 }
 
 #pragma mark ----- 数据请求 -----
 -(void)requestData1{
-    NSString *str = KnovelURL;
-    str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
-//    NSLog(@"%ld",self.idd);
-    [RequestManager requestWithUrlString:str requestType:RequestGET parDic:nil finish:^(NSData *data) {
+    if ([self.URLLStr isEqualToString:KnovelURL]) {
+        NSString *str = KnovelURL;
+        str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
+        self.URLLStr = str;
+    } else {
+   
+    }
+    [RequestManager requestWithUrlString:self.URLLStr requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@",dic);
         self.collectionArr = [CateTypeModel modelConfigureWithDic:dic];
-        for (CateTypeModel *model in self.collectionArr) {
-            [self.urlIdArr addObject:model.keywordId];
+        if ([self.URLLStr isEqualToString:KShanghaiURL]) {
+            for (CateTypeModel *model in self.collectionArr) {
+                [self.urlIdArr addObject:model.idd];
+            }
+        } else if ([self.URLLStr isEqualToString:KMustListenURL]){
+            for (CateTypeModel *model in self.collectionArr) {
+                [self.urlIdArr addObject:model.idd];
+            }
+        }
+        else {
+            for (CateTypeModel *model in self.collectionArr) {
+                [self.urlIdArr addObject:model.keywordId];
+            }
         }
 //        NSLog(@"%@",self.urlIdArr);
         [self clargeScrollV];
@@ -171,9 +197,23 @@
 }
 
 -(void)requestData2:(NSString *)idd index:(NSInteger)index{
-    NSString *str = KtableURL;
-    str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]]; 
-    str = [str stringByReplacingOccurrencesOfString:@"keywordId=232" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
+    NSString *str = [NSString string];
+    if ([self.URLLStr isEqualToString:KShanghaiURL]) {
+        str = KShanghaiTableURL;
+        str = [str stringByReplacingOccurrencesOfString:@"categoryId=22" withString:[NSString stringWithFormat:@"categoryId=%@",idd]];
+    } else if ([self.URLLStr isEqualToString:KMustListenURL]){
+        str = KMustListenTableURL;
+        str = [str stringByReplacingOccurrencesOfString:@"key=1_3_ranking" withString:[NSString stringWithFormat:@"key=1_%@_ranking",idd]];
+        str = [str stringByReplacingOccurrencesOfString:@"A3&pageId=1" withString:[NSString stringWithFormat:@"A%@&pageId=1",idd]];
+    } else if ([self.URLLStr isEqualToString:KBuyGoodURL]){
+        str = KBuyGoodTableURL;
+        str = [str stringByReplacingOccurrencesOfString:@"keywordId=373" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
+    }
+    else {
+        str = KtableURL;
+        str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
+        str = [str stringByReplacingOccurrencesOfString:@"keywordId=232" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
+    }
     [RequestManager requestWithUrlString:str requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@",dic);
@@ -224,6 +264,9 @@
     CateTypeModel *model = self.collectionArr[indexPath.row];
     TitleListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"titlelistCell" forIndexPath:indexPath];
     [cell cellConfigureWithModel:model];
+    if ([self.URLLStr isEqualToString:KShanghaiURL] || [self.URLLStr isEqualToString:KMustListenURL]) {
+        cell.label.text = model.name;
+    }
     cell.label.textColor = [UIColor grayColor];
     cell.label.font = [UIFont systemFontOfSize:16];
     if (cell.isSelected) {

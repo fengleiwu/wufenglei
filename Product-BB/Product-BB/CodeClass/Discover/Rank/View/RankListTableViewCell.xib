@@ -34,18 +34,18 @@
                             <constraint firstAttribute="width" secondItem="YSG-Tm-r6o" secondAttribute="height" id="NGG-fC-pg8"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5MN-cH-gwa">
-                        <rect key="frame" x="31" y="32" width="72" height="68"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="5MN-cH-gwa" secondAttribute="height" id="Cbc-Z1-Yl2"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awN-We-Sy2">
                         <rect key="frame" x="148" y="26" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5MN-cH-gwa">
+                        <rect key="frame" x="31" y="32" width="72" height="68"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="5MN-cH-gwa" secondAttribute="height" id="Cbc-Z1-Yl2"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="YSG-Tm-r6o" firstAttribute="leading" secondItem="awN-We-Sy2" secondAttribute="trailing" constant="30" id="4rW-9u-JAK"/>
@@ -60,8 +60,8 @@
                     <constraint firstAttribute="bottomMargin" secondItem="5MN-cH-gwa" secondAttribute="bottom" constant="10" id="Vpi-pu-TpG"/>
                     <constraint firstItem="YSG-Tm-r6o" firstAttribute="leading" secondItem="8U4-UY-ztm" secondAttribute="trailing" constant="5" id="aLI-x4-w5M"/>
                     <constraint firstItem="awN-We-Sy2" firstAttribute="leading" secondItem="5MN-cH-gwa" secondAttribute="trailing" constant="10" id="d4Q-ui-8EY"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="YSG-Tm-r6o" secondAttribute="bottom" constant="30" id="dXb-EP-JvM"/>
-                    <constraint firstItem="YSG-Tm-r6o" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="30" id="gX5-bf-urq"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="YSG-Tm-r6o" secondAttribute="bottom" constant="42" id="dXb-EP-JvM"/>
+                    <constraint firstItem="YSG-Tm-r6o" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="42" id="gX5-bf-urq"/>
                     <constraint firstItem="5MN-cH-gwa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="imh-iJ-jMn"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Y9T-lk-TZd" secondAttribute="bottom" constant="10.5" id="u3q-fJ-Avn"/>
                 </constraints>

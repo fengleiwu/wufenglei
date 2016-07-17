@@ -15,12 +15,31 @@
 
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic{
     NSMutableArray *Arr = [NSMutableArray array];
-    NSArray *arr = jsonDic[@"keywords"];
+    NSArray *arr = [NSArray array];
+    if ([jsonDic objectForKey:@"tab"]) {
+        arr  = jsonDic[@"tab"];
+    }
+    if ([jsonDic objectForKey:@"categoryContents"]) {
+     NSDictionary *listDic = jsonDic[@"keywords"];
+        arr = listDic[@"list"];
+    }
+    if ([jsonDic objectForKey:@"categoryInfo"]) {
+        arr = jsonDic[@"keywords"];
+    }
+    if ([jsonDic objectForKey:@"categories"]) {
+        arr = jsonDic[@"categories"];
+    }
     for (NSDictionary *dic in arr) {
         CateTypeModel *model = [[CateTypeModel alloc]init];
         model.keywordId = [NSString stringWithFormat:@"%ld",[dic[@"keywordId"] integerValue]];
+        model.idd = [NSString stringWithFormat:@"%ld",[dic[@"id"] integerValue]];
         [model setValuesForKeysWithDictionary:dic];
-        [Arr addObject:model];
+        if ([model.name isEqualToString:@"推荐"]) {
+            
+        } else {
+           [Arr addObject:model];  
+        }
+       
     }
     return Arr;
 }

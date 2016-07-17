@@ -26,6 +26,7 @@
         NSArray *lis = dic1[@"list"];
         for (NSDictionary *dic2 in lis) {
             hotRecommendsModel *model = [[hotRecommendsModel alloc]init];
+            model.categoryId = [NSString stringWithFormat:@"%ld",[dic2[@"categoryId"] integerValue]];
             [model setValuesForKeysWithDictionary:dic2];
             [arr1 addObject:model];
         }

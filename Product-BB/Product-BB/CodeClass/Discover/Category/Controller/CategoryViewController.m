@@ -147,7 +147,8 @@
             CategoryListViewController *cListVC = [[CategoryListViewController alloc]init];
             cListVC.titleStr = model.title;
             cListVC.idd = [model.myid integerValue];
-            
+            cListVC.URLLStr = KnovelURL;
+            self.tabBarController.tabBar.hidden = YES;
             [self.navigationController pushViewController:cListVC animated:YES];
             return;
         }
@@ -171,7 +172,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = NO;
     [self.titleLabel removeFromSuperview];
 }
 
