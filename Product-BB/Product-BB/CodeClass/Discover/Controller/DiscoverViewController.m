@@ -412,6 +412,8 @@
 
         hotRecommendsModel *model = self.titleArray[indexPath.section - 3];
         [cell5.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
+        [cell5.more1Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [cell5.more2Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell5 creatCell:muarr];
         cell5.disc.imageClick = ^(NSInteger inter){
             hotRecommendsModel *model = muarr[inter];
@@ -521,6 +523,12 @@
     self.tabBarController.tabBar.hidden = YES;
 
 [self.navigationController pushViewController:recommend animated:YES];
+}
+
+
+-(void)cell5moreAction:(UIButton *)button
+{
+    NSLog(@"wuwuwuwuwuwu");
 }
 
 
