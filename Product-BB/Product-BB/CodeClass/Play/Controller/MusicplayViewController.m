@@ -8,7 +8,7 @@
 
 #import "MusicplayViewController.h"
 #import "MusicplayTableViewCell.h"
-
+#import "PlayListView.h"
 @interface MusicplayViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableV;
@@ -28,6 +28,10 @@
 @property (nonatomic, assign) BOOL isPlay;
 @property (nonatomic, strong) UIButton *playBtn;
 @property (nonatomic, strong) NSTimer *timer;
+// 最上面的 label
+@property (nonatomic, strong) UILabel *topLabel;
+// 创建播放列表页面
+@property (nonatomic, strong) PlayListView *playListView;
 
 @end
 
@@ -36,14 +40,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [self.timer fire];
+    // 创建最上面的 button
+    self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
+    self.topLabel.font = [UIFont systemFontOfSize:20];
+    self.topLabel.textAlignment = NSTextAlignmentCenter;
+    // 赋值在上满的 giveValueforTitleName 方法里
+    [self.view addSubview:self.topLabel];
+    
 //     加载播放界面
     [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
      [self creatTableView];
     
+    // 创建播放列表页面
+    self.playListView = [[PlayListView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
+    self.playListView.tableViewArr = self.newmodelArray;
+    [self.view addSubview:self.playListView];
     
+    // 创建返回按钮
+    [self creatBackBtn];
 }
 
 #pragma mark --- 搭建头视图上的 imageView
@@ -64,7 +80,6 @@
     [imageV addSubview:self.titleLabel];
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth / 2 - 100, imageV.frame.size.height / 2 - 10, 200, 30)];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
-//    self.nameLabel.textColor = [UIColor grayColor];
     [imageV addSubview:self.nameLabel];
     // 赋值
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
@@ -76,17 +91,18 @@
     }
 
     // 创建播放按钮所在的 view
-    self.BtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageV.frame), kScreenWidth, imageV.frame.size.height / 4)];
+    self.BtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageV.frame), kScreenWidth, (kScreenHeight-kScreenWidth-100)/2)];
 //    self.BtnView.backgroundColor = [UIColor redColor];
     [self.headView addSubview:self.BtnView];
     
     [self creatPlayView];
 }
-// 给图片的两个 label 赋值，因为每次切歌都要重新赋值，所以写成方法
+#pragma mark --- 给页面上的 label 赋值，因为每次切歌都要重新赋值，所以写成方法
 - (void)giveValueforTitleName {
     // 赋值
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
     self.titleLabel.text = model.totalTitle;
+    self.topLabel.text = model.totalTitle;
     if (model.liveTitle == nil) {
         self.nameLabel.text = @"未知";
     } else {
@@ -101,7 +117,6 @@
 - (void)creatPlayView {
     // 播放进度按钮
     self.playSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
-    self.playSlider.value = 0.5;
     [self.playSlider addTarget:self action:@selector(sliderAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.BtnView addSubview:self.playSlider];
     
@@ -178,12 +193,10 @@
     
 }
 - (void)lastBtnAction:(UIButton *)button {
-    NSLog(@"shang yi shou");
     [[MyPlayerManager defaultManager] lastMusic];
     [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
 }
 - (void)nextBtnAction:(UIButton *)button {
-    NSLog(@"xia yi shou");
     [[MyPlayerManager defaultManager] nextMusic];
     [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
 }
@@ -196,7 +209,10 @@
 }
 // 播放列表方法
 - (void)listAction:(UIButton *)button {
-    NSLog(@"lie biao");
+    [UIView animateWithDuration:0.5 animations:^{
+        self.playListView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    }];
+    
 }
 // 定时关闭 方法
 - (void)timeAction:(UIButton *)button {
@@ -250,15 +266,15 @@
 
 #pragma mark --- 创建 tableView 和 headVIew
 - (void)creatTableView {
-    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
-    self.tableV.rowHeight = 100;
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, kScreenHeight-100) style:(UITableViewStylePlain)];
+    self.tableV.rowHeight = (kScreenHeight - kScreenWidth-100)/2;
     self.tableV.dataSource = self;
     self.tableV.delegate = self;
     [self.tableV registerClass:[MusicplayTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableV];
     
     // 创建 headView
-    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth * 5 / 4)];
+    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth +(kScreenHeight - kScreenWidth-100)/2)];
     self.headView.backgroundColor = [UIColor clearColor];
     [self creatHeadView];
     self.tableV.tableHeaderView = self.headView;
@@ -276,7 +292,18 @@
     return cell;
 }
 
-
+#pragma mark --- 创建最上面的返回按钮 所在的视图
+- (void)creatBackBtn {
+    
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 30, 30, 30)];
+    [backBtn setImage:[UIImage imageNamed:@"down_h@2x"] forState:(UIControlStateNormal)];
+    [backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    backBtn.tintColor = [UIColor redColor]; // 没效果
+    [self.view addSubview:backBtn];
+}
+- (void)backAction:(UIButton *)button {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

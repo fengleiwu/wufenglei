@@ -44,7 +44,7 @@
     _musicLists = [musicLists mutableCopy];
     BroadMusicModel *model = _musicLists[_index];
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.musicURL]];
-    NSLog(@"======== %@", model.musicURL);
+
     if (!_avPlayer) {
         // 没有，初始化
         _avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];

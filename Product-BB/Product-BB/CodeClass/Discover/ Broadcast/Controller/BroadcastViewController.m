@@ -446,8 +446,8 @@
         [MyPlayerManager defaultManager].index = button.tag - 200;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
     }
-//    [self presentViewController:broadVC animated:YES completion:nil];
-    [self.navigationController pushViewController:playVC animated:YES];
+
+    [self presentViewController:playVC animated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -470,10 +470,8 @@
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
  
-    
-    //    [self presentViewController:broadVC animated:YES completion:nil];
     self.tabBarController.tabBar.hidden = YES;
-    [self.navigationController pushViewController:playVC animated:YES];
+    [self presentViewController:playVC animated:YES completion:nil];
 
 }
 

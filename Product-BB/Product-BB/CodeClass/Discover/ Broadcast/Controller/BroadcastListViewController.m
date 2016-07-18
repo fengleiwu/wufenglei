@@ -107,7 +107,7 @@
 
 - (void)playAction:(UIButton *)button {
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-    [self.navigationController pushViewController:playVC animated:YES];
+    [self presentViewController:playVC animated:YES completion:nil];
     
     BroadListModel *model = self.modelArray[button.tag - 100];
     playVC.musicURL = model.playUrl1;
@@ -122,7 +122,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-    [self.navigationController pushViewController:playVC animated:YES];
+    [self presentViewController:playVC animated:YES completion:nil];
     
     BroadListModel *model = self.modelArray[indexPath.row];
     playVC.musicURL = model.playUrl1;
