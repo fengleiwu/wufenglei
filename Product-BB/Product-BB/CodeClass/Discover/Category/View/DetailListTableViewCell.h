@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TableListModel.h"
+#import "SUBModel.h"
 @interface DetailListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageV;
 @property (weak, nonatomic) IBOutlet UILabel *titleL;
@@ -16,4 +17,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *TVCountL;
 
 -(void)cellConfigureWithModel:(TableListModel *)model;
+-(void)CellConfigureWithModel:(SUBModel *)model;
 @end

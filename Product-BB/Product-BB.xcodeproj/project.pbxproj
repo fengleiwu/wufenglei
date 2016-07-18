@@ -32,6 +32,9 @@
 		790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C09361D34B65300D384A7 /* DiscoverCollectionViewCell.m */; };
 		790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */; };
 		7916686A1D3671D2009A3613 /* VeryBigTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791668691D3671D2009A3613 /* VeryBigTabView.m */; };
+		791D94491D3CD9EC00A2DABB /* SUBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 791D94481D3CD9EC00A2DABB /* SUBModel.m */; };
+		791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */; };
+		791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 791D94611D3CF9D400A2DABB /* 5562497_03.gif */; };
 		7946EBD31D35DAEB00AA9712 /* WEBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD21D35DAEB00AA9712 /* WEBModel.m */; };
 		7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */; };
 		7946EBD91D35E46F00AA9712 /* recommendMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD81D35E46F00AA9712 /* recommendMoreViewController.m */; };
@@ -210,6 +213,12 @@
 		790C093F1D34F4B200D384A7 /* hotRecommendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hotRecommendsModel.m; sourceTree = "<group>"; };
 		791668681D3671D2009A3613 /* VeryBigTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeryBigTabView.h; sourceTree = "<group>"; };
 		791668691D3671D2009A3613 /* VeryBigTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeryBigTabView.m; sourceTree = "<group>"; };
+		791D94471D3CD9EC00A2DABB /* SUBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUBModel.h; sourceTree = SOURCE_ROOT; };
+		791D94481D3CD9EC00A2DABB /* SUBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUBModel.m; sourceTree = SOURCE_ROOT; };
+		791D94551D3CF37900A2DABB /* Color_Marco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color_Marco.h; sourceTree = "<group>"; };
+		791D94561D3CF38800A2DABB /* MBProgressHUD+GifHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GifHUD.h"; sourceTree = "<group>"; };
+		791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GifHUD.m"; sourceTree = "<group>"; };
+		791D94611D3CF9D400A2DABB /* 5562497_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 5562497_03.gif; sourceTree = "<group>"; };
 		7946EBD11D35DAEB00AA9712 /* WEBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEBModel.h; sourceTree = "<group>"; };
 		7946EBD21D35DAEB00AA9712 /* WEBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBModel.m; sourceTree = "<group>"; };
 		7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverWebViewController.h; sourceTree = "<group>"; };
@@ -888,6 +897,8 @@
 		798076FC1D33A05C0095911D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				791D94471D3CD9EC00A2DABB /* SUBModel.h */,
+				791D94481D3CD9EC00A2DABB /* SUBModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -902,6 +913,9 @@
 		798076FE1D33A05C0095911D /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				791D94551D3CF37900A2DABB /* Color_Marco.h */,
+				791D94561D3CF38800A2DABB /* MBProgressHUD+GifHUD.h */,
+				791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */,
 				798077011D33A0860095911D /* PrefixHeader.pch */,
 			);
 			path = Help;
@@ -1061,6 +1075,7 @@
 				79F43F5C1D3A3C62002BE16F /* 1004.jpg */,
 				79F43F5D1D3A3C62002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg */,
 				79F43F5E1D3A3C62002BE16F /* add_user_group.png */,
+				791D94611D3CF9D400A2DABB /* 5562497_03.gif */,
 				79F43F5F1D3A3C62002BE16F /* audio_wave.png */,
 				79F43F601D3A3C62002BE16F /* comments.png */,
 				79F43F611D3A3C62002BE16F /* dot_circle.png */,
@@ -1215,6 +1230,7 @@
 			files = (
 				79F4467E1D3A3C64002BE16F /* 0001 2.png in Resources */,
 				79F44CE91D3A3C64002BE16F /* tabbar_bg@3x.png in Resources */,
+				791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */,
 				7900E85E1D3A796E00E3676C /* toolbar_next_n_p@3x.png in Resources */,
 				7900E1501D3A78A300E3676C /* LocationTableViewCell.xib in Resources */,
 				79F44CF21D3A3C64002BE16F /* 我的.png in Resources */,
@@ -1346,6 +1362,7 @@
 				7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */,
 				796F6F381D3C6BAE00CF6DEC /* attentionModel.m in Sources */,
 				7900E14D1D3A78A300E3676C /* RankModel.m in Sources */,
+				791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */,
 				79F43F551D3A3AFB002BE16F /* AnchorOtherViewController.m in Sources */,
 				790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */,
 				796F6F3E1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.m in Sources */,
@@ -1353,6 +1370,7 @@
 				790C09341D34B60300D384A7 /* DiscoverCollectView.m in Sources */,
 				7980770F1D33A1560095911D /* UIView+TWFrame.m in Sources */,
 				796F6F371D3C6BAE00CF6DEC /* attentionFanZanModel.m in Sources */,
+				791D94491D3CD9EC00A2DABB /* SUBModel.m in Sources */,
 				7980771E1D33A2340095911D /* DownLoadViewController.m in Sources */,
 				7946EBF31D3621B400AA9712 /* MusicActivityView.m in Sources */,
 				79F43F4D1D3A3AFB002BE16F /* ProgramListViewController.m in Sources */,

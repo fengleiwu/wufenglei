@@ -58,7 +58,6 @@
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change
 {
     [super scrollViewContentSizeDidChange:change];
-    
     // 设置位置
     self.mj_y = self.scrollView.mj_contentH;
 }
@@ -86,7 +85,6 @@
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change
 {
     [super scrollViewPanStateDidChange:change];
-    
     if (self.state != MJRefreshStateIdle) return;
     
     if (_scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {// 手松开

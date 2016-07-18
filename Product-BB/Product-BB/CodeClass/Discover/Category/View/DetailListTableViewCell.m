@@ -29,4 +29,11 @@
     self.TVCountL.text = [NSString stringWithFormat:@"%ld集",[model.tracks integerValue]];
 }
 
+-(void)CellConfigureWithModel:(SUBModel *)model{
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge] completed:nil];
+    self.titleL.text = model.title;
+    self.infoL.text = model.recReason;
+    self.playCountL.text = [NSString stringWithFormat:@"%.1f万",(CGFloat)[model.playsCounts integerValue]/10000];
+    self.TVCountL.text = [NSString stringWithFormat:@"%ld集",[model.tracks integerValue]];
+}
 @end

@@ -92,6 +92,7 @@
         tableView.backgroundColor= [UIColor whiteColor];
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.showsVerticalScrollIndicator = NO;
         [tableView registerNib:[UINib nibWithNibName:@"DetailListTableViewCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
      [self.largeScrollV addSubview:tableView];
     }
