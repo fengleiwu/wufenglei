@@ -12,5 +12,6 @@
 @property (nonatomic, strong)NSString *urlStr;
 @property (nonatomic, strong)NSString *titleStr;
 @property (nonatomic, assign)NSInteger conset;
+@property (nonatomic, assign)BOOL collset;
 @property (nonatomic, assign)BOOL isClick;
 @end

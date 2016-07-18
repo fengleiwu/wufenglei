@@ -105,12 +105,14 @@
 
 #pragma mark ----- 滑动方法 -----
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-   
-    if (scrollView != self.collectionV && scrollView.contentOffset.x !=0)
-    {
-        self.moveV.frame = CGRectMake(110 * (scrollView.contentOffset.x / kScreenWidth), 24, 110, 1);
+    if (scrollView.contentOffset.y != 0) {
+        self.collset = YES;
+    } else {
+        if (scrollView != self.collectionV && scrollView.contentOffset.x !=0)
+        {
+            self.moveV.frame = CGRectMake(110 * (scrollView.contentOffset.x / kScreenWidth), 24, 110, 1);
+        }
     }
-    
 }
 
 
@@ -118,12 +120,14 @@
 #pragma mark --- 结束减速触发的方法 ---
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.x ==0) {
-        
+    if (self.collset == YES) {
+        self.collset = NO;
     } else {
     
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0]];
     
+        NSLog(@"%ld",(long)self.conset);
+        NSLog(@"%f",scrollView.contentOffset.x);
     if (scrollView.contentOffset.x > 0 ||scrollView.contentOffset.x >self.conset) {
         TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)-1 inSection:0]];
         cell.label.textColor = [UIColor grayColor];
@@ -149,6 +153,7 @@
         }
     }
         self.conset = scrollView.contentOffset.x;
+        NSLog(@"%ld",(long)self.conset);
     
     }
 }
@@ -244,6 +249,7 @@
     
     self.moveV.frame = CGRectMake(110 * (button.tag -100), 24, 110, 1);
     [self.largeScrollV setContentOffset:CGPointMake(kScreenWidth* (button.tag -100), 0) animated:NO];
+    self.conset = self.largeScrollV.contentOffset.x;
     self.isClick = YES;
     [self tapAction];
     

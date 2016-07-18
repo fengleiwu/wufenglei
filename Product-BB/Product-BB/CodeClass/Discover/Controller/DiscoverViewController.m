@@ -43,6 +43,7 @@
 @property (nonatomic, strong)NSMutableArray *titleArray;
 @property (nonatomic, strong)NSMutableArray *controllers;
 @property (nonatomic, strong)NSMutableArray *TingListArr;
+@property (nonatomic, strong)NSMutableArray *ListNameArr;
 @property (nonatomic, strong)NSMutableArray *TingListURLArr;
 @property (nonatomic, strong)NSMutableArray *bottomPicArray;
 @property (nonatomic, strong)NSMutableArray *bigBottomPicArray;
@@ -86,6 +87,13 @@
         _TingListURLArr = [NSMutableArray arrayWithObjects:KShanghaiURL,KMustListenURL,KBuyGoodURL, nil];
     }
     return _TingListURLArr;
+}
+
+-(NSMutableArray *)ListNameArr{
+    if (!_ListNameArr) {
+        _ListNameArr = [NSMutableArray array];
+    }
+    return _ListNameArr;
 }
 
 - (void)viewDidLoad {
@@ -212,12 +220,16 @@
     [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.bigArray = [hotRecommendsModel hotRecommends:dic];
-        NSLog(@"%@",self.bigArray);
-//        for (hotRecommendsModel *model in self.bigArray) {
-//            [self.bigTingDanArr addObject:model.categoryId];
-//            NSLog(@"%@",self.bigTingDanArr);
-//        }
-//        NSLog(@"%@",self.bigTingDanArr);
+//        NSLog(@"%@",self.bigArray);
+        for (NSArray *arr in self.bigArray) {
+            NSInteger aa = 0;
+            for (hotRecommendsModel *model in arr) {
+                if (aa == 0) {
+                  [self.bigTingDanArr addObject:model.categoryId];
+                }
+                aa++;
+            }
+        }
         [self.tableView reloadData];
         //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
     } error:^(NSError *error) {
@@ -450,6 +462,7 @@
         [cell5.more1Btn setTitle:model.title forState:(UIControlStateNormal)];
         cell5.more1Btn.tag = indexPath.section;
         cell5.more2Btn.tag = indexPath.section;
+        [self.ListNameArr addObject:model.title];
         [cell5.more1Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell5.more2Btn addTarget:self action:@selector(cell5moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell5 creatCell:muarr];
@@ -566,8 +579,13 @@
 
 -(void)cell5moreAction:(UIButton *)button
 {
-   CategoryListViewController *cateVC = [[CategoryListViewController alloc]init]; 
-    NSLog(@"%ld",button.tag);
+   CategoryListViewController *cateVC = [[CategoryListViewController alloc]init];
+    NSString *str = KBuyGoodURL;
+    str = [str stringByReplacingOccurrencesOfString:@"categoryId=33" withString:[NSString stringWithFormat:@"categoryId=%@",self.bigTingDanArr[button.tag -3]]];
+    cateVC.URLLStr = str;
+    cateVC.idd = [self.bigTingDanArr[button.tag -3] integerValue];
+    cateVC.titleStr = self.ListNameArr[button.tag -3];
+    [self.navigationController pushViewController:cateVC animated:YES];
 }
 
 

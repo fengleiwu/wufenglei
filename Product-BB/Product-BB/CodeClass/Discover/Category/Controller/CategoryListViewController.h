@@ -15,4 +15,5 @@
 @property (nonatomic, assign)NSInteger idd;
 @property (nonatomic, assign)NSInteger keyId;
 @property (nonatomic, assign)NSInteger conset;
+@property (nonatomic, assign)BOOL colset;
 @end

@@ -98,17 +98,21 @@
 
 #pragma mark ----- 滑动方法 -----
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView != self.collectionV && scrollView.contentOffset.x !=0)
-    {
-        self.moveV.frame = CGRectMake(110 * (scrollView.contentOffset.x / kScreenWidth), 24, 110, 1);
+    if (scrollView.contentOffset.y != 0) {
+        self.colset = YES;
+    } else {
+        if (scrollView != self.collectionV && scrollView.contentOffset.x !=0)
+        {
+            self.moveV.frame = CGRectMake(110 * (scrollView.contentOffset.x / kScreenWidth), 24, 110, 1);
+        }
     }
 }
 
 #pragma mark --- 结束减速触发的方法 ---
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.x ==0) {
-        
+    if ( self.colset == YES) {
+        self.colset = NO;
     } else {
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0]];
     if (scrollView.contentOffset.x > 0 ||scrollView.contentOffset.x >self.conset) {
@@ -211,6 +215,7 @@
     }
     else {
         str = KtableURL;
+//        NSLog(@"%ld",self.idd);
         str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
         str = [str stringByReplacingOccurrencesOfString:@"keywordId=232" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
     }
