@@ -54,6 +54,8 @@
 		796F6F381D3C6BAE00CF6DEC /* attentionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F361D3C6BAE00CF6DEC /* attentionModel.m */; };
 		796F6F3B1D3C6C6C00CF6DEC /* attentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F3A1D3C6C6C00CF6DEC /* attentionViewController.m */; };
 		796F6F3E1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F3D1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.m */; };
+		796F6F8D1D3D15DD00CF6DEC /* DictionaryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F8A1D3D15DD00CF6DEC /* DictionaryManager.m */; };
+		796F6F8E1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F8C1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.m */; };
 		798076B01D339EAD0095911D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 798076AF1D339EAD0095911D /* main.m */; };
 		798076B91D339EAD0095911D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798076B71D339EAD0095911D /* Main.storyboard */; };
 		798076BB1D339EAD0095911D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 798076BA1D339EAD0095911D /* Assets.xcassets */; };
@@ -261,6 +263,10 @@
 		796F6F3A1D3C6C6C00CF6DEC /* attentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = attentionViewController.m; sourceTree = "<group>"; };
 		796F6F3C1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attentionAndFanTableViewCell.h; sourceTree = "<group>"; };
 		796F6F3D1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = attentionAndFanTableViewCell.m; sourceTree = "<group>"; };
+		796F6F891D3D15DD00CF6DEC /* DictionaryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryManager.h; sourceTree = "<group>"; };
+		796F6F8A1D3D15DD00CF6DEC /* DictionaryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryManager.m; sourceTree = "<group>"; };
+		796F6F8B1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFStretchableTableHeaderView.h; sourceTree = "<group>"; };
+		796F6F8C1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFStretchableTableHeaderView.m; sourceTree = "<group>"; };
 		798076AB1D339EAD0095911D /* Product-BB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Product-BB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		798076AF1D339EAD0095911D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		798076B81D339EAD0095911D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -942,6 +948,10 @@
 		798076FF1D33A05C0095911D /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				796F6F891D3D15DD00CF6DEC /* DictionaryManager.h */,
+				796F6F8A1D3D15DD00CF6DEC /* DictionaryManager.m */,
+				796F6F8B1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.h */,
+				796F6F8C1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.m */,
 				7900E1341D3A782600E3676C /* MyPlayerManager.h */,
 				7900E1351D3A782600E3676C /* MyPlayerManager.m */,
 				7980770D1D33A1560095911D /* UIView+TWFrame.h */,
@@ -1376,6 +1386,7 @@
 				79F43F401D3A3AFB002BE16F /* CategoryListViewController.m in Sources */,
 				79F43F411D3A3AFB002BE16F /* CategoryViewController.m in Sources */,
 				7980772D1D33A2DA0095911D /* RootTabBarViewController.m in Sources */,
+				796F6F8D1D3D15DD00CF6DEC /* DictionaryManager.m in Sources */,
 				79E323451D38CE9600B716B5 /* ListenDetailViewController.m in Sources */,
 				7980770B1D33A12C0095911D /* RequestManager.m in Sources */,
 				7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */,
@@ -1403,6 +1414,7 @@
 				7946EBEA1D3619A400AA9712 /* AlbumDetailModel.m in Sources */,
 				7980772A1D33A26A0095911D /* SubscriptionViewController.m in Sources */,
 				79A28AF21D37484700EBEBA8 /* ContentTableViewCell.m in Sources */,
+				796F6F8E1D3D15DD00CF6DEC /* HFStretchableTableHeaderView.m in Sources */,
 				7955C89A1D39C2CC0052EBBC /* AnchorModel.m in Sources */,
 				79E3234B1D39084300B716B5 /* ListenDetailTableViewCell.m in Sources */,
 				7900E14F1D3A78A300E3676C /* LocationTableViewCell.m in Sources */,
