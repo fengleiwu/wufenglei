@@ -116,5 +116,47 @@
 
 }
 
+-(void)creatAttentionMiddle:(attentionModel *)model
+{
+    
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    self.bigLabel.text = model.title;
+    NSString *s = model.updatedAt;
+    NSDate *d = [NSDate dateWithTimeIntervalSince1970:[s doubleValue]/1000];
+    //    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    //    [formatter setDateFormat:@"MM/dd/yyyy"];
+    //NSString *show = [formatter stringFromDate:d];
+    self.middleLabel.text = [NSString stringWithFormat:@"最后更新时间:%@",d];
+    self.small2Label.text = [NSString stringWithFormat:@"%@集",model.tracks];
+    CGFloat f = [model.playTimes floatValue] / 10000;
+    if (f <= 1) {
+        NSString *st = [NSString stringWithFormat:@"%@",model.playTimes];
+        CGFloat s = [AdjustHeight adjustHeightByString:st width:20 font:10];
+        self.small1Label.frame = CGRectMake(140, 90, s + 15, 20);
+        self.imageV2.frame = CGRectMake(140 + s + 20 , 90, 20, 20);
+        self.small2Label.frame = CGRectMake(140 + s + 20 + 20 + 5, 90, 100, 20);
+        self.small1Label.text = st;
+    }
+    if (f > 10000) {
+        NSString *st = [NSString stringWithFormat:@"%.1f亿",f / 1000];
+        CGFloat s = [AdjustHeight adjustHeightByString:st width:20 font:10];
+        self.small1Label.frame = CGRectMake(140, 90, s + 15, 20);
+        self.imageV2.frame = CGRectMake(140 + s + 20 , 90, 20, 20);
+        self.small2Label.frame = CGRectMake(140 + s + 20 + 20 + 5, 90, 100, 20);
+        self.small1Label.text = st;
+    }else
+    {
+        NSString *st = [NSString stringWithFormat:@"%.1f万",f];
+        CGFloat s = [AdjustHeight adjustHeightByString:st width:20 font:10];
+        self.small1Label.frame = CGRectMake(140, 90, s + 20, 20);
+        self.imageV2.frame = CGRectMake(140 + s + 20 , 90, 20, 20);
+        self.small2Label.frame = CGRectMake(140 + s + 20 + 20 + 5, 90, 100, 20);
+        self.small1Label.text = st;
+        
+    }
+    
+    
+}
+
 
 @end

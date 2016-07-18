@@ -85,7 +85,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //self.imageClick(indexPath.row);
+    self.imageClick(indexPath.row);
 }
 
 

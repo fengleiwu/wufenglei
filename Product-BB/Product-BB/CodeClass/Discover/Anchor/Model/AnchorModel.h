@@ -41,5 +41,7 @@
 
 +(NSMutableArray *)moreSuperStar:(NSDictionary *)dic;
 
++(NSMutableArray *)moreNormal:(NSDictionary *)dic;
 
++(NSMutableArray *)normalName:(NSDictionary *)dic;
 @end

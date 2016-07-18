@@ -10,7 +10,7 @@
 
 @interface AlbumDetailViewController : UIViewController
 
-@property(nonatomic , strong)NSString *url;
+@property(nonatomic , strong)NSString *url;//albumid
 @property(nonatomic , assign)NSInteger inter;//有购买不传  没购买传>3
 
 

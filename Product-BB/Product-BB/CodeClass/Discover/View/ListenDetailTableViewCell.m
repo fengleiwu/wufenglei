@@ -40,12 +40,12 @@
         imageV.image = [UIImage imageNamed:@"play"];
         self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(125, 90, 60, 20)];
         self.numberLabel.font = [UIFont systemFontOfSize:10];
-        UIImageView *like = [[UIImageView alloc]initWithFrame:CGRectMake(170, 90, 20, 20)];
-        like.image = [UIImage imageNamed:@"like_outline"];
+        self.like = [[UIImageView alloc]initWithFrame:CGRectMake(170, 90, 20, 20)];
+        self.like.image = [UIImage imageNamed:@"like_outline"];
         self.likeLabel = [[UILabel alloc]initWithFrame:CGRectMake(195, 90, 50, 20)];
         self.likeLabel.font = [UIFont systemFontOfSize:10];
-        UIImageView *contact = [[UIImageView alloc]initWithFrame:CGRectMake(230, 90, 20, 20)];
-        contact.image = [UIImage imageNamed:@"speech_bubble"];
+        self.contact = [[UIImageView alloc]initWithFrame:CGRectMake(230, 90, 20, 20)];
+        self.contact.image = [UIImage imageNamed:@"speech_bubble"];
         self.commentsLabel = [[UILabel alloc]initWithFrame:CGRectMake(255, 90, 50, 20)];
         self.commentsLabel.font = [UIFont systemFontOfSize:10];
         self.downLoadBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -59,8 +59,8 @@
         [self.contentView addSubview:imageV];
         [self.contentView addSubview:self.numberLabel];
         [self.contentView addSubview:self.likeLabel];
-        [self.contentView addSubview:like];
-        [self.contentView addSubview:contact];
+        [self.contentView addSubview:self.like];
+        [self.contentView addSubview:self.contact];
         [self.contentView addSubview:self.commentsLabel];
         [self.contentView addSubview:self.downLoadBtn];
     }
@@ -72,6 +72,7 @@
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall]];
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
+    [self.contentView addSubview:self.like];
     CGFloat f = [model.playsCounts floatValue];
     if (f / 10000 > 1) {
         self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
@@ -81,6 +82,25 @@
     self.likeLabel.text = [NSString stringWithFormat:@"%@",model.favoritesCounts];
     self.commentsLabel.text = [NSString stringWithFormat:@"%@",model.commentsCounts];
 }
+
+-(void)creatAttentionCell:(attentionModel *)model
+{
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    self.titleLabel.text = model.title;
+    self.nameLabel.text = model.nickname;
+    CGFloat f = [model.playtimes floatValue];
+    if (f / 10000 > 1) {
+        self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
+    }else{
+        self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playtimes];
+    }
+    self.commentsLabel.frame = CGRectMake(195, 90, 50, 20);
+    self.contact.frame = CGRectMake(170, 90, 20, 20);
+    self.commentsLabel.text = [NSString stringWithFormat:@"%@",model.comments];
+    [self.like removeFromSuperview];
+}
+
+
 
 
 @end

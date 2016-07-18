@@ -10,6 +10,8 @@
 #import "AdjustHeight.h"
 #import "recommendMoreModel.h"
 #import "ListenDetailModel.h"
+#import "attentionModel.h"//关注界面中间部分
+
 @interface recommendMoreTableViewCell : UITableViewCell
 
 @property(nonatomic , strong)UIImageView *imageV;
@@ -25,5 +27,7 @@
 -(void)creatCell:(recommendMoreModel *)model;
 
 -(void)creatListenCell:(ListenDetailModel *)model;//精品听单第一个
+
+-(void)creatAttentionMiddle:(attentionModel *)model;
 
 @end

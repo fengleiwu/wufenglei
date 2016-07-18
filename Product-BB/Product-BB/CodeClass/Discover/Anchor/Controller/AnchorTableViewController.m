@@ -11,6 +11,8 @@
 #import "AnchorModel.h"
 #import "AnchorSongerTableViewCell.h"
 #import "AnchorSuperStarTableViewController.h"
+#import "attentionViewController.h"
+
 @interface AnchorTableViewController ()<UITableViewDataSource , UITableViewDelegate>
 
 //@property(nonatomic , strong)UITableView *table;
@@ -21,6 +23,8 @@
 @property(nonatomic , strong)NSMutableArray *songerArray;
 @property(nonatomic , strong)NSMutableArray *normalArray;
 @property(nonatomic , strong)NSMutableArray *normaleTitleArray;
+@property(nonatomic , strong)NSMutableArray *normaleNameArray;
+
 @end
 
 @implementation AnchorTableViewController
@@ -47,6 +51,8 @@
         self.normalArray = [AnchorModel normal:dic];
         self.normaleTitleArray = [AnchorModel normalTitle:dic];
         self.famousMyIDArr = [AnchorModel famousMyID:dic];
+        self.normaleNameArray = [AnchorModel normalName:dic];
+        
         [self.table reloadData];
     } error:^(NSError *error) {
         
@@ -59,31 +65,29 @@
     [super viewDidLoad];
     
     
-    self.songerArray = [NSMutableArray array];
-    [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        self.famousArr = [AnchorModel famous:dic];
-        self.famousTitle = [AnchorModel famousTitle:dic];
-        self.songerArray = [AnchorModel songer:dic];
-        self.normalArray = [AnchorModel normal:dic];
-        self.normaleTitleArray = [AnchorModel normalTitle:dic];
-        self.famousMyIDArr = [AnchorModel famousMyID:dic];
-//                NSLog(@"%@",self.normalArray);
-//        NSLog(@"////////////%@",self.famousArr);
-        //NSLog(@"%@",self.songerArray);
-        [self.table reloadData];
-    } error:^(NSError *error) {
-        
-    }];
-
-    
+    //    self.songerArray = [NSMutableArray array];
+    //    [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+    //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    //        self.famousArr = [AnchorModel famous:dic];
+    //        self.famousTitle = [AnchorModel famousTitle:dic];
+    //        self.songerArray = [AnchorModel songer:dic];
+    //        self.normalArray = [AnchorModel normal:dic];
+    //        self.normaleTitleArray = [AnchorModel normalTitle:dic];
+    //        self.famousMyIDArr = [AnchorModel famousMyID:dic];
+    ////        NSLog(@"%@",self.normalArray);
+    ////        NSLog(@"%@",self.famousArr);
+    ////        NSLog(@"%@",self.songerArray);
+    //        [self.table reloadData];
+    //    } error:^(NSError *error) {
+    //        
+    //    }];
     
     // Do any additional setup after loading the view.
 }
 
 
 -(void)creatTableView1:(CGRect)frame
-{  //self.view.frame = CGRectMake(0, 60, kScreenWidth, kScreenHeight);
+{
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 4, 0, frame.size.width,frame.size.height) style:(UITableViewStylePlain)];
     self.table.separatorColor = [UIColor grayColor];
     self.table.separatorInset = UIEdgeInsetsMake(5, 5, 5, 5);
@@ -108,7 +112,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section != 3) {
-        
+        __block AnchorTableViewController *anchor = self;
         OtherAnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
         if (!cell) {
             cell = [[OtherAnchorTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
@@ -118,13 +122,26 @@
             NSMutableArray *arr = dic[self.famousTitle[indexPath.section]];
             [cell.more1Btn setTitle:self.famousTitle[indexPath.section] forState:(UIControlStateNormal)];
             [cell creatCell:arr];
-            
+            cell.disc.imageClick = ^(NSInteger inter){
+                attentionViewController *attent = [[attentionViewController alloc]init];
+                AnchorModel *model = arr[inter];
+                attent.Uid = model.uid;
+                self.tabBarController.tabBar.hidden = YES;
+
+                [anchor.navigationController pushViewController:attent animated:YES];
+            };
         }else{
             NSDictionary *dic = self.normalArray[indexPath.section - 4];
             NSMutableArray *arr = dic[self.normaleTitleArray[indexPath.section - 4]];
-            
             [cell.more1Btn setTitle:self.normaleTitleArray[indexPath.section - 4] forState:(UIControlStateNormal)];
             [cell creatCell:arr];
+            cell.disc.imageClick = ^(NSInteger inter){
+                attentionViewController *attent = [[attentionViewController alloc]init];
+                AnchorModel *model = arr[inter];
+                attent.Uid = model.uid;
+                self.tabBarController.tabBar.hidden = YES;
+                [anchor.navigationController pushViewController:attent animated:YES];
+            };
         }
         [cell.more1Btn addTarget:self action:@selector(moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell.more2Btn addTarget:self action:@selector(moreAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -148,8 +165,19 @@
     AnchorSongerTableViewCell *cell = (AnchorSongerTableViewCell *)btn.superview.superview;
     NSIndexPath *path = [self.table indexPathForCell:cell];
     AnchorSuperStarTableViewController *superS = [[AnchorSuperStarTableViewController alloc]init];
-    superS.MyID = self.famousMyIDArr[path.section];
-    [UIView transitionFromView:self.view toView:superS.view duration:1 options:UIViewAnimationOptionLayoutSubviews completion:nil];
+    if (path.section >= 0 && path.section <= 2) {
+        
+        superS.MyID = self.famousMyIDArr[path.section];
+        superS.titleL = self.famousTitle[path.section];
+        superS.inter = 1;
+    }else if (path.section > 3)
+    {
+        superS.titleL = self.normaleTitleArray[path.section-4];
+        superS.name = self.normaleNameArray[path.section-4];
+        superS.inter = 2;
+    }
+    self.tabBarController.tabBar.hidden = YES;
+    [self.navigationController pushViewController:superS animated:YES];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -182,6 +210,8 @@
         more2Btn.frame = CGRectMake((kScreenWidth - 10) / 2 + 5, 0, (kScreenWidth - 10) / 2, 40);
         more2Btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [more2Btn setTitle:@"更多 >" forState:(UIControlStateNormal)];
+        [more1Btn addTarget:self action:@selector(moreAction1:) forControlEvents:(UIControlEventTouchUpInside)];
+        [more2Btn addTarget:self action:@selector(moreAction1:) forControlEvents:(UIControlEventTouchUpInside)];
         more2Btn.titleLabel.font = [UIFont systemFontOfSize:15];
         more1Btn.tintColor = [UIColor blackColor];
         more2Btn.tintColor = [UIColor grayColor];
@@ -196,6 +226,17 @@
     }
 }
 
+-(void)moreAction1:(UIButton *)btn
+{
+    
+    AnchorSuperStarTableViewController *superS = [[AnchorSuperStarTableViewController alloc]init];
+    superS.MyID = self.famousMyIDArr[3];
+    superS.titleL = self.famousTitle[3];
+    superS.inter = 1;
+    [self.navigationController pushViewController:superS animated:YES];
+}
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 3) {
@@ -206,8 +247,16 @@
 }
 
 
-
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        attentionViewController *attent = [[attentionViewController alloc]init];
+        AnchorModel *model = self.songerArray[indexPath.row];
+        attent.Uid = model.uid;
+        self.tabBarController.tabBar.hidden = YES;
+        [self.navigationController pushViewController:attent animated:YES];
+    }
+}
 
 
 

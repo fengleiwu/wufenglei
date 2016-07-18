@@ -31,6 +31,20 @@
     return arr;
 }
 
++(NSMutableArray *)normalName:(NSDictionary *)dic
+{
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    NSArray *normal = dic[@"normal"];
+    for (NSDictionary *dic1 in normal) {
+        AnchorModel *model = [[AnchorModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr addObject:model.name];
+    }
+    return arr;
+}
+
+
 +(NSMutableArray *)songer:(NSDictionary *)dic
 {
     NSMutableArray *arr = [NSMutableArray array];
@@ -102,8 +116,8 @@
         [model setValuesForKeysWithDictionary:dic1];
         NSMutableArray *arr2 = [NSMutableArray array];
         NSDictionary *dic2 = [NSDictionary dictionaryWithObject:arr2 forKey:model.title];
-       NSArray *list = dic1[@"list"];
-
+        NSArray *list = dic1[@"list"];
+        
         for (int i = 0; i < 3; i++) {
             AnchorModel *model = [[AnchorModel alloc]init];
             NSDictionary *dic3 = [NSDictionary dictionary];
@@ -113,11 +127,11 @@
             [arr2 addObject:model];
         }
         
-//        for (NSDictionary *dic3 in list) {
-//            AnchorModel *model = [[AnchorModel alloc]init];
-//            [model setValuesForKeysWithDictionary:dic3];
-//            [arr2 addObject:model];
-//        }
+        //        for (NSDictionary *dic3 in list) {
+        //            AnchorModel *model = [[AnchorModel alloc]init];
+        //            [model setValuesForKeysWithDictionary:dic3];
+        //            [arr2 addObject:model];
+        //        }
         
         
         [arr addObject:dic2];
@@ -139,7 +153,17 @@
 }
 
 
-
++(NSMutableArray *)moreNormal:(NSDictionary *)dic
+{
+    NSMutableArray *arr = [NSMutableArray array];
+    NSArray *normal = dic[@"normal"];
+    for (NSDictionary *dic1 in normal) {
+        AnchorModel *model = [[AnchorModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr addObject:model];
+    }
+    return arr;
+}
 
 
 
