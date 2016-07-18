@@ -20,6 +20,9 @@
 #import "MoreDetailTableViewController.h"
 #import "ContentIntroductTableViewCell.h"
 #import "attentionModel.h"
+#import "MusicplayViewController.h"
+#import "BroadMusicModel.h"
+
 @interface AlbumDetailViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)AlbumDetailModel *albumModel;
@@ -461,6 +464,21 @@
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
     model.isPlay = YES;
     [self.tab reloadData];
+    
+    MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    
+    playVC.musicURL = model.playUrl64;
+    playVC.newmodelArray = self.tracksArr;
+    
+    
+    // 判断字符串 URL 是否包含 mp3 ，解析 model。
+    if ([playVC.musicURL containsString:@"mp3"]) {
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_playUrl64_mp3:playVC.newmodelArray];
+    }
+    [MyPlayerManager defaultManager].index = indexPath.row;
+    [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+    
+    [self presentViewController:playVC animated:YES completion:nil];
 }
 
 

@@ -31,12 +31,13 @@ typedef NS_ENUM(NSInteger, DownloadType){
 //@property (nonatomic, strong) NSString *playCount;
 @property (nonatomic, strong) NSString *coverSmall;
 
-// 其他 model
-//@property (nonatomic, strong) NSString *playPath32;
-//@property (nonatomic, strong) NSString *nickname;
-//@property (nonatomic, strong) NSString *title;
-//@property (nonatomic, strong) NSString *playsCounts;
-//@property (nonatomic, strong) NSString *coverSmall;
+// playUrl64 url, albumDetailModel
+@property (nonatomic, strong) NSString *playUrl64;
+@property (nonatomic, strong) NSString *nickname;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *playtimes;
+@property (nonatomic, strong) NSString *coverMiddle;
+
 
 //@property (nonatomic, strong) NSString *coverLarge;
 //@property (nonatomic,strong) NSString *idd;
@@ -51,6 +52,6 @@ typedef NS_ENUM(NSInteger, DownloadType){
 
 
 + (NSMutableArray *)modelCOnfigureWithModelArray_m3u8:(NSMutableArray *)modelArr;
-
++ (NSMutableArray *)modelCOnfigureWithModelArray_playUrl64_mp3:(NSMutableArray *)modelArr;
 
 @end

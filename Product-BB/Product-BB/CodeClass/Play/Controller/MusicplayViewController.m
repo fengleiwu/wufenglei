@@ -46,7 +46,7 @@
     self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
     self.topLabel.font = [UIFont systemFontOfSize:20];
     self.topLabel.textAlignment = NSTextAlignmentCenter;
-    // 赋值在上满的 giveValueforTitleName 方法里
+    // 赋值在下面的 giveValueforTitleName 方法里
     [self.view addSubview:self.topLabel];
     
 //     加载播放界面

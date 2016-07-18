@@ -37,5 +37,21 @@
     return array;
 }
 
+// 解析 albumdetailModel
++ (NSMutableArray *)modelCOnfigureWithModelArray_playUrl64_mp3:(NSMutableArray *)modelArr {
+    NSMutableArray *array = [NSMutableArray array];
+    for (BroadMusicModel *otherModel in modelArr) {
+        BroadMusicModel *model = [[BroadMusicModel alloc]init];
+        model.musicURL = otherModel.playUrl64;
+        model.totalTitle = otherModel.title;
+        model.liveTitle = otherModel.nickname;
+        model.playCount = otherModel.playtimes;
+        model.bgImage = otherModel.coverMiddle;
+        [array addObject:model];
+    }
+    return array;
+}
+
+
 
 @end

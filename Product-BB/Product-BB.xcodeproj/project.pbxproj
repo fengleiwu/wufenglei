@@ -1606,7 +1606,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				INFOPLIST_FILE = "Product-BB/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1621,7 +1621,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				INFOPLIST_FILE = "Product-BB/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
