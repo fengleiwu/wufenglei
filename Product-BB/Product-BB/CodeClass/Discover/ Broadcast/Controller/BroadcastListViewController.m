@@ -110,11 +110,11 @@
     [self.navigationController pushViewController:playVC animated:YES];
     
     BroadListModel *model = self.modelArray[button.tag - 100];
-    playVC.playPath32 = model.playUrl1;
+    playVC.musicURL = model.playUrl1;
     playVC.newmodelArray = self.modelArray;
-    
-    if ([playVC.playPath32 containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+    // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+    if ([playVC.musicURL containsString:@"m3u8"]) {
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = button.tag - 100;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
@@ -125,11 +125,11 @@
     [self.navigationController pushViewController:playVC animated:YES];
     
     BroadListModel *model = self.modelArray[indexPath.row];
-    playVC.playPath32 = model.playUrl1;
+    playVC.musicURL = model.playUrl1;
     playVC.newmodelArray = self.modelArray;
-    
-    if ([playVC.playPath32 containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+    // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+    if ([playVC.musicURL containsString:@"m3u8"]) {
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;

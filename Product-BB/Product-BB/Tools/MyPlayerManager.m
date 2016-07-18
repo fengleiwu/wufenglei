@@ -43,8 +43,8 @@
     [_musicLists removeAllObjects];
     _musicLists = [musicLists mutableCopy];
     BroadMusicModel *model = _musicLists[_index];
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.playPath32]];
-    NSLog(@"======== %@", model.playPath32);
+    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.musicURL]];
+    NSLog(@"======== %@", model.musicURL);
     if (!_avPlayer) {
         // 没有，初始化
         _avPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
@@ -128,7 +128,7 @@
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];
 //        NSLog(@"%@",model.savePath);
     } else{
-        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:model.playPath32]];
+        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:model.musicURL]];
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];
     }
     [self play];
@@ -138,7 +138,7 @@
 -(void)playerDidFinish{
     if (_playType == SignlePlay) {
         BroadMusicModel *model = _musicLists[_index];
-        AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.playPath32]];
+        AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:model.musicURL]];
         [_avPlayer replaceCurrentItemWithPlayerItem:item];
     } else{
         [self nextMusic];

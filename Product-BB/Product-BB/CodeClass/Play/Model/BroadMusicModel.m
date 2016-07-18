@@ -15,21 +15,23 @@
 }
 
 /*
- @property (nonatomic, strong) NSString *playUrl1; // playPath32
- @property (nonatomic, strong) NSString *name;//nickname
- @property (nonatomic, strong) NSString *programName;//title
- @property (nonatomic, strong) NSString *playCount;// playsCounts
- @property (nonatomic, strong) NSString *coverSmall;//coverSmall
- */
-+ (NSMutableArray *)modelConfigureWithArray:(NSMutableArray *)modelArr {
+@property (nonatomic, strong) NSString *musicURL;
+@property (nonatomic, strong) NSString *totalTitle;
+@property (nonatomic, strong) NSString *liveTitle;
+@property (nonatomic, strong) NSString *count;
+@property (nonatomic, strong) NSString *bgImage;
+*/
+
+// 包含 m3u8 ，解析 model。
++ (NSMutableArray *)modelCOnfigureWithModelArray_m3u8:(NSMutableArray *)modelArr {
     NSMutableArray *array = [NSMutableArray array];
-    for (BroadMusicModel *dic in modelArr) {
+    for (BroadMusicModel *otherModel in modelArr) {
         BroadMusicModel *model = [[BroadMusicModel alloc]init];
-        model.playPath32 = dic.playUrl1;
-        model.title = dic.programName;
-        model.nickname = dic.name;
-        model.playsCounts = dic.playCount;
-        model.coverSmall = dic.coverSmall;
+        model.musicURL = otherModel.playUrl1;
+        model.totalTitle = otherModel.name;
+        model.liveTitle = otherModel.programName;
+        model.playCount = otherModel.playCount;
+        model.bgImage = otherModel.coverSmall;
         [array addObject:model];
     }
     return array;

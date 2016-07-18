@@ -428,20 +428,20 @@
         LocationModel *model = self.loactionArr[button.tag - 100];
 
         playVC.newmodelArray = self.loactionArr;
-         playVC.playPath32 = model.playUrl1;
-        
-        if ([playVC.playPath32 containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+         playVC.musicURL = model.playUrl1;
+        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+        if ([playVC.musicURL containsString:@"m3u8"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
         }
         [MyPlayerManager defaultManager].index = button.tag - 100;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
     } else {
         RankModel *model = self.RankArr[button.tag - 200];
-        playVC.playPath32 = model.playUrl1;
+        playVC.musicURL = model.playUrl1;
         playVC.newmodelArray = self.RankArr;
-        
-        if ([playVC.playPath32 containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+        if ([playVC.musicURL containsString:@"m3u8"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
         }
         [MyPlayerManager defaultManager].index = button.tag - 200;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
@@ -456,16 +456,16 @@
 
     if (indexPath.section == 0) {
         LocationModel *model = self.loactionArr[indexPath.row];
-        playVC.playPath32 = model.playUrl1;
+        playVC.musicURL = model.playUrl1;
         playVC.newmodelArray = self.loactionArr;
     } else{
         RankModel *model = self.RankArr[indexPath.row];
-        playVC.playPath32 = model.playUrl1;
+        playVC.musicURL = model.playUrl1;
         playVC.newmodelArray = self.RankArr;
     }
     // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-    if ([playVC.playPath32 containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelConfigureWithArray:playVC.newmodelArray];
+    if ([playVC.musicURL containsString:@"m3u8"]) {
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;

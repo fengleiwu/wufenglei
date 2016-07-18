@@ -49,6 +49,7 @@
 @property (nonatomic, strong)NSMutableArray *bigBottomPicArray;
 @property (nonatomic, strong)CarouselView *bottomPic;
 @property (nonatomic, strong)UILabel *titleLabel;
+
 @property (nonatomic, strong)AnchorTableViewController *anchor;
 
 @end

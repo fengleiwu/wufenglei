@@ -12,10 +12,10 @@
 
 // 接收传进来的 modelArray
 @property (nonatomic,strong) NSMutableArray *newmodelArray;
-// 判断传过来的 URL 是 a3u8
-@property (nonatomic, strong) NSString *playPath32;
-// 判断点击是哪个 row
-@property (nonatomic, assign) NSInteger clickRow;
+// 判断传过来的 URL 是什么格式， a3u8
+@property (nonatomic, strong) NSString *musicURL;
+//// 判断点击是哪个 row
+//@property (nonatomic, assign) NSInteger clickRow;
 
 
 @end

@@ -68,11 +68,11 @@
     [imageV addSubview:self.nameLabel];
     // 赋值
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
-    self.titleLabel.text = model.nickname;
-    if (model.title == nil) {
+    self.titleLabel.text = model.totalTitle;
+    if (model.liveTitle == nil) {
         self.nameLabel.text = @"未知";
     } else {
-        self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.title];
+        self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.liveTitle];
     }
 
     // 创建播放按钮所在的 view
@@ -86,11 +86,11 @@
 - (void)giveValueforTitleName {
     // 赋值
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
-    self.titleLabel.text = model.nickname;
-    if (model.title == nil) {
+    self.titleLabel.text = model.totalTitle;
+    if (model.liveTitle == nil) {
         self.nameLabel.text = @"未知";
     } else {
-        self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.title];
+        self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.liveTitle];
     }
     // 赋值
     self.currentTimeLabel.text = @"00:00";
