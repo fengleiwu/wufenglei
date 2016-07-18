@@ -11,6 +11,7 @@
 #import "AllHotTableViewCell.h"
 #import "AnchorTableViewCell.h"
 #import "AllHotModel.h"
+#import "attentionViewController.h"
 
 @interface OtherProgramViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableV;
@@ -125,6 +126,17 @@
     }
    
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    attentionViewController *attent = [[attentionViewController alloc]init];
+    AllHotModel *model = self.squareArr[indexPath.row];
+    attent.Uid = model.uid;
+    [self.navigationController pushViewController:attent animated:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

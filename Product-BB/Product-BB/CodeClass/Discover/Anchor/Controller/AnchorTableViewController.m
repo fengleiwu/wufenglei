@@ -65,23 +65,7 @@
     [super viewDidLoad];
     
     
-    //    self.songerArray = [NSMutableArray array];
-    //    [RequestManager requestWithUrlString:KanchorURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-    //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    //        self.famousArr = [AnchorModel famous:dic];
-    //        self.famousTitle = [AnchorModel famousTitle:dic];
-    //        self.songerArray = [AnchorModel songer:dic];
-    //        self.normalArray = [AnchorModel normal:dic];
-    //        self.normaleTitleArray = [AnchorModel normalTitle:dic];
-    //        self.famousMyIDArr = [AnchorModel famousMyID:dic];
-    ////        NSLog(@"%@",self.normalArray);
-    ////        NSLog(@"%@",self.famousArr);
-    ////        NSLog(@"%@",self.songerArray);
-    //        [self.table reloadData];
-    //    } error:^(NSError *error) {
-    //        
-    //    }];
-    
+        
     // Do any additional setup after loading the view.
 }
 

@@ -11,6 +11,7 @@
 #import "DetailListTableViewCell.h"
 #import "CateTypeModel.h"
 #import "TableListModel.h"
+#import "AlbumDetailViewController.h"
 @interface CategoryListViewController ()<UIScrollViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UILabel *titleL;
 @property (nonatomic, strong)UIView *moveV;
@@ -305,7 +306,14 @@
 }
 
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TableListModel *model = self.tableArr[indexPath.row];
+    AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+    album.url = model.albumId;
+    album.inter = 4;
+    [self.navigationController pushViewController:album animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

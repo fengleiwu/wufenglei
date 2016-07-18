@@ -9,6 +9,7 @@
 #import "AnchorSuperStarTableViewController.h"
 #import "AnchorModel.h"
 #import "AnchorSongerTableViewCell.h"
+#import "attentionViewController.h"
 @interface AnchorSuperStarTableViewController ()<UIScrollViewDelegate>
 @property (nonatomic , strong)NSMutableArray *arr;
 @property (nonatomic , strong)UIScrollView *scr;
@@ -169,6 +170,25 @@
     }
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    attentionViewController *attent = [[attentionViewController alloc]init];
+    if (self.inter == 1) {
+        
+        AnchorModel *model = self.arr[indexPath.row];
+        attent.Uid = model.uid;
+    }else if (self.seg.selectedSegmentIndex == 0){
+        AnchorModel *model = self.HotArr[indexPath.row];
+        attent.Uid = model.uid;
+   }else if (self.seg.selectedSegmentIndex == 1){
+        AnchorModel *model = self.NewArr[indexPath.row];
+        attent.Uid = model.uid;
+   }
+    [self.navigationController pushViewController:attent animated:YES];
+
+}
+
 
 
 /*

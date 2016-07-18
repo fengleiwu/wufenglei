@@ -54,6 +54,7 @@
 @property(nonatomic , strong)NSString *trackId;
 @property(nonatomic , strong)NSString *userSource;
 @property(nonatomic , strong)NSString *comments;
+@property(nonatomic , strong)NSString *displayPrice;
 
 
 

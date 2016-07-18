@@ -6,12 +6,20 @@
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
+
+
+
+
+#warning 最火界面点进去再点进去播放界面
+
+
 #import "ProgramListViewController.h"
 #import "TitleListCollectionViewCell.h"
 #import "AllHotTableViewCell.h"
 #import "AllMoreTableViewCell.h"
 #import "AllHotModel.h"
 #import "HotTitleModel.h"
+#import "attentionViewController.h"
 @interface ProgramListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray *HotArr;
 @property (nonatomic,strong)NSMutableArray *iidArr;
@@ -26,6 +34,7 @@
 @property (nonatomic, strong)UIView *ALLV;
 @property (nonatomic, strong)UIView *selectV;
 @property (nonatomic, strong)UIView *backV;
+
 @end
 
 @implementation ProgramListViewController
@@ -420,6 +429,16 @@
         NSLog(@"errpr == %@",error);
     }];
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AllHotModel *model = self.AllHotArr[indexPath.row];
+    attentionViewController *attent = [[attentionViewController alloc]init];
+    attent.Uid = model.uid;
+    [self.navigationController pushViewController:attent animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

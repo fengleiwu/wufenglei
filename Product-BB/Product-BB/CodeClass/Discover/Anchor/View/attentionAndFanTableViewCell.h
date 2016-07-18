@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "attentionFanZanModel.h"
 @interface attentionAndFanTableViewCell : UITableViewCell
 
 @property(nonatomic , strong)UIImageView *imageV;
@@ -18,7 +18,7 @@
 @property(nonatomic , strong)UIButton *Vbtn;
 
 
-
+-(void)creatCell:(attentionFanZanModel *)model;
 
 
 @end

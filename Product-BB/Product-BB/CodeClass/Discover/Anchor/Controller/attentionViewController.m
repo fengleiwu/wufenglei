@@ -26,6 +26,8 @@
 @property (nonatomic , strong)UILabel *nameLabel;
 @property (nonatomic , strong)UILabel *introduceLabel;
 @property (nonatomic , strong)UIButton *updownBtn;
+@property (nonatomic , strong)UIView *DownImageView;
+
 @property (nonatomic , assign)BOOL isUpDown;
 @end
 
@@ -94,13 +96,24 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.model = [attentionModel top:dic];
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 220)];
+        
+        //image.contentMode = UIViewContentModeScaleAspectFit;
+        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
+        effectview.alpha = 0.5;
+        effectview.frame = CGRectMake(0, 0, kScreenWidth, 220);
+        [image addSubview:effectview];
         [image sd_setImageWithURL:[NSURL URLWithString:self.model.backgroundLogo]];
-        [image setAlpha:1];
         self.pImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, 80, 80)];
         self.pImage.centerX = kScreenWidth / 2;
         [self.pImage sd_setImageWithURL:[NSURL URLWithString:self.model.mobileMiddleLogo]];
         [self.pImage.layer setMasksToBounds:YES];
         [self.pImage.layer setCornerRadius:40];
+        self.DownImageView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 86, 86)];
+        self.DownImageView.center = self.pImage.center;
+        [self.DownImageView.layer setMasksToBounds:YES];
+        [self.DownImageView.layer setCornerRadius:43];
+        self.DownImageView.backgroundColor = [UIColor grayColor];
         self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 110, 200, 40)];
         self.nameLabel.text = self.model.nickname;
         CGFloat height = [AdjustHeight adjustHeightByString:self.model.nickname hidth:40 font:17];
@@ -166,6 +179,7 @@
         [back setTintColor:[UIColor whiteColor]];
         [self.headView addSubview:guanzhuBtn];
         [self.headView addSubview:image];
+        [self.headView addSubview:self.DownImageView];
         [self.headView addSubview:self.pImage];
         [self.headView addSubview:self.nameLabel];
         [self.headView addSubview:self.introduceLabel];
@@ -196,7 +210,8 @@
             self.pImage.transform = CGAffineTransformMakeTranslation(0, -110);
             self.nameLabel.transform = CGAffineTransformMakeTranslation(0, -110);
             self.introduceLabel.transform = CGAffineTransformMakeTranslation(0, -110);
-            self.introduceLabel.height = [AdjustHeight adjustHeightByString:self.model.personalSignature width:200 font:13];
+            self.DownImageView.transform = CGAffineTransformMakeTranslation(0, -110);
+          self.introduceLabel.height = [AdjustHeight adjustHeightByString:self.model.personalSignature width:200 font:13];
             self.introduceLabel.numberOfLines = 0;
         } completion:^(BOOL finished) {
             }];
@@ -205,6 +220,7 @@
         animation.duration = 1;
         animation.repeatCount = 1;
         [self.pImage.layer addAnimation:animation forKey:nil];
+        [self.DownImageView.layer addAnimation:animation forKey:nil];
         self.isUpDown = YES;
         [self.updownBtn setImage:[UIImage imageNamed:@"箭头 (1)"] forState:(UIControlStateNormal)];
             }else if (self.isUpDown == YES){
@@ -212,6 +228,8 @@
                     self.pImage.transform = CGAffineTransformMakeTranslation(0, 0);
                     self.nameLabel.transform = CGAffineTransformMakeTranslation(0, 0);
                     self.introduceLabel.transform = CGAffineTransformMakeTranslation(0, 0);
+                    self.DownImageView.transform = CGAffineTransformMakeTranslation(0, 0);
+
                     self.introduceLabel.numberOfLines = 1;
                     self.introduceLabel.height = 40;
                     } completion:^(BOOL finished) {
@@ -221,6 +239,7 @@
                 animation.duration = 1;
                 animation.repeatCount = 1;
                 [self.pImage.layer addAnimation:animation forKey:nil];
+                [self.DownImageView.layer addAnimation:animation forKey:nil];
                 self.isUpDown = NO;
                 [self.updownBtn setImage:[UIImage imageNamed:@"箭头"] forState:(UIControlStateNormal)];
 

@@ -20,6 +20,8 @@
 @property(nonatomic , strong)NSString *score;
 @property(nonatomic , strong)NSString *tracks;
 @property (nonatomic, strong)NSString *categoryId;
+@property(nonatomic , strong)NSString *displayPrice;
+
 
 
 +(NSMutableArray *)hotRecommends:(NSDictionary *)dic;

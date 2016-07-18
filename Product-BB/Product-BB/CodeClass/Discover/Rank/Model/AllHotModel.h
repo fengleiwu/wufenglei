@@ -18,6 +18,13 @@
 @property (nonatomic, strong)NSString *followersCounts;
 @property (nonatomic, strong)NSString *personDescribe;
 @property (nonatomic, strong)NSString *largeLogo;
+@property(nonatomic , strong)NSString *uid;
+
+@property(nonatomic , strong)NSString *albumId;
+@property(nonatomic , strong)NSString *isPaid;
+@property(nonatomic , strong)NSString *playsCounts;
+@property(nonatomic , strong)NSString *tracksCounts;
+
 
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
 @end

@@ -15,7 +15,7 @@
 @property(nonatomic , strong)NSString *smallLogo;
 @property(nonatomic , strong)NSString *tracks;
 @property(nonatomic , strong)NSString *uid;
-@property(nonatomic , strong)NSString *isVerified;
+@property(nonatomic , assign)BOOL isVerified;
 @property(nonatomic , strong)NSString *ptitle;//粉丝  关注
 
 @property(nonatomic , strong)NSString *albumId;

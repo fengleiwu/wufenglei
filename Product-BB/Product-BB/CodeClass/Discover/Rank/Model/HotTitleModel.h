@@ -13,5 +13,13 @@
 @property (nonatomic, strong)NSString *idd;
 @property (nonatomic, strong)NSString *keyy;
 
+
+
+
+
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
+
+
+
+
 @end

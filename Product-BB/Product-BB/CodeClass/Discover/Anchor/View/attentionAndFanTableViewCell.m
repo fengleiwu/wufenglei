@@ -6,6 +6,9 @@
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
+
+
+
 #import "attentionAndFanTableViewCell.h"
 
 @implementation attentionAndFanTableViewCell
@@ -38,6 +41,24 @@
     return self;
 }
 
+
+-(void)creatCell:(attentionFanZanModel *)model
+{
+    if (model.isVerified == true) {
+        self.titleL = [[UILabel alloc]initWithFrame:CGRectMake(95, 85, 200, 20)];
+        CGFloat width = [AdjustHeight adjustHeightByString:model.nickname hidth:40 font:16];
+        self.nameL.width = width;
+        self.Vbtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        self.Vbtn.frame = CGRectMake(95 + width + 5, 5, 20, 20);
+        [self.Vbtn setImage:[UIImage imageNamed:@"V"] forState:(UIControlStateNormal)];
+        [self.Vbtn setTintColor:[UIColor redColor]];
+        [self.contentView addSubview:self.Vbtn];
+        [self.contentView addSubview:self.titleL];
+    }
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.smallLogo]];
+    self.nameL.text = model.nickname;
+    
+}
 
 
 

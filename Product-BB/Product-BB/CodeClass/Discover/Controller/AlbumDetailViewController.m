@@ -155,7 +155,7 @@
             }
             pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
             state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
-            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayDiscountedPrice];
+            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
             [self.tab reloadData];
             //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
         } error:^(NSError *error) {
@@ -166,6 +166,7 @@
         NSString *url = @"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615";
         
         url = [url stringByReplacingOccurrencesOfString:@"Uid=54060615" withString:[NSString stringWithFormat:@"Uid=%@",self.uid]];
+        NSLog(@"+++++++++%@",url);
         [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.bigArray = [attentionModel price:dic];
@@ -185,7 +186,7 @@
             }
             pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
             state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
-            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayDiscountedPrice];
+            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
             [self.tab reloadData];
 
         } error:^(NSError *error) {
