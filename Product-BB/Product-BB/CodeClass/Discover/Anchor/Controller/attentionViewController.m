@@ -6,6 +6,10 @@
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
+
+
+//关注界面
+
 #import "attentionViewController.h"
 
 #import "recommendMoreTableViewCell.h"
@@ -281,7 +285,14 @@
         attentionModel *model = self.middleArr[indexPath.row];
         AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
         album.url = model.albumId;
+        if (model.isPaid == true) {
+            album.uid = model.uid;
+            album.isPaid = YES;
+            album.row = indexPath.row;
+            album.nickName = self.model.nickname;
+        }else{
         album.inter = 4;
+        }
         [self.navigationController pushViewController:album animated:YES];
     }
 }

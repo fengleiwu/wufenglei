@@ -19,6 +19,7 @@
 #import "DetailPayModel.h"
 #import "MoreDetailTableViewController.h"
 #import "ContentIntroductTableViewCell.h"
+#import "attentionModel.h"
 @interface AlbumDetailViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)AlbumDetailModel *albumModel;
@@ -132,31 +133,66 @@
     [self.tabViewHeadView addSubview:state];
     [self.tabViewHeadView addSubview:priceLabel];
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
-    [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        self.bigArray = [hotRecommendsModel hotRecommends:dic];
-        NSArray *arr = self.bigArray[0];
-        hotRecommendsModel *model = arr[self.inter];
-        nameLabel.text = model.title;
-        [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
-        smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",model.nickname];
-        CGFloat f = [model.playsCounts floatValue] / 10000;
-        if (f > 10000) {
-            NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
-            playLabel.text = st;
-        }else
-        {
-            NSString *st = [NSString stringWithFormat:@"播放:%.1f万次",f];
-            playLabel.text = st;
-        }
-        pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
-        state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
-        priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayDiscountedPrice];
-        [self.tab reloadData];
-        //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
-    } error:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+    
+   // @"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615"
+    if (self.isPaid == NO) {
+        [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self.bigArray = [hotRecommendsModel hotRecommends:dic];
+            NSArray *arr = self.bigArray[0];
+            hotRecommendsModel *model = arr[self.inter];
+            nameLabel.text = model.title;
+            [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+            smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",model.nickname];
+            CGFloat f = [model.playsCounts floatValue] / 10000;
+            if (f > 10000) {
+                NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
+                playLabel.text = st;
+            }else
+            {
+                NSString *st = [NSString stringWithFormat:@"播放:%.1f万次",f];
+                playLabel.text = st;
+            }
+            pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
+            state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
+            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayDiscountedPrice];
+            [self.tab reloadData];
+            //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
+        } error:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }else{
+        
+        NSString *url = @"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615";
+        
+        url = [url stringByReplacingOccurrencesOfString:@"Uid=54060615" withString:[NSString stringWithFormat:@"Uid=%@",self.uid]];
+        [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            self.bigArray = [attentionModel price:dic];
+            
+            attentionModel *model = self.bigArray[self.row];
+            nameLabel.text = model.title;
+            [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+            smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",self.nickName];
+            CGFloat f = [model.playTimes floatValue] / 10000;
+            if (f > 10000) {
+                NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
+                playLabel.text = st;
+            }else
+            {
+                NSString *st = [NSString stringWithFormat:@"播放:%.1f万次",f];
+                playLabel.text = st;
+            }
+            pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
+            state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
+            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayDiscountedPrice];
+            [self.tab reloadData];
+
+        } error:^(NSError *error) {
+            
+        }];
+    }
+    
     NSString *actionUrl = @"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=4345263&device=iPhone&isAsc=true&pageId=1&pageSize=20&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1";
     actionUrl = [actionUrl stringByReplacingOccurrencesOfString:@"albumId=4345263" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
     [RequestManager requestWithUrlString:actionUrl requestType:RequestGET parDic:0 finish:^(NSData *data) {
@@ -210,8 +246,8 @@
     [self.tabViewHeadView addSubview:btn1];
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
     NSString *URL = @"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&trackId=18143253";
-    URL = [URL stringByReplacingOccurrencesOfString:@"albumId=308981" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
-    [RequestManager requestWithUrlString:URL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+   NSString *URL1 = [URL stringByReplacingOccurrencesOfString:@"albumId=308981" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
+    [RequestManager requestWithUrlString:URL1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.albumModel = [AlbumDetailModel album:dic];
         self.tracksArr = [AlbumDetailModel tracks:dic];
@@ -278,7 +314,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.isPay == YES && self.veryBigTab.seg.selectedSegmentIndex == 0 && section == 2 ) {
-        return 3;
+        return self.pinglunArray.count;
         
     }if (self.veryBigTab.seg.selectedSegmentIndex == 0) {
         return 1;

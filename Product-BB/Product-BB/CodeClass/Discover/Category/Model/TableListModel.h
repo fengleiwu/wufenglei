@@ -16,5 +16,8 @@
 @property (nonatomic, strong)NSString *playsCounts;
 @property (nonatomic, strong)NSString *tracks;
 
+
+
+
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
 @end

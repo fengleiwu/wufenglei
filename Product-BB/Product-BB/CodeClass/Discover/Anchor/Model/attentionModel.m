@@ -54,7 +54,17 @@
 }
 
 
-
++(NSMutableArray *)price:(NSDictionary *)dic
+{
+    NSMutableArray *arr = [NSMutableArray array];
+    NSArray *list = dic[@"list"];
+    for (NSDictionary *dic1 in list) {
+        attentionModel *model = [[attentionModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr addObject:model];
+    }
+    return arr;
+}
 
 
 @end

@@ -33,6 +33,16 @@
 @property(nonatomic , strong)NSString *title;
 @property(nonatomic , strong)NSString *updatedAt;
 
+@property(nonatomic , strong)NSString *discountedPrice;
+@property(nonatomic , assign)BOOL isPaid;
+@property(nonatomic , strong)NSString *displayDiscountedPrice;
+@property(nonatomic , strong)NSString *price;
+@property(nonatomic , strong)NSString *priceTypeId;
+@property(nonatomic , strong)NSString *score;
+@property(nonatomic , strong)NSString *totalTrackCount;
+
+
+
 @property(nonatomic , strong)NSString *createdAt;
 @property(nonatomic , strong)NSString *duration;
 @property(nonatomic , strong)NSString *likes;
@@ -53,7 +63,7 @@
 
 +(NSMutableArray *)bottom:(NSDictionary *)dic;
 
-
++(NSMutableArray *)price:(NSDictionary *)dic;
 
 
 
