@@ -18,7 +18,8 @@
 @property(nonatomic , strong)UIButton *Vbtn;
 
 
--(void)creatCell:(attentionFanZanModel *)model;
+-(void)creatguanzhuCell:(attentionFanZanModel *)model;
+
 
 
 @end

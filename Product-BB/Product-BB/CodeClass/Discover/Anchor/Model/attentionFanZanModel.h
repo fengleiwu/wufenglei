@@ -30,14 +30,15 @@
 @property(nonatomic , strong)NSString *title;
 @property(nonatomic , strong)NSString *trackId;
 @property(nonatomic , strong)NSString *userSource;
+@property(nonatomic , strong)NSString *isPaid;
 
 
 
 +(NSMutableArray *)guanzhu:(NSDictionary *)dic;
 
-+(NSMutableArray *)fensi:(NSDictionary *)dic;
-
-+(NSMutableArray *)zanguo:(NSDictionary *)dic;
+//+(NSMutableArray *)fensi:(NSDictionary *)dic;
+//
+//+(NSMutableArray *)zanguo:(NSDictionary *)dic;
 
 
 @end

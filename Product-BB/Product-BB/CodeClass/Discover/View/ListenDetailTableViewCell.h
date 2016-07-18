@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ListenDetailModel.h"
 #import "attentionModel.h"//关注界面最下面
+#import "attentionFanZanModel.h"
 @interface ListenDetailTableViewCell : UITableViewCell
 
 @property(nonatomic , strong)UIImageView *imageV;
@@ -24,6 +25,9 @@
 -(void)creatListenCell:(ListenDetailModel *)model;
 
 -(void)creatAttentionCell:(attentionModel *)model;
+
+
+-(void)creatZanguoCell:(attentionFanZanModel *)model;
 
 
 @end

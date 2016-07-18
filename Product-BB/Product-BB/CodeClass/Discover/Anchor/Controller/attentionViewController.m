@@ -16,6 +16,7 @@
 #import "ListenDetailTableViewCell.h"
 #import "attentionModel.h"
 #import "AlbumDetailViewController.h"
+#import "GFZtableViewController.h"
 @interface attentionViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)UIView *headView;
@@ -91,7 +92,6 @@
     NSString *url = @"http://mobile.ximalaya.com/mobile/others/ca/homePage?device=iPhone&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=11116807";
     
     NSString *url1 = [url stringByReplacingOccurrencesOfString:@"Uid=11116807" withString:[NSString stringWithFormat:@"Uid=%@",self.Uid]];
-    NSLog(@"++++++%@",self.Uid);
     [RequestManager requestWithUrlString:url1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.model = [attentionModel top:dic];
@@ -194,13 +194,10 @@
 
 -(void)gfzBtnAction:(UIButton *)btn
 {
-    if (btn.tag == 1) {
-        NSLog(@"1");
-    }if (btn.tag == 2) {
-        NSLog(@"2");
-    }if (btn.tag == 3) {
-        NSLog(@"3");
-    }
+    GFZtableViewController *gfz = [[GFZtableViewController alloc]init];
+    gfz.uid = self.Uid;
+    gfz.inter = btn.tag;
+    [self.navigationController pushViewController:gfz animated:YES];
 }
 
 -(void)updownAction:(UIButton *)btn
@@ -242,8 +239,7 @@
                 [self.DownImageView.layer addAnimation:animation forKey:nil];
                 self.isUpDown = NO;
                 [self.updownBtn setImage:[UIImage imageNamed:@"箭头"] forState:(UIControlStateNormal)];
-
-    }
+}
 }
 
 

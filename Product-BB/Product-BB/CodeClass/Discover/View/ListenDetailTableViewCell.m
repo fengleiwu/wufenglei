@@ -101,6 +101,26 @@
 }
 
 
+-(void)creatZanguoCell:(attentionFanZanModel *)model
+{
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    self.titleLabel.text = model.title;
+    self.nameLabel.text = model.nickname;
+    CGFloat f = [model.playtimes floatValue];
+    if (f / 10000 > 1) {
+        self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
+    }else{
+        self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playtimes];
+    }
+    self.commentsLabel.frame = CGRectMake(195, 90, 50, 20);
+    self.contact.frame = CGRectMake(170, 90, 20, 20);
+    self.commentsLabel.text = [NSString stringWithFormat:@"%@",model.comments];
+    [self.like removeFromSuperview];
+
+    
+
+}
+
 
 
 @end
