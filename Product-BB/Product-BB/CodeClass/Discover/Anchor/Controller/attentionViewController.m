@@ -10,6 +10,7 @@
 
 //关注界面
 
+
 #import "attentionViewController.h"
 
 #import "recommendMoreTableViewCell.h"
@@ -17,6 +18,8 @@
 #import "attentionModel.h"
 #import "AlbumDetailViewController.h"
 #import "GFZtableViewController.h"
+
+#import "HFStretchableTableHeaderView.h"
 @interface attentionViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)UIView *headView;
@@ -28,8 +31,11 @@
 @property (nonatomic , strong)UILabel *introduceLabel;
 @property (nonatomic , strong)UIButton *updownBtn;
 @property (nonatomic , strong)UIView *DownImageView;
-
+@property (nonatomic , strong)UIImageView *image;
 @property (nonatomic , assign)BOOL isUpDown;
+@property (nonatomic , strong)UIVisualEffectView *effectview;
+@property (nonatomic , strong)HFStretchableTableHeaderView *stretchHeaderView;
+
 @end
 
 @implementation attentionViewController
@@ -38,6 +44,7 @@
     [super viewDidLoad];
     self.isUpDown = NO;
     [self creatMiddleAndBottomView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
 }
 
@@ -81,7 +88,7 @@
 
 -(void)creatTableView
 {
-    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20) style:(UITableViewStylePlain)];
+    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0,20, kScreenWidth, kScreenHeight  - 20) style:(UITableViewStylePlain)];
     self.tab.delegate = self;
     self.tab.dataSource = self;
     self.tab.rowHeight = 120;
@@ -95,15 +102,26 @@
     [RequestManager requestWithUrlString:url1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.model = [attentionModel top:dic];
-        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 220)];
+       self.image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 220)];
         
-        //image.contentMode = UIViewContentModeScaleAspectFit;
+        //self.image.contentMode = UIViewContentModeScaleAspectFill;
+        
+        
+        
         UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
-        effectview.alpha = 0.5;
-        effectview.frame = CGRectMake(0, 0, kScreenWidth, 220);
-        [image addSubview:effectview];
-        [image sd_setImageWithURL:[NSURL URLWithString:self.model.backgroundLogo]];
+        self.effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
+        self.effectview.contentMode = UIViewContentModeScaleAspectFill;
+        self.effectview.alpha = 0.5;
+        self.effectview.frame = CGRectMake(0, 0, self.image.frame.size.width,self.image.frame.size.height);
+        
+//        self.stretchHeaderView = [HFStretchableTableHeaderView new];
+//        [self.stretchHeaderView stretchHeaderForTableView:self.tab withView:self.effectview subViews:self.image];
+        self.stretchHeaderView = [HFStretchableTableHeaderView new];
+        [self.stretchHeaderView stretchHeaderForTableView:self.tab withView:self.image subViews:self.headView];
+        
+        [self.image addSubview:self.effectview];
+        
+        [self.image sd_setImageWithURL:[NSURL URLWithString:self.model.backgroundLogo]];
         self.pImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, 80, 80)];
         self.pImage.centerX = kScreenWidth / 2;
         [self.pImage sd_setImageWithURL:[NSURL URLWithString:self.model.mobileMiddleLogo]];
@@ -177,8 +195,8 @@
         [back setImage:[UIImage imageNamed:@"箭头 (2)"] forState:(UIControlStateNormal)];
         [back addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
         [back setTintColor:[UIColor whiteColor]];
-        [self.headView addSubview:guanzhuBtn];
-        [self.headView addSubview:image];
+        [self.headView insertSubview:self.image atIndex:0];
+         [self.headView addSubview:guanzhuBtn];
         [self.headView addSubview:self.DownImageView];
         [self.headView addSubview:self.pImage];
         [self.headView addSubview:self.nameLabel];
@@ -191,6 +209,36 @@
         
     }];
 }
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.stretchHeaderView scrollViewDidScroll:scrollView];
+    if (self.tab.contentOffset.y<0) {
+        CGFloat f = 220 - self.tab.contentOffset.y;
+        self.effectview.height = f;
+        self.effectview.width = 500;
+        [self.image addSubview:self.effectview];
+        
+        }
+    [self.image addSubview:self.effectview];
+
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.stretchHeaderView resizeView];
+    self.effectview.frame = self.image.frame;
+    [self.image addSubview:self.effectview];
+
+
+}
+
+
+
+
+
 
 -(void)gfzBtnAction:(UIButton *)btn
 {
