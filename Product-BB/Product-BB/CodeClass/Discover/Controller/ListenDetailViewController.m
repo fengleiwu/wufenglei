@@ -142,18 +142,13 @@
         [self.navigationController pushViewController:album animated:YES];
     } else {
         MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-        
-        playVC.musicURL = model.playPath64;
-        playVC.newmodelArray = self.listenArray;
-        
-        // 判断字符串 URL 是否包含 mp3 ，playPath64,解析 model。
-        if ([playVC.musicURL containsString:@"mp3"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithListenDetailModel: playVC.newmodelArray];
-        }
+
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithListenDetailModel:self.listenArray];
         [MyPlayerManager defaultManager].index = indexPath.row;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
         
         [self presentViewController:playVC animated:YES completion:nil];
+        
     }
     
 }

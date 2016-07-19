@@ -424,25 +424,16 @@
 - (void)playAction1:(UIButton *)button {
     
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    
     if (button.tag < 200) {
-        LocationModel *model = self.loactionArr[button.tag - 100];
-
-        playVC.newmodelArray = self.loactionArr;
-         playVC.musicURL = model.playUrl1;
-        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-        if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:playVC.newmodelArray];
-        }
+//        LocationModel *model = self.loactionArr[button.tag - 100];
+        
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:self.loactionArr];
         [MyPlayerManager defaultManager].index = button.tag - 100;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
     } else {
-        RankModel *model = self.RankArr[button.tag - 200];
-        playVC.musicURL = model.playUrl1;
-        playVC.newmodelArray = self.RankArr;
-        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-        if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:playVC.newmodelArray];
-        }
+//        RankModel *model = self.RankArr[button.tag - 200];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:self.RankArr];
         [MyPlayerManager defaultManager].index = button.tag - 200;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
     }
@@ -455,22 +446,14 @@
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
 
     if (indexPath.section == 0) {
-        LocationModel *model = self.loactionArr[indexPath.row];
-        playVC.musicURL = model.playUrl1;
-        playVC.newmodelArray = self.loactionArr;
-        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-        if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:playVC.newmodelArray];
-        }
-    } else{
-        RankModel *model = self.RankArr[indexPath.row];
-        playVC.musicURL = model.playUrl1;
-        playVC.newmodelArray = self.RankArr;
+//        LocationModel *model = self.loactionArr[indexPath.row];
+
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:self.loactionArr];
         
-        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-        if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:playVC.newmodelArray];
-        }
+    } else{
+//        RankModel *model = self.RankArr[indexPath.row];
+
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:self.RankArr];
     }
    
     [MyPlayerManager defaultManager].index = indexPath.row;

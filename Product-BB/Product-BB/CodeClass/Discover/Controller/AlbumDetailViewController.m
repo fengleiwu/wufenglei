@@ -509,19 +509,13 @@
     }
     
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
-//    model.isPlay = YES;
-//    [self.tab reloadData];
+    model.isPlay = YES;
+    [self.tab reloadData];
+    
     
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
     
-    playVC.musicURL = model.playUrl64;
-    playVC.newmodelArray = self.tracksArr;
-    
-    
-    // 判断字符串 URL 是否包含 mp3 ，解析 model。
-    if ([playVC.musicURL containsString:@"mp3"]) {
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:playVC.newmodelArray];
-    }
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
     

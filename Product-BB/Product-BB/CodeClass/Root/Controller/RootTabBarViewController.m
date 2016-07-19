@@ -14,7 +14,11 @@
 #import "SubscriptionViewController.h"
 @interface RootTabBarViewController ()
 @property (nonatomic , strong)UIButton *btn;
+
 @property (nonatomic , assign)BOOL isPlay;
+@property (nonatomic, strong) NSMutableArray *playArray;
+@property (nonatomic, strong) NSString *btnImage;
+
 @end
 
 @implementation RootTabBarViewController
@@ -54,7 +58,19 @@
     
     
     
-    // Do any additional setup after loading the view.
+    
+    
+    //
+    [MyPlayerManager defaultManager].blockWithArray = ^(NSMutableArray *arr) {
+        self.playArray = arr;
+    };
+    [MyPlayerManager defaultManager].blockWithBool = ^(BOOL isp) {
+        self.isPlay = isp;
+    };
+//        [MyPlayerManager defaultManager].blockWithImage = ^(NSString *image) {
+//            [self.btn setBackgroundImage:[UIImage imageNamed:image] forState:(UIControlStateNormal)];
+//        };
+
 }
 #pragma mark ---- 创建tabBar视图控制器 ----
 -(void)creatTab:(UIViewController *)view title:(NSString *)title name:(NSString *)name image:(UIImage *)image

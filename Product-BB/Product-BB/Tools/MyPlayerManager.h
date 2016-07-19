@@ -22,8 +22,12 @@ typedef NS_ENUM(NSInteger, PlayState){
 };
 typedef void(^Block)();
 
-@interface MyPlayerManager : NSObject
+//// 接收播放页面的三个参数，传到最底部的 button
+typedef void (^BlockArray)(NSMutableArray *);
+typedef void (^BlockImage)(NSString *);
+typedef void (^BlockBool)(BOOL);
 
+@interface MyPlayerManager : NSObject
 
 @property(nonatomic,assign)PlayState playState;
 @property(nonatomic,assign)PlayType playType;
@@ -32,6 +36,13 @@ typedef void(^Block)();
 @property(nonatomic,assign)NSInteger index;
 @property(nonatomic,assign)float currentTime;
 @property(nonatomic,assign)float totalTime;
+
+// 接收播放的 URL，判断第二次播放的是否是同一个。
+@property(nonatomic,strong)NSString *playingURL;
+// 接收播放页面的三个参数，传到最底部的 button
+@property (nonatomic, copy)BlockArray blockWithArray;
+@property (nonatomic, copy)BlockImage blockWithImage;
+@property (nonatomic, copy)BlockBool blockWithBool;
 
 + (MyPlayerManager *)defaultManager;
 

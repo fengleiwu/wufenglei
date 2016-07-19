@@ -354,20 +354,15 @@
         }
         [self.navigationController pushViewController:album animated:YES];
     } else {
-        attentionModel *model = self.bottomArr[indexPath.row];
+//        attentionModel *model = self.bottomArr[indexPath.row];
         MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAttentionModel:self.bottomArr];
         
-        playVC.musicURL = model.playUrl64;
-        playVC.newmodelArray = self.bottomArr;
-        
-        // 判断字符串 URL 是否包含 mp3 ，解析 model。
-        if ([playVC.musicURL containsString:@"mp3"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAttentionModel:playVC.newmodelArray];
-        }
         [MyPlayerManager defaultManager].index = indexPath.row;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
         
         [self presentViewController:playVC animated:YES completion:nil];
+        
     }
 }
 

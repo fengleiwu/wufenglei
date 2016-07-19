@@ -254,27 +254,38 @@
 #pragma mark --- 加载播放界面
 // 加载播放界面
 - (void)reloadViewWithIndex:(NSInteger)index{
-    for (int i = 0; i < [MyPlayerManager defaultManager].musicLists.count; i++) {
-        BroadMusicModel *model = [MyPlayerManager defaultManager].musicLists[i];
-        if (model.isPlay) {
-            if (i != index) {
-                model.isPlay = NO;
-            }
-        }
+    // 先把所有 model 标记为未播放，在把指定 model 标记为播放中。
+    for (BroadMusicModel *mo in [MyPlayerManager defaultManager].musicLists) {
+        mo.isPlay = NO;
     }
+    // 根据 URL，判断播放是否是同一首歌，是，继续播放，不是，重新播放。
     BroadMusicModel *model = [MyPlayerManager defaultManager].musicLists[index];
-    if (model.isPlay == NO) {
-        model.isPlay = YES;
-        [[MyPlayerManager defaultManager] changeMusicWith:index];
-    } else{
+    NSString *url = model.musicURL;
+    NSString *playingURL = [MyPlayerManager defaultManager].playingURL;
+    if ([playingURL isEqualToString:url]) {
         [[MyPlayerManager defaultManager] play];
+        model.isPlay = YES;
+    } else {
+        [[MyPlayerManager defaultManager] changeMusicWith:index];
+        [MyPlayerManager defaultManager].playingURL = url;
+        model.isPlay = YES;
     }
+    
     self.isPlay = YES;
     
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"toolbar_pause_n_p@3x"] forState:(UIControlStateNormal)];
     
+    if ([MyPlayerManager defaultManager].blockWithArray != nil) {
+        // block 传值，向最底部的 button 传值 RootVC
+        [MyPlayerManager defaultManager].blockWithArray(self.newmodelArray);
+        //        [MyPlayerManager defaultManager].blockWithImage(model.bgImage);
+        [MyPlayerManager defaultManager].blockWithBool(self.isPlay);
+    }
+    
+    
     [self giveValueforTitleName];
     [self.tableV reloadData];
+    
 }
 
 #pragma mark --- 创建 tableView 和 headVIew
