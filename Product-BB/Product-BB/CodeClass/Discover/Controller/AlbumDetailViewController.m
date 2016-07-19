@@ -260,6 +260,9 @@
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
     NSString *URL = @"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&trackId=18143253";
    NSString *URL1 = [URL stringByReplacingOccurrencesOfString:@"albumId=308981" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
+    NSLog(@"+++++%@",URL1);
+    //http://audio.xmcdn.com/group17/M0A/18/F6/wKgJKVeDHbawGkPRABMIm_FwUyk214.m4a
+    //http://audio.xmcdn.com/group19/M0A/19/02/wKgJJleDFyiSkDT0ADEj4PI_Ypg361.mp3
     [RequestManager requestWithUrlString:URL1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.albumModel = [AlbumDetailModel album:dic];
