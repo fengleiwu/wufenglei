@@ -37,7 +37,7 @@
     return array;
 }
 
-// 解析 albumdetailModel
+// 解析 albumdetailModel,attentionModel
 + (NSMutableArray *)modelCOnfigureWithModelArray_playUrl64_mp3:(NSMutableArray *)modelArr {
     NSMutableArray *array = [NSMutableArray array];
     for (BroadMusicModel *otherModel in modelArr) {
@@ -52,6 +52,20 @@
     return array;
 }
 
+// 解析 listenDetailModel/title.nickname.playsCounts.coverSmall.playPath64
++ (NSMutableArray *)modelCOnfigureWithModelArray_playPath64_mp3:(NSMutableArray *)modelArr {
+    NSMutableArray *array = [NSMutableArray array];
+    for (BroadMusicModel *otherModel in modelArr) {
+        BroadMusicModel *model = [[BroadMusicModel alloc]init];
+        model.musicURL = otherModel.playPath64;
+        model.totalTitle = otherModel.title;
+        model.liveTitle = otherModel.nickname;
+        model.playCount = otherModel.playsCounts;
+        model.bgImage = otherModel.coverSmall;
+        [array addObject:model];
+    }
 
+    return array;
+}
 
 @end

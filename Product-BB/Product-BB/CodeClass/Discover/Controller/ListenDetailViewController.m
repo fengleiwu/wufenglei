@@ -12,6 +12,9 @@
 #import "AdjustHeight.h"
 #import "ListenDetailTableViewCell.h"
 #import "AlbumDetailViewController.h"
+#import "MusicplayViewController.h"
+#import "BroadMusicModel.h"
+
 @interface ListenDetailViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)NSMutableArray *listenArray;
 @property (nonatomic , strong)UITableView *tab;
@@ -137,7 +140,22 @@
         album.url = model.myid;
         album.inter = 4;
         [self.navigationController pushViewController:album animated:YES];
+    } else {
+        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        
+        playVC.musicURL = model.playPath64;
+        playVC.newmodelArray = self.listenArray;
+        
+        // 判断字符串 URL 是否包含 mp3 ，playPath64,解析 model。
+        if ([playVC.musicURL containsString:@"mp3"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_playPath64_mp3: playVC.newmodelArray];
+        }
+        [MyPlayerManager defaultManager].index = indexPath.row;
+        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+        
+        [self presentViewController:playVC animated:YES completion:nil];
     }
+    
 }
 
 

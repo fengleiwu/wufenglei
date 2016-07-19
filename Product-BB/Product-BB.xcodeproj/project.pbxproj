@@ -489,11 +489,11 @@
 			isa = PBXGroup;
 			children = (
 				7900E12F1D3A77CA00E3676C /* MusicplayTableViewCell.h */,
+				7900E1301D3A77CA00E3676C /* MusicplayTableViewCell.m */,
 				79FA04E41D3CFE5D000C3306 /* PlayListTableViewCell.h */,
 				79FA04E51D3CFE5D000C3306 /* PlayListTableViewCell.m */,
 				79FA04E61D3CFE5D000C3306 /* PlayListView.h */,
 				79FA04E71D3CFE5D000C3306 /* PlayListView.m */,
-				7900E1301D3A77CA00E3676C /* MusicplayTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";

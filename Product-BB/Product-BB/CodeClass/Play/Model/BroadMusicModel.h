@@ -38,11 +38,13 @@ typedef NS_ENUM(NSInteger, DownloadType){
 @property (nonatomic, strong) NSString *playtimes;
 @property (nonatomic, strong) NSString *coverMiddle;
 
-
-//@property (nonatomic, strong) NSString *coverLarge;
-//@property (nonatomic,strong) NSString *idd;
-//@property (nonatomic,strong) NSString *fmUid;
-//@property (nonatomic,strong) NSString *programId;
+// playPath64 url, listenDetailModel,attentionModel
+// title.nickname.playsCounts.coverSmall.playPath64
+//@property (nonatomic, strong) NSString *title;
+//@property (nonatomic,strong) NSString *nickname;
+@property (nonatomic,strong) NSString *playsCounts;
+//@property (nonatomic,strong) NSString *coverSmall;
+@property (nonatomic, strong) NSString *playPath64;
 //
 
 @property(nonatomic,assign)BOOL isPlay;
@@ -53,5 +55,6 @@ typedef NS_ENUM(NSInteger, DownloadType){
 
 + (NSMutableArray *)modelCOnfigureWithModelArray_m3u8:(NSMutableArray *)modelArr;
 + (NSMutableArray *)modelCOnfigureWithModelArray_playUrl64_mp3:(NSMutableArray *)modelArr;
++ (NSMutableArray *)modelCOnfigureWithModelArray_playPath64_mp3:(NSMutableArray *)modelArr;
 
 @end

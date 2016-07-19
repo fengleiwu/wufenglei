@@ -52,17 +52,23 @@
     // 
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height/4, self.width, 50)];
     topView.backgroundColor = [UIColor whiteColor];
-    topView.alpha = 0.99;
+    topView.alpha = 0.9;
     [self addSubview:topView];
     // 创建按钮（切换、排序）
-    self.playTypeBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 100, 30)];
+    self.playTypeBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    self.playTypeBtn.frame =CGRectMake(10, 10, 100, 30);
     [self.playTypeBtn setTitle:@"顺序播放" forState:(UIControlStateNormal)];
+    [self.playTypeBtn setImage:[UIImage imageNamed:@"audio_wave"] forState:(UIControlStateNormal)];
     [self.playTypeBtn addTarget:self action:@selector(playTypeAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    self.playTypeBtn.tintColor = [UIColor blackColor];
     [topView addSubview:self.playTypeBtn];
     
-    self.sortBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 110, 10, 100, 30)];
+    self.sortBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    self.sortBtn.frame = CGRectMake(self.width - 110, 10, 100, 30);
     [self.sortBtn setTitle:@"排序" forState:(UIControlStateNormal)];
+    [self.sortBtn setImage:[UIImage imageNamed:@"audio_wave"] forState:(UIControlStateNormal)];
     [self.sortBtn addTarget:self action:@selector(sortBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    self.sortBtn.tintColor = [UIColor blackColor];
     [topView addSubview:self.sortBtn];
     
 }
@@ -80,7 +86,7 @@
     // 中间的 tableview
     UITableView *tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, self.height/4 + 50, self.width, self.height*3/4-100) style:(UITableViewStylePlain)];
     tableV.rowHeight = 50;
-    tableV.alpha = 0.99;
+    tableV.alpha = 0.9;
     tableV.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     tableV.dataSource = self;
     tableV.delegate = self;
@@ -93,7 +99,7 @@
     
     self.closeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 50, self.width, 50)];
     self.closeBtn.backgroundColor = [UIColor whiteColor];
-    self.closeBtn.alpha = 0.99;
+    self.closeBtn.alpha = 0.9;
     [self.closeBtn setTitle:@"关闭" forState:(UIControlStateNormal)];
     [self.closeBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
      [self.closeBtn addTarget:self action:@selector(closeBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];

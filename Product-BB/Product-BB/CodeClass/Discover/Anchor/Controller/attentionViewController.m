@@ -6,20 +6,17 @@
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
-
-
 //关注界面
-
-
 #import "attentionViewController.h"
-
 #import "recommendMoreTableViewCell.h"
 #import "ListenDetailTableViewCell.h"
 #import "attentionModel.h"
 #import "AlbumDetailViewController.h"
 #import "GFZtableViewController.h"
-
 #import "HFStretchableTableHeaderView.h"
+#import "MusicplayViewController.h"
+#import "BroadMusicModel.h"
+
 @interface attentionViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)UIView *headView;
@@ -357,6 +354,21 @@
         album.inter = 4;
         }
         [self.navigationController pushViewController:album animated:YES];
+    } else {
+        attentionModel *model = self.bottomArr[indexPath.row];
+        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        
+        playVC.musicURL = model.playUrl64;
+        playVC.newmodelArray = self.bottomArr;
+        
+        // 判断字符串 URL 是否包含 mp3 ，解析 model。
+        if ([playVC.musicURL containsString:@"mp3"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_playUrl64_mp3:playVC.newmodelArray];
+        }
+        [MyPlayerManager defaultManager].index = indexPath.row;
+        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+        
+        [self presentViewController:playVC animated:YES completion:nil];
     }
 }
 

@@ -43,15 +43,12 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [self.timer fire];
     // 创建最上面的 button
-    self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
-    self.topLabel.font = [UIFont systemFontOfSize:20];
-    self.topLabel.textAlignment = NSTextAlignmentCenter;
-    // 赋值在下面的 giveValueforTitleName 方法里
-    [self.view addSubview:self.topLabel];
+    [self creatTopLabel];
+    
+    [self creatTableView];
     
 //     加载播放界面
     [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
-     [self creatTableView];
     
     // 创建播放列表页面
     self.playListView = [[PlayListView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
@@ -60,8 +57,18 @@
     
     // 创建返回按钮
     [self creatBackBtn];
+    
 }
 
+#pragma mark --- 创建最上面的 title
+- (void)creatTopLabel {
+    self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 30, kScreenWidth-100, 50)];
+    self.topLabel.font = [UIFont systemFontOfSize:20];
+    self.topLabel.textAlignment = NSTextAlignmentCenter;
+    // 赋值在下面的 giveValueforTitleName 方法里
+    [self.view addSubview:self.topLabel];
+
+}
 #pragma mark --- 搭建头视图上的 imageView
 - (void)creatHeadView {
     UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth)];
@@ -101,8 +108,8 @@
 - (void)giveValueforTitleName {
     // 赋值
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
-    self.titleLabel.text = model.totalTitle;
     self.topLabel.text = model.totalTitle;
+    self.titleLabel.text = model.totalTitle;
     if (model.liveTitle == nil) {
         self.nameLabel.text = @"未知";
     } else {
@@ -111,6 +118,9 @@
     // 赋值
     self.currentTimeLabel.text = @"00:00";
     self.totalTimeLabel.text = @"00:00";
+    
+//    [self.titleLabel sizeToFit];
+    
 }
 
 #pragma mark --- 播放按钮，上一首等按钮所在 视图
@@ -259,9 +269,8 @@
     
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"toolbar_pause_n_p@3x"] forState:(UIControlStateNormal)];
     
-
-    [self.tableV reloadData];
     [self giveValueforTitleName];
+    [self.tableV reloadData];
 }
 
 #pragma mark --- 创建 tableView 和 headVIew
@@ -289,13 +298,14 @@
     MusicplayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
     [cell cellConfigureWithModel:model];
+    
     return cell;
 }
 
 #pragma mark --- 创建最上面的返回按钮 所在的视图
 - (void)creatBackBtn {
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 30, 30, 30)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 40, 30, 30)];
     [backBtn setImage:[UIImage imageNamed:@"down_h@2x"] forState:(UIControlStateNormal)];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
     backBtn.tintColor = [UIColor redColor]; // 没效果
