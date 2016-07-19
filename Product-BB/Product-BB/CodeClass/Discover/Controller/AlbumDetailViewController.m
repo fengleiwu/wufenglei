@@ -22,7 +22,11 @@
 #import "attentionModel.h"
 #import "MusicplayViewController.h"
 #import "BroadMusicModel.h"
-
+#import "DownLoadViewController.h"
+#import "DBManager.h"
+#import "MyDownLoad.h"
+#import "MyMusicDownLoadTable.h"
+#import "MyDownLoadManager.h"
 @interface AlbumDetailViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)AlbumDetailModel *albumModel;
@@ -168,10 +172,8 @@
         NSString *url = @"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615";
         
         url = [url stringByReplacingOccurrencesOfString:@"Uid=54060615" withString:[NSString stringWithFormat:@"Uid=%@",self.uid]];
-        NSLog(@"+++++++++%@",url);
         [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"*************%@",dic);
             self.bigArray = [attentionModel price:dic];
             attentionModel *model = self.bigArray[self.row];
             nameLabel.text = model.title;
@@ -260,7 +262,7 @@
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
     NSString *URL = @"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&trackId=18143253";
    NSString *URL1 = [URL stringByReplacingOccurrencesOfString:@"albumId=308981" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
-    NSLog(@"+++++%@",URL1);
+    NSLog(@"++++++%@",URL1);
     //http://audio.xmcdn.com/group17/M0A/18/F6/wKgJKVeDHbawGkPRABMIm_FwUyk214.m4a
     //http://audio.xmcdn.com/group19/M0A/19/02/wKgJJleDFyiSkDT0ADEj4PI_Ypg361.mp3
     [RequestManager requestWithUrlString:URL1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
@@ -382,32 +384,65 @@
     if (!cell) {
         cell = [[AlbumDetailTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
     }
+        
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+        [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [cell creatCell:model];
-     if (model.isPlay == YES) {
-            CGRect frame = cell.bigLabel.frame;
-          frame = CGRectMake(135, 15, kScreenWidth - 40 - 140, 50);
-            cell.bigLabel.frame = frame;
-                 cell.activityView = [[MusicActivityView alloc]initWithFrame:CGRectMake(100, 15, 30, 30)];
-                 cell.activityView.numberOfRect = 4;
-                 cell.activityView.rectBackgroundColor = [UIColor orangeColor];
-                 cell.activityView.defaultSize = cell.activityView.frame.size;
-                 cell.activityView.space = 2;
-         [cell.activityView startAnimation];
-            [cell.contentView addSubview:cell.activityView];
-
-        }else{
-            cell.activityView.frame = CGRectMake(100, 15, 40, 40);
-            CGRect frame = cell.bigLabel.frame;
-            frame = CGRectMake(100, 15, kScreenWidth - 40 - 100, 50);
-            cell.bigLabel.frame = frame;
-            [cell.activityView stopAnimation];
-        }
+//     if (model.isPlay == YES) {
+//            CGRect frame = cell.bigLabel.frame;
+//          frame = CGRectMake(135, 15, kScreenWidth - 40 - 140, 50);
+//            cell.bigLabel.frame = frame;
+//                 cell.activityView = [[MusicActivityView alloc]initWithFrame:CGRectMake(100, 15, 30, 30)];
+//                 cell.activityView.numberOfRect = 4;
+//                 cell.activityView.rectBackgroundColor = [UIColor orangeColor];
+//                 cell.activityView.defaultSize = cell.activityView.frame.size;
+//                 cell.activityView.space = 2;
+//         [cell.activityView startAnimation];
+//            [cell.contentView addSubview:cell.activityView];
+//
+//        }else{
+//            cell.activityView.frame = CGRectMake(100, 15, 40, 40);
+//            CGRect frame = cell.bigLabel.frame;
+//            frame = CGRectMake(100, 15, kScreenWidth - 40 - 100, 50);
+//            cell.bigLabel.frame = frame;
+//            [cell.activityView stopAnimation];
+//        }
     return cell;
     }
 }
 
 
+-(void)downLoadAction:(UIButton *)btn
+{
+//    @property (nonatomic, strong) NSString *musicURL;
+//    @property (nonatomic, strong) NSString *totalTitle;
+//    @property (nonatomic, strong) NSString *liveTitle;
+//    @property (nonatomic, strong) NSString *playCount;
+//    @property (nonatomic, strong) NSString *bgImage;
+//    model.musicURL = otherModel.playUrl64;
+//    model.totalTitle = otherModel.title;
+//    model.liveTitle = otherModel.nickname;
+//    model.playCount = otherModel.playtimes;
+//    model.bgImage = otherModel.coverMiddle;
+    
+    AlbumDetailTableViewCell *cell = (AlbumDetailTableViewCell *)btn.superview.superview;
+    NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
+     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    MyDownLoad *task = [manager creatDownload:model.playUrl64];
+    [task start];
+    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+        NSLog(@"%lld,%ld",bytesWritten,progress);
+
+    } DidDownload:^(NSString *savePath, NSString *url) {
+        NSLog(@"++++++++++++++++++++%@",savePath);
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        [table creatTable];
+        model.type = DiDdwonload;
+        [table insertIntoTable:@[model.title,model.playUrl64,model.coverMiddle,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,self.albumModel.coverMiddle,self.albumModel.title]];
+    }];
+    
+}
 
 -(void)MoreAction:(UIButton *)btn
 {
@@ -474,8 +509,8 @@
     }
     
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
-    model.isPlay = YES;
-    [self.tab reloadData];
+//    model.isPlay = YES;
+//    [self.tab reloadData];
     
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
     

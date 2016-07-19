@@ -45,6 +45,13 @@
 		7916686A1D3671D2009A3613 /* VeryBigTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791668691D3671D2009A3613 /* VeryBigTabView.m */; };
 		791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */; };
 		791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 791D94611D3CF9D400A2DABB /* 5562497_03.gif */; };
+		793F1A9C1D3E04C100C8FD01 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1A971D3E04C100C8FD01 /* DBManager.m */; };
+		793F1A9D1D3E04C100C8FD01 /* MyDownLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1A991D3E04C100C8FD01 /* MyDownLoad.m */; };
+		793F1A9E1D3E04C100C8FD01 /* MyDownLoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1A9B1D3E04C100C8FD01 /* MyDownLoadManager.m */; };
+		793F1AA11D3E087A00C8FD01 /* MyMusicDownLoadTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1AA01D3E087A00C8FD01 /* MyMusicDownLoadTable.m */; };
+		793F1AA41D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1AA31D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m */; };
+		793F1AA61D3E205900C8FD01 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 793F1AA51D3E205900C8FD01 /* folder.png */; };
+		793F1AA81D3E207C00C8FD01 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 793F1AA71D3E207C00C8FD01 /* trash.png */; };
 		7946EBD31D35DAEB00AA9712 /* WEBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD21D35DAEB00AA9712 /* WEBModel.m */; };
 		7946EBD61D35DB2800AA9712 /* DiscoverWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD51D35DB2800AA9712 /* DiscoverWebViewController.m */; };
 		7946EBD91D35E46F00AA9712 /* recommendMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBD81D35E46F00AA9712 /* recommendMoreViewController.m */; };
@@ -244,6 +251,18 @@
 		791D94561D3CF38800A2DABB /* MBProgressHUD+GifHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GifHUD.h"; sourceTree = "<group>"; };
 		791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GifHUD.m"; sourceTree = "<group>"; };
 		791D94611D3CF9D400A2DABB /* 5562497_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 5562497_03.gif; sourceTree = "<group>"; };
+		793F1A961D3E04C100C8FD01 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		793F1A971D3E04C100C8FD01 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		793F1A981D3E04C100C8FD01 /* MyDownLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDownLoad.h; sourceTree = "<group>"; };
+		793F1A991D3E04C100C8FD01 /* MyDownLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDownLoad.m; sourceTree = "<group>"; };
+		793F1A9A1D3E04C100C8FD01 /* MyDownLoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDownLoadManager.h; sourceTree = "<group>"; };
+		793F1A9B1D3E04C100C8FD01 /* MyDownLoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDownLoadManager.m; sourceTree = "<group>"; };
+		793F1A9F1D3E087A00C8FD01 /* MyMusicDownLoadTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMusicDownLoadTable.h; sourceTree = "<group>"; };
+		793F1AA01D3E087A00C8FD01 /* MyMusicDownLoadTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMusicDownLoadTable.m; sourceTree = "<group>"; };
+		793F1AA21D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicAlbumDownLoadTableViewCell.h; sourceTree = "<group>"; };
+		793F1AA31D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicAlbumDownLoadTableViewCell.m; sourceTree = "<group>"; };
+		793F1AA51D3E205900C8FD01 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
+		793F1AA71D3E207C00C8FD01 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		7946EBD11D35DAEB00AA9712 /* WEBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEBModel.h; sourceTree = "<group>"; };
 		7946EBD21D35DAEB00AA9712 /* WEBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEBModel.m; sourceTree = "<group>"; };
 		7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverWebViewController.h; sourceTree = "<group>"; };
@@ -862,6 +881,14 @@
 		798076EC1D33A05C0095911D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				793F1A961D3E04C100C8FD01 /* DBManager.h */,
+				793F1A971D3E04C100C8FD01 /* DBManager.m */,
+				793F1A981D3E04C100C8FD01 /* MyDownLoad.h */,
+				793F1A991D3E04C100C8FD01 /* MyDownLoad.m */,
+				793F1A9A1D3E04C100C8FD01 /* MyDownLoadManager.h */,
+				793F1A9B1D3E04C100C8FD01 /* MyDownLoadManager.m */,
+				793F1A9F1D3E087A00C8FD01 /* MyMusicDownLoadTable.h */,
+				793F1AA01D3E087A00C8FD01 /* MyMusicDownLoadTable.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -869,6 +896,8 @@
 		798076ED1D33A05C0095911D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				793F1AA21D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.h */,
+				793F1AA31D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1102,6 +1131,8 @@
 				79F43F5B1D3A3C62002BE16F /* 0001 2.png */,
 				79F43F5C1D3A3C62002BE16F /* 1004.jpg */,
 				79F43F5D1D3A3C62002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg */,
+				793F1AA51D3E205900C8FD01 /* folder.png */,
+				793F1AA71D3E207C00C8FD01 /* trash.png */,
 				79F43F5E1D3A3C62002BE16F /* add_user_group.png */,
 				791D94611D3CF9D400A2DABB /* 5562497_03.gif */,
 				79F43F5F1D3A3C62002BE16F /* audio_wave.png */,
@@ -1297,6 +1328,8 @@
 				7900E85D1D3A796E00E3676C /* toolbar_back_n_p@3x.png in Resources */,
 				7980770C1D33A12C0095911D /* style.css in Resources */,
 				79F446851D3A3C64002BE16F /* download.png in Resources */,
+				793F1AA81D3E207C00C8FD01 /* trash.png in Resources */,
+				793F1AA61D3E205900C8FD01 /* folder.png in Resources */,
 				79F44CE71D3A3C64002BE16F /* play.png in Resources */,
 				7900E8591D3A796E00E3676C /* broadcast_DownButtonBg@2x.png in Resources */,
 				79F44CE31D3A3C64002BE16F /* like_outline.png in Resources */,
@@ -1394,6 +1427,7 @@
 				7900E14D1D3A78A300E3676C /* RankModel.m in Sources */,
 				791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */,
 				79F43F551D3A3AFB002BE16F /* AnchorOtherViewController.m in Sources */,
+				793F1AA41D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m in Sources */,
 				79FA04F21D3D001B000C3306 /* GFZtableViewController.m in Sources */,
 				790C09401D34F4B200D384A7 /* hotRecommendsModel.m in Sources */,
 				796F6F3E1D3C6DDD00CF6DEC /* attentionAndFanTableViewCell.m in Sources */,
@@ -1454,6 +1488,7 @@
 				7900E14B1D3A78A300E3676C /* BroadListModel.m in Sources */,
 				7900E14A1D3A78A300E3676C /* BroadcastViewController.m in Sources */,
 				79F43F581D3A3AFB002BE16F /* RankListTableViewCell.m in Sources */,
+				793F1A9E1D3E04C100C8FD01 /* MyDownLoadManager.m in Sources */,
 				79118E1C1D3E027F00059969 /* DetailListTableViewCell.m in Sources */,
 				79F43F561D3A3AFB002BE16F /* AnchorTableViewCell.m in Sources */,
 				79F43F4F1D3A3AFB002BE16F /* AllHotModel.m in Sources */,
@@ -1461,6 +1496,7 @@
 				79118E181D3E027F00059969 /* CategoryCarouselModel.m in Sources */,
 				79F43F4C1D3A3AFB002BE16F /* OtherProgramViewController.m in Sources */,
 				7900E14E1D3A78A300E3676C /* TypeModel.m in Sources */,
+				793F1A9D1D3E04C100C8FD01 /* MyDownLoad.m in Sources */,
 				79A28AF81D37856300EBEBA8 /* DetailPayModel.m in Sources */,
 				79118E191D3E027F00059969 /* CateTypeModel.m in Sources */,
 				79F43F501D3A3AFB002BE16F /* HotTitleModel.m in Sources */,
@@ -1471,11 +1507,13 @@
 				79F44D6F1D3A5277002BE16F /* OtherAnchorTableViewCell.m in Sources */,
 				7955C8A01D39C9EA0052EBBC /* AnchorCollectionViewCell.m in Sources */,
 				79FA04E81D3CFE5D000C3306 /* PlayListTableViewCell.m in Sources */,
+				793F1AA11D3E087A00C8FD01 /* MyMusicDownLoadTable.m in Sources */,
 				796F6F3B1D3C6C6C00CF6DEC /* attentionViewController.m in Sources */,
 				798077091D33A12C0095911D /* CircleAnimation.m in Sources */,
 				79E322FA1D388EC000B716B5 /* specialTableViewCell.m in Sources */,
 				7946EBD91D35E46F00AA9712 /* recommendMoreViewController.m in Sources */,
 				7946EBE71D36162C00AA9712 /* AlbumDetailViewController.m in Sources */,
+				793F1A9C1D3E04C100C8FD01 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

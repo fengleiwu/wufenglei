@@ -53,7 +53,7 @@
     self.tab.rowHeight = 120;
     NSString *url = [NSString stringWithFormat:@"http://mobile.ximalaya.com/m/subject_detail?device=android&id=%@&position=1&title=%@",self.listenId,self.listenTitle];
     NSString *encodURL = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSLog(@"++++++++%@",encodURL);
+   // NSLog(@"++++++++%@",encodURL);
     [RequestManager requestWithUrlString:encodURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];

@@ -10,16 +10,17 @@
 #import "BroadListModel.h"
 #import "LocationModel.h"
 #import "RankModel.h"
+
 #import "AlbumDetailModel.h"
 #import "ListenDetailModel.h"
 #import "attentionModel.h"
 
-typedef NS_ENUM(NSInteger, DownloadType){
-    UnDownload,
-    Downloadimg,
-    DownloadPause,
-    DiDdwonload
-};
+//typedef NS_ENUM(NSInteger, DownloadType){
+//    UnDownload,
+//    Downloadimg,
+//    DownloadPause,
+//    DiDdwonload
+//};
 
 @interface BroadMusicModel : NSObject
 
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSInteger, DownloadType){
 @property(nonatomic,assign)BOOL isPlay;
 @property(nonatomic,strong)NSString *savePath;
 @property(nonatomic,assign)BOOL isSelect;
-@property(nonatomic,assign)DownloadType downloadType;
+//@property(nonatomic,assign)DownloadType downloadType;
 
 
 

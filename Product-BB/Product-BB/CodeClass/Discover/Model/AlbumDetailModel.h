@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, DownloadType){
+    UnDownload,
+    Downloadimg,
+    DownloadPause,
+    DiDdwonload
+};
+
 @interface AlbumDetailModel : NSObject
 
 @property(nonatomic , strong)NSString *comments;//评论个数
@@ -32,10 +39,12 @@
 @property(nonatomic , strong)NSString *coverMiddle;//播放image
 @property(nonatomic , strong)NSString *title;
 @property(nonatomic , strong)NSString *nickname;
+@property(nonatomic , strong)NSString *albumId;
 
 
 @property(nonatomic , assign)BOOL isPlay;
 
+@property(nonatomic , assign)DownloadType type;
 
 
 +(AlbumDetailModel *)album:(NSDictionary *)dic;

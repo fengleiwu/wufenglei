@@ -69,7 +69,7 @@
     [self.view addSubview:self.topLabel];
     
     
-    NSLog(@"+++++++++++++++++++++%@",self.newmodelArray);
+    //NSLog(@"+++++++++++++++++++++%@",self.newmodelArray);
     
 
 }

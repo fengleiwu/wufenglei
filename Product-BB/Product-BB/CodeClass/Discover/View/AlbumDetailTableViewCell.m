@@ -29,12 +29,12 @@
         self.imageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 60, 60)];
         [self.imageV.layer setMasksToBounds:YES];
         [self.imageV.layer setCornerRadius:30];
-        self.activityView = [[MusicActivityView alloc]initWithFrame:CGRectMake(100, 15, 30, 30)];
-        self.activityView.numberOfRect = 4;
-        self.activityView.rectBackgroundColor = [UIColor orangeColor];
-        self.activityView.defaultSize = self.activityView.frame.size;
-        self.activityView.space = 2;
-        [self.activityView startAnimation];
+//        self.activityView = [[MusicActivityView alloc]initWithFrame:CGRectMake(100, 15, 30, 30)];
+//        self.activityView.numberOfRect = 4;
+//        self.activityView.rectBackgroundColor = [UIColor orangeColor];
+//        self.activityView.defaultSize = self.activityView.frame.size;
+//        self.activityView.space = 2;
+//        [self.activityView startAnimation];
         self.bigLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 15, kScreenWidth - 40 - 100, 50)];
         self.bigLabel.font = [UIFont systemFontOfSize:15];
         self.bigLabel.numberOfLines = 0;
@@ -54,6 +54,7 @@
         self.downLoadBtn.frame = CGRectMake(kScreenWidth - 40, 35, 30, 30);
         [self.downLoadBtn setImage:[UIImage imageNamed:@"download"] forState:(UIControlStateNormal)];
         self.downLoadBtn.tintColor = [UIColor blackColor];
+        //[self.contentView addSubview:self.activityView];
         [self.contentView addSubview:self.bigLabel];
         [self.contentView addSubview:self.littleLabel2];
         [self.contentView addSubview:self.littleLabel1];
@@ -61,7 +62,6 @@
         [self.contentView addSubview:self.littleImageV1];
         [self.contentView addSubview:self.playLabel];
         [self.contentView addSubview:self.downLoadBtn];
-        [self.contentView addSubview:self.activityView];
         [self.contentView addSubview:self.imageV];
         
     }

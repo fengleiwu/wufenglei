@@ -7,11 +7,13 @@
 //
 
 #import "DownLoadViewController.h"
+#import "MyMusicDownLoadTable.h"
 @interface DownLoadViewController ()<UIScrollViewDelegate>
 @property (nonatomic , strong)UISegmentedControl *seg;
 @property (nonatomic , strong)UIScrollView *scr;
 @property (nonatomic , strong)UIView *lineView;
 @property (nonatomic , strong)UILabel *memoryLabel;
+@property (nonatomic , strong)NSDictionary *dic;
 @end
 
 @implementation DownLoadViewController
@@ -21,10 +23,25 @@
     
     
     self.navigationController.navigationBar.hidden = YES;
+    
     [self creatSeg];
     [self creatScr];
     [self creatMemoryLabel];
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *arr = [table selectAll];
     
+    
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSArray *ar1 in arr) {
+        [array addObject:ar1[6]];
+        for (int i = 0; i < array.count - 1; i++) {
+            if ([array[array.count-1] isEqualToString:array[i]]) {
+                [array removeLastObject];
+            }
+        }
+    }
+    
+    NSLog(@"%@",array);
     // Do any additional setup after loading the view.
 }
 
@@ -35,15 +52,10 @@
 {
     vm_statistics_data_t vmStats;
     mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
-    kern_return_t kernReturn = host_statistics(mach_host_self(),
-                                               HOST_VM_INFO,
-                                               (host_info_t)&vmStats,
-                                               &infoCount);
-    
+    kern_return_t kernReturn = host_statistics(mach_host_self(),HOST_VM_INFO,(host_info_t)&vmStats,&infoCount);
     if (kernReturn != KERN_SUCCESS) {
         return NSNotFound;
     }
-    
     return ((vm_page_size *vmStats.free_count) / 1024.0) / 1024.0;
 }
 
@@ -52,11 +64,7 @@
 {
     task_basic_info_data_t taskInfo;
     mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
-    kern_return_t kernReturn = task_info(mach_task_self(),
-                                         TASK_BASIC_INFO,
-                                         (task_info_t)&taskInfo,
-                                         &infoCount);
-    
+    kern_return_t kernReturn = task_info(mach_task_self(),TASK_BASIC_INFO,(task_info_t)&taskInfo,&infoCount);
     if (kernReturn != KERN_SUCCESS
         ) {
         return NSNotFound;
@@ -69,7 +77,7 @@
 
 -(void)creatSeg
 {
-    self.seg = [[UISegmentedControl alloc]initWithItems:@[@"推荐",@"订阅",@"历史"]];
+    self.seg = [[UISegmentedControl alloc]initWithItems:@[@"专辑",@"声音",@"下载中"]];
     self.seg.frame = CGRectMake(0, 20, kScreenWidth, 44);
     NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:20],
                           NSForegroundColorAttributeName:[UIColor redColor]};
@@ -78,7 +86,7 @@
     NSDictionary *dic1 = @{NSFontAttributeName:[UIFont systemFontOfSize:20],
                            NSForegroundColorAttributeName:[UIColor blackColor]};
     [self.seg setTitleTextAttributes:dic1 forState:(UIControlStateNormal)];
-    self.lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 43, kScreenWidth / 3, 1)];
+    self.lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, kScreenWidth / 3, 2)];
     self.lineView.backgroundColor = [UIColor redColor];
     [self.seg addTarget:self action:@selector(segAction) forControlEvents:(UIControlEventValueChanged)];
     

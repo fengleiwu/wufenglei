@@ -28,7 +28,7 @@
 
 #define kMySqliteName @"勃起吧!兄弟.sqlite"
 #define kMyDownloadTable @"一身辣条味儿"
-
+#define kYourDownloadTable @"还是一身辣条味儿"
 
 #define KfocusImagesURL @"http://mobile.ximalaya.com/mobile/discovery/v4/recommends?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
 #define KShanghaiURL @"http://mobile.ximalaya.com/mobile/discovery/v1/city/tab?code=43_310000_3100&device=iPhone&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&version=4.3.9"
