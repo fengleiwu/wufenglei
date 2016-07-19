@@ -485,7 +485,7 @@
     
     // 判断字符串 URL 是否包含 mp3 ，解析 model。
     if ([playVC.musicURL containsString:@"mp3"]) {
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_playUrl64_mp3:playVC.newmodelArray];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;

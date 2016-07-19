@@ -431,7 +431,7 @@
          playVC.musicURL = model.playUrl1;
         // 判断字符串 URL 是否包含 m3u8 ，解析 model。
         if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:playVC.newmodelArray];
         }
         [MyPlayerManager defaultManager].index = button.tag - 100;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
@@ -441,7 +441,7 @@
         playVC.newmodelArray = self.RankArr;
         // 判断字符串 URL 是否包含 m3u8 ，解析 model。
         if ([playVC.musicURL containsString:@"m3u8"]) {
-            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:playVC.newmodelArray];
         }
         [MyPlayerManager defaultManager].index = button.tag - 200;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
@@ -458,15 +458,21 @@
         LocationModel *model = self.loactionArr[indexPath.row];
         playVC.musicURL = model.playUrl1;
         playVC.newmodelArray = self.loactionArr;
+        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+        if ([playVC.musicURL containsString:@"m3u8"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithLocationModel:playVC.newmodelArray];
+        }
     } else{
         RankModel *model = self.RankArr[indexPath.row];
         playVC.musicURL = model.playUrl1;
         playVC.newmodelArray = self.RankArr;
+        
+        // 判断字符串 URL 是否包含 m3u8 ，解析 model。
+        if ([playVC.musicURL containsString:@"m3u8"]) {
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithRankModel:playVC.newmodelArray];
+        }
     }
-    // 判断字符串 URL 是否包含 m3u8 ，解析 model。
-    if ([playVC.musicURL containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
-    }
+   
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
  

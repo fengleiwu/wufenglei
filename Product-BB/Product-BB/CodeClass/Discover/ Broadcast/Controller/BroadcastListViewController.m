@@ -114,7 +114,7 @@
     playVC.newmodelArray = self.modelArray;
     // 判断字符串 URL 是否包含 m3u8 ，解析 model。
     if ([playVC.musicURL containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithBroadlistModel:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = button.tag - 100;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
@@ -129,7 +129,7 @@
     playVC.newmodelArray = self.modelArray;
     // 判断字符串 URL 是否包含 m3u8 ，解析 model。
     if ([playVC.musicURL containsString:@"m3u8"]) {
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithModelArray_m3u8:playVC.newmodelArray];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithBroadlistModel:playVC.newmodelArray];
     }
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;

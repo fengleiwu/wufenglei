@@ -18,9 +18,9 @@
 @property (nonatomic,strong) NSString *idd;
 @property (nonatomic, strong) NSString *playUrl1;
 
-@property(nonatomic,assign)BOOL isPlay;
-@property(nonatomic,strong)NSString *savePath;
-@property(nonatomic,assign)BOOL isSelect;
+//@property(nonatomic,assign)BOOL isPlay;
+//@property(nonatomic,strong)NSString *savePath;
+//@property(nonatomic,assign)BOOL isSelect;
 
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
 
