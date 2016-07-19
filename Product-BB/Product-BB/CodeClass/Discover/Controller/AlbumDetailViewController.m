@@ -53,7 +53,6 @@
         self.isPay = YES;
         NSString *url = @"http://mobile.ximalaya.com/mobile/v1/album/detail?albumId=4345263&device=iPhone&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1";
         NSString *detailUrl = [url stringByReplacingOccurrencesOfString:@"albumId=4345263" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
-        NSLog(@"************%@",url);
         [RequestManager requestWithUrlString:detailUrl requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.contectModel = [DetailPayModel detail:dic];
@@ -137,8 +136,7 @@
     [self.tabViewHeadView addSubview:priceLabel];
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
     
-   // @"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615"
-    if (self.isPaid == NO) {
+   if (self.isPaid == NO) {
         [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.bigArray = [hotRecommendsModel hotRecommends:dic];
@@ -151,10 +149,12 @@
             if (f > 10000) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
                 playLabel.text = st;
-            }else
-            {
+            }if (f <= 10000 && f >= 1) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f万次",f];
                 playLabel.text = st;
+                
+            }else{
+                playLabel.text = [NSString stringWithFormat:@"播放:%@次",model.playsCounts];
             }
             pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
             state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
@@ -172,6 +172,7 @@
         NSLog(@"+++++++++%@",url);
         [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"*************%@",dic);
             self.bigArray = [attentionModel price:dic];
             
             attentionModel *model = self.bigArray[self.row];
@@ -182,14 +183,24 @@
             if (f > 10000) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
                 playLabel.text = st;
-            }else
-            {
+            }if (f <= 10000 && f >= 1) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f万次",f];
-                playLabel.text = st;
+                    playLabel.text = st;
+                
+            }else{
+                playLabel.text = [NSString stringWithFormat:@"播放:%@次",model.playTimes];
             }
-            pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
+            
             state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
-            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
+            if (self.score.length > 0) {
+                
+                pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",self.score];
+                priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.displayPrice];
+            }else{
+                pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
+                priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
+            }
+            
             [self.tab reloadData];
 
         } error:^(NSError *error) {

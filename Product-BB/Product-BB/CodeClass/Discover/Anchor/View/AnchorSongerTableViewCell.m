@@ -77,7 +77,7 @@
     self.group.frame = CGRectMake(170, frame.size.height + 65, 20, 20);
     self.numberLabel.frame = CGRectMake(195, frame.size.height + 65, 60, 20);
     CGFloat f = [model.followersCounts floatValue];
-    if (f > 10000) {
+    if (f >= 10000) {
         self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f/10000];
         
     }else{

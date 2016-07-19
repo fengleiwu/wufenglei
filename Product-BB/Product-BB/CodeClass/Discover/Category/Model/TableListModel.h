@@ -18,7 +18,7 @@
 @property (nonatomic, strong)NSString *recReason;
 
 @property(nonatomic , strong)NSString *albumId;
-@property(nonatomic , assign)BOOL *isPaid;
+@property(nonatomic , assign)BOOL isPaid;
 @property(nonatomic , strong)NSString *nickname;
 @property(nonatomic , strong)NSString *trackId;
 @property(nonatomic , strong)NSString *trackTitle;
@@ -26,6 +26,8 @@
 @property(nonatomic , strong)NSString *coverMiddle;
 @property(nonatomic , strong)NSString *commentsCount;
 
+@property(nonatomic , strong)NSString *displayPrice;
+@property(nonatomic , strong)NSString *score;
 
 
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;

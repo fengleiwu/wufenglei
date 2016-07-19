@@ -74,7 +74,7 @@
     self.nameLabel.text = model.nickname;
     [self.contentView addSubview:self.like];
     CGFloat f = [model.playsCounts floatValue];
-    if (f / 10000 > 1) {
+    if (f / 10000 >= 1) {
         self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
     }else{
         self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playsCounts];
@@ -89,7 +89,7 @@
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
     CGFloat f = [model.playtimes floatValue];
-    if (f / 10000 > 1) {
+    if (f / 10000 >= 1) {
         self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
     }else{
         self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playtimes];
@@ -107,7 +107,7 @@
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
     CGFloat f = [model.playtimes floatValue];
-    if (f / 10000 > 1) {
+    if (f / 10000 >= 1) {
         self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
     }else{
         self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playtimes];

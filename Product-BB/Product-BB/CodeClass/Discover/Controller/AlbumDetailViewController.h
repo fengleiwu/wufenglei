@@ -19,6 +19,8 @@
 @property(nonatomic , strong)NSString *uid;//uid
 @property(nonatomic , strong)NSString *nickName;
 
+@property(nonatomic , strong)NSString *score;
+@property(nonatomic , strong)NSString *displayPrice;
 
 
 

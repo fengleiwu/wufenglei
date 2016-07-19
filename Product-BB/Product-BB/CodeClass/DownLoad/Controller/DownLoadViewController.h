@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <sys/sysctl.h>
+#import <mach/mach.h>
 @interface DownLoadViewController : UIViewController
 
 @end

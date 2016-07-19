@@ -221,9 +221,10 @@
         str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
         str = [str stringByReplacingOccurrencesOfString:@"keywordId=232" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
     }
+    NSLog(@"++++%@",str);
     [RequestManager requestWithUrlString:str requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"%@",dic);
+        //NSLog(@"%@",dic);
         self.tableArr = [TableListModel modelConfigureWithDic:dic];
         UITableView *tableView = [self.view viewWithTag:index];
         [tableView reloadData];
@@ -309,10 +310,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TableListModel *model = self.tableArr[indexPath.row];
+  TableListModel *model = self.tableArr[indexPath.row];
     AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+    
     album.url = model.albumId;
-    album.inter = 4;
+    if (model.isPaid == true) {
+        album.uid = model.uid;
+        album.isPaid = YES;
+        //album.row = indexPath.row;
+        album.nickName = model.nickname;
+        album.score = [NSString stringWithFormat:@"%@",model.score];
+        album.displayPrice = model.displayPrice;
+    }else{
+        album.inter = 4;
+    }
     [self.navigationController pushViewController:album animated:YES];
 }
 
