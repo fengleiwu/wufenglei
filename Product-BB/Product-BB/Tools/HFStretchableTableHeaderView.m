@@ -11,6 +11,7 @@
     CGRect initialFrame;
     CGFloat defaultViewHeight;
 }
+@property (nonatomic,assign)CGRect originFrame;
 @end
 
 
@@ -43,6 +44,7 @@
     f.size.width = _tableView.frame.size.width;
     _view.frame  = f;
     
+    
     if(scrollView.contentOffset.y < 0)
     {
         CGFloat offsetY = (scrollView.contentOffset.y + scrollView.contentInset.top) * -1;
@@ -52,7 +54,6 @@
         
         initialFrame.size.width  = _tableView.frame.size.width + offsetY;
         initialFrame.size.height = defaultViewHeight + offsetY;
-        
         _view.frame = initialFrame;
     }
 

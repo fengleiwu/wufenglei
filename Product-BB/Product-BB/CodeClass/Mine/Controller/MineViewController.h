@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MineViewController : UIViewController
-
+@property (nonatomic ,assign)float aCount;
 @end
