@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, DownloadType){
 @property (nonatomic, strong) NSString *playPath64;
 //
 
+
 @property(nonatomic,assign)BOOL isPlay;
 @property(nonatomic,strong)NSString *savePath;
 @property(nonatomic,assign)BOOL isSelect;
@@ -56,5 +57,7 @@ typedef NS_ENUM(NSInteger, DownloadType){
 + (NSMutableArray *)modelCOnfigureWithModelArray_m3u8:(NSMutableArray *)modelArr;
 + (NSMutableArray *)modelCOnfigureWithModelArray_playUrl64_mp3:(NSMutableArray *)modelArr;
 + (NSMutableArray *)modelCOnfigureWithModelArray_playPath64_mp3:(NSMutableArray *)modelArr;
+
+
 
 @end

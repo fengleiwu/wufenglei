@@ -67,6 +67,10 @@
     self.topLabel.textAlignment = NSTextAlignmentCenter;
     // 赋值在下面的 giveValueforTitleName 方法里
     [self.view addSubview:self.topLabel];
+    
+    
+    NSLog(@"+++++++++++++++++++++%@",self.newmodelArray);
+    
 
 }
 #pragma mark --- 搭建头视图上的 imageView

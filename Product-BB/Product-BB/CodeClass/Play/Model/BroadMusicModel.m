@@ -32,6 +32,7 @@
         model.liveTitle = otherModel.programName;
         model.playCount = otherModel.playCount;
         model.bgImage = otherModel.coverSmall;
+        
         [array addObject:model];
     }
     return array;

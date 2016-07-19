@@ -160,7 +160,6 @@
             state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
             priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
             [self.tab reloadData];
-            //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
         } error:^(NSError *error) {
             NSLog(@"%@",error);
         }];
@@ -174,7 +173,6 @@
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSLog(@"*************%@",dic);
             self.bigArray = [attentionModel price:dic];
-            
             attentionModel *model = self.bigArray[self.row];
             nameLabel.text = model.title;
             [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];

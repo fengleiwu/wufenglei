@@ -215,8 +215,7 @@
     if (self.tab.contentOffset.y<0) {
         CGFloat f = 220 - self.tab.contentOffset.y;
         self.effectview.height = f;
-        self.effectview.width = 500;
-        [self.image addSubview:self.effectview];
+        self.effectview.width = 2*kScreenWidth;
         
         }
     [self.image addSubview:self.effectview];
