@@ -19,7 +19,9 @@
 @property (nonatomic, strong)NSMutableArray *tableArr;
 @property (nonatomic, strong)NSMutableArray *urlIdArr;
 @property (nonatomic, strong)NSMutableArray *iddArr;
+@property (nonatomic, strong)NSMutableArray *nameArr;
 @property (nonatomic, strong)NSMutableArray *collectionArr;
+@property (nonatomic, strong)NSMutableDictionary *nameDic;
 @property (nonatomic, strong)UICollectionView *collectionV;
 @end
 
@@ -52,13 +54,26 @@
     return _iddArr;
 }
 
+-(NSMutableArray *)nameArr{
+    if (!_nameArr) {
+        _nameArr = [NSMutableArray array];
+    }
+    return _nameArr;
+}
+
+-(NSMutableDictionary *)nameDic{
+    if (!_nameDic) {
+        _nameDic = [NSMutableDictionary dictionary];
+    }
+    return _nameDic;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.titleStr;
     self.view.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.titleL];
+    self.limit = 1;
     [self requestData1];
-    
     // Do any additional setup after loading the view.
 }
 
@@ -94,14 +109,38 @@
         tableView.dataSource = self;
         tableView.showsVerticalScrollIndicator = NO;
         [tableView registerNib:[UINib nibWithNibName:@"DetailListTableViewCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
+        // 上拉刷新
+        tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self.tableArr removeAllObjects];
+            self.start = 0;
+            self.reload = YES;
+            self.colset = NO;
+            [self requestData2:self.urlIdArr[i] index:1000 +i];
+        }];
+        
+        // 下拉加载数据
+        tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            self.start = self.limit *20;
+            self.limit +=1;
+            self.reload = YES;
+            self.colset = NO;
+            if (self.startOver == YES) {
+            } else {
+               [self requestData2:self.urlIdArr[i] index:1000 +i];
+            }
+        }];
      [self.largeScrollV addSubview:tableView];
     }
 }
 
 #pragma mark ----- 滑动方法 -----
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y != 0) {
-        self.colset = YES;
+    if (scrollView.contentOffset.y != 0 ) {
+        if (self.reload == YES) {
+           
+        }else {
+            self.colset = YES;//yes cell滑动
+        }
     } else {
         if (scrollView != self.collectionV && scrollView.contentOffset.x !=0)
         {
@@ -113,8 +152,11 @@
 #pragma mark --- 结束减速触发的方法 ---
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if ( self.colset == YES) {
+    if ( self.colset == YES ) {
         self.colset = NO;
+        
+    } else if(self.reload == YES && self.colset != NO){
+        self.reload = NO;
     } else {
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0]];
     if (scrollView.contentOffset.x > 0 ||scrollView.contentOffset.x >self.conset) {
@@ -133,7 +175,15 @@
     {
         cell.label.textColor = [UIColor orangeColor];
         cell.label.font = [UIFont systemFontOfSize:20];
-        [self requestData2:self.urlIdArr[(NSInteger)(scrollView.contentOffset.x / kScreenWidth)] index:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)+1000];
+        UITableView *tableView = [self.view viewWithTag:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)+1000];
+//        NSLog(@"%ld",tableView.tag);
+        NSInteger key = (NSInteger)(scrollView.contentOffset.x / kScreenWidth);
+        if ([self.nameDic[self.nameArr[key]] isEqualToString:@"Yes"] ) {
+//            [self requestData2:self.urlIdArr[(NSInteger)(scrollView.contentOffset.x / kScreenWidth)] index:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)+1000];
+        } else {
+            [self.nameDic setValue:@"Yes" forKey:self.nameArr[(NSInteger)(scrollView.contentOffset.x / kScreenWidth)]];
+            [tableView.mj_header beginRefreshing];
+        }
         [_collectionV selectItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         if (scrollView.contentOffset.x / kScreenWidth != 0)
         {
@@ -176,6 +226,16 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@",dic);
         self.collectionArr = [CateTypeModel modelConfigureWithDic:dic];
+        for (CateTypeModel *model in self.collectionArr) {
+            if (model.name != nil) {
+                [self.nameDic setValue:@"NO" forKey:model.name];
+                [self.nameArr addObject:model.name];
+            } else {
+                [self.nameDic setValue:@"NO" forKey:model.keywordName];
+                [self.nameArr addObject:model.keywordName];
+            }
+           
+        }
         if ([self.URLLStr isEqualToString:KShanghaiURL]) {
             for (CateTypeModel *model in self.collectionArr) {
                 [self.urlIdArr addObject:model.idd];
@@ -196,7 +256,10 @@
         [self.view addSubview:self.collectionV];
         self.largeScrollV.contentSize = CGSizeMake(kScreenWidth *self.collectionArr.count, 0);
         [self.collectionV addSubview:self.moveV];
-        [self requestData2:self.urlIdArr[0] index:1000];
+         UITableView *tableView = [self.view viewWithTag:1000];
+        [self.nameDic setValue:@"Yes" forKey:self.nameArr[0]];
+        [tableView.mj_header beginRefreshing];
+//        [self requestData2:self.urlIdArr[0] index:1000];
     } error:^(NSError *error) {
         NSLog(@"bottomData --- %@", error);
     }];
@@ -221,14 +284,30 @@
         str = [str stringByReplacingOccurrencesOfString:@"categoryId=3" withString:[NSString stringWithFormat:@"categoryId=%ld",self.idd]];
         str = [str stringByReplacingOccurrencesOfString:@"keywordId=232" withString:[NSString stringWithFormat:@"keywordId=%@",idd]];
     }
-    NSLog(@"++++%@",str);
+    //改变每次请求的数据
+    if (self.limit >1) {
+       str = [str stringByReplacingOccurrencesOfString:@"pageId=1" withString:[NSString stringWithFormat:@"pageId=%ld",self.limit]];
+    }
     [RequestManager requestWithUrlString:str requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        //NSLog(@"%@",dic);
-        self.tableArr = [TableListModel modelConfigureWithDic:dic];
         UITableView *tableView = [self.view viewWithTag:index];
-        [tableView reloadData];
+//        NSLog(@"%@",dic);
+        if (self.limit *20 > [dic[@"totalCount"] integerValue]) {
+            [tableView.mj_footer endRefreshing];
+            self.startOver = YES;
+        }
+        NSArray *arr1 = [TableListModel modelConfigureWithDic:dic];
+        for (TableListModel *model in arr1) {
+            [self.tableArr addObject:model];
+        }
         
+//        [tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [tableView reloadData];
+            [tableView.mj_header endRefreshing];
+            [tableView.mj_footer endRefreshing];
+        });
+        self.reload = NO;
 //        NSLog(@"%@",self.tableArr);
     } error:^(NSError *error) {
         NSLog(@"bottomData --- %@", error);
@@ -290,10 +369,18 @@
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     cell.label.textColor = [UIColor orangeColor];
     cell.label.font = [UIFont systemFontOfSize:20];
-    
+    self.conset = kScreenWidth *indexPath.row;
     if (indexPath.row != 0)
     {
-        [self requestData2:self.urlIdArr[indexPath.row] index:indexPath.row+1000];
+        UITableView *tableView = [self.view viewWithTag:indexPath.row+1000];
+        NSInteger key = indexPath.row;
+        if ([self.nameDic[self.nameArr[key]] isEqualToString:@"Yes"] ) {
+//            [self requestData2:self.urlIdArr[indexPath.row] index:indexPath.row+1000];
+        } else {
+            [self.nameDic setValue:@"Yes" forKey:self.nameArr[indexPath.row]];
+            [tableView.mj_header beginRefreshing];
+        }
+//        [self requestData2:self.urlIdArr[indexPath.row] index:indexPath.row+1000];
         [collectionView setContentOffset:CGPointMake(110 * indexPath.row - 110, 0) animated:YES];
     }
     
@@ -310,20 +397,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  TableListModel *model = self.tableArr[indexPath.row];
+    TableListModel *model = self.tableArr[indexPath.row];
     AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
-    
     album.url = model.albumId;
-    if (model.isPaid == true) {
-        album.uid = model.uid;
-        album.isPaid = YES;
-        //album.row = indexPath.row;
-        album.nickName = model.nickname;
-        album.score = [NSString stringWithFormat:@"%@",model.score];
-        album.displayPrice = model.displayPrice;
-    }else{
-        album.inter = 4;
-    }
+    album.inter = 4;
     [self.navigationController pushViewController:album animated:YES];
 }
 

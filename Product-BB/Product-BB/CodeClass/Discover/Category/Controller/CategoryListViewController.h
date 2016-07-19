@@ -15,5 +15,9 @@
 @property (nonatomic, assign)NSInteger idd;
 @property (nonatomic, assign)NSInteger keyId;
 @property (nonatomic, assign)NSInteger conset;
+@property (nonatomic, assign)NSInteger start;
+@property (nonatomic, assign)NSInteger limit;
 @property (nonatomic, assign)BOOL colset;
+@property (nonatomic, assign)BOOL reload;
+@property (nonatomic, assign)BOOL startOver;
 @end
