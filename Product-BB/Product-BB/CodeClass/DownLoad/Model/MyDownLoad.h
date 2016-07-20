@@ -11,7 +11,7 @@
 
 typedef void(^Downloading) (long long bytesWritten , NSInteger progress ,long long allTimes);//下载中,返回瞬时速度和进度
 typedef void(^DidDownload) (NSString *savePath , NSString *url);//下载完成,返回保存路径和下载地址
-@protocol  DownLoadDelegate <NSObject>
+@protocol  MyDownLoadDelegate <NSObject>
 
 -(void)removeDownloadTask:(NSString *)url;
 
@@ -21,7 +21,7 @@ typedef void(^DidDownload) (NSString *savePath , NSString *url);//下载完成,�
 
 @property(nonatomic , strong)NSString *url;//下载地址
 @property(nonatomic , assign)NSInteger progress;//下载进度
-@property(nonatomic , assign)id<DownLoadDelegate>delegate;
+@property(nonatomic , assign)id<MyDownLoadDelegate>delegate;
 
 //给个下载地址 初始化
 -(instancetype)initWith:(NSString *)url;

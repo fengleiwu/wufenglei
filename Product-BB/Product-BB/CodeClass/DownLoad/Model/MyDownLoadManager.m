@@ -11,7 +11,7 @@
 
 static MyDownLoadManager *manager = nil;
 
-@interface MyDownLoadManager()<DownLoadDelegate>
+@interface MyDownLoadManager()<MyDownLoadDelegate>
 @property (nonatomic , strong)NSMutableDictionary *dic;//存放下载任务
 
 @end

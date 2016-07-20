@@ -62,6 +62,8 @@
 		7946EBEA1D3619A400AA9712 /* AlbumDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBE91D3619A400AA9712 /* AlbumDetailModel.m */; };
 		7946EBED1D3620E100AA9712 /* AlbumDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBEC1D3620E100AA9712 /* AlbumDetailTableViewCell.m */; };
 		7946EBF31D3621B400AA9712 /* MusicActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBF11D3621B400AA9712 /* MusicActivityView.m */; };
+		7949A0CE1D3F1429000ABEF2 /* DownLoadMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0CD1D3F1429000ABEF2 /* DownLoadMusicViewController.m */; };
+		7949A0D11D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0D01D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m */; };
 		7955C89A1D39C2CC0052EBBC /* AnchorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8991D39C2CC0052EBBC /* AnchorModel.m */; };
 		7955C89D1D39C8F30052EBBC /* AnchorCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89C1D39C8F30052EBBC /* AnchorCollectionView.m */; };
 		7955C8A01D39C9EA0052EBBC /* AnchorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89F1D39C9EA0052EBBC /* AnchorCollectionViewCell.m */; };
@@ -295,6 +297,10 @@
 		7946EBEC1D3620E100AA9712 /* AlbumDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumDetailTableViewCell.m; sourceTree = "<group>"; };
 		7946EBF11D3621B400AA9712 /* MusicActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicActivityView.m; sourceTree = "<group>"; };
 		7946EBF21D3621B400AA9712 /* MusicActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicActivityView.h; sourceTree = "<group>"; };
+		7949A0CC1D3F1429000ABEF2 /* DownLoadMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadMusicViewController.h; sourceTree = "<group>"; };
+		7949A0CD1D3F1429000ABEF2 /* DownLoadMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadMusicViewController.m; sourceTree = "<group>"; };
+		7949A0CF1D3F145B000ABEF2 /* DownLoadMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadMusicTableViewCell.h; sourceTree = "<group>"; };
+		7949A0D01D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadMusicTableViewCell.m; sourceTree = "<group>"; };
 		7955C8981D39C2CC0052EBBC /* AnchorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorModel.h; sourceTree = "<group>"; };
 		7955C8991D39C2CC0052EBBC /* AnchorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorModel.m; sourceTree = "<group>"; };
 		7955C89B1D39C8F30052EBBC /* AnchorCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorCollectionView.h; sourceTree = "<group>"; };
@@ -901,6 +907,8 @@
 			children = (
 				7980771C1D33A2340095911D /* DownLoadViewController.h */,
 				7980771D1D33A2340095911D /* DownLoadViewController.m */,
+				7949A0CC1D3F1429000ABEF2 /* DownLoadMusicViewController.h */,
+				7949A0CD1D3F1429000ABEF2 /* DownLoadMusicViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -925,6 +933,8 @@
 			children = (
 				793F1AA21D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.h */,
 				793F1AA31D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m */,
+				7949A0CF1D3F145B000ABEF2 /* DownLoadMusicTableViewCell.h */,
+				7949A0D01D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1519,6 +1529,8 @@
 				7955C89D1D39C8F30052EBBC /* AnchorCollectionView.m in Sources */,
 				79118E161D3E027F00059969 /* ShopViewController.m in Sources */,
 				798077001D33A05C0095911D /* AppDelegate.m in Sources */,
+				7949A0D11D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m in Sources */,
+				7949A0CE1D3F1429000ABEF2 /* DownLoadMusicViewController.m in Sources */,
 				798077271D33A2540095911D /* RootViewController.m in Sources */,
 				7900E1321D3A77CA00E3676C /* BroadMusicModel.m in Sources */,
 				79F43F541D3A3AFB002BE16F /* AllMoreTableViewCell.m in Sources */,

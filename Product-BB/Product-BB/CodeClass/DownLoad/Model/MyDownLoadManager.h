@@ -16,5 +16,6 @@
 //创建一个下载任务
 -(MyDownLoad *)creatDownload:(NSString *)url;
 
+-(void)removeDownloadTask:(NSString *)url;
 
 @end

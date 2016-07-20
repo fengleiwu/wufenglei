@@ -41,6 +41,7 @@
 @property (nonatomic , assign)BOOL isPay;
 @property (nonatomic , strong)DetailPayModel *introduceModel;
 @property (nonatomic , strong)NSMutableArray *pinglunArray;
+@property (nonatomic , strong)NSMutableArray *downLoadArray;
 //@property (nonatomic , strong)UITextView *contentView;
 //@property (nonatomic , strong)UILabel *contentLabel;
 
@@ -50,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.downLoadArray = [NSMutableArray array];
     self.title = @"专辑详情";
     [self creatVeryBigTabview];
     if (self.inter <= 2 && self.inter >= 0) {
@@ -425,9 +426,29 @@
 //    model.playCount = otherModel.playtimes;
 //    model.bgImage = otherModel.coverMiddle;
     
+//    if (self.downLoadArray.count>0) {
+//        if (![self.downLoadArray containsObject:self.url]) {
+//            [self.downLoadArray addObject:self.url];
+//            }
+//    }else{
+//        [self.downLoadArray addObject:self.url];
+//    }
+//    [[NSUserDefaults standardUserDefaults]setObject:self.downLoadArray forKey:@"down"];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     AlbumDetailTableViewCell *cell = (AlbumDetailTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
-     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+    AlbumDetailModel *model = self.tracksArr[indexPath.row];
+    NSArray *tableArray = [table selectAll];
+    if (tableArray.count > 0) {
+        for (NSArray *arr in tableArray) {
+            if ([arr containsObject:model.playUrl64]) {
+                [self alertControllerShowWithTitle:@"这首歌已被下载" message:nil];
+                return;
+            }
+        }
+    }
+    
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
     MyDownLoad *task = [manager creatDownload:model.playUrl64];
     [task start];
@@ -436,13 +457,32 @@
 
     } DidDownload:^(NSString *savePath, NSString *url) {
         NSLog(@"++++++++++++++++++++%@",savePath);
-        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
         [table creatTable];
         model.type = DiDdwonload;
-        [table insertIntoTable:@[model.title,model.playUrl64,model.coverMiddle,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,self.albumModel.coverMiddle,self.albumModel.title]];
+        NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverMiddle]];
+//        UIImage *dataMusic = [UIImage imageWithData:musicData];
+//        NSData *data = UIImagePNGRepresentation(dataMusic);
+        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverMiddle]];
+        
+        [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
     }];
     
 }
+
+// 展示AlertController
+- (void)alertControllerShowWithTitle:(NSString *)title message:(NSString *)message
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [self performSelector:@selector(alertMiss:) withObject:alert afterDelay:1];
+}
+// AlertController自动消失
+- (void)alertMiss:(UIAlertController *)alert
+{
+    [alert dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 -(void)MoreAction:(UIButton *)btn
 {

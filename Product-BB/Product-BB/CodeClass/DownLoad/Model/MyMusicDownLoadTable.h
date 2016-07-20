@@ -21,8 +21,10 @@
 //取出
 -(NSArray *)selectAll;
 
+//删除数据
+-(void)delegateNoteWithTableName:(NSString *)tableName myId:(NSString *)myID;
 
-
+-(void)delegateNoteWithTableName:(NSString *)tableName musicUrl:(NSString *)musicUrl;
 
 
 

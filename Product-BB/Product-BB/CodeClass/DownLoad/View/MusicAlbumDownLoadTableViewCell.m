@@ -27,6 +27,8 @@
         self.imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 100, 100)];
         self.titleL = [[UILabel alloc]initWithFrame:CGRectMake(120, 10, kScreenWidth - 120 - 60, 40)];
         self.fuTitleL = [[UILabel alloc]initWithFrame:CGRectMake(120, 60, kScreenWidth - 120 - 60, 20)];
+        self.fuTitleL.textColor = [UIColor grayColor];
+        self.fuTitleL.font = [UIFont systemFontOfSize:15];
         self.btn1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
         self.btn1.frame = CGRectMake(120, 90, 20, 20);
         [self.btn1 setImage:[UIImage imageNamed:@"audio_wave"] forState:(UIControlStateNormal)];
@@ -37,6 +39,7 @@
         self.btn2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
         self.btn2.frame = CGRectMake(210, 90, 20, 20);
         [self.btn2 setImage:[UIImage imageNamed:@"folder"] forState:(UIControlStateNormal)];
+        [self.btn2 setTintColor:[UIColor grayColor]];
         self.fileL = [[UILabel alloc]initWithFrame:CGRectMake(235, 90, 50, 20)];
         self.fileL.font = [UIFont systemFontOfSize:12];
         self.fileL.textColor = [UIColor grayColor];
@@ -58,9 +61,15 @@
 
 -(void)creatCell:(NSArray *)arr
 {
+    NSArray *arr1 = [arr lastObject];
 
+
+    self.imageV.image = [UIImage imageWithData:arr1[9]];
     
-    
+    //[self.imageV sd_setImageWithURL:[NSURL URLWithString:arr1[9]]];
+    self.titleL.text = arr1[10];
+    self.fuTitleL.text = arr1[10];
+    self.numbelL.text = [NSString stringWithFormat:@"%ld集",arr.count];
     
     
 }

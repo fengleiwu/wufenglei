@@ -63,31 +63,45 @@
     //NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[set columnCount]];
     while ([set next]) {
         
+        NSData *musicImg = [set dataForColumn:@"musicImg"];
+        NSData *musicCoverMiddle = [set dataForColumn:@"musicCoverMiddle"];
+
         
         NSString *title = [set stringForColumn:@"title"];
         NSString *musicUrl = [set stringForColumn:@"musicUrl"];
-        NSString *musicImg = [set stringForColumn:@"musicImg"];
+        //NSString *musicImg = [set stringForColumn:@"musicImg"];
         NSString *musicPath = [set stringForColumn:@"musicPath"];
         NSString *musicName = [set stringForColumn:@"musicName"];
         NSString *musicCount = [set stringForColumn:@"musicCount"];
         NSString *musicAlbumid = [set stringForColumn:@"musicAlbumid"];
         NSString *musicComments = [set stringForColumn:@"musicComments"];
         NSString *musicLikes = [set stringForColumn:@"musicLikes"];
-        NSString *musicCoverMiddle = [set stringForColumn:@"musicCoverMiddle"];
+        //NSString *musicCoverMiddle = [set stringForColumn:@"musicCoverMiddle"];
         NSString *musicTitle = [set stringForColumn:@"musicTitle"];
         [array addObject:@[title,musicUrl,musicImg,musicPath,musicName,musicCount,musicAlbumid,musicComments,musicLikes,musicCoverMiddle,musicTitle]];
-        
-        
-        
-}
+        }
     return array;
 }
 
-//@property (nonatomic, strong) NSString *musicURL;
-//@property (nonatomic, strong) NSString *totalTitle;大标题
-//@property (nonatomic, strong) NSString *liveTitle;副标题
-//@property (nonatomic, strong) NSString *playCount;播放次数
-//@property (nonatomic, strong) NSString *bgImage;//图片
+//删除数据
+-(void)delegateNoteWithTableName:(NSString *)tableName myId:(NSString *)myID
+{
+//    [_dataBase open];
+    NSString *string = [NSString stringWithFormat:@"delete from %@ where musicAlbumid = ?",tableName];
+    NSString *myIDString = [NSString stringWithFormat:@"%@",myID];
+    BOOL flag = [_dataBase executeUpdate:string,myIDString];
+       NSLog(@"删除数据flag==%d",flag);
+//    [_dataBase close];
+    
+}
 
+-(void)delegateNoteWithTableName:(NSString *)tableName musicUrl:(NSString *)musicUrl
+{
+    NSString *string = [NSString stringWithFormat:@"delete from %@ where musicUrl = ?",tableName];
+    NSString *myIDString = [NSString stringWithFormat:@"%@",musicUrl];
+    BOOL flag = [_dataBase executeUpdate:string,myIDString];
+    NSLog(@"删除数据flag==%d",flag);
+
+}
 
 @end
