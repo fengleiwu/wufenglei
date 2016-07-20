@@ -184,6 +184,7 @@
 		79FA04EF1D3CFF32000C3306 /* SUBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04EE1D3CFF32000C3306 /* SUBModel.m */; };
 		79FA04F21D3D001B000C3306 /* GFZtableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04F11D3D001B000C3306 /* GFZtableViewController.m */; };
 		79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FA04F31D3D005B000C3306 /* down_h@2x.png */; };
+		79FEE8861D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */; };
 		F6560512CE78B4556703A01A /* libPods-Product-BB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */; };
 /* End PBXBuildFile section */
 
@@ -495,6 +496,7 @@
 		79FA04F01D3D001B000C3306 /* GFZtableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFZtableViewController.h; sourceTree = "<group>"; };
 		79FA04F11D3D001B000C3306 /* GFZtableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFZtableViewController.m; sourceTree = "<group>"; };
 		79FA04F31D3D005B000C3306 /* down_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_h@2x.png"; sourceTree = "<group>"; };
+		79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png"; sourceTree = "<group>"; };
 		C4B52D992845D19AB2F9FC04 /* Pods-Product-BB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Product-BB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Product-BB/Pods-Product-BB.debug.xcconfig"; sourceTree = "<group>"; };
 		E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Product-BB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1204,6 +1206,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */,
 				79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */,
 				79CD0F981D3F90B40020AF6E /* 密码.png */,
 				79CD0F991D3F90B40020AF6E /* 微博 (3).png */,
@@ -1410,6 +1413,7 @@
 				79F446811D3A3C64002BE16F /* add_user_group.png in Resources */,
 				79F44CFC1D3A3C64002BE16F /* 箭头.png in Resources */,
 				79F44CFA1D3A3C64002BE16F /* 箭头 (2).png in Resources */,
+				79FEE8861D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
 				79F44CEE1D3A3C64002BE16F /* 发现.png in Resources */,
 				7900E8581D3A796E00E3676C /* broadcast_bg.jpg in Resources */,
