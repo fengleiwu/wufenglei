@@ -113,6 +113,12 @@
 		79BE29FF1D3E7B70009CF446 /* 游戏_选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 79BE29F61D3E7B70009CF446 /* 游戏_选中.png */; };
 		79BE2A001D3E7B70009CF446 /* 珠穆朗玛.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79BE29F71D3E7B70009CF446 /* 珠穆朗玛.jpg */; };
 		79BE2A011D3E7B70009CF446 /* dog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79BE29F81D3E7B70009CF446 /* dog.jpg */; };
+		79CD0F931D3F90760020AF6E /* libsms-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CD0F921D3F90760020AF6E /* libsms-lib.a */; };
+		79CD0F9C1D3F90B40020AF6E /* 冰封王座之巅.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */; };
+		79CD0F9D1D3F90B40020AF6E /* 密码.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F981D3F90B40020AF6E /* 密码.png */; };
+		79CD0F9E1D3F90B40020AF6E /* 微博 (3).png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F991D3F90B40020AF6E /* 微博 (3).png */; };
+		79CD0F9F1D3F90B40020AF6E /* 微信 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F9A1D3F90B40020AF6E /* 微信 (1).png */; };
+		79CD0FA01D3F90B40020AF6E /* QQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F9B1D3F90B40020AF6E /* QQ.png */; };
 		79E322FA1D388EC000B716B5 /* specialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E322F91D388EC000B716B5 /* specialTableViewCell.m */; };
 		79E322FD1D38967800B716B5 /* qualityGoodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E322FC1D38967800B716B5 /* qualityGoodTableViewCell.m */; };
 		79E323001D3899FA00B716B5 /* qualityGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E322FF1D3899FA00B716B5 /* qualityGoodsModel.m */; };
@@ -390,6 +396,14 @@
 		79BE29F61D3E7B70009CF446 /* 游戏_选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "游戏_选中.png"; sourceTree = "<group>"; };
 		79BE29F71D3E7B70009CF446 /* 珠穆朗玛.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "珠穆朗玛.jpg"; sourceTree = "<group>"; };
 		79BE29F81D3E7B70009CF446 /* dog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dog.jpg; sourceTree = "<group>"; };
+		79CD0F901D3F90760020AF6E /* JSMSConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMSConstant.h; sourceTree = "<group>"; };
+		79CD0F911D3F90760020AF6E /* JSMSSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMSSDK.h; sourceTree = "<group>"; };
+		79CD0F921D3F90760020AF6E /* libsms-lib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libsms-lib.a"; sourceTree = "<group>"; };
+		79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "冰封王座之巅.png"; sourceTree = "<group>"; };
+		79CD0F981D3F90B40020AF6E /* 密码.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码.png"; sourceTree = "<group>"; };
+		79CD0F991D3F90B40020AF6E /* 微博 (3).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微博 (3).png"; sourceTree = "<group>"; };
+		79CD0F9A1D3F90B40020AF6E /* 微信 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信 (1).png"; sourceTree = "<group>"; };
+		79CD0F9B1D3F90B40020AF6E /* QQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QQ.png; sourceTree = "<group>"; };
 		79E322F81D388EC000B716B5 /* specialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = specialTableViewCell.h; sourceTree = "<group>"; };
 		79E322F91D388EC000B716B5 /* specialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = specialTableViewCell.m; sourceTree = "<group>"; };
 		79E322FB1D38967800B716B5 /* qualityGoodTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qualityGoodTableViewCell.h; sourceTree = "<group>"; };
@@ -491,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6560512CE78B4556703A01A /* libPods-Product-BB.a in Frameworks */,
+				79CD0F931D3F90760020AF6E /* libsms-lib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +751,7 @@
 		798076AD1D339EAD0095911D /* Product-BB */ = {
 			isa = PBXGroup;
 			children = (
+				79CD0F8E1D3F90760020AF6E /* JsmsSDK */,
 				798076E11D33A05C0095911D /* AppDelegate */,
 				798076E41D33A05C0095911D /* BaseClass */,
 				798076E51D33A05C0095911D /* CodeClass */,
@@ -1097,6 +1113,24 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
+		79CD0F8E1D3F90760020AF6E /* JsmsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				79CD0F8F1D3F90760020AF6E /* include */,
+				79CD0F921D3F90760020AF6E /* libsms-lib.a */,
+			);
+			path = JsmsSDK;
+			sourceTree = "<group>";
+		};
+		79CD0F8F1D3F90760020AF6E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				79CD0F901D3F90760020AF6E /* JSMSConstant.h */,
+				79CD0F911D3F90760020AF6E /* JSMSSDK.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		79F43EEE1D3A3AFB002BE16F /*  Broadcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1204,11 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */,
+				79CD0F981D3F90B40020AF6E /* 密码.png */,
+				79CD0F991D3F90B40020AF6E /* 微博 (3).png */,
+				79CD0F9A1D3F90B40020AF6E /* 微信 (1).png */,
+				79CD0F9B1D3F90B40020AF6E /* QQ.png */,
 				79BE29F01D3E7B70009CF446 /* 冰封王座.png */,
 				79BE29F11D3E7B70009CF446 /* 播放历史.png */,
 				79BE29F21D3E7B70009CF446 /* 商城.png */,
@@ -1342,6 +1381,7 @@
 				79F4467E1D3A3C64002BE16F /* 0001 2.png in Resources */,
 				79F44CE91D3A3C64002BE16F /* tabbar_bg@3x.png in Resources */,
 				791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */,
+				79CD0F9C1D3F90B40020AF6E /* 冰封王座之巅.png in Resources */,
 				7900E85E1D3A796E00E3676C /* toolbar_next_n_p@3x.png in Resources */,
 				7900E1501D3A78A300E3676C /* LocationTableViewCell.xib in Resources */,
 				79F44CF21D3A3C64002BE16F /* 我的.png in Resources */,
@@ -1365,6 +1405,7 @@
 				7900E85B1D3A796E00E3676C /* drag_list_up.png in Resources */,
 				79BE29FF1D3E7B70009CF446 /* 游戏_选中.png in Resources */,
 				79F44CF71D3A3C64002BE16F /* 电波-01.png in Resources */,
+				79CD0FA01D3F90B40020AF6E /* QQ.png in Resources */,
 				79F44CFB1D3A3C64002BE16F /* 箭头 (3).png in Resources */,
 				79F446811D3A3C64002BE16F /* add_user_group.png in Resources */,
 				79F44CFC1D3A3C64002BE16F /* 箭头.png in Resources */,
@@ -1376,6 +1417,7 @@
 				79F44CE61D3A3C64002BE16F /* pause.png in Resources */,
 				79F44CEC1D3A3C64002BE16F /* 五星国旗.png in Resources */,
 				79F44CF11D3A3C64002BE16F /* 娱乐_音乐电台.png in Resources */,
+				79CD0F9F1D3F90B40020AF6E /* 微信 (1).png in Resources */,
 				798076BE1D339EAD0095911D /* LaunchScreen.storyboard in Resources */,
 				79F446801D3A3C64002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg in Resources */,
 				79F446831D3A3C64002BE16F /* comments.png in Resources */,
@@ -1384,6 +1426,7 @@
 				79BE2A011D3E7B70009CF446 /* dog.jpg in Resources */,
 				79F446871D3A3C64002BE16F /* guest_male.png in Resources */,
 				7900E85D1D3A796E00E3676C /* toolbar_back_n_p@3x.png in Resources */,
+				79CD0F9E1D3F90B40020AF6E /* 微博 (3).png in Resources */,
 				7980770C1D33A12C0095911D /* style.css in Resources */,
 				79BE2A001D3E7B70009CF446 /* 珠穆朗玛.jpg in Resources */,
 				79F446851D3A3C64002BE16F /* download.png in Resources */,
@@ -1402,6 +1445,7 @@
 				7900E8601D3A796E00E3676C /* toolbar_play_n_p@3x.png in Resources */,
 				798076B91D339EAD0095911D /* Main.storyboard in Resources */,
 				79F44CF81D3A3C64002BE16F /* 省_1.png in Resources */,
+				79CD0F9D1D3F90B40020AF6E /* 密码.png in Resources */,
 				79F446841D3A3C64002BE16F /* dot_circle.png in Resources */,
 				79F44CF41D3A3C64002BE16F /* 播放.png in Resources */,
 				79BE29FC1D3E7B70009CF446 /* 设置 (1).png in Resources */,
@@ -1724,6 +1768,10 @@
 				INFOPLIST_FILE = "Product-BB/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Product-BB/JsmsSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1739,6 +1787,10 @@
 				INFOPLIST_FILE = "Product-BB/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Product-BB/JsmsSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "wufenglei.Product-BB";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

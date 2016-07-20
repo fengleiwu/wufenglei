@@ -23,6 +23,10 @@
     RootTabBarViewController *root = [[RootTabBarViewController alloc]init];
     self.window.rootViewController = root;
     
+    //从官网注册获取
+    //注册短信验证的appKey
+    [JSMSSDK registerWithAppKey:@"188a49f330fb6d0245d74f18"];
+
     return YES;
 }
 

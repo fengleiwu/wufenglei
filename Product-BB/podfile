@@ -5,4 +5,5 @@ pod 'SDWebImage', '~> 3.8.1'
 pod 'MJRefresh', '~> 3.1.6'
 pod 'FMDB', '~> 2.6.2'
 pod 'MBProgressHUD', '~> 0.9.2'
+pod 'pop', '~> 1.0.9'
 end
