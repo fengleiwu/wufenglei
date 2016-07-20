@@ -8,17 +8,22 @@
 
 #import "RegistViewController.h"
 
+#import "JSMSSDK.h"
+#import "AFNetworkReachabilityManager.h"
+
 @interface RegistViewController ()
 @property (nonatomic, strong)UILabel *registL;
 @property (nonatomic, strong)UILabel *explainL;
 @property (nonatomic, strong)UILabel *delegateL;
 @property (nonatomic, strong)UIButton *backB;
 @property (nonatomic, strong)UIButton *nextB;
+@property (nonatomic, strong)UIButton *delegateB;
 @property (nonatomic, strong)UIView *lineV;
 @property (nonatomic, strong)UIImageView *imageV;
 @property (nonatomic, strong)UITextField *phoneTF;
 @property (nonatomic, strong)UIBlurEffect *beffect;
 @property (nonatomic, strong)UIVisualEffectView *effectV;
+//@property (nonatomic, strong)UITextField *
 @end
 
 @implementation RegistViewController
@@ -33,8 +38,8 @@
     [self.view addSubview:self.imageV];
     [self.imageV addSubview:self.effectV];
     //创建注册标签
-    self.registL = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/2-25, 30, 50, kScreenHeight/11)];
-    self.registL.text = @"注册";
+    self.registL = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/2-45, 30, 90, kScreenHeight/11)];
+    self.registL.text = @"手机注册";
     self.registL.textColor = [UIColor whiteColor];
     self.registL.font = [UIFont systemFontOfSize:20];
     self.registL.textAlignment = NSTextAlignmentCenter;
@@ -50,7 +55,7 @@
     self.explainL.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:self.explainL];
     //创建协议标签
-    self.delegateL = [[UILabel alloc]initWithFrame:CGRectMake(50, kScreenHeight*3/11 +kScreenHeight/15+kScreenHeight/12, kScreenWidth/2, kScreenHeight/15)];
+    self.delegateL = [[UILabel alloc]initWithFrame:CGRectMake(50, kScreenHeight*3/11 +kScreenHeight/15+kScreenHeight/12, 120, kScreenHeight/15)];
     self.delegateL.textColor = [UIColor whiteColor];
     self.delegateL.text = @"本人已阅读并同意";
     self.delegateL.font = [UIFont systemFontOfSize:13];
@@ -86,7 +91,16 @@
     [self.nextB.layer setMasksToBounds:YES];
     [self.nextB.layer setBorderWidth:1];
     [self.nextB.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.nextB addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextB];
+    //创建协议按钮
+    self.delegateB = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.delegateB.frame = CGRectMake(self.delegateL.frame.size.width +50, kScreenHeight*3/11 +kScreenHeight/15+kScreenHeight/12, 60, kScreenHeight/15);
+    self.delegateB.titleLabel.font = [UIFont systemFontOfSize:13];
+    [self.delegateB setTitle:@"注册协议" forState:UIControlStateNormal];
+    [self.delegateB setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.delegateB addTarget:self action:@selector(delegateAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.delegateB];
     // Do any additional setup after loading the view.
 }
 
@@ -116,6 +130,34 @@
         self.nextB.backgroundColor = [UIColor clearColor];
         [self.nextB setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
+}
+
+#pragma mark ----- 创建下一步方法 -----
+-(void)nextAction{
+    [self.view endEditing: YES];
+//    [JSMSSDK getVerificationCodeWithPhoneNumber:@"13758146836" andTemplateID:@"1" completionHandler:^(id resultObject, NSError *error) {
+//        if (!error) {
+//            NSLog(@"Get Verification Code success!");
+//        }else{
+//            NSLog(@"Get Verification Code failure!");
+//        }
+//    }];
+    
+    __weak __typeof__(self) weakSelf = self;
+    
+    [JSMSSDK getVerificationCodeWithPhoneNumber:weakSelf.phoneTF.text andTemplateID:[NSString stringWithFormat:@"%d",1] completionHandler:^(id resultObject, NSError *error) {
+        if (!error) {
+            NSLog(@"Get Verification Code success!");
+        }
+        else {
+            NSLog(@"上传手机号失败 error %ld",(long)error.code);
+        }
+    }];
+}
+
+#pragma mark ----- 查看协议方法 -----
+-(void)delegateAction{
+
 }
 
 #pragma mark ----- 创建返回方法 -----
