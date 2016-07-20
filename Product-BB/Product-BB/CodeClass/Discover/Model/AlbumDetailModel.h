@@ -47,6 +47,10 @@ typedef NS_ENUM(NSInteger, DownloadType){
 @property(nonatomic , assign)DownloadType type;
 
 
+@property(nonatomic , assign)BOOL isSelect;
+
+
+
 +(AlbumDetailModel *)album:(NSDictionary *)dic;
 +(NSMutableArray *)tracks:(NSDictionary *)dic;
 +(AlbumDetailModel *)user:(NSDictionary *)dic;

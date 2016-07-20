@@ -399,9 +399,20 @@
 {
     TableListModel *model = self.tableArr[indexPath.row];
     AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];
+    
     album.url = model.albumId;
-    album.inter = 4;
+    if (model.isPaid == true) {
+        album.uid = model.uid;
+        album.isPaid = YES;
+        album.nickName = model.nickname;
+        album.score = [NSString stringWithFormat:@"%@",model.score];
+        album.displayPrice = model.displayDiscountedPrice;
+        
+        }else{
+        album.inter = 4;
+    }
     [self.navigationController pushViewController:album animated:YES];
+    
 }
 
 

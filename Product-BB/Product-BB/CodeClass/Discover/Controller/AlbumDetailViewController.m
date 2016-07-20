@@ -27,6 +27,7 @@
 #import "MyDownLoad.h"
 #import "MyMusicDownLoadTable.h"
 #import "MyDownLoadManager.h"
+#import "batchDownViewController.h"
 @interface AlbumDetailViewController ()<UITableViewDataSource , UITableViewDelegate , UIScrollViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)AlbumDetailModel *albumModel;
@@ -42,6 +43,12 @@
 @property (nonatomic , strong)DetailPayModel *introduceModel;
 @property (nonatomic , strong)NSMutableArray *pinglunArray;
 @property (nonatomic , strong)NSMutableArray *downLoadArray;
+
+
+@property (nonatomic , strong)hotRecommendsModel *hotRecommendsModel;
+
+@property (nonatomic , strong)attentionModel *attentionModel;
+
 //@property (nonatomic , strong)UITextView *contentView;
 //@property (nonatomic , strong)UILabel *contentLabel;
 
@@ -146,11 +153,11 @@
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.bigArray = [hotRecommendsModel hotRecommends:dic];
             NSArray *arr = self.bigArray[0];
-            hotRecommendsModel *model = arr[self.inter];
-            nameLabel.text = model.title;
-            [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
-            smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",model.nickname];
-            CGFloat f = [model.playsCounts floatValue] / 10000;
+            self.hotRecommendsModel = arr[self.inter];
+            nameLabel.text = self.hotRecommendsModel.title;
+            [imageV sd_setImageWithURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
+            smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",self.hotRecommendsModel.nickname];
+            CGFloat f = [self.hotRecommendsModel.playsCounts floatValue] / 10000;
             if (f > 10000) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
                 playLabel.text = st;
@@ -159,11 +166,11 @@
                 playLabel.text = st;
                 
             }else{
-                playLabel.text = [NSString stringWithFormat:@"播放:%@次",model.playsCounts];
+                playLabel.text = [NSString stringWithFormat:@"播放:%@次",self.hotRecommendsModel.playsCounts];
             }
-            pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
-            state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
-            priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
+            pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",self.hotRecommendsModel.score];
+            state.text = [NSString stringWithFormat:@"状态:已更新%@集",self.hotRecommendsModel.tracks];
+            priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.hotRecommendsModel.displayPrice];
             [self.tab reloadData];
         } error:^(NSError *error) {
             NSLog(@"%@",error);
@@ -176,11 +183,11 @@
         [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.bigArray = [attentionModel price:dic];
-            attentionModel *model = self.bigArray[self.row];
-            nameLabel.text = model.title;
-            [imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+            self.attentionModel = self.bigArray[self.row];
+            nameLabel.text = self.attentionModel.title;
+            [imageV sd_setImageWithURL:[NSURL URLWithString:self.attentionModel.coverMiddle]];
             smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",self.nickName];
-            CGFloat f = [model.playTimes floatValue] / 10000;
+            CGFloat f = [self.attentionModel.playTimes floatValue] / 10000;
             if (f > 10000) {
                 NSString *st = [NSString stringWithFormat:@"播放:%.1f亿次",f / 1000];
                 playLabel.text = st;
@@ -189,17 +196,17 @@
                     playLabel.text = st;
                 
             }else{
-                playLabel.text = [NSString stringWithFormat:@"播放:%@次",model.playTimes];
+                playLabel.text = [NSString stringWithFormat:@"播放:%@次",self.attentionModel.playTimes];
             }
             
-            state.text = [NSString stringWithFormat:@"状态:已更新%@集",model.tracks];
+            state.text = [NSString stringWithFormat:@"状态:已更新%@集",self.attentionModel.tracks];
             if (self.score.length > 0) {
                 
                 pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",self.score];
                 priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.displayPrice];
             }else{
-                pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",model.score];
-                priceLabel.text = [NSString stringWithFormat:@"价格:%@",model.displayPrice];
+                pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",self.attentionModel.score];
+                priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.attentionModel.displayPrice];
             }
             
             [self.tab reloadData];
@@ -247,6 +254,7 @@
     UIButton *btn2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
     btn2.frame = CGRectMake((kScreenWidth - 30) / 2 + 10 + 10, 120, (kScreenWidth - 30) / 2, 30);
     [btn2 setTitle:@"批量下载" forState:(UIControlStateNormal)];
+    [btn2 addTarget:self action:@selector(batchDownLoadAction) forControlEvents:(UIControlEventTouchUpInside)];
     [btn2 setTitleColor:[UIColor greenColor] forState:(UIControlStateNormal)];
     [btn2 setBackgroundColor:[UIColor whiteColor]];
     [btn2.layer setMasksToBounds:YES];
@@ -379,6 +387,7 @@
         }
         [cell.moreBtn addTarget:self action:@selector(MoreAction:) forControlEvents:(UIControlEventTouchUpInside)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cell;
     }else{
     AlbumDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
@@ -387,54 +396,26 @@
     }
         
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+        
+        
         [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [cell creatCell:model];
-//     if (model.isPlay == YES) {
-//            CGRect frame = cell.bigLabel.frame;
-//          frame = CGRectMake(135, 15, kScreenWidth - 40 - 140, 50);
-//            cell.bigLabel.frame = frame;
-//                 cell.activityView = [[MusicActivityView alloc]initWithFrame:CGRectMake(100, 15, 30, 30)];
-//                 cell.activityView.numberOfRect = 4;
-//                 cell.activityView.rectBackgroundColor = [UIColor orangeColor];
-//                 cell.activityView.defaultSize = cell.activityView.frame.size;
-//                 cell.activityView.space = 2;
-//         [cell.activityView startAnimation];
-//            [cell.contentView addSubview:cell.activityView];
-//
-//        }else{
-//            cell.activityView.frame = CGRectMake(100, 15, 40, 40);
-//            CGRect frame = cell.bigLabel.frame;
-//            frame = CGRectMake(100, 15, kScreenWidth - 40 - 100, 50);
-//            cell.bigLabel.frame = frame;
-//            [cell.activityView stopAnimation];
-//        }
     return cell;
     }
 }
 
 
+#pragma mark ---批量下载
+-(void)batchDownLoadAction{
+    batchDownViewController *batch = [[batchDownViewController alloc]init];
+    batch.arr = self.tracksArr;
+    [self.navigationController pushViewController:batch animated:YES];
+}
+
+
 -(void)downLoadAction:(UIButton *)btn
 {
-//    @property (nonatomic, strong) NSString *musicURL;
-//    @property (nonatomic, strong) NSString *totalTitle;
-//    @property (nonatomic, strong) NSString *liveTitle;
-//    @property (nonatomic, strong) NSString *playCount;
-//    @property (nonatomic, strong) NSString *bgImage;
-//    model.musicURL = otherModel.playUrl64;
-//    model.totalTitle = otherModel.title;
-//    model.liveTitle = otherModel.nickname;
-//    model.playCount = otherModel.playtimes;
-//    model.bgImage = otherModel.coverMiddle;
     
-//    if (self.downLoadArray.count>0) {
-//        if (![self.downLoadArray containsObject:self.url]) {
-//            [self.downLoadArray addObject:self.url];
-//            }
-//    }else{
-//        [self.downLoadArray addObject:self.url];
-//    }
-//    [[NSUserDefaults standardUserDefaults]setObject:self.downLoadArray forKey:@"down"];
-//    [[NSUserDefaults standardUserDefaults]synchronize];
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     AlbumDetailTableViewCell *cell = (AlbumDetailTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
@@ -460,11 +441,21 @@
         [table creatTable];
         model.type = DiDdwonload;
         NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverMiddle]];
-//        UIImage *dataMusic = [UIImage imageWithData:musicData];
-//        NSData *data = UIImagePNGRepresentation(dataMusic);
+        
+        
+        if (self.inter <= 2 && self.inter >= 0) {
+            if (self.isPaid == NO) {
+             NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
+                [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.hotRecommendsModel.title]];
+            }else{
+                 NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.attentionModel.coverMiddle]];
+                [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.attentionModel.title]];
+            }
+        }else{
         NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverMiddle]];
         
         [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
+        }
     }];
     
 }

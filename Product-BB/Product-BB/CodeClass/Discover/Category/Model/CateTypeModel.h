@@ -16,5 +16,6 @@
 @property (nonatomic, strong)NSString *key;
 @property (nonatomic, assign)BOOL isCellSelected;
 
+
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
 @end

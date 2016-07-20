@@ -52,7 +52,7 @@
 
 -(void)creatAlbumTab
 {
-    self.albumTab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
+    self.albumTab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
     self.albumTab.delegate = self;
     self.albumTab.dataSource = self;
     self.albumTab.rowHeight = 120;
@@ -64,7 +64,7 @@
 
 -(void)creatVoiceTab
 {
-    self.voiceTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
+    self.voiceTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
     self.voiceTab.delegate = self;
     self.voiceTab.dataSource = self;
     self.voiceTab.rowHeight = 120;
@@ -173,7 +173,7 @@
 
 -(void)creatScr
 {
-    self.scr = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20 - 40)];
+    self.scr = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20 - 44 - 74)];
     self.scr.contentSize = CGSizeMake(kScreenWidth * 3, 0);
     self.scr.pagingEnabled = YES;
     self.scr.delegate = self;

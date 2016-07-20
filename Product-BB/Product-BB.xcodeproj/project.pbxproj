@@ -64,6 +64,10 @@
 		7946EBF31D3621B400AA9712 /* MusicActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7946EBF11D3621B400AA9712 /* MusicActivityView.m */; };
 		7949A0CE1D3F1429000ABEF2 /* DownLoadMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0CD1D3F1429000ABEF2 /* DownLoadMusicViewController.m */; };
 		7949A0D11D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0D01D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m */; };
+		7949A0DE1D3FC068000ABEF2 /* batchDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0DD1D3FC068000ABEF2 /* batchDownViewController.m */; };
+		7949A0E11D3FC079000ABEF2 /* batchDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7949A0E01D3FC079000ABEF2 /* batchDownTableViewCell.m */; };
+		7949A0E41D3FC09F000ABEF2 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7949A0E21D3FC09F000ABEF2 /* 1.jpg */; };
+		7949A0E51D3FC09F000ABEF2 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7949A0E31D3FC09F000ABEF2 /* 2.jpg */; };
 		7955C89A1D39C2CC0052EBBC /* AnchorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8991D39C2CC0052EBBC /* AnchorModel.m */; };
 		7955C89D1D39C8F30052EBBC /* AnchorCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89C1D39C8F30052EBBC /* AnchorCollectionView.m */; };
 		7955C8A01D39C9EA0052EBBC /* AnchorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C89F1D39C9EA0052EBBC /* AnchorCollectionViewCell.m */; };
@@ -308,6 +312,12 @@
 		7949A0CD1D3F1429000ABEF2 /* DownLoadMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadMusicViewController.m; sourceTree = "<group>"; };
 		7949A0CF1D3F145B000ABEF2 /* DownLoadMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadMusicTableViewCell.h; sourceTree = "<group>"; };
 		7949A0D01D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadMusicTableViewCell.m; sourceTree = "<group>"; };
+		7949A0DC1D3FC068000ABEF2 /* batchDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchDownViewController.h; sourceTree = "<group>"; };
+		7949A0DD1D3FC068000ABEF2 /* batchDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchDownViewController.m; sourceTree = "<group>"; };
+		7949A0DF1D3FC079000ABEF2 /* batchDownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchDownTableViewCell.h; sourceTree = "<group>"; };
+		7949A0E01D3FC079000ABEF2 /* batchDownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchDownTableViewCell.m; sourceTree = "<group>"; };
+		7949A0E21D3FC09F000ABEF2 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		7949A0E31D3FC09F000ABEF2 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		7955C8981D39C2CC0052EBBC /* AnchorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorModel.h; sourceTree = "<group>"; };
 		7955C8991D39C2CC0052EBBC /* AnchorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorModel.m; sourceTree = "<group>"; };
 		7955C89B1D39C8F30052EBBC /* AnchorCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorCollectionView.h; sourceTree = "<group>"; };
@@ -840,6 +850,8 @@
 		798076E71D33A05C0095911D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7949A0DC1D3FC068000ABEF2 /* batchDownViewController.h */,
+				7949A0DD1D3FC068000ABEF2 /* batchDownViewController.m */,
 				798077191D33A2260095911D /* DiscoverViewController.h */,
 				7980771A1D33A2260095911D /* DiscoverViewController.m */,
 				7946EBD41D35DB2800AA9712 /* DiscoverWebViewController.h */,
@@ -884,6 +896,8 @@
 		798076E91D33A05C0095911D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7949A0DF1D3FC079000ABEF2 /* batchDownTableViewCell.h */,
+				7949A0E01D3FC079000ABEF2 /* batchDownTableViewCell.m */,
 				798077471D33EFE00095911D /* editorRecommendAlbumsTableViewCell.h */,
 				798077481D33EFE00095911D /* editorRecommendAlbumsTableViewCell.m */,
 				7946EBDA1D35E4E600AA9712 /* recommendMoreTableViewCell.h */,
@@ -1206,6 +1220,8 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				7949A0E21D3FC09F000ABEF2 /* 1.jpg */,
+				7949A0E31D3FC09F000ABEF2 /* 2.jpg */,
 				79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */,
 				79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */,
 				79CD0F981D3F90B40020AF6E /* 密码.png */,
@@ -1391,6 +1407,7 @@
 				79F44CF51D3A3C64002BE16F /* 暂停.png in Resources */,
 				79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */,
 				7900E85F1D3A796E00E3676C /* toolbar_pause_n_p@3x.png in Resources */,
+				7949A0E51D3FC09F000ABEF2 /* 2.jpg in Resources */,
 				7900E85C1D3A796E00E3676C /* time.png in Resources */,
 				79F44CE41D3A3C64002BE16F /* music_icon_play_highlighted@3x.png in Resources */,
 				79F446861D3A3C64002BE16F /* download下载.png in Resources */,
@@ -1438,6 +1455,7 @@
 				793F1AA61D3E205900C8FD01 /* folder.png in Resources */,
 				79BE29FB1D3E7B70009CF446 /* 商城.png in Resources */,
 				79F44CE71D3A3C64002BE16F /* play.png in Resources */,
+				7949A0E41D3FC09F000ABEF2 /* 1.jpg in Resources */,
 				7900E8591D3A796E00E3676C /* broadcast_DownButtonBg@2x.png in Resources */,
 				79F44CE31D3A3C64002BE16F /* like_outline.png in Resources */,
 				79F44CEB1D3A3C64002BE16F /* V.png in Resources */,
@@ -1586,6 +1604,7 @@
 				7980770A1D33A12C0095911D /* NSString+Html.m in Sources */,
 				79118E171D3E027F00059969 /* CategoryBottomModel.m in Sources */,
 				7955C8A91D39FB7F0052EBBC /* AnchorSongerTableViewCell.m in Sources */,
+				7949A0DE1D3FC068000ABEF2 /* batchDownViewController.m in Sources */,
 				7900E1331D3A77CA00E3676C /* MusicplayTableViewCell.m in Sources */,
 				7900E1311D3A77CA00E3676C /* MusicplayViewController.m in Sources */,
 				79FA04E91D3CFE5D000C3306 /* PlayListView.m in Sources */,
@@ -1624,6 +1643,7 @@
 				793F1AA11D3E087A00C8FD01 /* MyMusicDownLoadTable.m in Sources */,
 				796F6F3B1D3C6C6C00CF6DEC /* attentionViewController.m in Sources */,
 				798077091D33A12C0095911D /* CircleAnimation.m in Sources */,
+				7949A0E11D3FC079000ABEF2 /* batchDownTableViewCell.m in Sources */,
 				79E322FA1D388EC000B716B5 /* specialTableViewCell.m in Sources */,
 				7946EBD91D35E46F00AA9712 /* recommendMoreViewController.m in Sources */,
 				7946EBE71D36162C00AA9712 /* AlbumDetailViewController.m in Sources */,
