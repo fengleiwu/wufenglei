@@ -20,6 +20,8 @@
 #import <FMDB.h>
 #import <POP.h>
 #import <AFNetworking.h>
+#import "XMPPFramework.h"
+#import "XMPPManager.h"
 #import "RequestManager.h"
 #import "UIView+TWFrame.h"
 #import "AdjustHeight.h"

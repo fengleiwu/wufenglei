@@ -7,9 +7,9 @@
 //
 
 #import "RegistViewController.h"
-
 #import "JSMSSDK.h"
 #import "AFNetworkReachabilityManager.h"
+#import "TestViewController.h"
 
 @interface RegistViewController ()
 @property (nonatomic, strong)UILabel *registL;
@@ -69,6 +69,7 @@
     [self.view addSubview:self.backB];
     //创建手机号码验证框
     self.phoneTF = [[UITextField alloc]initWithFrame:CGRectMake(50, kScreenHeight*2/11, kScreenWidth-100, kScreenHeight/15)];
+    self.phoneTF.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTF.layer.masksToBounds = YES;
     self.phoneTF.layer.cornerRadius = 6;
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 35, 30)];
@@ -134,25 +135,36 @@
 
 #pragma mark ----- 创建下一步方法 -----
 -(void)nextAction{
+    if ([self validateMobile:self.phoneTF.text]) {
     [self.view endEditing: YES];
-//    [JSMSSDK getVerificationCodeWithPhoneNumber:@"13758146836" andTemplateID:@"1" completionHandler:^(id resultObject, NSError *error) {
-//        if (!error) {
-//            NSLog(@"Get Verification Code success!");
-//        }else{
-//            NSLog(@"Get Verification Code failure!");
-//        }
-//    }];
-    
     __weak __typeof__(self) weakSelf = self;
-    
     [JSMSSDK getVerificationCodeWithPhoneNumber:weakSelf.phoneTF.text andTemplateID:[NSString stringWithFormat:@"%d",1] completionHandler:^(id resultObject, NSError *error) {
-        if (!error) {
-            NSLog(@"Get Verification Code success!");
-        }
-        else {
-            NSLog(@"上传手机号失败 error %ld",(long)error.code);
-        }
-    }];
+    if (!error) {
+        TestViewController *testVC = [[TestViewController alloc]init];
+        testVC.phoneStr = self.phoneTF.text;
+        [self.navigationController pushViewController:testVC animated:YES];
+    }
+    else {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"上传手机号失败" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
+        }];
+    } else {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"手机格式不对" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
+}
+
+#pragma mark ----- 判断手机格式 -----
+-(BOOL)validateMobile:(NSString *)mobile{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
 }
 
 #pragma mark ----- 查看协议方法 -----

@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "RegistViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate,XMPPStreamDelegate>
 @property (nonatomic, strong)UIButton *registB;
 @property (nonatomic, strong)UIButton *backB;
 @property (nonatomic, strong)UIButton *loginB;
@@ -30,6 +30,11 @@
 
 @implementation LoginViewController
 -(void)startAnimated{
+    //通知
+    //键盘将要出来
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+    //键盘将要消失
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden:) name:UIKeyboardWillHideNotification object:nil];
     //创建登录标签
     self.dengluL = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/2-25, 30, 50, 1)];
     self.dengluL.text = @"登录";
@@ -78,6 +83,7 @@
     //创建账号TF
     self.emailOrPhoneTF = [[UITextField alloc]initWithFrame:CGRectMake(50, kScreenHeight*4/11, kScreenWidth-100, 0)];
     UIImageView *image1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"人气.png"]];
+    self.emailOrPhoneTF.textColor = [UIColor whiteColor];
     self.emailOrPhoneTF.leftView = image1;
     self.emailOrPhoneTF.leftViewMode = UITextFieldViewModeAlways;
     self.emailOrPhoneTF.layer.masksToBounds = YES;
@@ -86,10 +92,13 @@
     self.emailOrPhoneTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"邮箱或手机号" attributes:@{NSForegroundColorAttributeName:color}];
     self.emailOrPhoneTF.layer.borderColor= [UIColor whiteColor].CGColor;
     self.emailOrPhoneTF.layer.borderWidth= 1.0f;
+    self.emailOrPhoneTF.delegate = self;
+    self.emailOrPhoneTF.tag = 1;
     [self.view addSubview:self.emailOrPhoneTF];
     //创建密码TF
     self.passwordTF = [[UITextField alloc]initWithFrame:CGRectMake(50, kScreenHeight*4/11, kScreenWidth-100, 0)];
     UIImageView *image2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"密码.png"]];
+    self.passwordTF.textColor = [UIColor whiteColor];
     self.passwordTF.leftView = image2;
     self.passwordTF.leftViewMode = UITextFieldViewModeAlways;
     self.passwordTF.layer.masksToBounds = YES;
@@ -98,6 +107,9 @@
     self.passwordTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入6-16位数字或字母" attributes:@{NSForegroundColorAttributeName:color1}];
     self.passwordTF.layer.borderColor= [UIColor whiteColor].CGColor;
     self.passwordTF.layer.borderWidth= 1.0f;
+    self.passwordTF.delegate = self;
+    self.passwordTF.secureTextEntry = YES;
+    self.passwordTF.tag = 2;
     [self.view addSubview:self.passwordTF];
     //创建注册按钮
     self.registB = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -118,6 +130,7 @@
     [self.loginB.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.loginB setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginB setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.loginB addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     //实施动画
     [UIView animateWithDuration:1 animations:^{
         self.dengluL.frame = CGRectMake(kScreenWidth/2-25, 30, 50, kScreenHeight/11);
@@ -209,11 +222,124 @@
     return _effectV;
 }
 
+#pragma mark ----- 键盘弹出隐藏方法 -----
+-(void)keyBoardShow:(NSNotification *)note{
+        CGRect frame = self.view.frame;
+        frame.origin.y = - self.passwordTF.height;
+        self.view.frame =frame;
+}
+
+-(void)keyBoardHidden:(NSNotification *)note{
+    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey]floatValue ] animations:^{
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0;
+        self.view.frame =frame;
+    } completion:^(BOOL finished) {
+        self.passwordTF.text = @"";
+    }];
+}
+
+#pragma mark ----- 是textfile成为第一响应者 -----
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField.tag == 1) {
+        textField = [self.view viewWithTag:2];
+        [textField becomeFirstResponder];
+    } else {
+     [textField resignFirstResponder];
+    }
+    return  YES;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.passwordTF resignFirstResponder];
+    [self.emailOrPhoneTF resignFirstResponder];
+}
+
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"]) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark ----- 注册方法 -----
 -(void)registAction{
     RegistViewController *registVC = [[RegistViewController alloc]init];
     [self.navigationController pushViewController:registVC animated:YES];
 }
+
+#pragma mark ----- 登录方法 -----
+-(void)loginAction{
+    if (self.emailOrPhoneTF.text.length == 0) {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"邮箱或手机不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
+    if (self.passwordTF.text.length == 0) {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
+    if (![self validateMobile:self.emailOrPhoneTF.text]) {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"邮箱或手机格式错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    } else  if (![self validatePassword:self.passwordTF.text]){
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"密码格式错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    } else{
+    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [[XMPPManager shareInstance] loginWithUserName:self.emailOrPhoneTF.text password:self.passwordTF.text];
+    }
+}
+
+#pragma mark ----- XMPP协议方法 -----
+-(void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
+    NSLog(@"登录验证成功");
+    // 如果用户登录了 要将该用户变成上线状态
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
+    [[XMPPManager shareInstance].stream sendElement:presence];
+    
+    NSLog(@"登陆界面界面当前用户 = %@",self.emailOrPhoneTF.text);
+    
+    // 记录登录成功的用户名和密码
+    [[NSUserDefaults standardUserDefaults]setObject:self.emailOrPhoneTF.text forKey:@"user"];
+    [[NSUserDefaults standardUserDefaults]setObject:self.passwordTF.text forKey:@"password"];
+    
+    // 本地存储
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error{
+    UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"登录验证失败" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+    [a addAction:a1];
+    [self presentViewController:a animated:YES completion:nil];
+}
+
+#pragma mark ----- 判断手机格式 -----
+-(BOOL)validateMobile:(NSString *)mobile{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
+}
+
+#pragma mark ----- 判断密码格式是否正确 -----
+-(BOOL)validatePassword:(NSString *)passWord
+{
+    NSString *passWordRegex = @"^[a-zA-Z0-9]{6,16}+$";
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
+    return [passWordPredicate evaluateWithObject:passWord];
+}
+
 
 #pragma mark ----- 返回方法 -----
 -(void)backAction{

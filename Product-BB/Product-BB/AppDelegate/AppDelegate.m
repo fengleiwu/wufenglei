@@ -32,7 +32,7 @@
     
     //从官网注册获取
     //注册短信验证的appKey
-    [JSMSSDK registerWithAppKey:@"188a49f330fb6d0245d74f18"];
+    [JSMSSDK registerWithAppKey:@"94426bda4a12dd1fe5221375"];
     
     // 添加通知，接收播放页面信息，用于后台播放。
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bgInfo:) name:@"backgroundPlay" object:nil];

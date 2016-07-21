@@ -11,7 +11,7 @@
 #import "HFStretchableTableHeaderView.h"
 #import "LoginViewController.h"
 
-@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate,XMPPRosterDelegate>
 @property (nonatomic, strong)UIView *MindUserV;
 @property (nonatomic, strong)UIView *backV1;
 @property (nonatomic, strong)UIView *back2;
@@ -47,6 +47,22 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDir = [paths objectAtIndex:0];
+    NSLog(@"%@",cachesDir);
+    //设置代理
+    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //取上一次登录的用户名密码
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+    //证明之前没有登陆过
+    if (username == nil) {
+        [self.login setTitle:@"点击登录" forState:UIControlStateNormal];
+        self.label.text = @"1秒登录，专享个性化服务";
+    } else {
+        //如果登录过 就取上一次登录的账号和密码
+        [[XMPPManager shareInstance]loginWithUserName:username password:password];
+    }
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -62,7 +78,27 @@
     [self.view addSubview:self.tableV];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableV.tableHeaderView = self.MindUserV;
+    
+    
     // Do any additional setup after loading the view.
+}
+
+#pragma mark ----- XMPP协议方法 -----
+- (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
+    NSLog(@"登录验证成功");
+    NSLog(@"好友列表界面当前用户 = %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]);
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    [self.login setTitle:name forState:UIControlStateNormal];
+    self.label.text = @"关注 0 | 粉丝 0";
+    // 如果用户登录了 要将该用户变成上线状态
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
+    [[XMPPManager shareInstance].stream sendElement:presence];
+    
+}
+
+// 登陆验证失败后调用的方法
+- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
+    NSLog(@"登录验证失败");
 }
 
 #pragma mark ----- 创建登录界面 -----
@@ -90,7 +126,7 @@
     [self.MindUserV addSubview:self.headB];
     //创建登录按钮
     self.login = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.login.frame = CGRectMake(kScreenWidth/2-40, kScreenHeight/4-10, 80,25);
+    self.login.frame = CGRectMake(kScreenWidth/2-60, kScreenHeight/4-10, 120,25);
     self.login.titleLabel.font = [UIFont systemFontOfSize:18];
     [self.login setTitle:@"点击登录" forState:UIControlStateNormal];
     [self.login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -124,6 +160,7 @@
     return _tableV;
 }
 
+#pragma mark ----- tableView头视图下拉变大方法 -----
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.stretchHeaderView scrollViewDidScroll:scrollView];
     if (self.tableV.contentOffset.y<0) {
@@ -160,7 +197,6 @@
     [self.stretchHeaderView resizeView];
     self.effectV.frame = self.back2.frame;
     [self.back2 addSubview:self.effectV];
-    
     
 }
 
