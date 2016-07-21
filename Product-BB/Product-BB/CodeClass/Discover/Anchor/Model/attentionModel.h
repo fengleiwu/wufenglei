@@ -26,7 +26,7 @@
 
 
 @property(nonatomic , strong)NSString *albumId;
-@property(nonatomic , strong)NSString *coverMiddle;
+@property(nonatomic , strong)NSString *coverLarge;//
 @property(nonatomic , strong)NSString *playTimes;
 @property(nonatomic , strong)NSString *shares;
 @property(nonatomic , strong)NSString *status;

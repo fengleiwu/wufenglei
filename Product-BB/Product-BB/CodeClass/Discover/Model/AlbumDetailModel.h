@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, DownloadType){
 @property(nonatomic , strong)NSString *playTimes;
 @property(nonatomic , strong)NSString *playtimes;//播放次数
 @property(nonatomic , strong)NSString *playUrl64;//播放URL
-@property(nonatomic , strong)NSString *coverMiddle;//播放image
+@property(nonatomic , strong)NSString *coverLarge;//播放image
 @property(nonatomic , strong)NSString *title;
 @property(nonatomic , strong)NSString *nickname;
 @property(nonatomic , strong)NSString *albumId;

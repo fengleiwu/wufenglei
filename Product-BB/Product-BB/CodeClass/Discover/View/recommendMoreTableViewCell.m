@@ -119,7 +119,7 @@
 -(void)creatAttentionMiddle:(attentionModel *)model
 {
     
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     self.bigLabel.text = model.title;
     NSString *s = model.updatedAt;
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:[s doubleValue]/1000];

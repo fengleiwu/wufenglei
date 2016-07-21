@@ -185,7 +185,7 @@
             self.bigArray = [attentionModel price:dic];
             self.attentionModel = self.bigArray[self.row];
             nameLabel.text = self.attentionModel.title;
-            [imageV sd_setImageWithURL:[NSURL URLWithString:self.attentionModel.coverMiddle]];
+            [imageV sd_setImageWithURL:[NSURL URLWithString:self.attentionModel.coverLarge]];
             smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",self.nickName];
             CGFloat f = [self.attentionModel.playTimes floatValue] / 10000;
             if (f > 10000) {
@@ -271,7 +271,7 @@
     self.veryBigTab.table.tableHeaderView = self.tabViewHeadView;
     NSString *URL = @"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&trackId=18143253";
    NSString *URL1 = [URL stringByReplacingOccurrencesOfString:@"albumId=308981" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
-    NSLog(@"++++++%@",URL1);
+//    NSLog(@"++++++%@",URL1);
     //http://audio.xmcdn.com/group17/M0A/18/F6/wKgJKVeDHbawGkPRABMIm_FwUyk214.m4a
     //http://audio.xmcdn.com/group19/M0A/19/02/wKgJJleDFyiSkDT0ADEj4PI_Ypg361.mp3
     [RequestManager requestWithUrlString:URL1 requestType:RequestGET parDic:nil finish:^(NSData *data) {
@@ -290,7 +290,7 @@
             playLabel.text = st;
         }
         smallNameLabel.text = [NSString stringWithFormat:@"主播:%@",self.albumModel.nickname];
-        [imageV sd_setImageWithURL:[NSURL URLWithString:self.albumModel.coverMiddle]];
+        [imageV sd_setImageWithURL:[NSURL URLWithString:self.albumModel.coverLarge]];
    
         [self.tab reloadData];
     } error:^(NSError *error) {
@@ -440,7 +440,7 @@
         NSLog(@"++++++++++++++++++++%@",savePath);
         [table creatTable];
         model.type = DiDdwonload;
-        NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverMiddle]];
+        NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
         
         
         if (self.inter <= 2 && self.inter >= 0) {
@@ -448,11 +448,11 @@
              NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
                 [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.hotRecommendsModel.title]];
             }else{
-                 NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.attentionModel.coverMiddle]];
+                 NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.attentionModel.coverLarge]];
                 [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.attentionModel.title]];
             }
         }else{
-        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverMiddle]];
+        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverLarge]];
         
         [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
         }

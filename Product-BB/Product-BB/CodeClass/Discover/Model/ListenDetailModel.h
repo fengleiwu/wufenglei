@@ -26,7 +26,7 @@
 
 
 @property(nonatomic , strong)NSString *favoritesCounts;
-@property(nonatomic , strong)NSString *coverSmall;//
+@property(nonatomic , strong)NSString *coverLarge;//
 @property(nonatomic , strong)NSString *playPath64;//
 @property(nonatomic , strong)NSString *commentsCounts;
 

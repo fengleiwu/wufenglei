@@ -69,7 +69,7 @@
 
 -(void)creatListenCell:(ListenDetailModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
     [self.contentView addSubview:self.like];
@@ -85,7 +85,7 @@
 
 -(void)creatAttentionCell:(attentionModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
     CGFloat f = [model.playtimes floatValue];

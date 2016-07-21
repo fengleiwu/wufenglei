@@ -6,13 +6,6 @@
 //  Copyright © 2016年 lanou. All rights reserved.
 //
 
-
-
-
-
-#warning 最火界面点进去再点进去播放界面
-
-
 #import "ProgramListViewController.h"
 #import "TitleListCollectionViewCell.h"
 #import "AllHotTableViewCell.h"

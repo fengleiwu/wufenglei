@@ -58,11 +58,17 @@
 - (void)play{
     [_avPlayer play];
     _playState = Play;
+  
+    // 通知，播放后，动画恢复playNotication
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"playNotication" object:nil];
     
 }
 - (void)pause{
     [_avPlayer pause];
     _playState = Pause;
+    
+    // 通知，暂停后，改变底部按钮的图片
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pauseNotication" object:nil];
 }
 
 - (void)stop{

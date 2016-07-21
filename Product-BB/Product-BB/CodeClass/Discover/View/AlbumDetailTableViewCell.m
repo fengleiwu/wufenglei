@@ -70,7 +70,7 @@
 
 -(void)creatCell:(AlbumDetailModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverMiddle]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
     self.bigLabel.text = model.title;
     
     
