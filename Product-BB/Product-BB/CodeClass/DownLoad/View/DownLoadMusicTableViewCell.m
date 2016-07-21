@@ -86,7 +86,7 @@
 -(void)creatCell:(NSArray *)arr
 {
     
-    
+    self.rubbishBtn.hidden = NO;
     self.imageV.image = [UIImage imageWithData:arr[2]];
     
     //[self.imageV sd_setImageWithURL:[NSURL URLWithString:arr[2]]];
@@ -114,10 +114,40 @@
     }if (h <= 10000) {
         self.label3.text = [NSString stringWithFormat:@"%@",arr[7]];
     }
-
-    
-    
 }
+
+
+-(void)creatDownloadingCell:(AlbumDetailModel *)model
+{
+    self.rubbishBtn.hidden = YES;
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.smallLogo]];
+    self.titleL.text = model.title;
+    self.fuTitleL.text = model.nickname;
+    CGFloat f = [model.playtimes floatValue];
+    if (f > 10000) {
+        self.label1.text = [NSString stringWithFormat:@"%.1f万",f / 10000];
+    }if (f/10000 > 10000) {
+        self.label1.text = [NSString stringWithFormat:@"%.1f亿",f / 10000 / 10000];
+    }if (f <= 10000) {
+        self.label1.text = [NSString stringWithFormat:@"%@",model.playtimes];
+    }
+    
+    CGFloat g = [model.likes floatValue];
+    if (g > 10000) {
+        self.label2.text = [NSString stringWithFormat:@"%.1f万",g / 10000];
+    }if (g <= 10000) {
+        self.label2.text = [NSString stringWithFormat:@"%@",model.likes];
+    }
+    
+    CGFloat h = [model.comments floatValue];
+    if (h > 10000) {
+        self.label3.text = [NSString stringWithFormat:@"%.1f万",h / 10000];
+    }if (h <= 10000) {
+        self.label3.text = [NSString stringWithFormat:@"%@",model.comments];
+    }
+
+}
+
 
 
 @end

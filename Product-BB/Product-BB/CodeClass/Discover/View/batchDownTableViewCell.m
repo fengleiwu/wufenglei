@@ -25,10 +25,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.titleL = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, kScreenWidth - 60, 40)];
+        self.titleL = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, kScreenWidth - 60, 40)];
+        self.titleL.font = [UIFont systemFontOfSize:15];
+        self.titleL.numberOfLines = 0;
         self.imageV = [UIButton buttonWithType:(UIButtonTypeSystem)];
-        self.imageV.frame = CGRectMake(kScreenWidth - 30, 30, 20, 20);
-        [self.imageV setImage:[UIImage imageNamed:@"1.jpg"] forState:(UIControlStateNormal)];
+        self.imageV.frame = CGRectMake(kScreenWidth - 30, 20, 20, 20);
+        [self.imageV setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
         [self.imageV setTintColor:[UIColor redColor]];
         [self.contentView addSubview:self.titleL];
         [self.contentView addSubview:self.imageV];
@@ -40,9 +42,7 @@
 -(void)creatCell:(AlbumDetailModel *)model
 {
     self.titleL.text = model.title;
-    if (model.isSelect == YES) {
-        [self.imageV setImage:[UIImage imageNamed:@"2.jpg"] forState:(UIControlStateNormal)];
-    }
+    
 }
 
 

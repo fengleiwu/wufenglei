@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MyMusicDownLoadTable.h"
+#import "AlbumDetailModel.h"
 
 @interface DownLoadMusicTableViewCell : UITableViewCell
 
@@ -24,6 +25,9 @@
 @property(nonatomic , strong)UIButton *rubbishBtn;
 
 -(void)creatCell:(NSArray *)arr;
+
+
+-(void)creatDownloadingCell:(AlbumDetailModel *)model;
 
 
 @end

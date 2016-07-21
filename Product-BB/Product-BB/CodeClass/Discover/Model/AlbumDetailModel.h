@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, DownloadType){
     DiDdwonload
 };
 
-@interface AlbumDetailModel : NSObject
+@interface AlbumDetailModel : NSObject<NSCoding>
 
 @property(nonatomic , strong)NSString *comments;//评论个数
 @property(nonatomic , strong)NSString *playPathAacv224;

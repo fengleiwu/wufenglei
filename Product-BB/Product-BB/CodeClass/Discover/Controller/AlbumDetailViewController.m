@@ -409,6 +409,23 @@
 -(void)batchDownLoadAction{
     batchDownViewController *batch = [[batchDownViewController alloc]init];
     batch.arr = self.tracksArr;
+    
+    if (self.inter <= 2 && self.inter >= 0) {
+        if (self.isPaid == NO) {
+            batch.coverMiddle = self.hotRecommendsModel.coverMiddle;
+            batch.titleL = self.hotRecommendsModel.title;
+            
+        }else{
+            batch.coverMiddle = self.attentionModel.coverLarge;
+            batch.titleL = self.attentionModel.title;
+            
+        }
+    }else{
+        batch.coverMiddle = self.albumModel.coverLarge;
+        batch.titleL = self.albumModel.title;
+    }
+
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"playFrame" object:nil];
     [self.navigationController pushViewController:batch animated:YES];
 }
 

@@ -109,14 +109,14 @@
     [self creatTable];
     [self creatdownCarouse];
     [self creatBottomPic];
+    
     self.anchor = [AnchorTableViewController shareManager];
     [self.anchor creatTableView:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
     [self addChildViewController:self.anchor];
     [self.scr addSubview:self.anchor.table];
     self.cellArray = [NSMutableArray array];
     
-    
-    //焦点图数据请求
+        //焦点图数据请求
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
@@ -146,10 +146,15 @@
 }
 
 
+
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.titleLabel removeFromSuperview];
 }
+
+
 
 
 #pragma mark ----- 良品数据请求 -----
@@ -184,15 +189,6 @@
 }
 
 
-//-(AnchorTableViewController *)anchor
-//{
-//    if (!_anchor) {
-//    }
-//    _anchor = [[AnchorTableViewController alloc]init];
-//    _anchor.view = [[UIView alloc]initWithFrame:CGRectMake(4 * kScreenWidth, 0, kScreenWidth, kScreenHeight - 64 - 60)];
-//    
-//    return _anchor;
-//}
 
 #pragma mark ----- 创建广播视图 -----
 -(BroadcastViewController *)broadVC{

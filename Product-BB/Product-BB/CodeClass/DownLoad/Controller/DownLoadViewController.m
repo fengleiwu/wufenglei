@@ -22,33 +22,53 @@
 @property (nonatomic , strong)NSMutableArray *array;
 @property (nonatomic , strong)UITableView *albumTab;
 @property (nonatomic , strong)UITableView *voiceTab;
+@property (nonatomic , strong)UITableView *downingTab;
 
 @property (nonatomic , strong)NSMutableArray *voiceArr;
+
+@property (nonatomic , strong)NSMutableArray *downLoadingArray;
 
 @end
 
 @implementation DownLoadViewController
 
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     
-//    self.navigationController.navigationBar.hidden = YES;
     
     
     [self creatScr];
     [self creatMemoryLabel];
     [self creatAlbumTab];
     [self creatVoiceTab];
-//    [self creatVoiceArray];
+    [self creatDownlingTab];
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadDownLoadingTab:) name:@"reload" object:nil];
     
-//    NSMutableArray *downArray = [NSMutableArray array];
-//    downArray = [[NSUserDefaults standardUserDefaults]valueForKey:@"down"];
-//    NSLog(@"%@",downArray);
-//    NSLog(@"%@",self.dic);
-//    NSLog(@"%@",self.array);
     // Do any additional setup after loading the view.
 }
+
+-(void)reloadDownLoadingTab:(NSNotification *)nito
+{
+    if (self.downLoadingArray.count > 0) {
+        
+[self.downLoadingArray removeObjectAtIndex:0];
+        [self.downingTab reloadData];
+        [self creatAlbumDic];
+        [self creatVoiceArray];
+    }
+}
+
+-(void)creatdownLoadingArray{
+    
+    self.downLoadingArray = [NSMutableArray arrayWithArray:[ArrayManager shareManager].Array];
+    [self.downingTab reloadData];
+}
+
 
 -(void)creatAlbumTab
 {
@@ -71,6 +91,15 @@
     [self.scr addSubview:self.voiceTab];
 }
 
+
+-(void)creatDownlingTab
+{
+    self.downingTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 2, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
+    self.downingTab.delegate = self;
+    self.downingTab.dataSource = self;
+    self.downingTab.rowHeight = 120;
+    [self.scr addSubview:self.downingTab];
+}
 
 -(void)creatVoiceArray
 {
@@ -111,6 +140,9 @@
    [self creatSeg];
     [self creatAlbumDic];
     [self creatVoiceArray];
+    [self creatdownLoadingArray];
+    
+    
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
@@ -188,6 +220,7 @@
     self.lineView.frame = CGRectMake(kScreenWidth / 3 * self.seg.selectedSegmentIndex, 42, kScreenWidth / 3, 2);
     [self.albumTab reloadData];
     [self.voiceTab reloadData];
+    [self.downingTab reloadData];
 }
 
 -(void)segAction
@@ -198,6 +231,8 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.voiceTab reloadData];
     [self.albumTab reloadData];
+    [self.downingTab reloadData];
+
 }
 
 
@@ -219,10 +254,11 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.seg.selectedSegmentIndex == 0) {
-        
         return self.array.count;
-    }else{
+    }if (self.seg.selectedSegmentIndex == 1) {
         return self.voiceArr.count;
+    }else{
+        return self.downLoadingArray.count;
     }
 }
 
@@ -245,9 +281,15 @@
             cell1 = [[DownLoadMusicTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
             
         }
-        [cell1.rubbishBtn addTarget:self action:@selector(delegateOneMusicAction:) forControlEvents:(UIControlEventTouchUpInside)];
-        NSArray *arr = self.voiceArr[indexPath.row];
-        [cell1 creatCell:arr];
+        if (self.seg.selectedSegmentIndex == 1) {
+            
+            [cell1.rubbishBtn addTarget:self action:@selector(delegateOneMusicAction:) forControlEvents:(UIControlEventTouchUpInside)];
+            NSArray *arr = self.voiceArr[indexPath.row];
+            [cell1 creatCell:arr];
+        }else{
+            AlbumDetailModel *model = self.downLoadingArray[indexPath.row];
+            [cell1 creatDownloadingCell:model];
+        }
         return cell1;
     }
 }
@@ -263,6 +305,9 @@
         down.arr = [arr mutableCopy];
         down.titleL = key;
         [self.navigationController pushViewController:down animated:YES];
+    }if (self.seg.selectedSegmentIndex == 2) {
+        AlbumDetailModel *model = self.downLoadingArray[indexPath.row];
+        model.type = DownloadPause;
     }
 }
 
@@ -285,7 +330,8 @@
     NSIndexPath *indexPath = [self.albumTab indexPathForCell:cell];
     NSString *key = self.array[indexPath.row];
     NSArray *arr = self.dic[key];
-    
+    [self creatAlbumDic];
+    [self creatVoiceArray];
     [self creatAlert:arr];
 }
 
@@ -307,6 +353,7 @@
     [self showDetailViewController:alert sender:nil];
     
 }
+
 
 
 

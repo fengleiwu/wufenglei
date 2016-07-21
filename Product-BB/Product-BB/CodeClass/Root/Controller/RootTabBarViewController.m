@@ -87,6 +87,27 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseNotication:) name:@"pauseNotication" object:nil];
     // 通知，播放后，动画恢复playNotication
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNotication:) name:@"playNotication" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playChangeFrame:) name:@"playFrame" object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playresumeFrame:) name:@"playResume" object:nil];
+    
+}
+
+
+-(void)playChangeFrame:(NSNotification *)noti{
+    
+    CGRect frame = self.btn.frame;
+    frame.origin.y += 100;
+    self.btn.frame = frame;
+
+}
+
+-(void)playresumeFrame:(NSNotification *)noti{
+    CGRect frame = self.btn.frame;
+    frame.origin.y -= 100;
+    self.btn.frame = frame;
 }
 
 #pragma mark --- 通知方法

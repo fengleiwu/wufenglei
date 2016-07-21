@@ -10,6 +10,7 @@
 #import "MyDownLoad.h"
 @interface MyDownLoadManager : NSObject
 
+@property (nonatomic , strong)NSMutableDictionary *dic;//存放下载任务
 
 +(MyDownLoadManager *)defaultManager;
 

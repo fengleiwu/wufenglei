@@ -13,5 +13,8 @@
 
 @property(nonatomic , strong)NSMutableArray *arr;
 
+@property(nonatomic , strong)NSString *coverMiddle;
+
+@property(nonatomic , strong)NSString *titleL;
 
 @end
