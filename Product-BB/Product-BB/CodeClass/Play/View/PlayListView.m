@@ -108,18 +108,12 @@
      [self.closeBtn addTarget:self action:@selector(closeAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self addSubview:self.closeBtn];
     
-//    UILabel *closeLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.width/2 -30, 0, 60, 50)];
-//    closeLabel.backgroundColor = [UIColor redColor];
-//    closeLabel.text = @"关闭";
-//    closeLabel.textAlignment = NSTextAlignmentCenter;
-//    [self.closeBtn addSubview:closeLabel];
 }
 // 关闭方法
 - (void)closeAction {
     [UIView animateWithDuration:0.5 animations:^{
         self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
     }];
-    
 }
 
 #pragma mark --- tableView Delegate 
@@ -130,6 +124,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BroadMusicModel *model = self.tableViewArr[indexPath.row];
+    
     [cell cellConfigureWithModel:model];
     
     return cell;
@@ -137,42 +132,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // 先把所有 model 标记为未播放，在把指定 model 标记为播放中。
-    for (BroadMusicModel *mo in [MyPlayerManager defaultManager].musicLists) {
-        mo.isPlay = NO;
-    }
-    // 根据 URL，判断播放是否是同一首歌，是，继续播放，不是，重新播放。
-    BroadMusicModel *model = [MyPlayerManager defaultManager].musicLists[indexPath.row];
-    NSString *url = model.musicURL;
-    NSString *playingURL = [MyPlayerManager defaultManager].playingURL;
-    if ([playingURL isEqualToString:url]) {
-        [[MyPlayerManager defaultManager] play];
-        model.isPlay = YES;
-    } else {
-        [[MyPlayerManager defaultManager] changeMusicWith:indexPath.row];
-        [MyPlayerManager defaultManager].playingURL = url;
-        model.isPlay = YES;
-    }
     
-//    self.isPlay = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"playListNotification" object:[NSNumber numberWithInteger:indexPath.row]];
     
-//    [self.playBtn setBackgroundImage:[UIImage imageNamed:@"toolbar_pause_n_p@3x"] forState:(UIControlStateNormal)];
-    
-    if ([MyPlayerManager defaultManager].blockWithArray != nil) {
-        // block 传值，向最底部的 button 传值 RootVC
-//        [MyPlayerManager defaultManager].blockWithArray(self.newmodelArray);
-        [MyPlayerManager defaultManager].blockWithImage(model.bgImage);
-//        [MyPlayerManager defaultManager].blockWithBool(self.isPlay);
-    }
-    
-//    [self giveValueforTitleName];
-    [tableView reloadData];
-    
-    // 列表收缩
+     // 列表收缩
     [UIView animateWithDuration:0.5 animations:^{
         self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
     }];
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 @end

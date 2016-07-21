@@ -45,12 +45,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [self.timer fire];
-    // 创建最上面的 button
-    [self creatTopLabel];
-    
+    // 创建最上面的 View
+    [self creatTopView];
     [self creatTableView];
     
-//     加载播放界面
+    // 加载播放界面
     [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
     
     // 创建播放列表页面
@@ -58,20 +57,56 @@
     self.playListView.tableViewArr = self.newmodelArray;
     [self.view addSubview:self.playListView];
     
-    // 创建返回按钮
-    [self creatBackBtn];
+    // 添加通知，在播放列表切歌后，刷新界面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playListNotification:) name:@"playListNotification" object:nil];
+    
+    // 添加通知，进入后台控制上一首，下一首。
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextBtnAction:) name:@"backgroundNext" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lastBtnAction:) name:@"backgroundPrevious" object:nil];
     
 }
+#pragma mark --- 播放列表切歌-通知方法
+- (void)playListNotification:(NSNotification *)noti {
+    if ([noti.name isEqualToString:@"playListNotification"]) {
+        NSInteger index = [noti.object integerValue];
+        [self reloadViewWithIndex:index];
+    }
+}
 
-#pragma mark --- 创建最上面的 title
-- (void)creatTopLabel {
-    self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 40, 0, 30)];
+#pragma mark --- 创建最上面的 title,返回按钮 所在的视图
+- (void)creatTopView {
+    UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, 30)];
+    [self.view addSubview:topView];
+    
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
+    [backBtn setImage:[UIImage imageNamed:@"down_h@2x"] forState:(UIControlStateNormal)];
+    [backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    backBtn.tintColor = [UIColor redColor]; // 没效果
+    [topView addSubview:backBtn];
+    
+    self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, kScreenWidth - 60, 30)];
     self.topLabel.font = [UIFont systemFontOfSize:18];
     self.topLabel.textAlignment = NSTextAlignmentCenter;
     // 赋值在下面的 giveValueforTitleName 方法里
-    [self.view addSubview:self.topLabel];
-
+    [topView addSubview:self.topLabel];
 }
+
+#pragma mark --- 创建 tableView 和 头视图 headVIew
+- (void)creatTableView {
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, kScreenWidth, kScreenHeight-50) style:(UITableViewStylePlain)];
+    self.tableV.rowHeight = (self.tableV.frame.size.height - kScreenWidth)/2;
+    self.tableV.dataSource = self;
+    self.tableV.delegate = self;
+    [self.tableV registerClass:[MusicplayTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.view addSubview:self.tableV];
+    
+    // 创建 headView
+    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth + (self.tableV.frame.size.height - kScreenWidth)/2)];
+    self.headView.backgroundColor = [UIColor clearColor];
+    [self creatHeadView];
+    self.tableV.tableHeaderView = self.headView;
+}
+
 #pragma mark --- 搭建头视图上的 imageView
 - (void)creatHeadView {
     self.bassImageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth)];
@@ -93,54 +128,10 @@
     // 播放按钮，上一首等所在的视图
     [self creatPlayView];
 }
-#pragma mark --- 给页面上的 label 赋值，因为每次切歌都要重新赋值，所以写成方法
-- (void)giveValueforTitleName {
-    // 赋值
-    BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
-    if ([model.musicURL containsString:@"m3u8"]) {
-        self.bassImageV.image = [UIImage imageNamed:@"broadcast_bg.jpg"];
-        self.bassImageV2.image = [UIImage imageNamed:@"broadcast_mask@2x"];
-        self.titleLabel.text = model.totalTitle;
-        if (model.liveTitle == nil) {
-            self.nameLabel.text = @"未知";
-        } else {
-            self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.liveTitle];
-        }
-        
-    } else {
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
-        self.bassImageV.image = [UIImage imageWithData:data];
-        self.bassImageV2.image = [UIImage imageNamed:@""];
-    }
-    
-    self.topLabel.text = model.totalTitle;
-    // 赋值
-    self.currentTimeLabel.text = @"00:00";
-    self.totalTimeLabel.text = @"00:00";
-    
-    // 理想效果是 label 左右晃动，但是没有实现，原因不明。
-//    [self.topLabel sizeToFit];
-//    // 计算尺寸
-//    CGSize size = self.topLabel.frame.size;
-//    CGFloat oriWidth = 100;
-//    if (size.width > oriWidth) {
-//        CGFloat offset = size.width - oriWidth;
-//
-//        [UIView animateWithDuration:10 delay:0 options:
-//         UIViewAnimationOptionRepeat //动画重复的主开关
-//         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
-//         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
-//                         animations:^{
-//                             self.topLabel.transform = CGAffineTransformMakeTranslation(-offset, 0);
-//                         }completion:nil];
-//    }
-    
-}
 
 #pragma mark --- 播放按钮，上一首等按钮所在 视图
 - (void)creatPlayView {
-    self.BtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bassImageV.frame), kScreenWidth, (kScreenHeight-kScreenWidth-100)/2)];
-    //    self.BtnView.backgroundColor = [UIColor redColor];
+    self.BtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bassImageV.frame), kScreenWidth, (self.tableV.frame.size.height-kScreenWidth)/2)];
     [self.headView addSubview:self.BtnView];
 
     // 播放进度按钮
@@ -158,13 +149,13 @@
     
     // 播放列表 视图
     UIButton *listBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-    listBtn.frame = CGRectMake(20, 40, 50, 60);
+    listBtn.frame = CGRectMake(10, 40, 60, 50);
     [listBtn addTarget:self action:@selector(listAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.BtnView addSubview:listBtn];
     UIImageView *listImageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
     listImageV.image = [UIImage imageNamed:@"drag_list_up"];
     [listBtn addSubview:listImageV];
-    UILabel *listLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 30)];
+    UILabel *listLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 20)];
     listLab.text = @"播放列表";
     listLab.font = [UIFont systemFontOfSize:13];
     listLab.textColor = [UIColor lightGrayColor];
@@ -172,13 +163,13 @@
     
     // 定时关闭 视图
     UIButton *timeBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-    timeBtn.frame = CGRectMake(kScreenWidth - 70, 40, 50, 60);
-    [timeBtn addTarget:self action:@selector(timeAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    timeBtn.frame = CGRectMake(kScreenWidth - 70, 40, 60, 50);
+    [timeBtn addTarget:self action:@selector(timeCloseAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.BtnView addSubview:timeBtn];
-    UIImageView *timeImageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
+    UIImageView *timeImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 0, 30, 30)];
     timeImageV.image = [UIImage imageNamed:@"time"];
     [timeBtn addSubview:timeImageV];
-    UILabel *timeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 30)];
+    UILabel *timeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 20)];
     timeLab.text = @"定时关闭";
     timeLab.font = [UIFont systemFontOfSize:13];
     timeLab.textColor = [UIColor lightGrayColor];
@@ -187,7 +178,6 @@
     // 播放按钮、上一首、下一首
     self.playBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     self.playBtn.frame = CGRectMake(kScreenWidth/2 - 25, 30, 50, 50);
-    self.isPlay = YES;
     [self.playBtn setBackgroundImage:[[UIImage imageNamed:@"toolbar_pause_n_p@3x"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:(UIControlStateNormal)];
     [self.playBtn addTarget:self action:@selector(playBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.BtnView addSubview:self.playBtn];
@@ -203,8 +193,52 @@
     [nextBtn setBackgroundImage:[[UIImage imageNamed:@"toolbar_next_n_p@3x"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:(UIControlStateNormal)];
     [nextBtn addTarget:self action:@selector(nextBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.BtnView addSubview:nextBtn];
+}
+
+#pragma mark --- 给页面上的 label 赋值，因为每次切歌都要重新赋值，所以写成方法
+- (void)giveValueforTitleName {
+    // 赋值
+    BroadMusicModel *model = self.newmodelArray[[MyPlayerManager defaultManager].index];
+    if ([model.musicURL containsString:@"m3u8"]) {
+        self.bassImageV.image = [UIImage imageNamed:@"broadcast_bg.jpg"];
+        self.bassImageV2.image = [UIImage imageNamed:@"broadcast_mask@2x"];
+        self.titleLabel.text = model.totalTitle;
+        if (model.liveTitle == nil) {
+            self.nameLabel.text = @"招聘中";
+        } else {
+            self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.liveTitle];
+        }
+        
+    } else {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
+        self.bassImageV.image = [UIImage imageWithData:data];
+        self.bassImageV2.image = [UIImage imageNamed:@""];
+    }
+    
+    self.topLabel.text = model.totalTitle;
+    // 赋值
+    self.currentTimeLabel.text = @"00:00";
+    self.totalTimeLabel.text = @"00:00";
+    
+    // 理想效果是 label 左右晃动，但是没有实现，原因不明。
+    //    [self.topLabel sizeToFit];
+    //    // 计算尺寸
+    //    CGSize size = self.topLabel.frame.size;
+    //    CGFloat oriWidth = 100;
+    //    if (size.width > oriWidth) {
+    //        CGFloat offset = size.width - oriWidth;
+    //
+    //        [UIView animateWithDuration:10 delay:0 options:
+    //         UIViewAnimationOptionRepeat //动画重复的主开关
+    //         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
+    //         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
+    //                         animations:^{
+    //                             self.topLabel.transform = CGAffineTransformMakeTranslation(-offset, 0);
+    //                         }completion:nil];
+    //    }
     
 }
+
 #pragma mark --- 播放，上一首等按钮的方法
 - (void)playBtnAction:(UIButton *)button {
     if (self.isPlay == NO) {
@@ -240,7 +274,7 @@
     
 }
 // 定时关闭 方法
-- (void)timeAction:(UIButton *)button {
+- (void)timeCloseAction:(UIButton *)button {
     NSLog(@"ding shi");
 }
 
@@ -256,34 +290,36 @@
     self.playSlider.value = current;
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%.2ld:%.2ld", (NSInteger)current/60,(NSInteger)current%60];
     self.totalTimeLabel.text = [NSString stringWithFormat:@"%.2ld:%.2ld", (NSInteger)total/60,(NSInteger)total%60];
-    if (current >= total) {
+    if (current+1 >= total) {
         [[MyPlayerManager defaultManager] playerDidFinish];
         [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
     }
+}
+#pragma mark --- 返回按钮方法
+- (void)backAction:(UIButton *)button {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark --- 加载播放界面
 // 加载播放界面
 - (void)reloadViewWithIndex:(NSInteger)index{
     // 先把所有 model 标记为未播放，在把指定 model 标记为播放中。
-    for (BroadMusicModel *mo in [MyPlayerManager defaultManager].musicLists) {
-        mo.isPlay = NO;
+    for (BroadMusicModel *model in self.newmodelArray) {
+        model.isPlay = NO;
     }
     // 根据 URL，判断播放是否是同一首歌，是，继续播放，不是，重新播放。
-    BroadMusicModel *model = [MyPlayerManager defaultManager].musicLists[index];
-    NSString *url = model.musicURL;
+    BroadMusicModel *model = self.newmodelArray[index];
     NSString *playingURL = [MyPlayerManager defaultManager].playingURL;
-    if ([playingURL isEqualToString:url]) {
+    if ([playingURL isEqualToString: model.musicURL]) {
         [[MyPlayerManager defaultManager] play];
         model.isPlay = YES;
     } else {
         [[MyPlayerManager defaultManager] changeMusicWith:index];
-        [MyPlayerManager defaultManager].playingURL = url;
+        [MyPlayerManager defaultManager].playingURL =  model.musicURL;
         model.isPlay = YES;
     }
-    
     self.isPlay = YES;
-    
+
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"toolbar_pause_n_p@3x"] forState:(UIControlStateNormal)];
     
     if ([MyPlayerManager defaultManager].blockWithArray != nil) {
@@ -296,22 +332,8 @@
     [self giveValueforTitleName];
     [self.tableV reloadData];
     
-}
-
-#pragma mark --- 创建 tableView 和 headVIew
-- (void)creatTableView {
-    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, kScreenHeight-100) style:(UITableViewStylePlain)];
-    self.tableV.rowHeight = (kScreenHeight - kScreenWidth-100)/2;
-    self.tableV.dataSource = self;
-    self.tableV.delegate = self;
-    [self.tableV registerClass:[MusicplayTableViewCell class] forCellReuseIdentifier:@"cell"];
-    [self.view addSubview:self.tableV];
-    
-    // 创建 headView
-    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth +(kScreenHeight - kScreenWidth-100)/2)];
-    self.headView.backgroundColor = [UIColor clearColor];
-    [self creatHeadView];
-    self.tableV.tableHeaderView = self.headView;
+    // 通知,向后台发送播放信息
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPlay" object:model];
 }
 
 #pragma mark --- tableView 代理方法
@@ -326,17 +348,10 @@
     return cell;
 }
 
-#pragma mark --- 创建最上面的返回按钮 所在的视图
-- (void)creatBackBtn {
-    
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, 40, 30, 30)];
-    [backBtn setImage:[UIImage imageNamed:@"down_h@2x"] forState:(UIControlStateNormal)];
-    [backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    backBtn.tintColor = [UIColor redColor]; // 没效果
-    [self.view addSubview:backBtn];
-}
-- (void)backAction:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+#pragma mark --- 摇一摇切歌
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    [[MyPlayerManager defaultManager] nextMusic];
+    [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
 }
 
 - (void)didReceiveMemoryWarning {

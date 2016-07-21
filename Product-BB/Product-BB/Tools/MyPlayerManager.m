@@ -137,7 +137,6 @@
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];
     }
     [self play];
-    model.isPlay = YES;
 }
 
 -(void)playerDidFinish{

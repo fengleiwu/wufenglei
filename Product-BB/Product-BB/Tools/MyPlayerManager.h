@@ -57,7 +57,4 @@ typedef void (^BlockBool)(BOOL);
 - (void)pause;
 - (void)stop;
 
-
-
-
 @end

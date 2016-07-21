@@ -24,23 +24,29 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.playImageV = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.playImageV];
-        self.downloadImageV = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.downloadImageV];
+//        self.playImageV = [[UIImageView alloc]init];
+//        [self.contentView addSubview:self.playImageV];
+//        self.downloadImageV = [[UIImageView alloc]init];
+//        [self.contentView addSubview:self.downloadImageV];
+        
         self.titleLabel = [[UILabel alloc]init];
         [self.contentView addSubview:self.titleLabel];
+        
+//        self.activityView = [[MusicActivityView alloc]init];
+//        [self.contentView addSubview:self.activityView];
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.titleLabel.frame = CGRectMake(0,10, self.width, self.height);
+    
+    self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
 }
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model {
     self.titleLabel.text = model.totalTitle;
+    
 }
 
 

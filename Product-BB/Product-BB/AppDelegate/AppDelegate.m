@@ -11,6 +11,10 @@
 #import "EncodeManager.h"
 #import "ArrayManager.h"
 #import "MyDownLoad.h"
+// 后台音频播放
+#import <MediaPlayer/MediaPlayer.h>
+#import "BroadMusicModel.h"
+
 @interface AppDelegate ()
 
 @end
@@ -29,8 +33,66 @@
     //从官网注册获取
     //注册短信验证的appKey
     [JSMSSDK registerWithAppKey:@"188a49f330fb6d0245d74f18"];
-
+    
+    // 添加通知，接收播放页面信息，用于后台播放。
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bgInfo:) name:@"backgroundPlay" object:nil];
+    // 后台播放音频
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents]; // 让后台可以处理多媒体的事件
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
     return YES;
+}
+
+// 后台可以处理多媒体的事件
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    NSLog(@"%ld", event.subtype);
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+            //点击播放按钮或者耳机线控中间那个按钮
+            [[MyPlayerManager defaultManager] play];
+            break;
+        case UIEventSubtypeRemoteControlPause:
+            //点击暂停按钮
+            [[MyPlayerManager defaultManager] pause];
+            break;
+        case UIEventSubtypeRemoteControlNextTrack:
+            //点击下一曲按钮或者耳机中间按钮两下
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundNext" object:nil];
+            break;
+        case UIEventSubtypeRemoteControlPreviousTrack:
+            //点击上一曲按钮或者耳机中间按钮三下
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPrevious" object:nil];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)bgInfo:(NSNotification *)noti {
+    //    CGFloat total = [[MyPlayerManager defaultManager] totalTime];
+    //    CGFloat current = [[MyPlayerManager defaultManager] currentTime];
+    
+    BroadMusicModel *model = noti.object;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    //设置歌曲题目
+    [dict setObject:model.totalTitle forKey:MPMediaItemPropertyTitle];
+    //设置歌手名
+    [dict setObject:model.liveTitle forKey:MPMediaItemPropertyArtist];
+    //设置显示的图片
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
+    UIImage *newImage = [UIImage imageWithData:data];
+    [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:newImage] forKey:MPMediaItemPropertyArtwork];
+    
+    ////    //设置歌曲时长
+    //    [dict setObject:[NSNumber numberWithDouble:300] forKey:MPMediaItemPropertyPlaybackDuration];
+    ////    //设置已经播放时长
+    //    [dict setObject:[NSNumber numberWithDouble:150] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+    
+    //更新字典
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {//将要进入后台
@@ -41,8 +103,6 @@
 
     NSData *data = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].Array arrayKey:@"array"];
     [data writeToFile:filePth atomically:YES];
-    
-    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {//已经进入后台

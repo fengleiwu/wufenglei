@@ -17,8 +17,6 @@
 @property (strong, nonatomic) UILabel *programL;
 @property (strong, nonatomic) UILabel *playCountL;
 
-
-
 -(void)cellConfigureWithModel:(BroadMusicModel *)model;
 
 
