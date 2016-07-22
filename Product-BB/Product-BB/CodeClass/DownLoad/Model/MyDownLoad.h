@@ -23,6 +23,8 @@ typedef void(^DidDownload) (NSString *savePath , NSString *url);//下载完成,�
 @property(nonatomic , assign)NSInteger progress;//下载进度
 @property(nonatomic , assign)id<MyDownLoadDelegate>delegate;
 
++(MyDownLoad *)shareMyDownLoad;
+
 //给个下载地址 初始化
 -(instancetype)initWith:(NSString *)url;
 //开始下载

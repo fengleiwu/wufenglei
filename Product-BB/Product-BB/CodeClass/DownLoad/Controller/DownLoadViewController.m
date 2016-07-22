@@ -28,6 +28,11 @@
 
 @property (nonatomic , strong)NSMutableArray *downLoadingArray;
 
+@property (nonatomic , strong)NSMutableArray *titleArr;
+
+
+@property (nonatomic , assign)NSInteger inter;
+
 @end
 
 @implementation DownLoadViewController
@@ -55,17 +60,21 @@
 -(void)reloadDownLoadingTab:(NSNotification *)nito
 {
     if (self.downLoadingArray.count > 0) {
-        
-[self.downLoadingArray removeObjectAtIndex:0];
-        [self.downingTab reloadData];
-        [self creatAlbumDic];
+        [self.downLoadingArray removeObject:nito.object];
         [self creatVoiceArray];
+        [self creatAlbumDic];
+        [self.albumTab reloadData];
+     [self.downingTab reloadData];
     }
 }
 
 -(void)creatdownLoadingArray{
+    self.titleArr = [NSMutableArray array];
+    self.titleArr = [[NSUserDefaults standardUserDefaults]objectForKey:@"arr"];
+    self.downLoadingArray = [ArrayManager shareManager].Array;
     
-    self.downLoadingArray = [NSMutableArray arrayWithArray:[ArrayManager shareManager].Array];
+//    self.titleArr = [self.downLoadingArray lastObject];
+//    [self.downLoadingArray removeLastObject];
     [self.downingTab reloadData];
 }
 
@@ -97,7 +106,7 @@
     self.downingTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 2, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
     self.downingTab.delegate = self;
     self.downingTab.dataSource = self;
-    self.downingTab.rowHeight = 120;
+    self.downingTab.rowHeight = 140;
     [self.scr addSubview:self.downingTab];
 }
 
@@ -218,9 +227,11 @@
 {
     self.seg.selectedSegmentIndex = self.scr.contentOffset.x / kScreenWidth;
     self.lineView.frame = CGRectMake(kScreenWidth / 3 * self.seg.selectedSegmentIndex, 42, kScreenWidth / 3, 2);
+    
+    [self creatVoiceArray];
+    [self creatAlbumDic];
+    [self creatdownLoadingArray];
     [self.albumTab reloadData];
-    [self.voiceTab reloadData];
-    [self.downingTab reloadData];
 }
 
 -(void)segAction
@@ -229,9 +240,11 @@
     self.scr.contentOffset = point;
     self.lineView.frame = CGRectMake(kScreenWidth / 3 * self.seg.selectedSegmentIndex, 42, kScreenWidth / 3, 2);
     self.navigationController.navigationBar.translucent = NO;
-    [self.voiceTab reloadData];
+    [self creatVoiceArray];
+    [self creatAlbumDic];
+    [self creatdownLoadingArray];
     [self.albumTab reloadData];
-    [self.downingTab reloadData];
+//    [self.downingTab reloadData];
 
 }
 
@@ -279,8 +292,7 @@
         DownLoadMusicTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"sss"];
         if (!cell1) {
             cell1 = [[DownLoadMusicTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
-            
-        }
+            }
         if (self.seg.selectedSegmentIndex == 1) {
             
             [cell1.rubbishBtn addTarget:self action:@selector(delegateOneMusicAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -298,6 +310,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.inter = indexPath.row;
     if (self.seg.selectedSegmentIndex == 0) {
         NSString *key = self.array[indexPath.row];
         NSArray *arr = self.dic[key];
@@ -306,10 +319,121 @@
         down.titleL = key;
         [self.navigationController pushViewController:down animated:YES];
     }if (self.seg.selectedSegmentIndex == 2) {
-        AlbumDetailModel *model = self.downLoadingArray[indexPath.row];
-        model.type = DownloadPause;
+        AlbumDetailModel *model1 = self.downLoadingArray[indexPath.row];
+        MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+        MyDownLoad *task = [manager creatDownload:model1.playUrl64];
+        model1.isDownLoad = !model1.isDownLoad;
+        [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+                NSLog(@"%lld,%ld,%lld",bytesWritten,progress,allTimes);
+                model1.type = Downloadimg;
+//            CGFloat f = (CGFloat)progress / 100;
+//            cell.progress.progress = f;
+        } DidDownload:^(NSString *savePath, NSString *url) {
+            NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.titleArr[0]]];
+            MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+            [table creatTable];
+         if (model1.coverLarge.length == 0) {
+                    NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model1.smallLogo]];
+             if (musicData == nil) {
+                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+             }
+                    [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
+                }else{
+                    NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model1.coverLarge]];
+                    if (musicData == nil) {
+                        musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+                    }
+                    [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
+                }
+                [[ArrayManager shareManager].Array removeObject:model1];
+                [self.downLoadingArray removeObject:model1];
+                [self.downingTab reloadData];
+               [self creatAlbumDic];
+               [self creatVoiceArray];
+            [self downloadAction];
+            }];
+        if (model1.isDownLoad == NO) {
+            model1.type = Downloadimg;
+                        [task start];
+            }else{
+            model1.type = DownloadPause;
+                       [task stop];
+        }
     }
 }
+
+
+-(void)downloadAction
+{
+    
+    
+    if (self.inter == self.downLoadingArray.count) {
+        self.inter = 0;
+    }
+    
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    
+    if (self.downLoadingArray.count == 0) {
+        return;
+    }
+    if (self.downLoadingArray.count == 1) {
+        AlbumDetailModel *model = self.downLoadingArray[0];
+        MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        [self downLoad:task model:model];
+
+    }if (self.downLoadingArray.count > 1) {
+        AlbumDetailModel *model = self.downLoadingArray[self.inter];
+        MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        [self downLoad:task model:model];
+
+    }
+   
+    
+    
+    
+    
+}
+
+
+-(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
+{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    //[[MyDownLoad shareMyDownLoad]start];
+    [task start];
+    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+        NSLog(@"%lld,%ld",bytesWritten,progress);
+        model.type = Downloadimg;
+    } DidDownload:^(NSString *savePath, NSString *url) {
+        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.titleArr[0]]];
+        if (model.coverLarge.length == 0) {
+            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.smallLogo]];
+            if (musicData == nil) {
+                musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+            }
+            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+        }else{
+            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
+            if (musicData == nil) {
+                musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+            }
+            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+        }
+        [[ArrayManager shareManager].Array removeObject:model];
+        [self.downLoadingArray removeObject:model];
+        [self.downingTab reloadData];
+        [self creatAlbumDic];
+        [self creatVoiceArray];
+        [self downloadAction];
+    }];
+}
+
+
+
+
+
+
+
+
 
 -(void)delegateOneMusicAction:(UIButton *)btn//单曲删除
 {
@@ -318,6 +442,7 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
    NSArray *arr1 = self.voiceArr[indexPath.row];
     [table delegateNoteWithTableName:kMyDownloadTable musicUrl:arr1[1]];
+    
     [self.voiceArr removeObject:arr1];
     [self.voiceTab reloadData];
     [self creatAlbumDic];
@@ -346,6 +471,7 @@
         }
         [self creatAlbumDic];
         [self creatVoiceArray];
+        [self.albumTab reloadData];
     }];
     [alert addAction:cancleAction];
     [alert addAction:quedingAction];

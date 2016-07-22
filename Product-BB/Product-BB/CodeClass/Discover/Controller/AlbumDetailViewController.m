@@ -43,11 +43,15 @@
 @property (nonatomic , strong)DetailPayModel *introduceModel;
 @property (nonatomic , strong)NSMutableArray *pinglunArray;
 @property (nonatomic , strong)NSMutableArray *downLoadArray;
-
+@property (nonatomic , assign)BOOL isFirstDownLoad;
 
 @property (nonatomic , strong)hotRecommendsModel *hotRecommendsModel;
 
 @property (nonatomic , strong)attentionModel *attentionModel;
+
+
+
+
 
 //@property (nonatomic , strong)UITextView *contentView;
 //@property (nonatomic , strong)UILabel *contentLabel;
@@ -424,7 +428,7 @@
         batch.coverMiddle = self.albumModel.coverLarge;
         batch.titleL = self.albumModel.title;
     }
-
+    self.navigationController.navigationBar.translucent = NO;
     [[NSNotificationCenter defaultCenter]postNotificationName:@"playFrame" object:nil];
     [self.navigationController pushViewController:batch animated:YES];
 }
@@ -433,49 +437,145 @@
 -(void)downLoadAction:(UIButton *)btn
 {
     
-    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     AlbumDetailTableViewCell *cell = (AlbumDetailTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     NSArray *tableArray = [table selectAll];
     if (tableArray.count > 0) {
         for (NSArray *arr in tableArray) {
             if ([arr containsObject:model.playUrl64]) {
-                [self alertControllerShowWithTitle:@"这首歌已被下载" message:nil];
+                [self alertControllerShowWithTitle:@"已被下载" message:nil];
                 return;
             }
         }
     }
+    if (model.type == Downloadimg || model.type == DownloadPause) {
+        [self alertControllerShowWithTitle:@"正在下载或已在下载列表" message:nil];
+        return;
+    }
+//    BOOL isFirstDownLoad = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstDownLoad"];
     
+    
+    if (self.inter <= 2 && self.inter >= 0) {
+        if (self.isPaid == NO) {
+            NSArray *arr = @[self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title];
+            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+        }else{
+            NSArray *arr = @[self.attentionModel.coverLarge,self.attentionModel.title];
+            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+}
+        }else{
+        
+        NSArray *arr = @[self.albumModel.coverLarge,self.albumModel.title];
+        [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+}
+    
+    
+    
+    [self.downLoadArray addObject:model];
+    
+    [[ArrayManager shareManager].Array addObject:model];
+    model.type = DownloadPause;
+    
+    for (AlbumDetailModel *model in self.downLoadArray) {
+        if (model.type == Downloadimg) {
+            break;
+        }else{
+           MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+            MyDownLoad *task = [manager creatDownload:model.playUrl64];
+            [self downLoad:task model:model];
+        }
+    }
+    
+}
+
+
+
+-(void)downloadAction
+{
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-    MyDownLoad *task = [manager creatDownload:model.playUrl64];
+    if (self.downLoadArray.count == 0) {
+        return;
+    }
+    if (self.downLoadArray.count > 0) {
+        AlbumDetailModel *model = self.downLoadArray[0];
+        MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        [self downLoad:task model:model];
+    }
+}
+
+
+
+
+-(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
+{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
-
+        model.type = Downloadimg;
     } DidDownload:^(NSString *savePath, NSString *url) {
         NSLog(@"++++++++++++++++++++%@",savePath);
         [table creatTable];
-        model.type = DiDdwonload;
+
         NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
-        
+        if (musicData == nil) {
+            musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+        }
         
         if (self.inter <= 2 && self.inter >= 0) {
             if (self.isPaid == NO) {
-             NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
+                NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
                 [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.hotRecommendsModel.title]];
             }else{
-                 NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.attentionModel.coverLarge]];
+                NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.attentionModel.coverLarge]];
                 [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.attentionModel.title]];
             }
         }else{
-        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverLarge]];
-        
-        [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
+            NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverLarge]];
+            
+            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
         }
+        [self.downLoadArray removeObject:model];
+        [[ArrayManager shareManager].Array removeObject:model];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
+                [self downloadAction];
+
     }];
+
     
+    
+    
+    
+    
+//    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+//        NSLog(@"%lld,%ld",bytesWritten,progress);
+//        model.type = Downloadimg;
+//        
+//        
+//    } DidDownload:^(NSString *savePath, NSString *url) {
+//        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverMiddle]];
+//        if (model.coverLarge.length == 0) {
+//            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.smallLogo]];
+//            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
+//        }else{
+//            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
+//            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
+//        }
+//        [self.downArr removeObject:model];
+//        [[ArrayManager shareManager].Array removeObject:model];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:nil];
+//        [self downloadAction];
+//    }];
 }
+
+
+
+
+
+
 
 // 展示AlertController
 - (void)alertControllerShowWithTitle:(NSString *)title message:(NSString *)message
@@ -562,12 +662,13 @@
     if (model.playUrl64 == nil) {
         NSLog(@"播放地址不存在");
         return;
-    } 
+    }
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
     playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
     
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+    
     [self presentViewController:playVC animated:YES completion:nil];
 }
 

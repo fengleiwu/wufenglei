@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "MyDownLoad.h"
+#import "MyMusicDownLoadTable.h"
 typedef NS_ENUM(NSInteger, DownloadType){
     UnDownload,
     Downloadimg,
@@ -49,11 +50,15 @@ typedef NS_ENUM(NSInteger, DownloadType){
 
 @property(nonatomic , assign)BOOL isSelect;
 
+@property(nonatomic , assign)BOOL isDownLoad;
 
 
 +(AlbumDetailModel *)album:(NSDictionary *)dic;
 +(NSMutableArray *)tracks:(NSDictionary *)dic;
 +(AlbumDetailModel *)user:(NSDictionary *)dic;
 +(NSMutableArray *)payArray:(NSDictionary *)dic;
+
+
+
 
 @end

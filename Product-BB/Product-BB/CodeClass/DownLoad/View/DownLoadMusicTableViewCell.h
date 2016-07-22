@@ -24,6 +24,10 @@
 @property(nonatomic , strong)UILabel *label3;
 @property(nonatomic , strong)UIButton *rubbishBtn;
 
+@property(nonatomic , strong)UIProgressView *progress;
+
+
+
 -(void)creatCell:(NSArray *)arr;
 
 

@@ -136,6 +136,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    
+
+
+    
+    
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.translucent = NO;
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
@@ -152,6 +158,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.titleLabel removeFromSuperview];
+    
+    
+    
+    
 }
 
 
@@ -248,6 +258,7 @@
         }
         self.car = [[CarouselView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150) imageURLs:picArray];
             [self.tableView reloadData];
+        
     } error:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -304,6 +315,7 @@
         cateVC.URLLStr = self.TingListURLArr[btn.tag-2];
         [self.navigationController pushViewController:cateVC animated:YES];
     }
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 

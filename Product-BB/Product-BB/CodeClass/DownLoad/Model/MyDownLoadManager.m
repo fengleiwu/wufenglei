@@ -41,7 +41,8 @@ static MyDownLoadManager *manager = nil;
 {
     MyDownLoad *task = self.dic[url];
     if (!task) {
-        task = [[MyDownLoad alloc]initWith:url];
+        task = [[MyDownLoad shareMyDownLoad]initWith:url];
+        
         [self.dic setValue:task forKey:url];
     }
     task.delegate = self;

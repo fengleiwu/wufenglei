@@ -70,7 +70,12 @@
 
 -(void)creatCell:(AlbumDetailModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
+//    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
+    
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge] placeholderImage:
+     [UIImage imageNamed:@"1004.jpg"]];
+    
+    
     self.bigLabel.text = model.title;
     
     

@@ -69,12 +69,21 @@
     }
     AlbumDetailModel *model = self.arr[indexPath.row];
     [cell creatCell:model];
-    [cell.imageV addTarget:self action:@selector(choseAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    if (model.isSelect == YES) {
-        [cell.imageV setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
-    }else{
-        [cell.imageV setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
-    }
+    
+   if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
+                [cell.imageV setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
+                [cell.imageV setTintColor:[UIColor grayColor]];
+       
+                }else{
+                [cell.imageV addTarget:self action:@selector(choseAction:) forControlEvents:(UIControlEventTouchUpInside)];
+                
+                if (model.isSelect == YES) {
+                    [cell.imageV setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
+                }else{
+                    [cell.imageV setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
+                }
+            }
+        
     return cell;
     
 }
@@ -85,18 +94,39 @@
     batchDownTableViewCell *cell =(batchDownTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
     AlbumDetailModel *model = self.arr[indexPath.row];
-    model.isSelect = !model.isSelect;
-    if (model.isSelect == YES) {
-        [self.downArr addObject:model];
-    }else{
-        [self.downArr removeObject:model];
-    }
-    [self.tab reloadData];
+   
+    
+    if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
+                model.isSelect = model.isSelect;
+            }else{
+                model.isSelect = !model.isSelect;
+                if (model.isSelect == YES) {
+                    [self.downArr addObject:model];
+                }else{
+                    [self.downArr removeObject:model];
+                }
+                [self.tab reloadData];
+            }
+ 
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AlbumDetailModel *model = self.arr[indexPath.row];
+//    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+//    NSArray *tableArray = [table selectAll];
+//    if (tableArray.count > 0) {
+//        for (NSArray *arr in tableArray) {
+//            if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
+//                
+//            }else{
+//                
+//            }
+//            }
+//        }
+    if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
+        model.isSelect = model.isSelect;
+    }else{
     model.isSelect = !model.isSelect;
     if (model.isSelect == YES) {
         [self.downArr addObject:model];
@@ -104,7 +134,7 @@
         [self.downArr removeObject:model];
     }
     [self.tab reloadData];
-
+    }
 }
 
 
@@ -166,19 +196,49 @@
 
 -(void)changeYesAction:(UIButton *)btn
 {
+    
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *tableArray = [table selectAll];
+//    if (tableArray.count > 0) {
+//        for (NSArray *arr in tableArray) {
+//            if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
+//                
+//            }
+//        }
+//    }else{
+    
     [self.downArr removeAllObjects];
     for (AlbumDetailModel *model in self.arr) {
-        [self.downArr addObject:model];
-        model.isSelect = YES;
+        if (tableArray.count > 0) {
+            for (NSArray *arr in tableArray) {
+                if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
+                    
+                }else{
+                    [self.downArr addObject:model];
+                    model.isSelect = YES;
+                }
+            }
+            }
     }
     [self.tab reloadData];
+    
 }
 
 -(void)changeNoAction:(UIButton *)btn
 {
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *tableArray = [table selectAll];
     [self.downArr removeAllObjects];
     for (AlbumDetailModel *model in self.arr) {
-        model.isSelect = NO;
+        if (tableArray.count > 0) {
+            for (NSArray *arr in tableArray) {
+                if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
+                    
+                }else{
+                    model.isSelect = NO;
+                }
+            }
+        }
     }
     [self.tab reloadData];
 }
@@ -186,11 +246,14 @@
 -(void)downloadAction
 {
     
+    NSArray *arr = @[self.coverMiddle,self.titleL];
     
+    [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
     for (AlbumDetailModel *model in self.downArr) {
         [[ArrayManager shareManager].Array addObject:model];
     }
     NSLog(@"%ld",self.downArr.count);
+//    [[ArrayManager shareManager].Array addObject:arr];
 
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
 
@@ -200,17 +263,11 @@
     if (self.downArr.count > 0) {
         AlbumDetailModel *model = self.downArr[0];
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        
+        
         [self downLoad:task model:model];
     }
-//    if (self.downArr.count >= 2) {
-//        
-//            AlbumDetailModel *model1 = self.downArr[0];
-//            AlbumDetailModel *model2 = self.downArr[1];
-//            MyDownLoad *task1 = [manager creatDownload:model1.playUrl64];
-//            MyDownLoad *task2 = [manager creatDownload:model2.playUrl64];
-//            [self downLoad:task1 model:model1];
-//            [self downLoad:task2 model:model2];
-//        }
+
     
     
     
@@ -223,18 +280,29 @@
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
+        model.type = Downloadimg;
+        
+        
         } DidDownload:^(NSString *savePath, NSString *url) {
-            NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverMiddle]];
+            [table creatTable];
+NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverMiddle]];
             if (model.coverLarge.length == 0) {
                 NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.smallLogo]];
+                if (musicData == nil) {
+                    musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+                }
                 [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
             }else{
         NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
+                if (musicData == nil) {
+                    musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+                }
         [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
             }
+            model.type = DiDdwonload;
         [self.downArr removeObject:model];
             [[ArrayManager shareManager].Array removeObject:model];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
         [self downloadAction];
     }];
 }

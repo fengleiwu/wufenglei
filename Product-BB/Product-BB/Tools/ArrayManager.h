@@ -13,7 +13,6 @@
 
 @property(nonatomic , strong)NSMutableArray *Array;
 
-@property(nonatomic , copy)void(^arr)(NSArray *arr,NSMutableArray *arr2);
 
 
 +(ArrayManager *)shareManager;

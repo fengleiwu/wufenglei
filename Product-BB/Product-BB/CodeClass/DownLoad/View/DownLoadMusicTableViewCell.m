@@ -66,6 +66,10 @@
         self.rubbishBtn.frame = CGRectMake(kScreenWidth - 40, 40, 30, 30);
         [self.rubbishBtn setImage:[UIImage imageNamed:@"trash"] forState:(UIControlStateNormal)];
         [self.rubbishBtn setTintColor:[UIColor grayColor]];
+        self.progress = [[UIProgressView alloc]initWithProgressViewStyle:(UIProgressViewStyleBar)];
+        self.progress.frame = CGRectMake(80, 110, 200, 20);
+        self.progress.tintColor = [UIColor redColor];
+        [self.contentView addSubview:self.progress];
         [self.contentView addSubview:self.imageV];
         [self.contentView addSubview:self.titleL];
         [self.contentView addSubview:btn];
@@ -85,7 +89,7 @@
 
 -(void)creatCell:(NSArray *)arr
 {
-    
+    self.progress.hidden = YES;
     self.rubbishBtn.hidden = NO;
     self.imageV.image = [UIImage imageWithData:arr[2]];
     
@@ -119,6 +123,7 @@
 
 -(void)creatDownloadingCell:(AlbumDetailModel *)model
 {
+    self.progress.hidden = NO;
     self.rubbishBtn.hidden = YES;
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.smallLogo]];
     self.titleL.text = model.title;

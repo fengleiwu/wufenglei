@@ -103,6 +103,8 @@
 
     NSData *data = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].Array arrayKey:@"array"];
     [data writeToFile:filePth atomically:YES];
+    
+    [[MyDownLoad shareMyDownLoad] stop];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {//已经进入后台
@@ -116,7 +118,8 @@
     NSString *filePth = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"array.txt" type:CachesType];
     [ArrayManager shareManager].Array = [[[EncodeManager shareInstance]unArchiverArrayWithFilePath:filePth arrayKey:@"array"]mutableCopy];
    
-    
+    [[MyDownLoad shareMyDownLoad] start];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {//已经进入前台

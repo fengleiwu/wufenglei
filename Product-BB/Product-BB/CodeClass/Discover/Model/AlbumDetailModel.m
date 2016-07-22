@@ -87,6 +87,16 @@
     for (NSDictionary *dic1 in list) {
         AlbumDetailModel *model = [[AlbumDetailModel alloc]init];
         [model setValuesForKeysWithDictionary:dic1];
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        NSArray *tableArray = [table selectAll];
+        if (tableArray.count > 0) {
+            for (NSArray *arr in tableArray) {
+                if ([arr containsObject:model.playUrl64]) {
+                    model.type = DiDdwonload;
+                }
+            }
+        }
+
         [arr addObject:model];
     }
     return arr;

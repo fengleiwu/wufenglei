@@ -22,6 +22,17 @@
     NSLog(@"%s",__FUNCTION__);
 }
 
++(MyDownLoad *)shareMyDownLoad
+{
+    static MyDownLoad *down = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        down = [[MyDownLoad alloc]init];
+    });
+    return down;
+}
+
+
 -(instancetype)initWith:(NSString *)url
 {
     self = [super init];
