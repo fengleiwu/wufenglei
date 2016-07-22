@@ -342,8 +342,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPlay" object:model];
     
     // 将播放过的音频存入播放历史数据库
-    NSString *filePath = [self creatSqliteWithSqliteName:kYourDownloadTable];
-    NSLog(@"8440-4-=-=======%@", filePath);
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     [table creatHistoryOfPlayTable];
     NSArray *playedArray = [table selectAllInHistoryOfPlay];
@@ -356,9 +354,7 @@
     [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
     
 }
- -(NSString *)creatSqliteWithSqliteName:(NSString *)sqliteName{
-        return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)firstObject]stringByAppendingPathComponent:sqliteName];
-}
+
 
 #pragma mark --- tableView 代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
