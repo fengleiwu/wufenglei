@@ -150,8 +150,8 @@
         NSString *totalTitle = [set stringForColumn:@"totalTitle"];
         NSString *liveTitle = [set stringForColumn:@"liveTitle"];
         NSString *playCount = [set stringForColumn:@"playCount"];
+        NSString *bgImage = [set stringForColumn:@"bgImage"];
         
-        NSData *bgImage = [set dataForColumn:@"bgImage"];
         [array addObject:@[musicURL,totalTitle,liveTitle,playCount,bgImage]];
     }
     return array;

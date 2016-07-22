@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSString *liveTitle;
 @property (nonatomic, strong) NSString *playCount;
 @property (nonatomic, strong) NSString *bgImage;
+@property (nonatomic, strong) NSString *albumTitle;
 
 + (NSMutableArray *)modelCOnfigureWithLocationModel:(NSMutableArray *)modelArr;
 + (NSMutableArray *)modelCOnfigureWithRankModel:(NSMutableArray *)modelArr;

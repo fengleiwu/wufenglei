@@ -125,6 +125,12 @@
     self.tableV.delegate = self;
     [self.tableV registerClass:[PlayListTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self addSubview:self.tableV];
+    
+    // 添加通知，切歌时，返回通知，刷新 tableView
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableAction:) name:@"reloadTableAction" object:nil];
+}
+- (void)reloadTableAction:(NSNotification *)noti {
+    [self.tableV reloadData];
 }
 #pragma mark --- 创建最下面的 关闭按钮 视图
 //
@@ -154,7 +160,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BroadMusicModel *model = self.tableViewArr[indexPath.row];
-    
+    if (model.isPlay == YES) {
+        cell.isPlay = YES;
+    }
     [cell cellConfigureWithModel:model];
     
     return cell;
@@ -162,17 +170,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+//    PlayListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.isPlay = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playListNotification" object:[NSNumber numberWithInteger:indexPath.row]];
     
-     // 列表收缩
-    [UIView animateWithDuration:0.5 animations:^{
-        self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
-    }];
+//     // 列表收缩
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
+//    }];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+//    PlayListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.isPlay = NO;
 }
 
 @end

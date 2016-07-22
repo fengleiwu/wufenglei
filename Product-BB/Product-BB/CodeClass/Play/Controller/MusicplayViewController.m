@@ -342,6 +342,9 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     [table creatHistoryOfPlayTable];
     [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
+    
+    // 切歌时，向播放列表传回通知，刷新 tableView
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableAction" object:nil];
 }
 
 #pragma mark --- tableView 代理方法

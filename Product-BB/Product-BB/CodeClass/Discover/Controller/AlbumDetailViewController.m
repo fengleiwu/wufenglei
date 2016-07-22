@@ -559,8 +559,7 @@
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
     model.isPlay = YES;
     [self.tab reloadData];
-    
-    
+
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
     playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
     
@@ -569,8 +568,6 @@
     
     [self presentViewController:playVC animated:YES completion:nil];
 }
-
-
 
 
 /*

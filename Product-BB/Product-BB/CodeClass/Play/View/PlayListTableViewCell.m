@@ -41,7 +41,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
+    if (self.isPlay == YES) {
+        self.titleLabel.frame = CGRectMake(100,10, self.width-100, 30);
+    } else {
+        self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
+    }
+//    self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
 }
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model {
