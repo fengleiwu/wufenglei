@@ -107,23 +107,25 @@
 
 - (void)playAction:(UIButton *)button {
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-    [self presentViewController:playVC animated:YES completion:nil];
     
 //    BroadListModel *model = self.modelArray[button.tag - 100];
     playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithBroadlistModel:self.modelArray];
     [MyPlayerManager defaultManager].index = button.tag - 100;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+    
+    [self presentViewController:playVC animated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-    [self presentViewController:playVC animated:YES completion:nil];
-    
+       
 //    BroadListModel *model = self.modelArray[indexPath.row];
     // 判断字符串 URL 是否包含 m3u8 ，解析 model。
     playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithBroadlistModel:self.modelArray];
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+    
+    [self presentViewController:playVC animated:YES completion:nil];
 }
 
 

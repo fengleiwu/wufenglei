@@ -12,9 +12,11 @@
 
 @interface PlayListView ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UITableView *tableV;
 @property (nonatomic, strong) UIButton *playTypeBtn;
 @property (nonatomic, strong) UIButton *sortBtn;
 @property (nonatomic, strong) UIButton *closeBtn;
+@property (nonatomic, assign) BOOL isDaoxu;
 
 @end
 
@@ -68,7 +70,7 @@
     
     self.sortBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     self.sortBtn.frame = CGRectMake(self.width - 110, 10, 100, 30);
-    [self.sortBtn setTitle:@"排序" forState:(UIControlStateNormal)];
+    [self.sortBtn setTitle:@"正序" forState:(UIControlStateNormal)];
     [self.sortBtn setImage:[UIImage imageNamed:@"audio_wave"] forState:(UIControlStateNormal)];
     [self.sortBtn addTarget:self action:@selector(sortBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     self.sortBtn.tintColor = [UIColor blackColor];
@@ -78,23 +80,51 @@
 // 切换方法
 - (void)playTypeAction:(UIButton *)button {
     NSLog(@"qie huan");
+    NSString *playType = [[NSUserDefaults standardUserDefaults] objectForKey:@"playType"];
+    if ([playType isEqualToString:@"repeat"] || playType == nil) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"refresh" forKey:@"playType"];
+        [MyPlayerManager defaultManager].playType = ListPlay;
+        [self.playTypeBtn setTitle:@"顺序播放" forState:(UIControlStateNormal)];
+    } else if ([playType isEqualToString:@"refresh"]){
+        [MyPlayerManager defaultManager].playType = RandomPlay;
+        [[NSUserDefaults standardUserDefaults] setObject:@"shuffle" forKey:@"playType"];
+        [self.playTypeBtn setTitle:@"随机播放" forState:(UIControlStateNormal)];
+    } else if ([playType isEqualToString:@"shuffle"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"repeat" forKey:@"playType"];
+        [MyPlayerManager defaultManager].playType = SignlePlay;
+        [self.playTypeBtn setTitle:@"单曲循环" forState:(UIControlStateNormal)];
+    }
 }
 // 排序方法
 - (void)sortBtnAction:(UIButton *)button {
-    NSLog(@"pai xu");
+    NSMutableArray *arr = [NSMutableArray array];
+    if (self.isDaoxu == YES) {
+        [self.sortBtn setTitle:@"正序" forState:(UIControlStateNormal)];
+        for (BroadMusicModel *model in self.tableViewArr) {
+            [arr insertObject:model atIndex:0];
+        }
+    } else {
+        [self.sortBtn setTitle:@"倒序" forState:(UIControlStateNormal)];
+        for (BroadMusicModel *model in self.tableViewArr) {
+            [arr insertObject:model atIndex:0];
+        }
+    }
+    self.tableViewArr = arr;
+    [self.tableV reloadData];
+    self.isDaoxu = !self.isDaoxu;
 }
 #pragma mark --- 创建中间的 节目列表 tableView
 //
 - (void)creatTableView {
     // 中间的 tableview
-    UITableView *tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, self.height/4 + 50, self.width, self.height*3/4-100) style:(UITableViewStylePlain)];
-    tableV.rowHeight = 50;
-    tableV.alpha = 0.9;
-    tableV.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    tableV.dataSource = self;
-    tableV.delegate = self;
-    [tableV registerClass:[PlayListTableViewCell class] forCellReuseIdentifier:@"cell"];
-    [self addSubview:tableV];
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, self.height/4 + 50, self.width, self.height*3/4-100) style:(UITableViewStylePlain)];
+    self.tableV.rowHeight = 50;
+    self.tableV.alpha = 0.9;
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableV.dataSource = self;
+    self.tableV.delegate = self;
+    [self.tableV registerClass:[PlayListTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self addSubview:self.tableV];
 }
 #pragma mark --- 创建最下面的 关闭按钮 视图
 //

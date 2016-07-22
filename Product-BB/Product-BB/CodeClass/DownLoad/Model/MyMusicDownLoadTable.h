@@ -27,5 +27,18 @@
 -(void)delegateNoteWithTableName:(NSString *)tableName musicUrl:(NSString *)musicUrl;
 
 
+#pragma mark --- 播放历史数据 HistoryOfPlay
+
+//建表
+-(void)creatHistoryOfPlayTable;
+//插入
+-(void)insertIntoHistoryOfPlayTable:(NSArray *)Info;
+//取出
+-(NSArray *)selectAllInHistoryOfPlay;
+
+//删除数据
+-(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName musicURL:(NSString *)musicURL;
+
+
 
 @end

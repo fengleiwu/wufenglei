@@ -9,6 +9,9 @@
 #import "MusicplayViewController.h"
 #import "MusicplayTableViewCell.h"
 #import "PlayListView.h"
+// 将播放过的音频存入播放历史数据库
+#import "MyMusicDownLoadTable.h"
+
 @interface MusicplayViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableV;
@@ -334,6 +337,11 @@
     
     // 通知,向后台发送播放信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPlay" object:model];
+    
+    // 将播放过的音频存入播放历史数据库
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    [table creatHistoryOfPlayTable];
+    [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
 }
 
 #pragma mark --- tableView 代理方法
