@@ -8,15 +8,27 @@
 
 #import "SubscriptionViewController.h"
 #import "DetailListTableViewCell.h"
+#import "MyMusicDownLoadTable.h"
+#import "MusicplayViewController.h"
+#import "HistoryOfPlayTableViewCell.h"
+#import "BroadMusicModel.h"
 #import "SUBModel.h"
 
 @interface SubscriptionViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UISegmentedControl *segContoller;
 @property (nonatomic, strong)NSMutableArray *KurlArr;
 @property (nonatomic, strong)NSMutableArray *recommendArr;
+@property (nonatomic, strong)NSArray *sqliteArr;
+@property (nonatomic, strong)NSMutableArray *modelArr;
 @property (nonatomic, strong)UITableView *tableV1;
+@property (nonatomic, strong)UITableView *tableV2;
 @property (nonatomic, strong)UIScrollView *scrollV;
+@property (nonatomic, strong)UIImageView *imageV2;
+@property (nonatomic, strong)UIButton *checkB;
+@property (nonatomic, strong)UIButton *removeB;
+@property (nonatomic, strong)UILabel *label2;
 @property (nonatomic, strong)UIView *moveV;
+@property (nonatomic, strong)UIView *editV;
 @end
 
 @implementation SubscriptionViewController
@@ -34,17 +46,37 @@
     return _recommendArr;
 }
 
+-(NSArray *)sqliteArr{
+    if (!_sqliteArr) {
+        _sqliteArr = [NSArray array];
+    }
+    return _sqliteArr;
+}
+
+-(NSMutableArray *)modelArr{
+    if (!_modelArr) {
+        _modelArr = [NSMutableArray array];
+    }
+    return _modelArr;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //刷新请求数据
-    self.tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [MBProgressHUD setUpHUDWithFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height) gifName:@"5562497_03" andShowToView:self.view];
-        [self.recommendArr removeAllObjects];
-        [self requestData];
-    }];
-    self.tableV1.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
-    }];
-    [self.tableV1.mj_header beginRefreshing];
+    NSLog(@"%f",self.scrollV.contentOffset.x);
+    if (self.scrollV.contentOffset.x == 0) {
+        //刷新请求数据
+        self.tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [MBProgressHUD setUpHUDWithFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height) gifName:@"5562497_03" andShowToView:self.view];
+            [self.recommendArr removeAllObjects];
+            [self requestData];
+        }];
+        self.tableV1.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        }];
+        [self.tableV1.mj_header beginRefreshing];
+    }
+    if (self.scrollV.contentOffset.x == kScreenWidth*2) {
+        [self refreshData];
+    }
 }
 
 - (void)viewDidLoad {
@@ -54,8 +86,36 @@
     [self.segContoller addSubview:self.moveV];
     [self.view addSubview:self.scrollV];
     [self.scrollV addSubview:self.tableV1];
-//    [self requestData];
+    self.All = YES;
+    self.isClick = NO;
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    self.sqliteArr = [table selectAllInHistoryOfPlay];
+    if (self.sqliteArr.count == 0) {
+        //创建背景
+        self.imageV2 = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight - 64-self.tabBarController.tabBar.height)];
+        self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
+        [self.scrollV addSubview:self.imageV2];
+        //创建提醒标签
+        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+        self.label2.text = @"你还没有收听过...";
+        self.label2.textColor = [UIColor whiteColor];
+        self.label2.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label2];
+    }else {
+        self.view.backgroundColor = PKCOLOR(211, 211, 211);
+        for (NSArray *arr in self.sqliteArr) {
+            BroadMusicModel *model = [[BroadMusicModel alloc]init];
+            model.totalTitle = arr[1];
+            model.liveTitle = arr[2];
+            model.bgImage = arr[4];
+            [self.modelArr addObject:model];
+        }
+        [self.scrollV addSubview:self.tableV2];
+        [self.scrollV addSubview:self.editV];
+        [self.editV addSubview:self.checkB];
+        [self.editV addSubview:self.removeB];
     // Do any additional setup after loading the view.
+   }
 }
 
 #pragma mark ----- 创建滑块视图 -----
@@ -112,6 +172,34 @@
     CGRect frame = self.moveV.frame;
     frame.origin.x = self.segContoller.selectedSegmentIndex *kScreenWidth/3;
     self.moveV.frame = frame;
+    if (self.scrollV.contentOffset.x == kScreenWidth * 2) {
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        self.sqliteArr = [table selectAllInHistoryOfPlay];
+        if (self.sqliteArr.count == 0) {
+            //创建背景
+            self.imageV2 = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight - 64-self.tabBarController.tabBar.height)];
+            self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
+            [self.scrollV addSubview:self.imageV2];
+            //创建提醒标签
+            self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+            self.label2.text = @"你还没有收听过...";
+            self.label2.textColor = [UIColor whiteColor];
+            self.label2.font = [UIFont systemFontOfSize:15];
+            [self.scrollV addSubview:self.label2];
+        }else {
+            [self.modelArr removeAllObjects];
+            for (NSArray *arr in self.sqliteArr) {
+                BroadMusicModel *model = [[BroadMusicModel alloc]init];
+                model.musicURL = arr[0];
+                model.totalTitle = arr[1];
+                model.liveTitle = arr[2];
+                model.playCount = arr[3];
+                model.bgImage = arr[4];
+                [self.modelArr addObject:model];
+            }
+            // Do any additional setup after loading the view.
+        }
+    }
 }
 
 #pragma mark ----- 创建推荐tableView -----
@@ -120,6 +208,7 @@
         _tableV1 = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, self.scrollV.frame.size.height) style:UITableViewStylePlain];
         _tableV1.delegate = self;
         _tableV1.dataSource = self;
+        _tableV1.tag = 101;
         _tableV1.showsVerticalScrollIndicator = NO;
         [_tableV1 registerNib:[UINib nibWithNibName:@"DetailListTableViewCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
     }
@@ -128,18 +217,186 @@
 
 #pragma mark ----- tableView协议方法 -----
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.recommendArr.count;
+    if (tableView.tag == 101) {
+      return self.recommendArr.count;
+    } else {
+      return self.modelArr.count;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
+    if (tableView.tag == 101) {
+      return 120;
+    } else {
+      return kScreenHeight/7;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SUBModel *model = self.recommendArr[indexPath.row];
-    DetailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
-    [cell CellConfigureWithModel:model];
-    return cell;
+    if (tableView.tag == 101) {
+        SUBModel *model = self.recommendArr[indexPath.row];
+        DetailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
+        [cell CellConfigureWithModel:model];
+        return cell;
+    } else{
+        BroadMusicModel *model = self.modelArr[indexPath.row];
+        HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
+        [cell cellConfigureWithModel:model];
+        return cell;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 102) {
+        if (self.isClick == NO) {
+            MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+            playVC.newmodelArray = self.modelArr;
+            [MyPlayerManager defaultManager].index = indexPath.row;
+            [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+            
+            [self presentViewController:playVC animated:YES completion:nil];
+        } else {
+        BroadMusicModel *model = self.modelArr[indexPath.row];
+        NSInteger cc = indexPath.row;
+        if (model.isSelect == NO) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:cc inSection:0];
+            [self.tableV1 selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+        } else {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:cc inSection:0];
+            [self.tableV1 deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        model.isSelect = !model.isSelect;
+        }
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 102) {
+        NSInteger cc = indexPath.row;
+        BroadMusicModel *model = self.modelArr[cc];
+        model.isSelect = NO;
+    }
+}
+
+#pragma mark ----- 创建已下载歌曲界面 -----
+-(UITableView *)tableV2{
+    if (!_tableV2) {
+        _tableV2 = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth *2,0, kScreenWidth, kScreenHeight) style:(UITableViewStyleGrouped)];
+        _tableV2.delegate = self;
+        _tableV2.dataSource = self;
+        _tableV2.tag = 102;
+        [_tableV2 registerClass:[HistoryOfPlayTableViewCell class] forCellReuseIdentifier:@"historyCell"];
+    }
+    return _tableV2;
+}
+
+#pragma mark ----- 删除方法 -----
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 102) {
+        return 1|2;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
+#pragma mark ----- 创建编辑界面 -----
+-(UIView *)editV{
+    if (!_editV) {
+        _editV = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth*2, 0, kScreenWidth, 30)];
+        _editV.backgroundColor = [UIColor lightGrayColor];
+    }
+    return _editV;
+}
+
+#pragma mark ----- 创建全选Button -----
+-(UIButton *)checkB{
+    if (!_checkB) {
+        _checkB = [UIButton buttonWithType:UIButtonTypeCustom];
+        _checkB.frame = CGRectMake(0, 0, kScreenWidth/2, 30);
+        [_checkB setTitle:@"选择" forState:UIControlStateNormal];
+        [_checkB setTintColor:[UIColor whiteColor]];
+        [_checkB addTarget:self action:@selector(checkA) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _checkB;
+}
+
+#pragma mark ----- 创建删除Button -----
+-(UIButton *)removeB{
+    if (!_removeB) {
+        _removeB = [UIButton buttonWithType:UIButtonTypeCustom];
+        _removeB.frame = CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, 30);
+        [_removeB setTitle:@"删除" forState:UIControlStateNormal];
+        [_removeB setTintColor:[UIColor whiteColor]];
+        [_removeB addTarget:self action:@selector(removeA) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _removeB;
+}
+
+#pragma mark ----- 选择方法 -----
+-(void)checkA{
+    if (self.All == YES) {
+        self.tableV2.allowsMultipleSelectionDuringEditing= NO;
+        [self.tableV2 setEditing:YES animated:YES];
+        [self.checkB setTitle:@"取消选择" forState:UIControlStateNormal];
+        self.All = NO;
+        self.isClick = YES;
+        for (int i = 0; i < self.modelArr.count; i ++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [self.tableV2 selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            BroadMusicModel *model = self.modelArr[i];
+            model.isSelect = YES;
+        }
+    } else {
+        [self.tableV2 setEditing:NO  animated:YES];
+        [self.checkB setTitle:@"选择" forState:UIControlStateNormal];
+        self.All = YES;
+        self.isClick = NO;
+        for (int i = 0; i < self.modelArr.count; i ++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [self.tableV2 deselectRowAtIndexPath:indexPath animated:YES];
+            BroadMusicModel *model = self.modelArr[i];
+            model.isSelect = NO;
+        }
+    }
+}
+
+#pragma mark ----- 删除方法 -----
+-(void)removeA{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    if (self.isClick == YES) {
+        for (NSInteger i = self.modelArr.count - 1; i >= 0; i--)
+        {
+            BroadMusicModel *model = self.modelArr[i];
+            if (model.isSelect == YES) {
+                [self.modelArr removeObjectAtIndex:i];
+                [table delegateNoteWithHistoryOfPlayTableName:kYourDownloadTable totalTitle:model.totalTitle];
+            }
+        }
+        self.All = NO;
+        self.isClick = NO;
+        [self checkA];
+        [self refreshData];
+    }
+}
+
+-(void)refreshData{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    self.sqliteArr = [table selectAllInHistoryOfPlay];
+    if (self.sqliteArr.count == 0) {
+        
+    }else {
+        [self.modelArr removeAllObjects];
+        for (NSArray *arr in self.sqliteArr) {
+            BroadMusicModel *model = [[BroadMusicModel alloc]init];
+            model.musicURL = arr[0];
+            model.totalTitle = arr[1];
+            model.liveTitle = arr[2];
+            model.playCount = arr[3];
+            model.bgImage = arr[4];
+            [self.modelArr addObject:model];
+        }
+    }
+    [self.tableV2 reloadData];
 }
 
 #pragma mark ----- 数据请求 -----

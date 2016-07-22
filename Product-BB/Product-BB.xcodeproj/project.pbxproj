@@ -232,6 +232,7 @@
 		7981D7931D413D9600ABC217 /* TuiJianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7921D413D9600ABC217 /* TuiJianViewController.m */; };
 		7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7981D7941D41463E00ABC217 /* 奇幻森林.gif */; };
 		7981D7981D41F40300ABC217 /* HistoryOfPlayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7971D41F40300ABC217 /* HistoryOfPlayTableViewCell.m */; };
+		7981D79A1D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png in Resources */ = {isa = PBXBuildFile; fileRef = 7981D7991D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png */; };
 		799073821D4054D400108E35 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073801D4054D400108E35 /* 1.png */; };
 		799073831D4054D400108E35 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073811D4054D400108E35 /* 2.png */; };
 		799073861D40C6EE00108E35 /* ArrayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 799073851D40C6EE00108E35 /* ArrayManager.m */; };
@@ -790,6 +791,7 @@
 		7981D7941D41463E00ABC217 /* 奇幻森林.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "奇幻森林.gif"; sourceTree = "<group>"; };
 		7981D7961D41F40300ABC217 /* HistoryOfPlayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOfPlayTableViewCell.h; sourceTree = "<group>"; };
 		7981D7971D41F40300ABC217 /* HistoryOfPlayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOfPlayTableViewCell.m; sourceTree = "<group>"; };
+		7981D7991D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2016-07-22 下午7.20.34.png"; sourceTree = "<group>"; };
 		799073801D4054D400108E35 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		799073811D4054D400108E35 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		799073841D40C6EE00108E35 /* ArrayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayManager.h; sourceTree = "<group>"; };
@@ -2398,6 +2400,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				7981D7991D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png */,
 				7981D7941D41463E00ABC217 /* 奇幻森林.gif */,
 				7981D78F1D41377C00ABC217 /* 喵.png */,
 				799073801D4054D400108E35 /* 1.png */,
@@ -2642,6 +2645,7 @@
 				79BE29FB1D3E7B70009CF446 /* 商城.png in Resources */,
 				79F44CE71D3A3C64002BE16F /* play.png in Resources */,
 				7900E8591D3A796E00E3676C /* broadcast_DownButtonBg@2x.png in Resources */,
+				7981D79A1D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png in Resources */,
 				79F44CE31D3A3C64002BE16F /* like_outline.png in Resources */,
 				7981D77A1D41179C00ABC217 /* build-libidn.sh in Resources */,
 				79F44CEB1D3A3C64002BE16F /* V.png in Resources */,

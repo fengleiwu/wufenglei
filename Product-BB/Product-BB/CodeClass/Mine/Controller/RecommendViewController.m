@@ -10,6 +10,7 @@
 #import "TuiJianViewController.h"
 #import "MyMusicDownLoadTable.h"
 #import "HistoryOfPlayTableViewCell.h"
+#import "MusicplayViewController.h"
 #import "BroadMusicModel.h"
 BOOL All = YES;
 BOOL isClick = NO;
@@ -72,14 +73,25 @@ BOOL isClick = NO;
         self.navigationItem.title = @"播放历史";
         self.sqliteArr = [self.table selectAllInHistoryOfPlay];
         if (self.sqliteArr.count == 0) {
-            
+        //创建背景
+        self.imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight)];
+        self.imageV.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
+        [self.view addSubview:self.imageV];
+        //创建提醒标签
+        self.label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3, kScreenHeight*5/11, 120, 30)];
+        self.label.text = @"你还没有收听过...";
+        self.label.textColor = [UIColor whiteColor];
+        self.label.font = [UIFont systemFontOfSize:15];
+        [self.view addSubview:self.label];
         }else {
             self.view.backgroundColor = PKCOLOR(211, 211, 211);
             for (NSArray *arr in self.sqliteArr) {
                 BroadMusicModel *model = [[BroadMusicModel alloc]init];
-                    model.totalTitle = arr[1];
-                    model.liveTitle = arr[2];
-                    model.bgImage = arr[4];
+                model.musicURL = arr[0];
+                model.totalTitle = arr[1];
+                model.liveTitle = arr[2];
+                model.playCount = arr[3];
+                model.bgImage = arr[4];
                     [self.modelArr addObject:model];
             }
         [self.view addSubview:self.tableV1];
@@ -124,12 +136,19 @@ BOOL isClick = NO;
     BroadMusicModel *model = self.modelArr[indexPath.row];
     HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
     [cell cellConfigureWithModel:model];
-//    [self.array addObject:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-     BroadMusicModel *model = self.modelArr[indexPath.row];
+    if (isClick == NO) {
+        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        playVC.newmodelArray = self.modelArr;
+        [MyPlayerManager defaultManager].index = indexPath.row;
+        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+        
+        [self presentViewController:playVC animated:YES completion:nil];
+    } else {
+    BroadMusicModel *model = self.modelArr[indexPath.row];
     NSInteger cc = indexPath.row;
     if (model.isSelect == NO) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:cc inSection:0];
@@ -139,6 +158,7 @@ BOOL isClick = NO;
         [self.tableV1 deselectRowAtIndexPath:indexPath animated:YES];
     }
     model.isSelect = !model.isSelect;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -231,11 +251,13 @@ BOOL isClick = NO;
     if (self.sqliteArr.count == 0) {
         
     }else {
-        self.view.backgroundColor = PKCOLOR(211, 211, 211);
+        [self.modelArr removeAllObjects];
         for (NSArray *arr in self.sqliteArr) {
             BroadMusicModel *model = [[BroadMusicModel alloc]init];
+            model.musicURL = arr[0];
             model.totalTitle = arr[1];
             model.liveTitle = arr[2];
+            model.playCount = arr[3];
             model.bgImage = arr[4];
             [self.modelArr addObject:model];
         }

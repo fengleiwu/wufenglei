@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SubscriptionViewController : UIViewController
-
+@property (nonatomic, assign)BOOL isClick;
+@property (nonatomic, assign)BOOL All;
 @end
