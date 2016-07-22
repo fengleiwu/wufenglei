@@ -321,11 +321,6 @@
         [MyPlayerManager defaultManager].playingURL =  model.musicURL;
         model.isPlay = YES;
         
-        // 将播放过的音频存入播放历史数据库
-        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-        [table creatHistoryOfPlayTable];
-        [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
-        
         // 切歌时，向播放列表传回通知，刷新 tableView
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableAction" object:nil];
     }
@@ -346,9 +341,23 @@
     // 通知,向后台发送播放信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPlay" object:model];
     
+    // 将播放过的音频存入播放历史数据库
+    NSString *filePath = [self creatSqliteWithSqliteName:kYourDownloadTable];
+    NSLog(@"8440-4-=-=======%@", filePath);
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    [table creatHistoryOfPlayTable];
+    NSArray *playedArray = [table selectAllInHistoryOfPlay];
+    for (NSArray *arr in playedArray) {
+        if ([arr[0] isEqualToString:model.musicURL]) {
+            NSLog(@"该播放记录在数据库已存在");
+            return;
+        }
+    }
+    [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
     
-    
-    
+}
+ -(NSString *)creatSqliteWithSqliteName:(NSString *)sqliteName{
+        return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)firstObject]stringByAppendingPathComponent:sqliteName];
 }
 
 #pragma mark --- tableView 代理方法

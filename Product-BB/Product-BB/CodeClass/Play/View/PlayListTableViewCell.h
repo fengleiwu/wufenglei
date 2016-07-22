@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BroadMusicModel.h"
-#import "MusicActivityView.h"
 
 @interface PlayListTableViewCell : UITableViewCell
 
@@ -16,8 +15,6 @@
 @property (nonatomic, strong) UIImageView *downloadImageV;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, assign) BOOL isPlay;
-// 音频跳动的动画
-@property (nonatomic, strong) MusicActivityView *activityView;
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model;
 

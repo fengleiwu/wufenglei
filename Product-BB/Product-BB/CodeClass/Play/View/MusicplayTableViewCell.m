@@ -29,52 +29,32 @@
     if (self) {
         
         self.titleL = [[UILabel alloc]init];
+        self.titleL.frame = CGRectMake(100, self.height/10, self.width - 110, 30);
+        self.titleL.font = [UIFont systemFontOfSize:20];
         [self.contentView addSubview:self.titleL];
         
         self.programL = [[UILabel alloc]init];
+        self.programL.frame = CGRectMake(100, self.height/10+30+30, self.width - 110, 20);
+        self.programL.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.programL];
         
         self.playCountL = [[UILabel alloc]init];
+        self.playCountL.frame = CGRectMake(self.contentView.frame.size.width - 150, self.height/10+30+5, 140, 20);
+        self.playCountL.textAlignment = NSTextAlignmentRight;
+        self.playCountL.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.playCountL];
         
         self.imageV = [[UIImageView alloc]init];
+         self.imageV.frame = CGRectMake(10, self.height/10, 80, 80);
         [self.contentView addSubview:self.imageV];
     }
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    self.imageV.frame = CGRectMake(10, self.height/10, 80, 80);
-    self.titleL.frame = CGRectMake(100, self.height/10, self.width - 110, 30);
-    self.titleL.font = [UIFont systemFontOfSize:20];
-    
-    self.playCountL.frame = CGRectMake(self.contentView.frame.size.width - 150, self.height/10+30+5, 140, 20);
-    self.playCountL.textAlignment = NSTextAlignmentRight;
-    self.playCountL.textColor = [UIColor lightGrayColor];
-    
-    self.programL.frame = CGRectMake(100, self.height/10+30+30, self.width - 110, 20);
-    self.programL.textColor = [UIColor lightGrayColor];
-    
-    // 切歌后，效果不对。
-//    [self.titleL sizeToFit];
-//    // 计算尺寸
-//    CGSize size = self.titleL.frame.size;
-//    CGFloat oriWidth = self.width - 100;
-//    if (size.width > oriWidth) {
-//        CGFloat offset = size.width - oriWidth;
-//        
-//        [UIView animateWithDuration:5 delay:0 options:
-//         UIViewAnimationOptionRepeat //动画重复的主开关
-//         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
-//         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
-//                         animations:^{
-//                             self.titleL.transform = CGAffineTransformMakeTranslation(-offset, 0);
-//                         }completion:nil];
-//    }
-
-}
+//- (void)layoutSubviews {
+//    [super layoutSubviews];
+//    
+//}
 
 -(void)cellConfigureWithModel:(BroadMusicModel *)model{
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.bgImage] completed:nil];
@@ -82,7 +62,5 @@
     self.programL.text = [NSString stringWithFormat:@"正在直播：%@",model.liveTitle];
     self.playCountL.text = [NSString stringWithFormat:@"%.1lf万人收听过",(CGFloat)[model.playCount integerValue]/10000];
 }
-
-
 
 @end
