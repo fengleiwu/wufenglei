@@ -131,7 +131,6 @@
     if (model.savePath) {
         AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:model.savePath]];
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];
-//        NSLog(@"%@",model.savePath);
     } else{
         AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:model.musicURL]];
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];

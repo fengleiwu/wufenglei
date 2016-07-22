@@ -37,14 +37,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //刷新请求数据
-    
     self.tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [MBProgressHUD setUpHUDWithFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height) gifName:@"5562497_03" andShowToView:self.view];
         [self.recommendArr removeAllObjects];
         [self requestData];
     }];
     self.tableV1.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
-//        [self requestData];
     }];
     [self.tableV1.mj_header beginRefreshing];
 }
@@ -150,8 +148,6 @@
     [RequestManager requestWithUrlString:self.KurlArr[aa] requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         self.recommendArr = [SUBModel modelConfigureWithDic:dic];
-//        NSLog(@"%@",self.recommendArr);
-//        NSLog(@"%@",dic);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableV1 reloadData];
             [self.tableV1.mj_header endRefreshing];

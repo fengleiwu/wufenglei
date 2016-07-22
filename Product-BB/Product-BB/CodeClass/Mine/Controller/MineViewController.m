@@ -10,6 +10,7 @@
 #import "MySettingTableViewCell.h"
 #import "HFStretchableTableHeaderView.h"
 #import "LoginViewController.h"
+#import "RecommendViewController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate,XMPPRosterDelegate>
 @property (nonatomic, strong)UIView *MindUserV;
@@ -64,6 +65,7 @@
         [[XMPPManager shareInstance]loginWithUserName:username password:password];
     }
     self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -211,6 +213,23 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return kScreenHeight/10;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    RecommendViewController *recommendVC = [[RecommendViewController alloc]init];
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        recommendVC.index = indexPath.section * 2 +indexPath.row;
+    }
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        recommendVC.index = indexPath.section * 2 + indexPath.row;
+    }
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        recommendVC.index = indexPath.section * 2 + indexPath.row;
+    }
+    if (indexPath.section == 2 && indexPath.row == 0) {
+        recommendVC.index = indexPath.section * 2 + indexPath.row;
+    }
+    [self.navigationController pushViewController:recommendVC animated:YES];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

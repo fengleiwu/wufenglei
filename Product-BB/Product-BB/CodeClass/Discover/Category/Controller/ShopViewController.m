@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"喜马拉雅商城";
+    self.navigationItem.title = @"珠穆朗玛商城";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.wView];
     [self requestData];

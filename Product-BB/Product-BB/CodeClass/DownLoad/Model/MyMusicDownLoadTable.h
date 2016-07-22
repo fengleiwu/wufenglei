@@ -37,7 +37,7 @@
 -(NSArray *)selectAllInHistoryOfPlay;
 
 //删除数据
--(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName musicURL:(NSString *)musicURL;
+-(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
 
 
 

@@ -158,10 +158,10 @@
 }
 
 //删除数据
--(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName musicURL:(NSString *)musicURL
+-(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle
 {
-    NSString *string = [NSString stringWithFormat:@"delete from %@ where musicURL = ?",tableName];
-    NSString *myIDString = [NSString stringWithFormat:@"%@",musicURL];
+    NSString *string = [NSString stringWithFormat:@"delete from %@ where totalTitle = ?",tableName];
+    NSString *myIDString = [NSString stringWithFormat:@"%@",totalTitle];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
     NSLog(@"删除数据flag==%d",flag);
     

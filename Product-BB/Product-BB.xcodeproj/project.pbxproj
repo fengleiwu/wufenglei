@@ -227,6 +227,11 @@
 		7981D7871D41185400ABC217 /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7831D41185400ABC217 /* SetPasswordViewController.m */; };
 		7981D7881D41185400ABC217 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7841D41185400ABC217 /* TestViewController.m */; };
 		7981D78B1D4118CC00ABC217 /* XMPPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D78A1D4118CC00ABC217 /* XMPPManager.m */; };
+		7981D78E1D411F7500ABC217 /* RecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D78D1D411F7500ABC217 /* RecommendViewController.m */; };
+		7981D7901D41377C00ABC217 /* 喵.png in Resources */ = {isa = PBXBuildFile; fileRef = 7981D78F1D41377C00ABC217 /* 喵.png */; };
+		7981D7931D413D9600ABC217 /* TuiJianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7921D413D9600ABC217 /* TuiJianViewController.m */; };
+		7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7981D7941D41463E00ABC217 /* 奇幻森林.gif */; };
+		7981D7981D41F40300ABC217 /* HistoryOfPlayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7981D7971D41F40300ABC217 /* HistoryOfPlayTableViewCell.m */; };
 		799073821D4054D400108E35 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073801D4054D400108E35 /* 1.png */; };
 		799073831D4054D400108E35 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073811D4054D400108E35 /* 2.png */; };
 		799073861D40C6EE00108E35 /* ArrayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 799073851D40C6EE00108E35 /* ArrayManager.m */; };
@@ -324,7 +329,6 @@
 		79FA04EF1D3CFF32000C3306 /* SUBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04EE1D3CFF32000C3306 /* SUBModel.m */; };
 		79FA04F21D3D001B000C3306 /* GFZtableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04F11D3D001B000C3306 /* GFZtableViewController.m */; };
 		79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FA04F31D3D005B000C3306 /* down_h@2x.png */; };
-		79FEE8861D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */; };
 		F6560512CE78B4556703A01A /* libPods-Product-BB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */; };
 /* End PBXBuildFile section */
 
@@ -778,6 +782,14 @@
 		7981D7851D41185400ABC217 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		7981D7891D4118CC00ABC217 /* XMPPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPManager.h; sourceTree = "<group>"; };
 		7981D78A1D4118CC00ABC217 /* XMPPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPManager.m; sourceTree = "<group>"; };
+		7981D78C1D411F7500ABC217 /* RecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendViewController.h; sourceTree = "<group>"; };
+		7981D78D1D411F7500ABC217 /* RecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendViewController.m; sourceTree = "<group>"; };
+		7981D78F1D41377C00ABC217 /* 喵.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "喵.png"; sourceTree = "<group>"; };
+		7981D7911D413D9600ABC217 /* TuiJianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuiJianViewController.h; sourceTree = "<group>"; };
+		7981D7921D413D9600ABC217 /* TuiJianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuiJianViewController.m; sourceTree = "<group>"; };
+		7981D7941D41463E00ABC217 /* 奇幻森林.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "奇幻森林.gif"; sourceTree = "<group>"; };
+		7981D7961D41F40300ABC217 /* HistoryOfPlayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOfPlayTableViewCell.h; sourceTree = "<group>"; };
+		7981D7971D41F40300ABC217 /* HistoryOfPlayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOfPlayTableViewCell.m; sourceTree = "<group>"; };
 		799073801D4054D400108E35 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		799073811D4054D400108E35 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		799073841D40C6EE00108E35 /* ArrayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayManager.h; sourceTree = "<group>"; };
@@ -918,7 +930,6 @@
 		79FA04F01D3D001B000C3306 /* GFZtableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFZtableViewController.h; sourceTree = "<group>"; };
 		79FA04F11D3D001B000C3306 /* GFZtableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFZtableViewController.m; sourceTree = "<group>"; };
 		79FA04F31D3D005B000C3306 /* down_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_h@2x.png"; sourceTree = "<group>"; };
-		79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png"; sourceTree = "<group>"; };
 		C4B52D992845D19AB2F9FC04 /* Pods-Product-BB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Product-BB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Product-BB/Pods-Product-BB.debug.xcconfig"; sourceTree = "<group>"; };
 		E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Product-BB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1381,8 +1392,12 @@
 				7981D7811D41185400ABC217 /* PetNameViewController.m */,
 				7981D7821D41185400ABC217 /* SetPasswordViewController.h */,
 				7981D7831D41185400ABC217 /* SetPasswordViewController.m */,
-				7981D7841D41185400ABC217 /* TestViewController.m */,
 				7981D7851D41185400ABC217 /* TestViewController.h */,
+				7981D7841D41185400ABC217 /* TestViewController.m */,
+				7981D78C1D411F7500ABC217 /* RecommendViewController.h */,
+				7981D78D1D411F7500ABC217 /* RecommendViewController.m */,
+				7981D7911D413D9600ABC217 /* TuiJianViewController.h */,
+				7981D7921D413D9600ABC217 /* TuiJianViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1399,6 +1414,8 @@
 			children = (
 				79BE29ED1D3E7B5A009CF446 /* MySettingTableViewCell.h */,
 				79BE29EE1D3E7B5A009CF446 /* MySettingTableViewCell.m */,
+				7981D7961D41F40300ABC217 /* HistoryOfPlayTableViewCell.h */,
+				7981D7971D41F40300ABC217 /* HistoryOfPlayTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2381,11 +2398,12 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				7981D7941D41463E00ABC217 /* 奇幻森林.gif */,
+				7981D78F1D41377C00ABC217 /* 喵.png */,
 				799073801D4054D400108E35 /* 1.png */,
 				7981D5B81D41178E00ABC217 /* 盾牌 (1).png */,
 				7981D5B91D41178E00ABC217 /* 灰底白狗加载背景图.png */,
 				799073811D4054D400108E35 /* 2.png */,
-				79FEE8851D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png */,
 				79CD0F971D3F90B40020AF6E /* 冰封王座之巅.png */,
 				79CD0F981D3F90B40020AF6E /* 密码.png */,
 				79CD0F991D3F90B40020AF6E /* 微博 (3).png */,
@@ -2578,6 +2596,7 @@
 				79F44CF01D3A3C64002BE16F /* 大播放.png in Resources */,
 				7981D7751D41179C00ABC217 /* README.txt in Resources */,
 				79F446821D3A3C64002BE16F /* audio_wave.png in Resources */,
+				7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */,
 				79F44CEF1D3A3C64002BE16F /* 取消 (1).png in Resources */,
 				79BE29FA1D3E7B70009CF446 /* 播放历史.png in Resources */,
 				79F44CF31D3A3C64002BE16F /* 播放 (2).png in Resources */,
@@ -2589,13 +2608,13 @@
 				7900E85B1D3A796E00E3676C /* drag_list_up.png in Resources */,
 				79BE29FF1D3E7B70009CF446 /* 游戏_选中.png in Resources */,
 				79F44CF71D3A3C64002BE16F /* 电波-01.png in Resources */,
+				7981D7901D41377C00ABC217 /* 喵.png in Resources */,
 				79CD0FA01D3F90B40020AF6E /* QQ.png in Resources */,
 				79F44CFB1D3A3C64002BE16F /* 箭头 (3).png in Resources */,
 				79F446811D3A3C64002BE16F /* add_user_group.png in Resources */,
 				79F44CFC1D3A3C64002BE16F /* 箭头.png in Resources */,
 				7981D5BA1D41178E00ABC217 /* 盾牌 (1).png in Resources */,
 				79F44CFA1D3A3C64002BE16F /* 箭头 (2).png in Resources */,
-				79FEE8861D3F978300270552 /* FC4F81F9-EC72-4C25-B2E1-2946D4AE31E1.png in Resources */,
 				7981D5BB1D41178E00ABC217 /* 灰底白狗加载背景图.png in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
 				79F44CEE1D3A3C64002BE16F /* 发现.png in Resources */,
@@ -2854,6 +2873,7 @@
 				790C09371D34B65300D384A7 /* DiscoverCollectionViewCell.m in Sources */,
 				79118E1A1D3E027F00059969 /* TableListModel.m in Sources */,
 				7981D7041D41179C00ABC217 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
+				7981D7981D41F40300ABC217 /* HistoryOfPlayTableViewCell.m in Sources */,
 				7981D7761D41179C00ABC217 /* NSString+DDXML.m in Sources */,
 				79F43F531D3A3AFB002BE16F /* AllHotTableViewCell.m in Sources */,
 				7981D73A1D41179C00ABC217 /* XMPPvCardTempAdr.m in Sources */,
@@ -2872,6 +2892,7 @@
 				7981D74C1D41179C00ABC217 /* NSString+XEP_0106.m in Sources */,
 				79F43F571D3A3AFB002BE16F /* AnchorViewController.m in Sources */,
 				799073891D40F92200108E35 /* EncodeManager.m in Sources */,
+				7981D78E1D411F7500ABC217 /* RecommendViewController.m in Sources */,
 				7900E14B1D3A78A300E3676C /* BroadListModel.m in Sources */,
 				7981D7341D41179C00ABC217 /* XMPPvCard.xcdatamodeld in Sources */,
 				7981D73E1D41179C00ABC217 /* XMPPvCardTempLabel.m in Sources */,
@@ -2892,6 +2913,7 @@
 				79F43F4F1D3A3AFB002BE16F /* AllHotModel.m in Sources */,
 				7981D71E1D41179C00ABC217 /* XMPPRoster.m in Sources */,
 				79F43F4E1D3A3AFB002BE16F /* RankViewController.m in Sources */,
+				7981D7931D413D9600ABC217 /* TuiJianViewController.m in Sources */,
 				7981D7181D41179C00ABC217 /* XMPPRoster.xcdatamodel in Sources */,
 				7981D7541D41179C00ABC217 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				7981D73F1D41179C00ABC217 /* XMPPvCardTempModule.m in Sources */,
