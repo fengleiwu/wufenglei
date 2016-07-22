@@ -161,19 +161,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.translucent = NO;
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
-    self.titleLabel.font = [UIFont systemFontOfSize:20];
-    self.titleLabel.textColor = [UIColor redColor];
-    self.titleLabel.text = @"珠穆朗玛FM";
-    [self.navigationController.view addSubview:self.titleLabel];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 //    self.tabBarController.tabBar.hidden = NO;
-    [self.titleLabel removeFromSuperview];
 }
 
 //#pragma mark --- collection 代理方法

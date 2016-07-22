@@ -162,6 +162,8 @@
     BroadMusicModel *model = self.tableViewArr[indexPath.row];
     if (model.isPlay == YES) {
         cell.isPlay = YES;
+    } else {
+        cell.isPlay = NO;
     }
     [cell cellConfigureWithModel:model];
     
@@ -179,11 +181,6 @@
 //    [UIView animateWithDuration:0.5 animations:^{
 //        self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
 //    }];
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    PlayListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    cell.isPlay = NO;
 }
 
 @end

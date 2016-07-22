@@ -29,11 +29,18 @@
 //        self.downloadImageV = [[UIImageView alloc]init];
 //        [self.contentView addSubview:self.downloadImageV];
         
-        self.titleLabel = [[UILabel alloc]init];
-        [self.contentView addSubview:self.titleLabel];
+        self.activityView = [[MusicActivityView alloc]init];
+        self.activityView.frame = CGRectMake(10, 10, 20, 20);
+        self.activityView.defaultSize = self.activityView.frame.size;
+        self.activityView.numberOfRect = 4;
+            self.activityView.rectBackgroundColor = [UIColor orangeColor];
+        self.activityView.space = 2;
+        [self.contentView addSubview:self.activityView];
+        [self.activityView stopAnimation];
         
-//        self.activityView = [[MusicActivityView alloc]init];
-//        [self.contentView addSubview:self.activityView];
+        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:self.titleLabel];
     }
     return self;
 }
@@ -42,11 +49,23 @@
     [super layoutSubviews];
     
     if (self.isPlay == YES) {
-        self.titleLabel.frame = CGRectMake(100,10, self.width-100, 30);
+//        [UIView animateWithDuration:2 animations:^{
+            self.titleLabel.frame = CGRectMake(30,10, self.width-50, 30);
+//            self.activityView.frame = CGRectMake(0, 10, 30, 30);
+//            self.activityView.defaultSize = self.activityView.frame.size;
+//        }];
+//        [self.activityView startAnimation];
+//        self.activityView.alpha = 1;
     } else {
-        self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
+//        [UIView animateWithDuration:2 animations:^{
+            self.titleLabel.frame = CGRectMake(10,10, self.width-50, 30);
+//            self.activityView.frame = CGRectMake(0, 10, 0, 30);
+//            self.activityView.defaultSize = self.activityView.frame.size;
+//        }];
+//        [self.activityView stopAnimation];
+//        self.activityView.alpha = 0;
     }
-//    self.titleLabel.frame = CGRectMake(10,10, self.width-10, 30);
+    
 }
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model {

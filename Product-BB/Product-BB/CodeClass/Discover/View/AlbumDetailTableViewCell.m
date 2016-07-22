@@ -87,7 +87,7 @@
         NSString *st = [NSString stringWithFormat:@"%.1f万",f];
         //playLabel.text = st;
         self.littleLabel1.text = st;
-}
+    }
 
     self.littleLabel2.text = [NSString stringWithFormat:@"%@",model.comments];
     

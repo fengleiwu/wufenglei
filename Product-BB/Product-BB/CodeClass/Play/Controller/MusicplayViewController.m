@@ -224,21 +224,21 @@
     self.totalTimeLabel.text = @"00:00";
     
     // 理想效果是 label 左右晃动，但是没有实现，原因不明。
-    //    [self.topLabel sizeToFit];
-    //    // 计算尺寸
-    //    CGSize size = self.topLabel.frame.size;
-    //    CGFloat oriWidth = 100;
-    //    if (size.width > oriWidth) {
-    //        CGFloat offset = size.width - oriWidth;
-    //
-    //        [UIView animateWithDuration:10 delay:0 options:
-    //         UIViewAnimationOptionRepeat //动画重复的主开关
-    //         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
-    //         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
-    //                         animations:^{
-    //                             self.topLabel.transform = CGAffineTransformMakeTranslation(-offset, 0);
-    //                         }completion:nil];
-    //    }
+//    [self.topLabel sizeToFit];
+//    // 计算尺寸
+//    CGSize size = self.topLabel.frame.size;
+//    CGFloat oriWidth = 50;
+//    if (size.width > oriWidth) {
+//        CGFloat offset = size.width - oriWidth;
+//
+//        [UIView animateWithDuration:10 delay:0 options:
+//         UIViewAnimationOptionRepeat //动画重复的主开关
+//         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
+//         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
+//                         animations:^{
+//                             self.topLabel.transform = CGAffineTransformMakeTranslation(-offset, 0);
+//                         }completion:nil];
+//    }
     
 }
 
@@ -320,6 +320,14 @@
         [[MyPlayerManager defaultManager] changeMusicWith:index];
         [MyPlayerManager defaultManager].playingURL =  model.musicURL;
         model.isPlay = YES;
+        
+        // 将播放过的音频存入播放历史数据库
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        [table creatHistoryOfPlayTable];
+        [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
+        
+        // 切歌时，向播放列表传回通知，刷新 tableView
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableAction" object:nil];
     }
     self.isPlay = YES;
 
@@ -338,13 +346,9 @@
     // 通知,向后台发送播放信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundPlay" object:model];
     
-    // 将播放过的音频存入播放历史数据库
-    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    [table creatHistoryOfPlayTable];
-    [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
     
-    // 切歌时，向播放列表传回通知，刷新 tableView
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableAction" object:nil];
+    
+    
 }
 
 #pragma mark --- tableView 代理方法

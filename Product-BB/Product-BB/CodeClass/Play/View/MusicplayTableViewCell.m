@@ -56,6 +56,24 @@
     
     self.programL.frame = CGRectMake(100, self.height/10+30+30, self.width - 110, 20);
     self.programL.textColor = [UIColor lightGrayColor];
+    
+    // 切歌后，效果不对。
+//    [self.titleL sizeToFit];
+//    // 计算尺寸
+//    CGSize size = self.titleL.frame.size;
+//    CGFloat oriWidth = self.width - 100;
+//    if (size.width > oriWidth) {
+//        CGFloat offset = size.width - oriWidth;
+//        
+//        [UIView animateWithDuration:5 delay:0 options:
+//         UIViewAnimationOptionRepeat //动画重复的主开关
+//         | UIViewAnimationOptionAutoreverse //动画重复自动反向，需要和上面这个一起用
+//         | UIViewAnimationOptionCurveLinear //动画的时间曲线，滚动字幕线性比较合理
+//                         animations:^{
+//                             self.titleL.transform = CGAffineTransformMakeTranslation(-offset, 0);
+//                         }completion:nil];
+//    }
+
 }
 
 -(void)cellConfigureWithModel:(BroadMusicModel *)model{
