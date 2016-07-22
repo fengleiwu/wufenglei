@@ -293,7 +293,7 @@
     self.playSlider.value = current;
     self.currentTimeLabel.text = [NSString stringWithFormat:@"%.2ld:%.2ld", (NSInteger)current/60,(NSInteger)current%60];
     self.totalTimeLabel.text = [NSString stringWithFormat:@"%.2ld:%.2ld", (NSInteger)total/60,(NSInteger)total%60];
-    if (current+1 >= total) {
+    if (current+2 >= total) {
         [[MyPlayerManager defaultManager] playerDidFinish];
         [self reloadViewWithIndex:[MyPlayerManager defaultManager].index];
     }
@@ -310,8 +310,15 @@
     for (BroadMusicModel *model in self.newmodelArray) {
         model.isPlay = NO;
     }
-    // 根据 URL，判断播放是否是同一首歌，是，继续播放，不是，重新播放。
+    
     BroadMusicModel *model = self.newmodelArray[index];
+    // 在 image 没有地址的时候，添加替代图片
+    if (model.bgImage == nil || [model.bgImage isEqualToString:@""]) {
+        NSArray *arr = @[@"http://att.bbs.duowan.com/forum/201304/05/133256vonep5jfu53nujpj.jpg",@"http://photocdn.sohu.com/20160111/Img434111877.jpg"];
+        NSInteger i = arc4random()%2;
+        model.bgImage = arr[i];
+    }
+    // 根据 URL，判断播放是否是同一首歌，是，继续播放，不是，重新播放。
     NSString *playingURL = [MyPlayerManager defaultManager].playingURL;
     if ([playingURL isEqualToString: model.musicURL]) {
         [[MyPlayerManager defaultManager] play];
@@ -352,7 +359,7 @@
         }
     }
     [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
-    
+    self.automaticallyAdjustsScrollViewInsets =NO;
 }
 
 

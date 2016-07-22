@@ -559,13 +559,15 @@
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
     model.isPlay = YES;
     [self.tab reloadData];
-
+    if (model.playUrl64 == nil) {
+        NSLog(@"播放地址不存在");
+        return;
+    } 
     MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
     playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
     
     [MyPlayerManager defaultManager].index = indexPath.row;
     [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
-    
     [self presentViewController:playVC animated:YES completion:nil];
 }
 

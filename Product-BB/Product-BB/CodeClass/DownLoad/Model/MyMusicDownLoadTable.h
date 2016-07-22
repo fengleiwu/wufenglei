@@ -10,10 +10,9 @@
 #import "DBManager.h"
 @interface MyMusicDownLoadTable : NSObject
 
-
-
 @property(nonatomic , strong)FMDatabase *dataBase;
 
+#pragma mark --- 下载历史
 //建表
 -(void)creatTable;
 //插入
@@ -39,6 +38,16 @@
 //删除数据
 -(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
 
+#pragma mark --- 订阅历史
+////建表
+//-(void)creatDingyueTable;
+////插入
+//-(void)insertIntoDingyueTable:(NSArray *)Info;
+////取出
+//-(NSArray *)selectAllInDingyue;
+//
+////删除数据
+//-(void)delegateNoteWithDingyueTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
 
 
 @end

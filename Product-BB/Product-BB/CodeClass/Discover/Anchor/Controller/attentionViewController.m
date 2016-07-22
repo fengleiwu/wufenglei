@@ -354,15 +354,18 @@
         }
         [self.navigationController pushViewController:album animated:YES];
     } else {
-//        attentionModel *model = self.bottomArr[indexPath.row];
-        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAttentionModel:self.bottomArr];
-        
-        [MyPlayerManager defaultManager].index = indexPath.row;
-        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
-        
-        [self presentViewController:playVC animated:YES completion:nil];
-        
+        attentionModel *model = self.bottomArr[indexPath.row];
+        if (model.playUrl64 == nil) {
+            NSLog(@"需要购买才能听");
+        } else {
+            MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+            playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAttentionModel:self.bottomArr];
+            
+            [MyPlayerManager defaultManager].index = indexPath.row;
+            [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+            
+            [self presentViewController:playVC animated:YES completion:nil];
+        }
     }
 }
 

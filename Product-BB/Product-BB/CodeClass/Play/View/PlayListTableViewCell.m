@@ -30,6 +30,7 @@
 //        [self.contentView addSubview:self.downloadImageV];
         
         self.titleLabel = [[UILabel alloc]init];
+        
         self.titleLabel.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:self.titleLabel];
 
@@ -46,13 +47,15 @@
     self.titleLabel.text = model.totalTitle;
     
     if (self.isPlay == YES) {
-        [UIView animateWithDuration:2 animations:^{
-            self.titleLabel.frame = CGRectMake(30,10, self.width-50, 30);
-        }];
+        self.titleLabel.frame = CGRectMake(20,10, self.width-100, 30);
+        self.titleLabel.textColor = [UIColor orangeColor];
+            [UIView animateWithDuration:3 delay:0 options:
+             UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveLinear animations:^{
+                 self.titleLabel.transform = CGAffineTransformMakeTranslation(50, 0);
+            }completion:nil];
+
     } else {
-        [UIView animateWithDuration:2 animations:^{
-            self.titleLabel.frame = CGRectMake(10,10, self.width-50, 30);
-        }];
+        self.titleLabel.frame = CGRectMake(50,10, self.width-100, 30);
     }
 }
 
