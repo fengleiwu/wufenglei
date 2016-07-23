@@ -9,6 +9,9 @@
 #import "DownLoadMusicViewController.h"
 #import "DownLoadMusicTableViewCell.h"
 #import "MyMusicDownLoadTable.h"
+#import "MusicplayViewController.h"
+#import "BroadMusicModel.h"
+
 @interface DownLoadMusicViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)UITableView *tab;
 
@@ -76,14 +79,31 @@
     [self.tab reloadData];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray *array = [NSMutableArray array];
+    MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+    for (NSArray *arr in self.arr) {
+        BroadMusicModel *model = [[BroadMusicModel alloc]init];
+        model.isDownload = YES;
+        model.totalTitle = arr[0];
+        model.liveTitle = arr[4];
+        model.playCount = arr[5];
+        model.dataImage = arr[2];
+        model.musicURL = arr[1];
+        if (model.musicURL == nil || [model.musicURL isEqualToString:@""]) {
+            NSLog(@"需要购买才能播放");
+        }else {
+            [array addObject:model];
+        }
+        
+    }
+    playVC.newmodelArray = array;
+    [MyPlayerManager defaultManager].index = indexPath.row;
+    [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+    
+    [self presentViewController:playVC animated:YES completion:nil];
 }
-*/
+
 
 @end

@@ -212,6 +212,9 @@
             self.nameLabel.text = [NSString stringWithFormat:@"直播中:%@", model.liveTitle];
         }
         
+    } else if(model.isDownload == YES){
+        self.bassImageV.image = [UIImage imageWithData:model.dataImage];
+        self.bassImageV2.image = [UIImage imageNamed:@""];
     } else {
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
         self.bassImageV.image = [UIImage imageWithData:data];
@@ -312,6 +315,7 @@
     }
     
     BroadMusicModel *model = self.newmodelArray[index];
+    
     // 在 image 没有地址的时候，添加替代图片
     if (model.bgImage == nil || [model.bgImage isEqualToString:@""]) {
         NSArray *arr = @[@"http://att.bbs.duowan.com/forum/201304/05/133256vonep5jfu53nujpj.jpg",@"http://photocdn.sohu.com/20160111/Img434111877.jpg"];
@@ -338,9 +342,10 @@
     if ([MyPlayerManager defaultManager].blockWithArray != nil) {
         // block 传值，向最底部的 button 传值 RootVC
         [MyPlayerManager defaultManager].blockWithArray(self.newmodelArray);
-        [MyPlayerManager defaultManager].blockWithImage(model.bgImage);
         [MyPlayerManager defaultManager].blockWithBool(self.isPlay);
     }
+    // 通知,向最底部的 button发送播放信息
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeBottomBtn" object:model];
     
     [self giveValueforTitleName];
     [self.tableV reloadData];

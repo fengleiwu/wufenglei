@@ -13,6 +13,9 @@
 #import "DownLoadMusicTableViewCell.h"
 #import "MyDownLoad.h"
 #import "MyDownLoadManager.h"
+#import "BroadMusicModel.h"
+#import "MusicplayViewController.h"
+
 @interface DownLoadViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic , strong)UISegmentedControl *seg;
 @property (nonatomic , strong)UIScrollView *scr;
@@ -318,7 +321,33 @@
         down.arr = [arr mutableCopy];
         down.titleL = key;
         [self.navigationController pushViewController:down animated:YES];
-    }if (self.seg.selectedSegmentIndex == 2) {
+    } else if (self.seg.selectedSegmentIndex == 1) {
+        NSMutableArray *array = [NSMutableArray array];
+        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        for (NSArray *arr in self.voiceArr) {
+            BroadMusicModel *model = [[BroadMusicModel alloc]init];
+            model.isDownload = YES;
+            model.totalTitle = arr[0];
+            model.liveTitle = arr[4];
+            model.playCount = arr[5];
+            model.dataImage = arr[2];
+            model.musicURL = arr[1];
+            if (model.musicURL == nil || [model.musicURL isEqualToString:@""]) {
+                NSLog(@"需要购买才能播放");
+                
+            }else {
+                [array addObject:model];
+            }
+            
+        }
+        playVC.newmodelArray = array;
+        [MyPlayerManager defaultManager].index = indexPath.row;
+        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+        
+        [self presentViewController:playVC animated:YES completion:nil];
+        
+    }
+    if (self.seg.selectedSegmentIndex == 2) {
         AlbumDetailModel *model1 = self.downLoadingArray[indexPath.row];
         MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
         MyDownLoad *task = [manager creatDownload:model1.playUrl64];

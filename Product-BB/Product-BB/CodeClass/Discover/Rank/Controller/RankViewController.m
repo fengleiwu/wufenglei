@@ -94,7 +94,7 @@
         _moreV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, self.view.height/12)];
         _moreV1.backgroundColor = [UIColor whiteColor];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        button.frame = CGRectMake(0, 10, 22, self.view.height/9 -34);
+        button.frame = CGRectMake(5, 20, 15, 15);
         [button setImage:[UIImage imageNamed:@"播放 (2).png"] forState:UIControlStateNormal];
         button.tintColor = [UIColor orangeColor];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(24, 0, 100, self.view.height/9-10)];
@@ -124,7 +124,7 @@
 #pragma mark ----- 创建总tableView -----
 -(UITableView *)tableV{
     if (!_tableV) {
-        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-84-self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
+        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44-self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
         _tableV.delegate = self;
         _tableV.dataSource = self;
         [self.tableV registerNib:[UINib nibWithNibName:@"RankListTableViewCell" bundle:nil] forCellReuseIdentifier:@"RANKCell"];

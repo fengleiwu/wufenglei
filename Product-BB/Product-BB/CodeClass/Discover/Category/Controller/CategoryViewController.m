@@ -45,7 +45,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
 //    [self requestCarouselData];
     [self requestData];
     
@@ -99,7 +98,7 @@
 
 #pragma mark --- tableView (有声书、音乐等）
 - (void)creatTableView {
-    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 110) style:(UITableViewStylePlain)];
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 130) style:(UITableViewStylePlain)];
     self.tableV.dataSource = self;
     self.tableV.delegate = self;
     [self.tableV registerClass:[CategoryTableViewCell class]forCellReuseIdentifier:@"cell"];
@@ -155,7 +154,7 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 40;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -26,6 +26,8 @@ typedef void(^Block)();
 typedef void (^BlockArray)(NSMutableArray *);
 typedef void (^BlockImage)(NSString *);
 typedef void (^BlockBool)(BOOL);
+typedef void (^BlockBoolDownload)(BOOL);
+typedef void (^BlockDataImage)(UIImage *);
 
 @interface MyPlayerManager : NSObject
 
@@ -43,6 +45,9 @@ typedef void (^BlockBool)(BOOL);
 @property (nonatomic, copy)BlockArray blockWithArray;
 @property (nonatomic, copy)BlockImage blockWithImage;
 @property (nonatomic, copy)BlockBool blockWithBool;
+// 如果是下载过的，需要获取本地数据
+@property (nonatomic,copy)BlockBoolDownload BlockBoolDownload;
+@property (nonatomic, copy)BlockDataImage BlockDataImage;
 
 + (MyPlayerManager *)defaultManager;
 

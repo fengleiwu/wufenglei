@@ -29,7 +29,7 @@
         [self.imageV.layer setCornerRadius:40];
         self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 15, 200, 40)];
         self.nameLabel.font = [UIFont systemFontOfSize:17];
-        self.introduceLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 55, 200, 50)];
+        self.introduceLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 55, 170, 50)];
         self.introduceLabel.font = [UIFont systemFontOfSize:15];
         self.introduceLabel.numberOfLines = 0;
         
@@ -69,7 +69,7 @@
     self.nameLabel.text = model.nickname;
     self.introduceLabel.text = model.verifyTitle;
     CGRect frame = self.introduceLabel.frame;
-    frame.size.height = [AdjustHeight adjustHeightByString:model.verifyTitle width:200 font:15];
+    frame.size.height = [AdjustHeight adjustHeightByString:model.verifyTitle width:170 font:15];
     self.introduceLabel.frame = frame;
     self.img.frame = CGRectMake(90, frame.size.height + 65, 20, 20);
     self.listLabel.frame = CGRectMake(115, frame.size.height + 65, 40, 20);

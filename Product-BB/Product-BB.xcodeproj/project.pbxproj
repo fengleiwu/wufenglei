@@ -292,7 +292,7 @@
 		79F43F591D3A3AFB002BE16F /* RankListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F381D3A3AFB002BE16F /* RankListTableViewCell.xib */; };
 		79F4467E1D3A3C64002BE16F /* 0001 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5B1D3A3C62002BE16F /* 0001 2.png */; };
 		79F4467F1D3A3C64002BE16F /* 1004.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5C1D3A3C62002BE16F /* 1004.jpg */; };
-		79F446801D3A3C64002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5D1D3A3C62002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg */; };
+		79F446801D3A3C64002BE16F /* grayplay.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5D1D3A3C62002BE16F /* grayplay.jpg */; };
 		79F446811D3A3C64002BE16F /* add_user_group.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5E1D3A3C62002BE16F /* add_user_group.png */; };
 		79F446821D3A3C64002BE16F /* audio_wave.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5F1D3A3C62002BE16F /* audio_wave.png */; };
 		79F446831D3A3C64002BE16F /* comments.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F601D3A3C62002BE16F /* comments.png */; };
@@ -892,7 +892,7 @@
 		79F43F381D3A3AFB002BE16F /* RankListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankListTableViewCell.xib; sourceTree = "<group>"; };
 		79F43F5B1D3A3C62002BE16F /* 0001 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0001 2.png"; sourceTree = "<group>"; };
 		79F43F5C1D3A3C62002BE16F /* 1004.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1004.jpg; sourceTree = "<group>"; };
-		79F43F5D1D3A3C62002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7B763FA2005361969C132BF3FA9CC8E5.jpg; sourceTree = "<group>"; };
+		79F43F5D1D3A3C62002BE16F /* grayplay.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grayplay.jpg; sourceTree = "<group>"; };
 		79F43F5E1D3A3C62002BE16F /* add_user_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_user_group.png; sourceTree = "<group>"; };
 		79F43F5F1D3A3C62002BE16F /* audio_wave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_wave.png; sourceTree = "<group>"; };
 		79F43F601D3A3C62002BE16F /* comments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments.png; sourceTree = "<group>"; };
@@ -2427,7 +2427,7 @@
 				7900E1511D3A796C00E3676C /* broadcastImage */,
 				79F43F5B1D3A3C62002BE16F /* 0001 2.png */,
 				79F43F5C1D3A3C62002BE16F /* 1004.jpg */,
-				79F43F5D1D3A3C62002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg */,
+				79F43F5D1D3A3C62002BE16F /* grayplay.jpg */,
 				793F1AA51D3E205900C8FD01 /* folder.png */,
 				793F1AA71D3E207C00C8FD01 /* trash.png */,
 				79F43F5E1D3A3C62002BE16F /* add_user_group.png */,
@@ -2633,7 +2633,7 @@
 				79F44CF11D3A3C64002BE16F /* 娱乐_音乐电台.png in Resources */,
 				79CD0F9F1D3F90B40020AF6E /* 微信 (1).png in Resources */,
 				798076BE1D339EAD0095911D /* LaunchScreen.storyboard in Resources */,
-				79F446801D3A3C64002BE16F /* 7B763FA2005361969C132BF3FA9CC8E5.jpg in Resources */,
+				79F446801D3A3C64002BE16F /* grayplay.jpg in Resources */,
 				79F446831D3A3C64002BE16F /* comments.png in Resources */,
 				79BE29FD1D3E7B70009CF446 /* 我的订阅.png in Resources */,
 				799073831D4054D400108E35 /* 2.png in Resources */,

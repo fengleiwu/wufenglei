@@ -57,7 +57,7 @@ static UIWindow *topWindow_;
         return;
     
     // 让UIScrollView滚动到最前面
-     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+     [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0) animated:YES];
 }
 
 @end

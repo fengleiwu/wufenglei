@@ -107,7 +107,7 @@
 
 #pragma mark ----- 创建总tableView -----
 - (void)creatTableView {
-    _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0,0, kScreenWidth, kScreenHeight-64-self.tabBarController.tabBar.height) style:UITableViewStylePlain];
+    _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0,0, kScreenWidth, kScreenHeight-64-self.tabBarController.tabBar.height) style:UITableViewStyleGrouped];
     _tableV.delegate = self;
     _tableV.dataSource = self;
     [self.tableV registerNib:[UINib nibWithNibName:@"LocationTableViewCell" bundle:nil] forCellReuseIdentifier:@"locationCell"];
@@ -120,7 +120,7 @@
 
 #pragma mark ----- 创建tableView 头部视图 -----
 -(void)creatHeadeview{
-    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
+    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 140)];
      self.headView.backgroundColor = [UIColor whiteColor];
     
     // 创建最上面的本地台，国家台，网络台
@@ -135,7 +135,7 @@
     NSArray *imageArr = @[@"本地.png",@"五星国旗.png",@"娱乐_音乐电台.png"];
     NSArray *textArr = @[@"本地台",@"国家台",@"网络台"];
     for (NSInteger i = 0; i < 3; i++) {
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(i*kScreenWidth/3, 0, kScreenWidth/3, 90)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(i*kScreenWidth/3, 0, kScreenWidth/3, 70)];
         [self creatTopView:view buttonImage:imageArr[i] labelText:textArr[i] buttonTag:i+1000];
         [self.headView addSubview:view];
     }
@@ -143,16 +143,16 @@
 - (void)creatTopView:(UIView *)view buttonImage:(NSString *)imageName labelText:(NSString *)text buttonTag:(NSInteger)tag{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake(view.frame.size.width/2-25,10, 50, 50);
+    button.frame = CGRectMake(view.frame.size.width/2-15,10, 30, 30);
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     button.tintColor = [UIColor orangeColor];
     button.tag = tag;
     [button addTarget:self action:@selector(topAction:) forControlEvents:(UIControlEventTouchUpInside)];
-
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(view.frame.size.width/2-30, 70, 60, 20)];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(view.frame.size.width/2-30, 50, 60, 20)];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = text;
-    label.font = [UIFont systemFontOfSize:18];
+    label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor grayColor];
     [view addSubview:label];
     [view addSubview: button];
@@ -160,7 +160,7 @@
 
 #pragma mark ----- 创建新闻台、音乐台等电台按钮所在视图 -----
 - (void)creatTypeButtonView {
-    self.buttonView = [[UIView alloc]initWithFrame:CGRectMake(10,100, kScreenWidth - 20, 60)];
+    self.buttonView = [[UIView alloc]initWithFrame:CGRectMake(10,80, kScreenWidth - 20, 60)];
     self.buttonView.backgroundColor = [UIColor whiteColor];
     [self.headView addSubview:self.buttonView];
     // 创建电台按钮
@@ -173,8 +173,8 @@
     NSInteger count = 0;
     for (TypeModel *model in self.typeArr) {
         self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 25,self.buttonView.width/4 -4, 20);
-        self.typeBtn.backgroundColor = PKCOLOR(245, 245, 245);
+        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4-4, 30);
+        self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
         if (count == 7) {
             [self.typeBtn setImage:[UIImage imageNamed:@"箭头.png"] forState:UIControlStateNormal];
             self.typeBtn.tintColor = [UIColor orangeColor];
@@ -198,7 +198,7 @@
     CGRect newFrame = self.headView.frame;
     newFrame.size.height = newFrame.size.height + self.buttonView.frame.size.height;
     self.headView.frame = newFrame;
-    self.buttonView.height = self.headView.frame.size.height-100;
+    self.buttonView.height = self.headView.frame.size.height-80;
     
     [self.tableV beginUpdates];
     [self.tableV setTableHeaderView:self.headView];
@@ -210,8 +210,8 @@
         if (count >= 7) {
             [button removeFromSuperview];
         self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 25,self.buttonView.width/4 -4, 20);
-        self.typeBtn.backgroundColor = PKCOLOR(245, 245, 245);
+        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4 -4, 30);
+        self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
             self.typeBtn.tag = [model.idd integerValue];
             [self.typeBtn setTitle:model.name forState:UIControlStateNormal];
             [self.typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -222,8 +222,8 @@
     }
     self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    self.typeBtn.frame = CGRectMake(3 * (self.buttonView.width/4)-4,3 * 25,self.buttonView.width/4 -4, 20);
-    self.typeBtn.backgroundColor = PKCOLOR(248, 248, 255);
+    self.typeBtn.frame = CGRectMake(3 * (self.buttonView.width/4)-4,3 * 30,self.buttonView.width/4 -4, 30);
+    self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
     self.typeBtn.tag = 998;
     [self.typeBtn setImage:[UIImage imageNamed:@"箭头 (1).png"] forState:UIControlStateNormal];
     self.typeBtn.tintColor = [UIColor orangeColor];
@@ -236,9 +236,9 @@
 -(void)nextView3:(UIButton *)button{
     
     CGRect newFrame = self.headView.frame;
-    newFrame.size.height = 170;
+    newFrame.size.height = 140;
     self.headView.frame = newFrame;
-    self.buttonView.height = self.headView.height/2 -20;
+    self.buttonView.height = self.headView.height/2 -10;
     
     [self.tableV beginUpdates];
     [self.tableV setTableHeaderView:self.headView];
@@ -280,7 +280,7 @@
     button.tag = tag;
     [view addSubview:button];
     
-    UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 22, 22)];
+    UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, 10, 10)];
     imageV.image = [UIImage imageNamed:imageName];
     [button addSubview:imageV];
     
@@ -304,7 +304,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.view.height/5;
+    return self.view.height/6;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -316,7 +316,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.view.height/12;
+    return self.view.height/15;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

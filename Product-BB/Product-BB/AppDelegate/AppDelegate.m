@@ -82,9 +82,15 @@
     //设置歌手名
     [dict setObject:model.liveTitle forKey:MPMediaItemPropertyArtist];
     //设置显示的图片
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
-    UIImage *newImage = [UIImage imageWithData:data];
-    [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:newImage] forKey:MPMediaItemPropertyArtwork];
+    if (model.isDownload ==YES) {
+        UIImage *newImage = [UIImage imageWithData:model.dataImage];
+        [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:newImage] forKey:MPMediaItemPropertyArtwork];
+        
+    }else {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
+        UIImage *newImage = [UIImage imageWithData:data];
+        [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:newImage] forKey:MPMediaItemPropertyArtwork];
+    }
     
     ////    //设置歌曲时长
     //    [dict setObject:[NSNumber numberWithDouble:300] forKey:MPMediaItemPropertyPlaybackDuration];

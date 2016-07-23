@@ -57,7 +57,12 @@
 //}
 
 -(void)cellConfigureWithModel:(BroadMusicModel *)model{
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.bgImage] completed:nil];
+    if (model.isDownload == YES) {
+        self.imageV.image = [UIImage imageWithData:model.dataImage];
+    }else {
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.bgImage] completed:nil];
+    }
+    
     self.titleL.text = model.totalTitle;
     self.programL.text = [NSString stringWithFormat:@"正在直播：%@",model.liveTitle];
     self.playCountL.text = [NSString stringWithFormat:@"%.1lf万人收听过",(CGFloat)[model.playCount integerValue]/10000];

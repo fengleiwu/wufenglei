@@ -29,6 +29,8 @@
 #import "MBProgressHUD+GifHUD.h"
 #import "JSMSSDK.h"
 #import "ArrayManager.h"
+// 点击状态栏，回到顶部。
+#import "TopWindow.h"
 
 #define kMySqliteName @"勃起吧!兄弟.sqlite"
 #define kMyDownloadTable @"一身辣条味儿"

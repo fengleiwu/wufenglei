@@ -55,18 +55,18 @@
     CGFloat height = self.contentView.frame.size.height;
     
     self.leftBtn.frame = CGRectMake(0, 0, width / 2 , height);
-    self.leftImageV.frame = CGRectMake(width/12, 5, width/17, 20);
-    self.leftTitleL.frame = CGRectMake(width/6, 5, width/6, 20);
+    self.leftImageV.frame = CGRectMake(width/12, 10, width/17, 20);
+    self.leftTitleL.frame = CGRectMake(width/6, 10, width/6, 20);
     
     self.line.frame = CGRectMake(width/2, 8,1, height-16);
     
     self.rightBtn.frame = CGRectMake(width / 2,0 , width / 2, height);
-    self.rightImageV.frame = CGRectMake(width/12, 5, width/17, 20);
-    self.rightTitleL.frame = CGRectMake(width/6, 5, width/6, 20);
+    self.rightImageV.frame = CGRectMake(width/12, 10, width/17, 20);
+    self.rightTitleL.frame = CGRectMake(width/6, 10, width/6, 20);
     
-    self.leftTitleL.font = [UIFont systemFontOfSize:18];
+    self.leftTitleL.font = [UIFont systemFontOfSize:15];
     [self.leftTitleL sizeToFit];
-    self.rightTitleL.font = [UIFont systemFontOfSize:18];
+    self.rightTitleL.font = [UIFont systemFontOfSize:15];
     [self.rightTitleL sizeToFit];
 }
 

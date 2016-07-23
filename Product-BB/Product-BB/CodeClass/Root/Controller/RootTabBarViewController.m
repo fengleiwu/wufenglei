@@ -12,10 +12,9 @@
 #import "MineViewController.h"
 #import "MusicplayViewController.h"
 #import "SubscriptionViewController.h"
+#import "BroadMusicModel.h"
 //控制动画的暂停和恢复
 #import "CALayer+PauseAimate.h"
-// 点击状态栏，回到顶部。
-#import "TopWindow.h"
 
 @interface RootTabBarViewController ()
 @property (nonatomic , strong)UIButton *btn;
@@ -34,8 +33,6 @@
     [super viewDidLoad];
     
     self.isPlay = NO;
-    // 点击状态栏，回到顶部。
-    [TopWindow show];
     
     DiscoverViewController *disc = [[DiscoverViewController alloc]init];
     SubscriptionViewController *sub = [[SubscriptionViewController alloc]init];
@@ -80,12 +77,8 @@
     [MyPlayerManager defaultManager].blockWithBool = ^(BOOL isp) {
         self.isPlay = isp;
     };
-    [MyPlayerManager defaultManager].blockWithImage = ^(NSString *image) {
-        [self.btn setImage:[UIImage imageNamed:@""]  forState:(UIControlStateNormal)];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
-        self.btnBgImage = [UIImage imageWithData:data];
-        [self.btn setBackgroundImage:self.btnBgImage forState:(UIControlStateNormal)];
-    };
+    // 通知，切歌后，改变 button 北京图片。
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtn:) name:@"changeBottomBtn" object:nil];
     
     // 通知，暂停后，改变底部按钮的图片
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseNotication:) name:@"pauseNotication" object:nil];
@@ -93,13 +86,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNotication:) name:@"playNotication" object:nil];
     
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playChangeFrame:) name:@"playFrame" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playChangeFrame:) name:@"playFrame" object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playresumeFrame:) name:@"playResume" object:nil];
     
 }
 
-
+#pragma mark --- 通知方法
 -(void)playChangeFrame:(NSNotification *)noti{
     
     CGRect frame = self.btn.frame;
@@ -114,7 +107,21 @@
     self.btn.frame = frame;
 }
 
-#pragma mark --- 通知方法
+- (void)changeBtn:(NSNotification *)noti {
+    BroadMusicModel *model = noti.object;
+    // 判断是否是下载过的，如果下载过，从数据库中取的 NSData 类型。
+        if (model.isDownload ==YES) {
+            [self.btn setImage:[UIImage imageNamed:@""]  forState:(UIControlStateNormal)];
+            self.btnBgImage = [UIImage imageWithData:model.dataImage];
+            [self.btn setBackgroundImage:self.btnBgImage forState:(UIControlStateNormal)];
+            
+        }else {
+            [self.btn setImage:[UIImage imageNamed:@""]  forState:(UIControlStateNormal)];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.bgImage]];
+            self.btnBgImage = [UIImage imageWithData:data];
+            [self.btn setBackgroundImage:self.btnBgImage forState:(UIControlStateNormal)];
+        }
+}
 - (void)pauseNotication:(NSNotification *)noti {
     [self.btn setImage:[[UIImage imageNamed:@"music_icon_play_highlighted@3x"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:(UIControlStateNormal)];
 //    [self.btn.layer pauseAnimate];

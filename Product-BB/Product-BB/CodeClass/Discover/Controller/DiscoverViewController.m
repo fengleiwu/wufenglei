@@ -99,6 +99,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 点击状态栏，回到顶部。
+    [TopWindow show];
     self.controllers = [@[ @"CategoryViewController", @"BroadcastViewController",@"RankViewController"] mutableCopy];
     [self creatScr];
     [self creatSeg];

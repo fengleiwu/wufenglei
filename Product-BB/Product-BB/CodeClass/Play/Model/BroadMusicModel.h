@@ -29,7 +29,9 @@
 @property (nonatomic, strong) NSString *liveTitle;
 @property (nonatomic, strong) NSString *playCount;
 @property (nonatomic, strong) NSString *bgImage;
-
+// 下载下来从数据库获取的是 nsdata
+@property (nonatomic, strong) NSData *dataImage;
+@property (nonatomic, assign) BOOL isDownload;
 
 + (NSMutableArray *)modelCOnfigureWithLocationModel:(NSMutableArray *)modelArr;
 + (NSMutableArray *)modelCOnfigureWithRankModel:(NSMutableArray *)modelArr;
