@@ -14,18 +14,23 @@
 #import "AlbumDetailViewController.h"
 #import "MusicplayViewController.h"
 #import "BroadMusicModel.h"
-
+#import "MyDownLoad.h"
+#import "MyDownLoadManager.h"
+#import "MyMusicDownLoadTable.h"
+#import "DownLoadViewController.h"
 @interface ListenDetailViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)NSMutableArray *listenArray;
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)UIView *headView;
 @property (nonatomic , strong)ListenDetailModel *model;
+@property (nonatomic , strong)NSMutableArray *downLoadArray;
 @end
 
 @implementation ListenDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.downLoadArray = [NSMutableArray array];
      NSString *url = [NSString stringWithFormat:@"http://mobile.ximalaya.com/m/subject_detail?device=android&id=%@&position=1&title=%@",self.listenId,self.listenTitle];
     NSString *encodURL = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     [self creatTable];
@@ -120,6 +125,7 @@
             cell = [[ListenDetailTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
         }
         ListenDetailModel *model = self.listenArray[indexPath.row];
+        [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell creatListenCell:model];
         return cell;
     }
@@ -154,10 +160,65 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+
+
+-(void)downLoadAction:(UIButton *)btn
+{
+    
+    
+    ListenDetailTableViewCell *cell = (ListenDetailTableViewCell *)btn.superview.superview;
+    NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
+    ListenDetailModel *model = self.listenArray[indexPath.row];
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    MyDownLoad *task = [manager creatDownload:model.playPath64];
+    [[ArrayManager shareManager].Array addObject:model];
+    [self.downLoadArray addObject:model];
+    [self downLoad:task model:model];
 }
+
+-(void)downloadAction
+{
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    if (self.downLoadArray.count == 0) {
+        return;
+    }
+    if (self.downLoadArray.count > 0) {
+        ListenDetailModel *model = self.downLoadArray[0];
+        MyDownLoad *task = [manager creatDownload:model.playPath64];
+        [self downLoad:task model:model];
+    }
+}
+
+-(void)downLoad:(MyDownLoad *)task model:(ListenDetailModel *)model{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    
+    
+    [task start];
+    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+        NSLog(@"%lld,%ld",bytesWritten,progress);
+        
+        
+    } DidDownload:^(NSString *savePath, NSString *url) {
+        [table creatTable];
+        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.model.smallLogo]];
+        
+        NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverSmall]];
+        if (musicData == nil) {
+            musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
+        }
+        [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.model.title]];
+        
+        [[ArrayManager shareManager].Array removeObject:model];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
+    }];
+    
+
+}
+
+
+
 
 /*
 #pragma mark - Navigation

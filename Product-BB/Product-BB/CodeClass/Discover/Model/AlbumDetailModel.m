@@ -93,10 +93,11 @@
             for (NSArray *arr in tableArray) {
                 if ([arr containsObject:model.playUrl64]) {
                     model.type = DiDdwonload;
+                    model.flag = 3;
                 }
             }
         }
-
+        
         [arr addObject:model];
     }
     return arr;

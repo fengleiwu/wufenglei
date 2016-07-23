@@ -73,7 +73,7 @@
    if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
                 [cell.imageV setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
                 [cell.imageV setTintColor:[UIColor grayColor]];
-       
+       model.isSelect = NO;
                 }else{
                 [cell.imageV addTarget:self action:@selector(choseAction:) forControlEvents:(UIControlEventTouchUpInside)];
                 
@@ -83,9 +83,7 @@
                     [cell.imageV setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
                 }
             }
-        
-    return cell;
-    
+        return cell;
 }
 
 
@@ -94,10 +92,8 @@
     batchDownTableViewCell *cell =(batchDownTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
     AlbumDetailModel *model = self.arr[indexPath.row];
-   
-    
-    if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
-                model.isSelect = model.isSelect;
+   if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
+                model.isSelect = NO;
             }else{
                 model.isSelect = !model.isSelect;
                 if (model.isSelect == YES) {
@@ -125,7 +121,7 @@
 //            }
 //        }
     if (model.type == DiDdwonload || model.type == DownloadPause || model.type == Downloadimg) {
-        model.isSelect = model.isSelect;
+        model.isSelect = NO;
     }else{
     model.isSelect = !model.isSelect;
     if (model.isSelect == YES) {
@@ -160,7 +156,14 @@
     self.downLoadBtn.backgroundColor = [UIColor grayColor];
     self.quanxuanBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     self.quanxuanBtn.frame = CGRectMake(kScreenWidth - 120, 20, 100, 20);
-    for (AlbumDetailModel *model in self.arr) {
+    
+    if (self.downArr.count == 0) {
+        [self.quanxuanBtn setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
+        [self.quanxuanBtn addTarget:self action:@selector(changeYesAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    
+    
+    for (AlbumDetailModel *model in self.downArr) {
         if (model.isSelect == NO) {
             [self.quanxuanBtn setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
             [self.quanxuanBtn addTarget:self action:@selector(changeYesAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -169,24 +172,27 @@
         [self.quanxuanBtn setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
         [self.quanxuanBtn addTarget:self action:@selector(changeNoAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *tableArray = [table selectAll];
+    if (self.downArr.count + tableArray.count < self.arr.count) {
+        [self.quanxuanBtn setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
+        [self.quanxuanBtn addTarget:self action:@selector(changeYesAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    }
     [self.quanxuanBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 80)];
     [self.quanxuanBtn setTitle:@"全选本页" forState:(UIControlStateNormal)];
     [self.quanxuanBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.quanxuanBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [self.quanxuanBtn setTintColor:[UIColor redColor]];
     
-    for (AlbumDetailModel *model in self.arr) {
+    for (AlbumDetailModel *model in self.downArr) {
         if (model.isSelect == YES) {
             [self.downLoadBtn setBackgroundColor:[UIColor redColor]];
             [self.downLoadBtn addTarget:self action:@selector(downloadAction) forControlEvents:(UIControlEventTouchUpInside)];
         }
     }
-    
-    
     [view1 addSubview:self.downLoadBtn];
     [view1 addSubview:self.quanxuanBtn];
     return view1;
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -199,30 +205,22 @@
     
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     NSArray *tableArray = [table selectAll];
-//    if (tableArray.count > 0) {
-//        for (NSArray *arr in tableArray) {
-//            if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
-//                
-//            }
-//        }
-//    }else{
-    
     [self.downArr removeAllObjects];
     for (AlbumDetailModel *model in self.arr) {
+        [self.downArr addObject:model];
+        model.isSelect = YES;
         if (tableArray.count > 0) {
             for (NSArray *arr in tableArray) {
                 if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
-                    
-                }else{
-                    [self.downArr addObject:model];
-                    model.isSelect = YES;
-                }
+                    model.isSelect = NO;
+                    [self.downArr removeObject:model];
+                    break;
             }
             }
-    }
+        }
+        }
     [self.tab reloadData];
-    
-}
+    }
 
 -(void)changeNoAction:(UIButton *)btn
 {
@@ -233,13 +231,13 @@
         if (tableArray.count > 0) {
             for (NSArray *arr in tableArray) {
                 if ([arr containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
-                    
-                }else{
                     model.isSelect = NO;
-                }
+                    break;
             }
         }
-    }
+        }
+            model.isSelect = NO;
+        }
     [self.tab reloadData];
 }
 
@@ -247,38 +245,50 @@
 {
     
     NSArray *arr = @[self.coverMiddle,self.titleL];
-    
     [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+    
+    
+    
+    
+//    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+//    NSArray *tableArray = [table selectAll];
+//    
+//    for (AlbumDetailModel *model in self.downArr) {
+//        if (tableArray.count > 0) {
+//            for (NSArray *arr1 in tableArray) {
+//                if ([arr1 containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
+//                    [self.downArr removeObject:model];
+//                }
+//            }
+//        }
+//
+//    }
+    
+    
+    
+    
     for (AlbumDetailModel *model in self.downArr) {
         [[ArrayManager shareManager].Array addObject:model];
     }
     NSLog(@"%ld",self.downArr.count);
 //    [[ArrayManager shareManager].Array addObject:arr];
-
-    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-
-    if (self.downArr.count == 0) {
+MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+if (self.downArr.count == 0) {
         return;
     }
     if (self.downArr.count > 0) {
         AlbumDetailModel *model = self.downArr[0];
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
-        
-        
         [self downLoad:task model:model];
     }
-
-    
-    
-    
 }
 
 
 -(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
 {
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    [task start];
-    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
+     [task start];
+     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
         
@@ -300,7 +310,7 @@ NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.cove
         [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
             }
             model.type = DiDdwonload;
-        [self.downArr removeObject:model];
+            [self.downArr removeObject:model];
             [[ArrayManager shareManager].Array removeObject:model];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
         [self downloadAction];

@@ -438,13 +438,19 @@
     }if (self.displayPrice == nil) {
         self.displayPrice = @"5";
     }
+    self.uid = [NSString stringWithFormat:@"%@",self.uid];
+    if (![self.uid isEqualToString:@"2"]) {
+        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.attentionModel.coverLarge,self.attentionModel.title,self.nickName]];
+        return;
+    }
+    if (self.inter>=0 && self.inter<=3){
+        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title,self.hotRecommendsModel.nickname]];
+        return;
+    }
     if (self.isPaid == NO) {
-        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice]];
-    }else if (self.isPaid == YES){
-        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice]];
+        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.albumModel.coverLarge,self.albumModel.title,self.albumModel.nickname]];
     }
     [btn setTitle:@"已订阅" forState:(UIControlStateNormal)];
-    
 
 }
 

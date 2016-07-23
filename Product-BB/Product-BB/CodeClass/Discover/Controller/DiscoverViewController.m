@@ -126,6 +126,8 @@
     }];
 
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
+        
+        
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.specialColumnArray = [focusImagesModel specialColumn:dic];
         [self.tableView reloadData];

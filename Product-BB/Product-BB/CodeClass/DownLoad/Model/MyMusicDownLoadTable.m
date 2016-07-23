@@ -185,7 +185,7 @@
     }else{
         // 建表
         // create table 表名(给一个ID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL，参数)
-        NSString *updata = [NSString stringWithFormat:@"create table %@(musicID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,albumid text,inter integer,isPaid integer,row integer,uid text,nickName text,score text,displayPrice text)",kHisDownLoadTable];
+        NSString *updata = [NSString stringWithFormat:@"create table %@(musicID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,albumid text,inter integer,isPaid integer,row integer,uid text,nickName text,score text,displayPrice text,image text,bigTitle text,smallTitle text)",kHisDownLoadTable];
         BOOL result = [_dataBase executeUpdate:updata];
         if (result) {
             NSLog(@"%@创建成功",kHisDownLoadTable);
@@ -199,7 +199,7 @@
 
 //插入
 -(void)insertIntoDingyueTable:(NSArray *)Info{
-    NSString *updata = [NSString stringWithFormat:@"INSERT INTO %@ (albumid,inter,isPaid,row,uid,nickName,score,displayPrice) values(?,?,?,?,?,?,?,?)",kHisDownLoadTable];
+    NSString *updata = [NSString stringWithFormat:@"INSERT INTO %@ (albumid,inter,isPaid,row,uid,nickName,score,displayPrice,image,bigTitle,smallTitle) values(?,?,?,?,?,?,?,?,?,?,?)",kHisDownLoadTable];
     BOOL result = [_dataBase executeUpdate:updata withArgumentsInArray:Info];
     if (result) {
         NSLog(@"插入数据成功");
@@ -235,9 +235,10 @@
         NSString *nickName = [set stringForColumn:@"nickName"];
         NSString *score = [set stringForColumn:@"score"];
         NSString *displayPrice = [set stringForColumn:@"displayPrice"];
-        
-        
-    [array addObject:@[albumid,[NSString stringWithFormat:@"%ld",inter],[NSString stringWithFormat:@"%ld",isPaid],[NSString stringWithFormat:@"%ld",row],uid,nickName,score,displayPrice]];
+        NSString *image = [set stringForColumn:@"image"];
+        NSString *bigTitle = [set stringForColumn:@"bigTitle"];
+        NSString *smallTitle = [set stringForColumn:@"smallTitle"];
+    [array addObject:@[albumid,[NSString stringWithFormat:@"%ld",inter],[NSString stringWithFormat:@"%ld",isPaid],[NSString stringWithFormat:@"%ld",row],uid,nickName,score,displayPrice,image,bigTitle,smallTitle]];
     }
     return array;
 

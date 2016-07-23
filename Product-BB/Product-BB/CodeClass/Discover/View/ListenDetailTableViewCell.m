@@ -69,7 +69,13 @@
 
 -(void)creatListenCell:(ListenDetailModel *)model
 {
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
+    if (model.coverLarge == nil) {
+        
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall]];
+    }else{
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
+
+    }
     self.titleLabel.text = model.title;
     self.nameLabel.text = model.nickname;
     [self.contentView addSubview:self.like];

@@ -52,6 +52,9 @@ typedef NS_ENUM(NSInteger, DownloadType){
 
 @property(nonatomic , assign)BOOL isDownLoad;
 
+@property(nonatomic , assign)NSInteger flag;
+
+
 
 +(AlbumDetailModel *)album:(NSDictionary *)dic;
 +(NSMutableArray *)tracks:(NSDictionary *)dic;
