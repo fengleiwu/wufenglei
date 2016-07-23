@@ -39,15 +39,15 @@
 -(void)delegateNoteWithHistoryOfPlayTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
 
 #pragma mark --- 订阅历史
-////建表
-//-(void)creatDingyueTable;
-////插入
-//-(void)insertIntoDingyueTable:(NSArray *)Info;
-////取出
-//-(NSArray *)selectAllInDingyue;
-//
-////删除数据
-//-(void)delegateNoteWithDingyueTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
+//建表
+-(void)creatDingyueTable;
+//插入
+-(void)insertIntoDingyueTable:(NSArray *)Info;
+//取出
+-(NSArray *)selectAllInDingyue;
+
+//删除数据
+-(void)delegateNoteWithDingyueTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle;
 
 
 @end

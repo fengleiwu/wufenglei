@@ -127,6 +127,7 @@
     UIButton *btn1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
     btn1.frame = CGRectMake(10, 120 + 50, (kScreenWidth - 30) / 2, 30);
     [btn1 setTitle:@"订阅专辑" forState:(UIControlStateNormal)];
+    [btn1 addTarget:self action:@selector(dingyueAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [btn1 setTintColor:[UIColor whiteColor]];
     [btn1 setBackgroundColor:[UIColor greenColor]];
     [btn1.layer setMasksToBounds:YES];
@@ -251,6 +252,7 @@
    UIButton *btn1 = [UIButton buttonWithType:(UIButtonTypeSystem)];
     btn1.frame = CGRectMake(10, 120, (kScreenWidth - 30) / 2, 30);
     [btn1 setTitle:@"订阅专辑" forState:(UIControlStateNormal)];
+    [btn1 addTarget:self action:@selector(dingyueAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [btn1 setTintColor:[UIColor whiteColor]];
     [btn1 setBackgroundColor:[UIColor greenColor]];
     [btn1.layer setMasksToBounds:YES];
@@ -302,6 +304,9 @@
     }];
   [self.veryBigTab.scr addSubview:self.tab];
 }
+
+
+
 
 
 -(void)creatDetailTableView
@@ -400,12 +405,46 @@
     }
         
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
-        
-        
         [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [cell creatCell:model];
     return cell;
     }
+}
+
+
+//@property(nonatomic , strong)NSString *url;//albumid
+//@property(nonatomic , assign)NSInteger inter;//有购买不传  没购买传>3
+//
+//
+//@property(nonatomic , assign)BOOL isPaid;
+//@property(nonatomic , assign)NSInteger row;//第几个
+//@property(nonatomic , strong)NSString *uid;//uid
+//@property(nonatomic , strong)NSString *nickName;
+//
+//@property(nonatomic , strong)NSString *score;
+//@property(nonatomic , strong)NSString *displayPrice;
+#pragma mark --- 订阅
+-(void)dingyueAction:(UIButton *)btn
+{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    [table creatDingyueTable];
+    if (self.uid == nil) {
+        self.uid = @"2";
+    }if (self.nickName == nil) {
+        self.nickName = @"3";
+    }if (self.score == nil) {
+        self.score = @"4";
+    }if (self.displayPrice == nil) {
+        self.displayPrice = @"5";
+    }
+    if (self.isPaid == NO) {
+        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice]];
+    }else if (self.isPaid == YES){
+        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice]];
+    }
+    [btn setTitle:@"已订阅" forState:(UIControlStateNormal)];
+    
+
 }
 
 
@@ -470,11 +509,7 @@
         NSArray *arr = @[self.albumModel.coverLarge,self.albumModel.title];
         [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
 }
-    
-    
-    
     [self.downLoadArray addObject:model];
-    
     [[ArrayManager shareManager].Array addObject:model];
     model.type = DownloadPause;
     
