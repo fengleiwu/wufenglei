@@ -226,6 +226,9 @@
     if (indexPath.section == 1 && indexPath.row == 0) {
         recommendVC.index = indexPath.section * 2 + indexPath.row;
     }
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        recommendVC.index = indexPath.section * 2 + indexPath.row;
+    }
     if (indexPath.section == 2 && indexPath.row == 0) {
         recommendVC.index = indexPath.section * 2 + indexPath.row;
     }

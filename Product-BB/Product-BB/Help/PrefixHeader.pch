@@ -86,4 +86,6 @@
 #define KFREE4URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831041.354182&tsuid=33152580"
 #define KFREE5URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831063.273350&tsuid=33152580"
 #define KFREE6URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831081.706197&tsuid=33152580"
+
+#define KGameURL @"http://game.ximalaya.com/games-operation/v1/games/list?app=iting&device=iPhone&impl=com.gemd.iting&ly=wo&type=btnbottom&version=5.4.9"
 #endif /* PrefixHeader_pch */

@@ -241,6 +241,8 @@
 		79A28AF51D374E9800EBEBA8 /* ContentIntroductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A28AF41D374E9800EBEBA8 /* ContentIntroductTableViewCell.m */; };
 		79A28AF81D37856300EBEBA8 /* DetailPayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A28AF71D37856300EBEBA8 /* DetailPayModel.m */; };
 		79A28AFB1D3795BA00EBEBA8 /* MoreDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A28AFA1D3795BA00EBEBA8 /* MoreDetailTableViewController.m */; };
+		79AB5FB51D4315180091E438 /* SUBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AB5FB41D4315180091E438 /* SUBTableViewCell.m */; };
+		79AB5FB81D4317900091E438 /* DingYueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AB5FB71D4317900091E438 /* DingYueModel.m */; };
 		79BE29EB1D3E7B50009CF446 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BE29E81D3E7B50009CF446 /* LoginViewController.m */; };
 		79BE29EC1D3E7B50009CF446 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BE29EA1D3E7B50009CF446 /* RegistViewController.m */; };
 		79BE29EF1D3E7B5A009CF446 /* MySettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BE29EE1D3E7B5A009CF446 /* MySettingTableViewCell.m */; };
@@ -806,6 +808,10 @@
 		79A28AF71D37856300EBEBA8 /* DetailPayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailPayModel.m; sourceTree = "<group>"; };
 		79A28AF91D3795BA00EBEBA8 /* MoreDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreDetailTableViewController.h; sourceTree = "<group>"; };
 		79A28AFA1D3795BA00EBEBA8 /* MoreDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreDetailTableViewController.m; sourceTree = "<group>"; };
+		79AB5FB31D4315180091E438 /* SUBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUBTableViewCell.h; path = "Product-BB/CodeClass/Play/View/SUBTableViewCell.h"; sourceTree = SOURCE_ROOT; };
+		79AB5FB41D4315180091E438 /* SUBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUBTableViewCell.m; path = "Product-BB/CodeClass/Play/View/SUBTableViewCell.m"; sourceTree = SOURCE_ROOT; };
+		79AB5FB61D4317900091E438 /* DingYueModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DingYueModel.h; sourceTree = "<group>"; };
+		79AB5FB71D4317900091E438 /* DingYueModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingYueModel.m; sourceTree = "<group>"; };
 		79BE29E71D3E7B50009CF446 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		79BE29E81D3E7B50009CF446 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		79BE29E91D3E7B50009CF446 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
@@ -1446,6 +1452,8 @@
 			children = (
 				79FA04ED1D3CFF32000C3306 /* SUBModel.h */,
 				79FA04EE1D3CFF32000C3306 /* SUBModel.m */,
+				79AB5FB61D4317900091E438 /* DingYueModel.h */,
+				79AB5FB71D4317900091E438 /* DingYueModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1453,6 +1461,8 @@
 		798076FD1D33A05C0095911D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				79AB5FB31D4315180091E438 /* SUBTableViewCell.h */,
+				79AB5FB41D4315180091E438 /* SUBTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2900,6 +2910,7 @@
 				7981D78E1D411F7500ABC217 /* RecommendViewController.m in Sources */,
 				7900E14B1D3A78A300E3676C /* BroadListModel.m in Sources */,
 				7981D7341D41179C00ABC217 /* XMPPvCard.xcdatamodeld in Sources */,
+				79AB5FB81D4317900091E438 /* DingYueModel.m in Sources */,
 				7981D73E1D41179C00ABC217 /* XMPPvCardTempLabel.m in Sources */,
 				7900E14A1D3A78A300E3676C /* BroadcastViewController.m in Sources */,
 				7981D7311D41179C00ABC217 /* XMPPMessage+XEP0045.m in Sources */,
@@ -2943,6 +2954,7 @@
 				7981D72B1D41179C00ABC217 /* XMPPRoomHybridStorage.m in Sources */,
 				7981D7061D41179C00ABC217 /* NSNumber+XMPP.m in Sources */,
 				79BE29EB1D3E7B50009CF446 /* LoginViewController.m in Sources */,
+				79AB5FB51D4315180091E438 /* SUBTableViewCell.m in Sources */,
 				7900E1491D3A78A300E3676C /* BroadcastListViewController.m in Sources */,
 				79E323001D3899FA00B716B5 /* qualityGoodsModel.m in Sources */,
 				79F44D6F1D3A5277002BE16F /* OtherAnchorTableViewCell.m in Sources */,

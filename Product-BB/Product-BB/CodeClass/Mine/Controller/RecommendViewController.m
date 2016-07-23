@@ -105,6 +105,11 @@ BOOL isClick = NO;
         self.navigationItem.title = @"珠穆朗玛商城";
         [self requestData];
     }
+    if (self.index == 3) {
+        self.navigationItem.title = @"游戏中心";
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        [self requestDataWithGame];
+    }
     //意见反馈
     if (self.index == 4) {
         self.navigationItem.title = @"意见反馈";
@@ -292,6 +297,10 @@ BOOL isClick = NO;
     }];
 }
 
+-(void)requestDataWithGame{
+    [ self.wView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:KGameURL]]];
+    [self.view addSubview:self.wView];
+}
 
 #pragma mark ----- 数据请求webView -----
 -(void)requestData1{

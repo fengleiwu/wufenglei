@@ -423,6 +423,7 @@
 //
 //@property(nonatomic , strong)NSString *score;
 //@property(nonatomic , strong)NSString *displayPrice;
+
 #pragma mark --- 订阅
 -(void)dingyueAction:(UIButton *)btn
 {

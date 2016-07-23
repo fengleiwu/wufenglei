@@ -12,16 +12,22 @@
 #import "MusicplayViewController.h"
 #import "HistoryOfPlayTableViewCell.h"
 #import "BroadMusicModel.h"
+#import "DingYueModel.h"
 #import "SUBModel.h"
 
 @interface SubscriptionViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UISegmentedControl *segContoller;
 @property (nonatomic, strong)NSMutableArray *KurlArr;
 @property (nonatomic, strong)NSMutableArray *recommendArr;
+@property (nonatomic, strong)NSString *URLStr;
+@property (nonatomic, strong)NSArray *SUBArr;
 @property (nonatomic, strong)NSArray *sqliteArr;
+@property (nonatomic, strong)NSArray *urlArr;
+@property (nonatomic, strong)NSMutableArray *urlidArr;
 @property (nonatomic, strong)NSMutableArray *modelArr;
 @property (nonatomic, strong)UITableView *tableV1;
 @property (nonatomic, strong)UITableView *tableV2;
+@property (nonatomic, strong)UITableView *tableV3;
 @property (nonatomic, strong)UIScrollView *scrollV;
 @property (nonatomic, strong)UIImageView *imageV2;
 @property (nonatomic, strong)UIButton *checkB;
@@ -37,6 +43,13 @@
         _KurlArr = [NSMutableArray arrayWithObjects:KFREE1URL,KFREE2URL,KFREE3URL,KFREE4URL,KFREE5URL,KFREE6URL, nil];
     }
     return _KurlArr;
+}
+
+-(NSArray *)urlArr{
+    if (!_urlArr) {
+        _urlArr = @[@"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615",KtheSameURL,@"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=4345263&device=iPhone&isAsc=true&pageId=1&pageSize=20&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1",@"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1",@"http://mobile.ximalaya.com/mobile/v1/album/detail?albumId=4345263&device=iPhone&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1"];
+    }
+    return _urlArr;
 }
 
 -(NSMutableArray *)recommendArr{
@@ -60,9 +73,22 @@
     return _modelArr;
 }
 
+-(NSArray *)SUBArr{
+    if (!_SUBArr) {
+        _SUBArr = [NSArray array];
+    }
+    return _SUBArr;
+}
+
+-(NSMutableArray *)urlidArr{
+    if (!_urlidArr) {
+        _urlidArr = [NSMutableArray array];
+    }
+    return _urlidArr;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"%f",self.scrollV.contentOffset.x);
     if (self.scrollV.contentOffset.x == 0) {
         //刷新请求数据
         self.tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -76,6 +102,9 @@
     }
     if (self.scrollV.contentOffset.x == kScreenWidth*2) {
         [self refreshData];
+    }
+    if (self.scrollV.contentOffset.y == kScreenWidth) {
+        [self refreshWithData];
     }
 }
 
@@ -116,6 +145,16 @@
         [self.editV addSubview:self.removeB];
     // Do any additional setup after loading the view.
    }
+    self.SUBArr = [table selectAllInDingyue];
+    if (self.SUBArr.count == 0) {
+        
+    } else {
+        self.urlidArr = [DingYueModel modelConfigureWithArray:self.SUBArr];
+    }
+    for (DingYueModel *model in self.urlidArr) {
+        NSLog(@"%@",model.uid);
+    }
+    [self requestWithData];
 }
 
 #pragma mark ----- 创建滑块视图 -----
@@ -278,6 +317,17 @@
     }
 }
 
+#pragma mark ----- 创建订阅界面 -----
+-(UITableView *)tableV3{
+    if (!_tableV3) {
+        _tableV3 = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableV3.delegate = self;
+        _tableV3.dataSource = self;
+        _tableV3.tag = 103;
+    }
+    return _tableV3;
+}
+
 #pragma mark ----- 创建已下载歌曲界面 -----
 -(UITableView *)tableV2{
     if (!_tableV2) {
@@ -399,6 +449,18 @@
     [self.tableV2 reloadData];
 }
 
+-(void)refreshWithData{
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    self.SUBArr = [table selectAllInDingyue];
+    if (self.SUBArr.count == 0) {
+        
+    }else {
+        [self.urlidArr removeAllObjects];
+        self.urlidArr = [DingYueModel modelConfigureWithArray:self.SUBArr];
+    }
+//    [self.tableV3 reloadData];
+}
+
 #pragma mark ----- 数据请求 -----
 -(void)requestData{
     NSInteger aa = arc4random()%(5-0+1);
@@ -414,6 +476,36 @@
     } error:^(NSError *error) {
         NSLog(@"bottomData --- %@", error);
     }];
+}
+
+-(void)requestWithData{
+//    for (DingYueModel *model in self.urlidArr) {
+//        if ([model.uid isEqualToString:@"2"]) {
+//            if ([model.isPaid isEqualToString:@"0"]&&[model.nickName isEqualToString:@"3"]&& ![model.inter isEqualToString:@"4"]) {
+//        self.URLStr = self.urlidArr[2];
+//                break;
+//            }
+//            if ([model.inter isEqualToString:@"4"]) {
+//                self.URLStr = KtheSameURL;
+//                break;
+//            }
+//            if (![model.nickName isEqualToString:@"3"]) {
+//                self.URLStr = self.urlidArr[3];
+//                break;
+//            }
+//        } else{
+//        self.URLStr = self.urlArr[0];
+//        self.URLStr = [self.URLStr stringByReplacingOccurrencesOfString:@"Uid=54060615" withString:[NSString stringWithFormat:@"Uid=%@",model.uid]];
+//            break;
+//        }
+//    }
+//    [RequestManager requestWithUrlString:self.URLStr requestType:RequestGET parDic:nil finish:^(NSData *data) {
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"%@",dic);
+//    
+//    } error:^(NSError *error) {
+//        NSLog(@"bottomData --- %@", error);
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {
