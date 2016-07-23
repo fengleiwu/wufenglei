@@ -18,5 +18,4 @@
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model;
 
-
 @end

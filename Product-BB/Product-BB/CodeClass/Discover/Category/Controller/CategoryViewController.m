@@ -81,8 +81,8 @@
 
 #pragma mark ----- 创建头部视图 -----
 -(void)creatbottomView{
-    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 160)];
-    UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 160)];
+    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 180)];
+    UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 180)];
     [imageV sd_setImageWithURL:[NSURL URLWithString:self.imageStr] completed:nil];
     [self.headView addSubview:imageV];
     self.otherTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)];

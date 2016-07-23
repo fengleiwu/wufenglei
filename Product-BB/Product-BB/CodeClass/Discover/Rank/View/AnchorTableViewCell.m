@@ -55,12 +55,12 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.rankL.frame = CGRectMake(0, 0, w/10, h);
-    self.imageV.frame = CGRectMake(w/10,h/6,h*2/3,h*2/3);
+    self.imageV.frame = CGRectMake(w/10,h/6-10,h*2/3,h*2/3);
     self.titleL.frame = CGRectMake(w/10+h*2/3+10, 10,w*4/5-h/2-2, h/3);
     self.titleL.font = [UIFont systemFontOfSize:20];//label自适应宽度
     [self.titleL sizeToFit];
     self.VB.frame = CGRectMake(self.titleL.frame.size.width+w/10+h*2/3+10, 10, 20, h/6);
-    self.intoL.frame = CGRectMake(w/10+h*2/3+10, h/3, w*3/5, h/3-10);
+    self.intoL.frame = CGRectMake(w/10+h*2/3+10, h/3, w*3/5-20, h/3-10);
     self.nextB.frame = CGRectMake(w*9/10-10,h*2/5, w/10, h*2/5-10);
     self.dianboV.frame = CGRectMake(w/10+h*2/3+10, h*2/3, 20, h/6);
     self.tracksL.frame = CGRectMake(w/10+h*2/3+40, h*2/3, 60, h/6);

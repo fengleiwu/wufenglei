@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BroadcastViewController : UIViewController
-@property (nonatomic, assign)CGFloat buttonWidth;
-@property (nonatomic, assign)CGFloat buttonHeight;
+
 @end

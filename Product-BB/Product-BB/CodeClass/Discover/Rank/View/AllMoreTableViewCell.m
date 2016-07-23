@@ -8,7 +8,7 @@
 
 #import "AllMoreTableViewCell.h"
 #define w self.frame.size.width
-#define h 120
+#define h self.frame.size.height
 
 @implementation AllMoreTableViewCell
 
@@ -30,17 +30,22 @@
         self.rankL.textAlignment = NSTextAlignmentCenter;
         self.rankL.font = [UIFont systemFontOfSize:22];
         [self.contentView addSubview:self.rankL];
+        
         self.imageV = [[UIImageView alloc]init];
         [self.contentView addSubview:self.imageV];
+        
         self.titleL = [[UILabel alloc]init];
         self.titleL.font = [UIFont systemFontOfSize:20];
         [self.contentView addSubview:self.titleL];
+        
         self.intoL = [[UILabel alloc]init];
         self.intoL.textColor = [UIColor grayColor];
         [self.contentView addSubview:self.intoL];
+        
         self.nextB = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.nextB setImage:[UIImage imageNamed:@"箭头 (3).png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.nextB];
+        
         self.dianboV = [[UIImageView alloc]init];
         [self.contentView addSubview:self.dianboV];
         self.tracksL = [[UILabel alloc]init];
@@ -51,13 +56,20 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.rankL.frame = CGRectMake(0, 0, w/10, h);
-    self.imageV.frame = CGRectMake(w/10,h/6,h*2/3,h*2/3);
-    self.titleL.frame = CGRectMake(w/10+h*2/3+10, 10,w*4/5-h/2-2, h/3);
-    self.intoL.frame = CGRectMake(w/10+h*2/3+10, h/3, w*3/5, h/3-10);
-    self.nextB.frame = CGRectMake(w*9/10-10,h*2/5, w/10, h*2/5-10);
-    self.dianboV.frame = CGRectMake(w/10+h*2/3+10, h*2/3, 20, h/6);
-    self.tracksL.frame = CGRectMake(w/10+h*2/3+40, h*2/3, 60, h/6);
+    
+    self.rankL.frame = CGRectMake(0, 0, 30, h);
+    self.imageV.frame = CGRectMake(30,h/10,h*4/5,h*4/5);
+    
+    CGFloat titleWidth = w-h*4/5-40-30;
+    CGFloat titleX = 40+h*4/5;
+    self.titleL.frame = CGRectMake(titleX, 10,titleWidth, 30);
+    self.intoL.frame = CGRectMake(titleX, 50, titleWidth, 20);
+    
+    self.dianboV.frame = CGRectMake(titleX, 80, 20, 20);
+    self.tracksL.frame = CGRectMake(titleX+30, 80, 60, 20);
+    
+    self.nextB.frame = CGRectMake(w-30,h/2-10, 20, 20);
+
 }
 
 

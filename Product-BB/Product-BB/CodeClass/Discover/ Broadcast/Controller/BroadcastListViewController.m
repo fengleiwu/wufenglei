@@ -54,16 +54,13 @@
     } else if (self.rankId != 0) {
         url = @"http://live.ximalaya.com/live-web/v3/radio/hot?device=iPhone&pageNum=1&pageSize=30";
         self.navigationItem.title = @"电台排行榜";
-    } else if (self.topBtnTag == 1) {
+    } else if (self.topBtnTag == 0) {
         url = @"http://live.ximalaya.com/live-web/v2/radio/province?device=iPhone&pageNum=1&pageSize=30&provinceCode=310000&statEvent=pageview%2Fradiolist%40%E6%9C%AC%E5%9C%B0%E5%8F%B0&statModule=%E6%9C%AC%E5%9C%B0%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
         self.navigationItem.title = @"本地台";
-    } else if (self.topBtnTag == 2) {
+    } else if (self.topBtnTag == 1) {
         url = @"http://live.ximalaya.com/live-web/v2/radio/national?device=iPhone&pageNum=1&pageSize=30&statEvent=pageview%2Fradiolist%40%E5%9B%BD%E5%AE%B6%E5%8F%B0&statModule=%E5%9B%BD%E5%AE%B6%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
         self.navigationItem.title = @"国家台";
-    } else if (self.topBtnTag == 3) {
-        url = @"";
-        self.navigationItem.title = @"";
-    } else if (self.topBtnTag == 4) {
+    } else if (self.topBtnTag == 2) {
         url = @"http://live.ximalaya.com/live-web/v2/radio/network?device=iPhone&pageNum=1&pageSize=30&statEvent=pageview%2Fradiolist%40%E7%BD%91%E7%BB%9C%E5%8F%B0&statModule=%E7%BD%91%E7%BB%9C%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
         self.navigationItem.title = @"网络台";
     } else {

@@ -69,6 +69,8 @@
 		7955C8A91D39FB7F0052EBBC /* AnchorSongerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8A81D39FB7F0052EBBC /* AnchorSongerTableViewCell.m */; };
 		7955C8B01D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8AF1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m */; };
 		7955C8B31D3A2E160052EBBC /* AnchorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7955C8B21D3A2E160052EBBC /* AnchorTableViewController.m */; };
+		7957E4BB1D436C640022C7F0 /* 下载.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7957E4BA1D436C640022C7F0 /* 下载.jpg */; };
+		7957E4BE1D436C8A0022C7F0 /* TopWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7957E4BD1D436C8A0022C7F0 /* TopWindow.m */; };
 		796F6F371D3C6BAE00CF6DEC /* attentionFanZanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F341D3C6BAE00CF6DEC /* attentionFanZanModel.m */; };
 		796F6F381D3C6BAE00CF6DEC /* attentionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F361D3C6BAE00CF6DEC /* attentionModel.m */; };
 		796F6F3B1D3C6C6C00CF6DEC /* attentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F6F3A1D3C6C6C00CF6DEC /* attentionViewController.m */; };
@@ -267,7 +269,6 @@
 		79E073911D40519B00131E7B /* PlayListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E073851D40519B00131E7B /* PlayListTableViewCell.m */; };
 		79E073921D40519B00131E7B /* PlayListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E073871D40519B00131E7B /* PlayListView.m */; };
 		79E073931D40519B00131E7B /* RootTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0738B1D40519B00131E7B /* RootTabBarViewController.m */; };
-		79E073941D40519B00131E7B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0738D1D40519B00131E7B /* RootViewController.m */; };
 		79E073971D40522A00131E7B /* CALayer+PauseAimate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E073961D40522A00131E7B /* CALayer+PauseAimate.m */; };
 		79E322FA1D388EC000B716B5 /* specialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E322F91D388EC000B716B5 /* specialTableViewCell.m */; };
 		79E322FD1D38967800B716B5 /* qualityGoodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E322FC1D38967800B716B5 /* qualityGoodTableViewCell.m */; };
@@ -286,9 +287,7 @@
 		79F43F521D3A3AFB002BE16F /* RankListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F2A1D3A3AFB002BE16F /* RankListModel.m */; };
 		79F43F531D3A3AFB002BE16F /* AllHotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F2D1D3A3AFB002BE16F /* AllHotTableViewCell.m */; };
 		79F43F541D3A3AFB002BE16F /* AllMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F2F1D3A3AFB002BE16F /* AllMoreTableViewCell.m */; };
-		79F43F551D3A3AFB002BE16F /* AnchorOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F311D3A3AFB002BE16F /* AnchorOtherViewController.m */; };
 		79F43F561D3A3AFB002BE16F /* AnchorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F331D3A3AFB002BE16F /* AnchorTableViewCell.m */; };
-		79F43F571D3A3AFB002BE16F /* AnchorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F351D3A3AFB002BE16F /* AnchorViewController.m */; };
 		79F43F581D3A3AFB002BE16F /* RankListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F43F371D3A3AFB002BE16F /* RankListTableViewCell.m */; };
 		79F43F591D3A3AFB002BE16F /* RankListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F381D3A3AFB002BE16F /* RankListTableViewCell.xib */; };
 		79F4467E1D3A3C64002BE16F /* 0001 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F43F5B1D3A3C62002BE16F /* 0001 2.png */; };
@@ -465,6 +464,9 @@
 		7955C8AF1D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnchorSuperStarTableViewController.m; path = ../View/AnchorSuperStarTableViewController.m; sourceTree = "<group>"; };
 		7955C8B11D3A2E160052EBBC /* AnchorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorTableViewController.h; sourceTree = "<group>"; };
 		7955C8B21D3A2E160052EBBC /* AnchorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorTableViewController.m; sourceTree = "<group>"; };
+		7957E4BA1D436C640022C7F0 /* 下载.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "下载.jpg"; sourceTree = "<group>"; };
+		7957E4BC1D436C8A0022C7F0 /* TopWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopWindow.h; sourceTree = "<group>"; };
+		7957E4BD1D436C8A0022C7F0 /* TopWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopWindow.m; sourceTree = "<group>"; };
 		796F6F331D3C6BAE00CF6DEC /* attentionFanZanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attentionFanZanModel.h; sourceTree = "<group>"; };
 		796F6F341D3C6BAE00CF6DEC /* attentionFanZanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = attentionFanZanModel.m; sourceTree = "<group>"; };
 		796F6F351D3C6BAE00CF6DEC /* attentionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attentionModel.h; sourceTree = "<group>"; };
@@ -847,8 +849,6 @@
 		79E073871D40519B00131E7B /* PlayListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayListView.m; sourceTree = "<group>"; };
 		79E0738A1D40519B00131E7B /* RootTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarViewController.h; sourceTree = "<group>"; };
 		79E0738B1D40519B00131E7B /* RootTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarViewController.m; sourceTree = "<group>"; };
-		79E0738C1D40519B00131E7B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		79E0738D1D40519B00131E7B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		79E073951D40522A00131E7B /* CALayer+PauseAimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+PauseAimate.h"; sourceTree = "<group>"; };
 		79E073961D40522A00131E7B /* CALayer+PauseAimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+PauseAimate.m"; sourceTree = "<group>"; };
 		79E322F81D388EC000B716B5 /* specialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = specialTableViewCell.h; sourceTree = "<group>"; };
@@ -885,12 +885,8 @@
 		79F43F2D1D3A3AFB002BE16F /* AllHotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllHotTableViewCell.m; sourceTree = "<group>"; };
 		79F43F2E1D3A3AFB002BE16F /* AllMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMoreTableViewCell.h; sourceTree = "<group>"; };
 		79F43F2F1D3A3AFB002BE16F /* AllMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMoreTableViewCell.m; sourceTree = "<group>"; };
-		79F43F301D3A3AFB002BE16F /* AnchorOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorOtherViewController.h; sourceTree = "<group>"; };
-		79F43F311D3A3AFB002BE16F /* AnchorOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorOtherViewController.m; sourceTree = "<group>"; };
 		79F43F321D3A3AFB002BE16F /* AnchorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorTableViewCell.h; sourceTree = "<group>"; };
 		79F43F331D3A3AFB002BE16F /* AnchorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorTableViewCell.m; sourceTree = "<group>"; };
-		79F43F341D3A3AFB002BE16F /* AnchorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorViewController.h; sourceTree = "<group>"; };
-		79F43F351D3A3AFB002BE16F /* AnchorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorViewController.m; sourceTree = "<group>"; };
 		79F43F361D3A3AFB002BE16F /* RankListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankListTableViewCell.h; sourceTree = "<group>"; };
 		79F43F371D3A3AFB002BE16F /* RankListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankListTableViewCell.m; sourceTree = "<group>"; };
 		79F43F381D3A3AFB002BE16F /* RankListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1483,6 +1479,8 @@
 		798076FF1D33A05C0095911D /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7957E4BC1D436C8A0022C7F0 /* TopWindow.h */,
+				7957E4BD1D436C8A0022C7F0 /* TopWindow.m */,
 				799073871D40F92200108E35 /* EncodeManager.h */,
 				799073881D40F92200108E35 /* EncodeManager.m */,
 				79E073951D40522A00131E7B /* CALayer+PauseAimate.h */,
@@ -2331,8 +2329,6 @@
 			children = (
 				79E0738A1D40519B00131E7B /* RootTabBarViewController.h */,
 				79E0738B1D40519B00131E7B /* RootTabBarViewController.m */,
-				79E0738C1D40519B00131E7B /* RootViewController.h */,
-				79E0738D1D40519B00131E7B /* RootViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2394,12 +2390,8 @@
 				79F43F2D1D3A3AFB002BE16F /* AllHotTableViewCell.m */,
 				79F43F2E1D3A3AFB002BE16F /* AllMoreTableViewCell.h */,
 				79F43F2F1D3A3AFB002BE16F /* AllMoreTableViewCell.m */,
-				79F43F301D3A3AFB002BE16F /* AnchorOtherViewController.h */,
-				79F43F311D3A3AFB002BE16F /* AnchorOtherViewController.m */,
 				79F43F321D3A3AFB002BE16F /* AnchorTableViewCell.h */,
 				79F43F331D3A3AFB002BE16F /* AnchorTableViewCell.m */,
-				79F43F341D3A3AFB002BE16F /* AnchorViewController.h */,
-				79F43F351D3A3AFB002BE16F /* AnchorViewController.m */,
 				79F43F361D3A3AFB002BE16F /* RankListTableViewCell.h */,
 				79F43F371D3A3AFB002BE16F /* RankListTableViewCell.m */,
 				79F43F381D3A3AFB002BE16F /* RankListTableViewCell.xib */,
@@ -2410,6 +2402,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				7957E4BA1D436C640022C7F0 /* 下载.jpg */,
 				7981D7991D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png */,
 				7981D7941D41463E00ABC217 /* 奇幻森林.gif */,
 				7981D78F1D41377C00ABC217 /* 喵.png */,
@@ -2615,6 +2608,7 @@
 				79BE29FA1D3E7B70009CF446 /* 播放历史.png in Resources */,
 				79F44CF31D3A3C64002BE16F /* 播放 (2).png in Resources */,
 				79F43F591D3A3AFB002BE16F /* RankListTableViewCell.xib in Resources */,
+				7957E4BB1D436C640022C7F0 /* 下载.jpg in Resources */,
 				79F44CF61D3A3C64002BE16F /* 本地.png in Resources */,
 				79F4467F1D3A3C64002BE16F /* 1004.jpg in Resources */,
 				79BE29F91D3E7B70009CF446 /* 冰封王座.png in Resources */,
@@ -2761,7 +2755,6 @@
 				7900E14D1D3A78A300E3676C /* RankModel.m in Sources */,
 				791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */,
 				7981D7191D41179C00ABC217 /* XMPPRosterCoreDataStorage.m in Sources */,
-				79F43F551D3A3AFB002BE16F /* AnchorOtherViewController.m in Sources */,
 				7981D7071D41179C00ABC217 /* NSXMLElement+XMPP.m in Sources */,
 				793F1AA41D3E193200C8FD01 /* MusicAlbumDownLoadTableViewCell.m in Sources */,
 				79FA04F21D3D001B000C3306 /* GFZtableViewController.m in Sources */,
@@ -2804,7 +2797,6 @@
 				7955C8B01D3A2A2D0052EBBC /* AnchorSuperStarTableViewController.m in Sources */,
 				7981D75C1D41179C00ABC217 /* XMPPAutoPing.m in Sources */,
 				7981D7721D41179C00ABC217 /* DDTTYLogger.m in Sources */,
-				79E073941D40519B00131E7B /* RootViewController.m in Sources */,
 				79118E151D3E027F00059969 /* CategoryViewController.m in Sources */,
 				7900E1361D3A782600E3676C /* MyPlayerManager.m in Sources */,
 				7946EBEA1D3619A400AA9712 /* AlbumDetailModel.m in Sources */,
@@ -2861,6 +2853,7 @@
 				79E073931D40519B00131E7B /* RootTabBarViewController.m in Sources */,
 				7981D7431D41179C00ABC217 /* XMPPIQ+XEP_0060.m in Sources */,
 				79118E161D3E027F00059969 /* ShopViewController.m in Sources */,
+				7957E4BE1D436C8A0022C7F0 /* TopWindow.m in Sources */,
 				798077001D33A05C0095911D /* AppDelegate.m in Sources */,
 				7949A0D11D3F145B000ABEF2 /* DownLoadMusicTableViewCell.m in Sources */,
 				7949A0CE1D3F1429000ABEF2 /* DownLoadMusicViewController.m in Sources */,
@@ -2905,7 +2898,6 @@
 				7981D7471D41179C00ABC217 /* XMPPMessage+XEP_0066.m in Sources */,
 				7981D7521D41179C00ABC217 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				7981D74C1D41179C00ABC217 /* NSString+XEP_0106.m in Sources */,
-				79F43F571D3A3AFB002BE16F /* AnchorViewController.m in Sources */,
 				799073891D40F92200108E35 /* EncodeManager.m in Sources */,
 				7981D78E1D411F7500ABC217 /* RecommendViewController.m in Sources */,
 				7900E14B1D3A78A300E3676C /* BroadListModel.m in Sources */,

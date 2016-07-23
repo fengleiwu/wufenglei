@@ -14,6 +14,8 @@
 #import "SubscriptionViewController.h"
 //控制动画的暂停和恢复
 #import "CALayer+PauseAimate.h"
+// 点击状态栏，回到顶部。
+#import "TopWindow.h"
 
 @interface RootTabBarViewController ()
 @property (nonatomic , strong)UIButton *btn;
@@ -32,6 +34,8 @@
     [super viewDidLoad];
     
     self.isPlay = NO;
+    // 点击状态栏，回到顶部。
+    [TopWindow show];
     
     DiscoverViewController *disc = [[DiscoverViewController alloc]init];
     SubscriptionViewController *sub = [[SubscriptionViewController alloc]init];

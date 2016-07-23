@@ -33,14 +33,13 @@
         
         self.titleLabel.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:self.titleLabel];
-
+        
     }
     return self;
 }
 
 //- (void)layoutSubviews {
 //    [super layoutSubviews];
-//
 //}
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model {
@@ -50,7 +49,6 @@
         [UIView animateWithDuration:1 animations:^{
             self.titleLabel.frame = CGRectMake(60,10, self.width-60, 30);
         }];
-        
     } else {
         [UIView animateWithDuration:1 animations:^{
             self.titleLabel.frame = CGRectMake(30,10, self.width-60, 30);

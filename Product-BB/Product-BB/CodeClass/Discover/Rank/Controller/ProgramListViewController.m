@@ -27,6 +27,8 @@
 @property (nonatomic, strong)UIView *ALLV;
 @property (nonatomic, strong)UIView *selectV;
 @property (nonatomic, strong)UIView *backV;
+// 用于判断使用哪种 cell
+@property (nonatomic, strong)NSString *cellName;
 
 @end
 
@@ -63,6 +65,7 @@
     [super viewDidLoad];
     self.navigationItem.title = self.titleStr;
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self requestData];
     // Do any additional setup after loading the view.
 }
@@ -223,7 +226,7 @@
     for (HotTitleModel *model in self.HotArr) {
         TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:aa inSection:0]];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        button.frame =CGRectMake(aa%3 *(kScreenWidth/3)+4, aa/3 *((kScreenHeight*2/3 -89)/8)+2,kScreenWidth/3 -4,(kScreenHeight*2/3 -89)/8-4);
+        button.frame =CGRectMake(aa%3 *(kScreenWidth/3)+4, aa/3 *((kScreenHeight*2/3 -89)/8)+2,kScreenWidth/3 -4,20);
         button.tag = aa + 100;
         [button setTitle:model.name forState:UIControlStateNormal];
         if (cell.isSelected) {
@@ -260,16 +263,18 @@
 #pragma mark ----- 创建tableView -----
 -(void)creatForTableV{
     for (NSInteger i = 0; i < self.HotArr.count; i++) {
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * i, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * i, 20, kScreenWidth, kScreenHeight-84) style:UITableViewStylePlain];
         tableView.tag = i +1000;
         tableView.backgroundColor= [UIColor whiteColor];
         tableView.delegate = self;
         tableView.dataSource = self;
         if ([self.urlStr isEqualToString:KHotRankURL]) {
             [tableView registerClass:[AllHotTableViewCell class] forCellReuseIdentifier:@"ALLHOTCell"];
+            self.cellName = @"ALLHOTCell";
         }
         if ([self.urlStr isEqualToString:KMoreRankURL] || [self.urlStr isEqualToString:KPrefectURL]) {
             [tableView registerClass:[AllMoreTableViewCell class] forCellReuseIdentifier:@"ALLMORECell"];
+            self.cellName = @"ALLMORECell";
         }
         [self.largeScrollV addSubview:tableView];
     }
@@ -281,9 +286,13 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    AllHotModel *model = self.AllHotArr[indexPath.row];
-    CGFloat H = [AdjustHeight adjustHeightByString:model.title width:kScreenWidth*4/5-60-2 font:20];
-    return 100 +H;
+    if ([self.cellName isEqualToString:@"ALLHOTCell"]) {
+        AllHotModel *model = self.AllHotArr[indexPath.row];
+        CGFloat H = [AdjustHeight adjustHeightByString:model.title width:kScreenWidth*9/10-80 font:18];
+        return H+50;
+    } else {
+        return 100;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

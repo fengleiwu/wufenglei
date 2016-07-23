@@ -49,7 +49,7 @@
 #pragma mark ----- 创建tableView -----
 -(UITableView *)tableV{
     if (!_tableV) {
-        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
         _tableV.delegate = self;
         _tableV.dataSource = self;
         if (self.indexC == 3 || self.indexC == 7 || self.indexC == 8) {
@@ -71,10 +71,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     AllHotModel *model = self.squareArr[indexPath.row];
     if (self.indexC == 3 || self.indexC == 7 || self.indexC == 8) {
-        CGFloat H = [AdjustHeight adjustHeightByString:model.title width:kScreenWidth*4/5-60-2 font:20];
-        return 100 +H;
+        CGFloat H = [AdjustHeight adjustHeightByString:model.title width:kScreenWidth*9/10-80 font:18];
+        return H+50;
     } else {
-        return 120;
+        return 100;
     }
     
 }

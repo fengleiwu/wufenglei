@@ -270,7 +270,7 @@
 
 -(void)creatdownCarouse//轮播图下面
 {
-    CGFloat f = (kScreenWidth - 160) / 4;
+    CGFloat f = (kScreenWidth - 150) / 4;
     [RequestManager requestWithUrlString:KtheSameURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSDictionary *dic1 = dic[@"discoveryColumns"];
@@ -278,12 +278,12 @@
         for (int i = 0; i < 4; i++) {
             UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
             btn.tag = i + 1;
-            btn.frame = CGRectMake(20 + 2 * 20 * i + f * i, 160, f, f + 20);
+            btn.frame = CGRectMake(2 * 20 * i + f * i, 160, f, f + 20);
             [btn addTarget:self action:@selector(tingAction:) forControlEvents:(UIControlEventTouchUpInside)];
-            UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, f, f)];
+            UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, f, f)];
             NSDictionary *dic2 = list[i];
             [imageV sd_setImageWithURL:[NSURL URLWithString:dic2[@"coverPath"]]];
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, f , f, 20)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, f , f+20, 20)];
             label.text = dic2[@"title"];
             [self.TingListArr addObject:dic2[@"title"]];
             label.font = [UIFont systemFontOfSize:13];
@@ -522,7 +522,7 @@
     }if (indexPath.section == 2) {
         return 110;
     }else{
-        return 250;
+        return 240;
     }
 }
 
