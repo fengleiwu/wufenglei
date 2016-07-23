@@ -2545,6 +2545,7 @@
 				TargetAttributes = {
 					798076AA1D339EAD0095911D = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 434FRST7MU;
 					};
 					798076C31D339EAD0095911D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3110,6 +3111,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3142,6 +3144,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Product-BB/Help/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

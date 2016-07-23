@@ -47,15 +47,14 @@
     self.titleLabel.text = model.totalTitle;
     
     if (self.isPlay == YES) {
-        self.titleLabel.frame = CGRectMake(20,10, self.width-100, 30);
-        self.titleLabel.textColor = [UIColor orangeColor];
-            [UIView animateWithDuration:3 delay:0 options:
-             UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveLinear animations:^{
-                 self.titleLabel.transform = CGAffineTransformMakeTranslation(50, 0);
-            }completion:nil];
-
+        [UIView animateWithDuration:1 animations:^{
+            self.titleLabel.frame = CGRectMake(60,10, self.width-60, 30);
+        }];
+        
     } else {
-        self.titleLabel.frame = CGRectMake(50,10, self.width-100, 30);
+        [UIView animateWithDuration:1 animations:^{
+            self.titleLabel.frame = CGRectMake(30,10, self.width-60, 30);
+        }];
     }
 }
 

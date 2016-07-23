@@ -162,8 +162,10 @@
     BroadMusicModel *model = self.tableViewArr[indexPath.row];
     if (model.isPlay == YES) {
         cell.isPlay = YES;
+        cell.titleLabel.textColor = [UIColor orangeColor];
     } else {
         cell.isPlay = NO;
+        cell.titleLabel.textColor = [UIColor blackColor];
     }
     [cell cellConfigureWithModel:model];
     
@@ -175,6 +177,7 @@
 //    PlayListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 //    cell.isPlay = YES;
     
+    // 通知VC，切歌
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playListNotification" object:[NSNumber numberWithInteger:indexPath.row]];
     
 //     // 列表收缩
