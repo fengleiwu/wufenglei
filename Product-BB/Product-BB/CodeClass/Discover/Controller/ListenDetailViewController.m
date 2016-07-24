@@ -18,12 +18,14 @@
 #import "MyDownLoadManager.h"
 #import "MyMusicDownLoadTable.h"
 #import "DownLoadViewController.h"
+#import "AlbumDetailModel.h"
 @interface ListenDetailViewController ()<UITableViewDataSource , UITableViewDelegate>
 @property (nonatomic , strong)NSMutableArray *listenArray;
 @property (nonatomic , strong)UITableView *tab;
 @property (nonatomic , strong)UIView *headView;
 @property (nonatomic , strong)ListenDetailModel *model;
 @property (nonatomic , strong)NSMutableArray *downLoadArray;
+
 @end
 
 @implementation ListenDetailViewController
@@ -37,7 +39,7 @@
     
     [RequestManager requestWithUrlString:encodURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        self.listenArray = [ListenDetailModel arr:dic];
+        self.listenArray = [AlbumDetailModel arr:dic];
         self.model = [ListenDetailModel model:dic];
         [self.tab reloadData];
     } error:^(NSError *error) {
@@ -124,9 +126,17 @@
         if (!cell) {
             cell = [[ListenDetailTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
         }
-        ListenDetailModel *model = self.listenArray[indexPath.row];
+        AlbumDetailModel *model = self.listenArray[indexPath.row];
+        [cell creatListenCell12:model];
         [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
-        [cell creatListenCell:model];
+        if (model.type == DiDdwonload || model.type == Downloadimg || model.type == DownloadPause) {
+            [cell.downLoadBtn setTintColor:[UIColor grayColor]];
+        }else{
+            
+            
+            [cell.downLoadBtn setTintColor:[UIColor redColor]];
+        }
+
         return cell;
     }
 }
@@ -138,7 +148,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ListenDetailModel *model = self.listenArray[indexPath.row];
+    AlbumDetailModel *model = self.listenArray[indexPath.row];
 
     CGFloat f = [self.type floatValue];
     if (f == 1) {
@@ -161,6 +171,18 @@
 
 
 
+// 展示AlertController
+- (void)alertControllerShowWithTitle:(NSString *)title message:(NSString *)message
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [self performSelector:@selector(alertMiss:) withObject:alert afterDelay:1];
+}
+// AlertController自动消失
+- (void)alertMiss:(UIAlertController *)alert
+{
+    [alert dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
@@ -168,14 +190,41 @@
 {
     
     
+    
     ListenDetailTableViewCell *cell = (ListenDetailTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
-    ListenDetailModel *model = self.listenArray[indexPath.row];
-    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-    MyDownLoad *task = [manager creatDownload:model.playPath64];
+    AlbumDetailModel *model = self.listenArray[indexPath.row];
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *tableArray = [table selectAll];
+    if (tableArray.count > 0) {
+        for (NSArray *arr in tableArray) {
+            if ([arr containsObject:model.playPath64]) {
+                [self alertControllerShowWithTitle:@"已被下载" message:nil];
+                return;
+            }
+        }
+    }
+    if (model.type == Downloadimg || model.type == DownloadPause) {
+        [self alertControllerShowWithTitle:@"正在下载或已在下载列表" message:nil];
+        return;
+    }
+
+    model.type = DownloadPause;
     [[ArrayManager shareManager].Array addObject:model];
     [self.downLoadArray addObject:model];
-    [self downLoad:task model:model];
+    for (AlbumDetailModel *model in self.downLoadArray) {
+        if (model.type == Downloadimg) {
+            break;
+        }else{
+            MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+            MyDownLoad *task = [manager creatDownload:model.playPath64];
+            [self downLoad:task model:model];
+        }
+    }
+
+    NSArray *arr = @[self.model.smallLogo,self.model.title];
+    [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+    
 }
 
 -(void)downloadAction
@@ -185,20 +234,18 @@
         return;
     }
     if (self.downLoadArray.count > 0) {
-        ListenDetailModel *model = self.downLoadArray[0];
+        AlbumDetailModel *model = self.downLoadArray[0];
         MyDownLoad *task = [manager creatDownload:model.playPath64];
         [self downLoad:task model:model];
     }
 }
 
--(void)downLoad:(MyDownLoad *)task model:(ListenDetailModel *)model{
+-(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model{
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    
-    
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
-        
+        model.type = Downloadimg;
         
     } DidDownload:^(NSString *savePath, NSString *url) {
         [table creatTable];
@@ -209,9 +256,14 @@
             musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
         }
         [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.model.title]];
-        
+        model.type = DiDdwonload;
+        [self.downLoadArray removeObject:model];
         [[ArrayManager shareManager].Array removeObject:model];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
+
+        [self downloadAction];
+        
+        //[[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
     }];
     
 

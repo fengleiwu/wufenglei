@@ -67,6 +67,30 @@
     return self;
 }
 
+
+
+-(void)creatListenCell12:(AlbumDetailModel *)model
+{
+    if (model.coverLarge == nil) {
+        
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall]];
+    }else{
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverLarge]];
+        
+    }
+    self.titleLabel.text = model.title;
+    self.nameLabel.text = model.nickname;
+    [self.contentView addSubview:self.like];
+    CGFloat f = [model.playsCounts floatValue];
+    if (f / 10000 >= 1) {
+        self.numberLabel.text = [NSString stringWithFormat:@"%.1f万",f / 1000];
+    }else{
+        self.numberLabel.text = [NSString stringWithFormat:@"%@",model.playsCounts];
+    }
+    self.likeLabel.text = [NSString stringWithFormat:@"%@",model.favoritesCounts];
+    self.commentsLabel.text = [NSString stringWithFormat:@"%@",model.commentsCounts];
+}
+
 -(void)creatListenCell:(ListenDetailModel *)model
 {
     if (model.coverLarge == nil) {

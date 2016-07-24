@@ -15,7 +15,6 @@
 #import "MyDownLoadManager.h"
 #import "BroadMusicModel.h"
 #import "MusicplayViewController.h"
-
 @interface DownLoadViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic , strong)UISegmentedControl *seg;
 @property (nonatomic , strong)UIScrollView *scr;
@@ -75,7 +74,7 @@
     self.titleArr = [NSMutableArray array];
     self.titleArr = [[NSUserDefaults standardUserDefaults]objectForKey:@"arr"];
     self.downLoadingArray = [ArrayManager shareManager].Array;
-    
+    [self downloadAction];
 //    self.titleArr = [self.downLoadingArray lastObject];
 //    [self.downLoadingArray removeLastObject];
     [self.downingTab reloadData];
@@ -281,7 +280,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.seg.selectedSegmentIndex == 0) {
-        
         MusicAlbumDownLoadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ss"];
         if (!cell) {
             cell = [[MusicAlbumDownLoadTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"ss"];
@@ -297,7 +295,6 @@
             cell1 = [[DownLoadMusicTableViewCell alloc]initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"sss"];
             }
         if (self.seg.selectedSegmentIndex == 1) {
-            
             [cell1.rubbishBtn addTarget:self action:@selector(delegateOneMusicAction:) forControlEvents:(UIControlEventTouchUpInside)];
             NSArray *arr = self.voiceArr[indexPath.row];
             [cell1 creatCell:arr];
@@ -309,8 +306,6 @@
     }
 }
 
-
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.inter = indexPath.row;
@@ -321,7 +316,7 @@
         down.arr = [arr mutableCopy];
         down.titleL = key;
         [self.navigationController pushViewController:down animated:YES];
-    } else if (self.seg.selectedSegmentIndex == 1) {
+    }else if (self.seg.selectedSegmentIndex == 1) {
         NSMutableArray *array = [NSMutableArray array];
         MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
         for (NSArray *arr in self.voiceArr) {
@@ -346,12 +341,18 @@
         
         [self presentViewController:playVC animated:YES completion:nil];
         
-    }
-    if (self.seg.selectedSegmentIndex == 2) {
+    }if (self.seg.selectedSegmentIndex == 2) {
         AlbumDetailModel *model1 = self.downLoadingArray[indexPath.row];
         MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-        MyDownLoad *task = [manager creatDownload:model1.playUrl64];
+        NSString *url;
+        if (model1.playUrl64 == nil) {
+            url = model1.playPath64;
+        }else{
+            url = model1.playUrl64;
+        }
+        MyDownLoad *task = [manager creatDownload:url];
         model1.isDownLoad = !model1.isDownLoad;
+        
         [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
                 NSLog(@"%lld,%ld,%lld",bytesWritten,progress,allTimes);
                 model1.type = Downloadimg;
@@ -366,13 +367,23 @@
              if (musicData == nil) {
                  musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
              }
-                    [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
+             if (model1.playUrl64 == nil) {
+                 [table insertIntoTable:@[model1.title,model1.playPath64,musicData,savePath,model1.nickname,model1.playsCounts,@"111",model1.commentsCounts,model1.favoritesCounts,albumData,self.self.titleArr[1]]];
+
+             }else{
+                 [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
+             }
                 }else{
                     NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model1.coverLarge]];
                     if (musicData == nil) {
                         musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
                     }
+                    if (model1.playUrl64 == nil) {
+                        [table insertIntoTable:@[model1.title,model1.playPath64,musicData,savePath,model1.nickname,model1.playsCounts,@"111",model1.commentsCounts,model1.favoritesCounts,albumData,self.self.titleArr[1]]];
+
+                    }else{
                     [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
+                    }
                 }
                 [[ArrayManager shareManager].Array removeObject:model1];
                 [self.downLoadingArray removeObject:model1];
@@ -407,15 +418,35 @@
     }
     if (self.downLoadingArray.count == 1) {
         AlbumDetailModel *model = self.downLoadingArray[0];
+        if (model.playUrl64 == nil) {
+            MyDownLoad *task = [manager creatDownload:model.playPath64];
+            [self downLoad:task model:model];
+        }else{
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [self downLoad:task model:model];
-
+        }
     }if (self.downLoadingArray.count > 1) {
+        if (self.inter == 0) {
+            AlbumDetailModel *model = self.downLoadingArray[0];
+            if (model.playUrl64 == nil) {
+                MyDownLoad *task = [manager creatDownload:model.playPath64];
+                [self downLoad:task model:model];
+
+            }else{
+            MyDownLoad *task = [manager creatDownload:model.playUrl64];
+            [self downLoad:task model:model];
+        }
+        }else  {
         AlbumDetailModel *model = self.downLoadingArray[self.inter];
+            if (model.playUrl64 == nil) {
+                MyDownLoad *task = [manager creatDownload:model.playPath64];
+                [self downLoad:task model:model];
+}else{
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [self downLoad:task model:model];
-
-    }
+            }
+}
+}
    
     
     
@@ -439,13 +470,27 @@
             if (musicData == nil) {
                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
             }
+            if (model.playUrl64 == nil) {
+//                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.self.titleArr[1]]];
+
+            }else{
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+            }
         }else{
             NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
             if (musicData == nil) {
                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
             }
+            if (model.playUrl64 == nil) {
+//                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+                
+                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.self.titleArr[1]]];
+
+            }else{
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+                
+            }
         }
         [[ArrayManager shareManager].Array removeObject:model];
         [self.downLoadingArray removeObject:model];

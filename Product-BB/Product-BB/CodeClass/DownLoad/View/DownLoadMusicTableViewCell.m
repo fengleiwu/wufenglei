@@ -125,10 +125,24 @@
 {
     self.progress.hidden = NO;
     self.rubbishBtn.hidden = YES;
+    if (model.smallLogo == nil) {
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverSmall] placeholderImage:[UIImage imageNamed:@"1004.jpg"]];
+    }else{
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.smallLogo]];
+    }
     self.titleL.text = model.title;
     self.fuTitleL.text = model.nickname;
-    CGFloat f = [model.playtimes floatValue];
+    if (model.playtimes == nil) {
+        CGFloat f = [model.playsCounts floatValue];
+        if (f > 10000) {
+            self.label1.text = [NSString stringWithFormat:@"%.1f万",f / 10000];
+        }if (f/10000 > 10000) {
+            self.label1.text = [NSString stringWithFormat:@"%.1f亿",f / 10000 / 10000];
+        }if (f <= 10000) {
+            self.label1.text = [NSString stringWithFormat:@"%@",model.playsCounts];
+        }
+
+    }else { CGFloat f = [model.playtimes floatValue];
     if (f > 10000) {
         self.label1.text = [NSString stringWithFormat:@"%.1f万",f / 10000];
     }if (f/10000 > 10000) {
@@ -136,21 +150,40 @@
     }if (f <= 10000) {
         self.label1.text = [NSString stringWithFormat:@"%@",model.playtimes];
     }
+    }
     
+    if (model.likes == nil) {
+        CGFloat g = [model.favoritesCounts floatValue];
+        if (g > 10000) {
+            self.label2.text = [NSString stringWithFormat:@"%.1f万",g / 10000];
+        }if (g <= 10000) {
+            self.label2.text = [NSString stringWithFormat:@"%@",model.favoritesCounts];
+        }
+
+    }else{
     CGFloat g = [model.likes floatValue];
     if (g > 10000) {
         self.label2.text = [NSString stringWithFormat:@"%.1f万",g / 10000];
     }if (g <= 10000) {
         self.label2.text = [NSString stringWithFormat:@"%@",model.likes];
     }
-    
+}
+
+    if (model.comments == nil) {
+        CGFloat h = [model.commentsCounts floatValue];
+        if (h > 10000) {
+            self.label3.text = [NSString stringWithFormat:@"%.1f万",h / 10000];
+        }if (h <= 10000) {
+            self.label3.text = [NSString stringWithFormat:@"%@",model.commentsCounts];
+        }
+    }else{
     CGFloat h = [model.comments floatValue];
     if (h > 10000) {
         self.label3.text = [NSString stringWithFormat:@"%.1f万",h / 10000];
     }if (h <= 10000) {
         self.label3.text = [NSString stringWithFormat:@"%@",model.comments];
     }
-
+    }
 }
 
 

@@ -12,6 +12,7 @@
 
 
 @property(nonatomic , strong)NSMutableArray *Array;
+@property(nonatomic , strong)NSMutableArray *oneArray;
 
 
 

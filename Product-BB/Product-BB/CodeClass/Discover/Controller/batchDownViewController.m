@@ -19,6 +19,7 @@
 @property (nonatomic ,strong)UIButton *downLoadBtn;
 @property (nonatomic ,strong)UIButton *quanxuanBtn;
 @property (nonatomic ,strong)NSMutableArray *downArr;
+@property (nonatomic ,strong)NSMutableArray *downDownDownArr;
 @end
 
 @implementation batchDownViewController
@@ -27,13 +28,28 @@
     [super viewDidLoad];
     [self creatTableview];
     self.downArr = [NSMutableArray array];
+    self.downDownDownArr = [NSMutableArray array];
+    
+    
+    
+    
     self.title = @"批量下载";
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"箭头 (2)"] style:(UIBarButtonItemStylePlain) target:self action:@selector(back)];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"正在下载" style:(UIBarButtonItemStylePlain) target:self action:@selector(turnToDowningAction)];
+    //UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"正在下载" style:(UIBarButtonItemStylePlain) target:self action:@selector(turnToDowningAction)];
     
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    NSArray *tableArray = [table selectAll];
+    for (AlbumDetailModel *model in self.arr) {
+        for (NSArray *arr in tableArray) {
+            if ([arr containsObject:model.playUrl64]) {
+                [self.downDownDownArr addObject:model];
+                break;
+            }
+        }
+    }
     item.tintColor = [UIColor redColor];
     self.navigationItem.leftBarButtonItem = item;
-    self.navigationItem.rightBarButtonItem = rightItem;
+    //self.navigationItem.rightBarButtonItem = rightItem;
     // Do any additional setup after loading the view.
 }
 -(void)back
@@ -76,6 +92,7 @@
        model.isSelect = NO;
                 }else{
                 [cell.imageV addTarget:self action:@selector(choseAction:) forControlEvents:(UIControlEventTouchUpInside)];
+                    [cell.imageV setTintColor:[UIColor redColor]];
                 
                 if (model.isSelect == YES) {
                     [cell.imageV setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
@@ -172,9 +189,11 @@
         [self.quanxuanBtn setImage:[UIImage imageNamed:@"2"] forState:(UIControlStateNormal)];
         [self.quanxuanBtn addTarget:self action:@selector(changeNoAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
-    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    NSArray *tableArray = [table selectAll];
-    if (self.downArr.count + tableArray.count < self.arr.count) {
+//    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+//    NSArray *tableArray = [table selectAll];
+    
+    
+    if (self.downArr.count + self.downDownDownArr.count < self.arr.count) {
         [self.quanxuanBtn setImage:[UIImage imageNamed:@"1"] forState:(UIControlStateNormal)];
         [self.quanxuanBtn addTarget:self action:@selector(changeYesAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
@@ -312,6 +331,7 @@ NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.cove
             model.type = DiDdwonload;
             [self.downArr removeObject:model];
             [[ArrayManager shareManager].Array removeObject:model];
+            [self.downDownDownArr addObject:model];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
         [self downloadAction];
     }];

@@ -26,6 +26,7 @@
     self = [super init];
     if (self) {
         self.Array = [NSMutableArray array];
+        self.oneArray = [NSMutableArray array];
     }
     return self;
 }

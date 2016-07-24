@@ -127,4 +127,20 @@
     return arr;
 }
 
+
+
++(NSMutableArray *)arr:(NSDictionary *)dic
+{
+    NSMutableArray *arr1 = [NSMutableArray array];
+    NSArray *list = dic[@"list"];
+    for (NSDictionary *dic1 in list) {
+        AlbumDetailModel *model = [[AlbumDetailModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic1];
+        [arr1 addObject:model];
+    }
+    return arr1;
+}
+
+
+
 @end

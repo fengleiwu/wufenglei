@@ -405,8 +405,18 @@
     }
         
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
+        
         [cell.downLoadBtn addTarget:self action:@selector(downLoadAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [cell creatCell:model];
+        if (model.type == DiDdwonload || model.type == Downloadimg || model.type == DownloadPause) {
+            [cell.downLoadBtn setTintColor:[UIColor grayColor]];
+        }else{
+            
+            
+            [cell.downLoadBtn setTintColor:[UIColor redColor]];
+        }
+        
+        
     return cell;
     }
 }
@@ -520,7 +530,7 @@
     [[ArrayManager shareManager].Array addObject:model];
     model.type = DownloadPause;
     
-    for (AlbumDetailModel *model in self.downLoadArray) {
+    for (AlbumDetailModel *model in [ArrayManager shareManager].Array) {
         if (model.type == Downloadimg) {
             break;
         }else{
@@ -541,6 +551,7 @@
         return;
     }
     if (self.downLoadArray.count > 0) {
+        
         AlbumDetailModel *model = self.downLoadArray[0];
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [self downLoad:task model:model];
@@ -577,15 +588,13 @@
             }
         }else{
             NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverLarge]];
-            
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
         }
         [self.downLoadArray removeObject:model];
         [[ArrayManager shareManager].Array removeObject:model];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
                 [self downloadAction];
-
-    }];
+}];
 
     
     
@@ -612,12 +621,6 @@
 //        [self downloadAction];
 //    }];
 }
-
-
-
-
-
-
 
 // 展示AlertController
 - (void)alertControllerShowWithTitle:(NSString *)title message:(NSString *)message

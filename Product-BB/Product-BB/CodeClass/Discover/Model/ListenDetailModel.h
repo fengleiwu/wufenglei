@@ -8,8 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ListenDetailModel : NSObject
 
+//typedef NS_ENUM(NSInteger, DownloadType){
+//    UnDownload,
+//    Downloadimg,
+//    DownloadPause,
+//    DiDdwonload
+//};
+
+typedef NS_ENUM(NSInteger , StillDownLoadType) {
+    StillUnDownLoad,
+    StillDownLoading,
+    StillDownLoadPause,
+    StillDidDownLoad
+};
+
+
+@interface ListenDetailModel : NSObject
 @property(nonatomic , strong)NSString *title;//
 @property(nonatomic , strong)NSString *nickname;//
 @property(nonatomic , strong)NSString *intro;
@@ -31,6 +46,8 @@
 @property(nonatomic , strong)NSString *commentsCounts;
 @property(nonatomic , strong)NSString *coverSmall;
 @property(nonatomic , strong)NSString *uid;
+
+@property(nonatomic , assign)StillDownLoadType type;
 
 
 +(ListenDetailModel *)model:(NSDictionary *)dic;

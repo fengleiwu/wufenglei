@@ -10,6 +10,7 @@
 #import "ListenDetailModel.h"
 #import "attentionModel.h"//关注界面最下面
 #import "attentionFanZanModel.h"
+#import "AlbumDetailModel.h"
 @interface ListenDetailTableViewCell : UITableViewCell
 
 @property(nonatomic , strong)UIImageView *imageV;
@@ -29,5 +30,6 @@
 
 -(void)creatZanguoCell:(attentionFanZanModel *)model;
 
+-(void)creatListenCell12:(AlbumDetailModel *)model;
 
 @end

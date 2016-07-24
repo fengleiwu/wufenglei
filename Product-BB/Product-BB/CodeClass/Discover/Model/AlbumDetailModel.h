@@ -56,10 +56,38 @@ typedef NS_ENUM(NSInteger, DownloadType){
 
 
 
+
+
+
+
+
+
+@property(nonatomic , strong)NSString *personalSignature;//听单详情上面和下面的
+
+@property(nonatomic , strong)NSString *playsCounts;//
+@property(nonatomic , strong)NSString *albumCoverUrl290;
+@property(nonatomic , strong)NSString *myid;
+@property(nonatomic , strong)NSString *tracksCounts;
+@property(nonatomic , strong)NSString *contentType;
+
+@property(nonatomic , strong)NSString *specialId;
+
+
+@property(nonatomic , strong)NSString *favoritesCounts;
+@property(nonatomic , strong)NSString *playPath64;//
+@property(nonatomic , strong)NSString *commentsCounts;
+@property(nonatomic , strong)NSString *coverSmall;
+
+
+
+
 +(AlbumDetailModel *)album:(NSDictionary *)dic;
 +(NSMutableArray *)tracks:(NSDictionary *)dic;
 +(AlbumDetailModel *)user:(NSDictionary *)dic;
 +(NSMutableArray *)payArray:(NSDictionary *)dic;
+
+
++(NSMutableArray *)arr:(NSDictionary *)dic;
 
 
 
