@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BroadMusicModel.h"
+#import "DingYueModel.h"
 
 @interface HistoryOfPlayTableViewCell : UITableViewCell
 @property (nonatomic, strong)UIImageView *imageV;
@@ -15,4 +16,6 @@
 @property (nonatomic, strong)UILabel *intoL;
 
 -(void)cellConfigureWithModel:(BroadMusicModel *)model;
+
+-(void)CellConfigureWithModel:(DingYueModel *)model;
 @end

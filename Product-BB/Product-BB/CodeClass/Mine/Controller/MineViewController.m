@@ -12,7 +12,7 @@
 #import "LoginViewController.h"
 #import "RecommendViewController.h"
 
-@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate,XMPPRosterDelegate>
+@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate,XMPPRosterDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic, strong)UIView *MindUserV;
 @property (nonatomic, strong)UIView *backV1;
 @property (nonatomic, strong)UIView *back2;
@@ -25,6 +25,7 @@
 @property (nonatomic, strong)NSMutableArray *logoArr;
 @property (nonatomic, strong)UIBlurEffect *beffect;
 @property (nonatomic, strong)UIVisualEffectView *effectV;
+@property (strong, nonatomic)UIImagePickerController *pickVC;
 @property (nonatomic , strong)HFStretchableTableHeaderView *stretchHeaderView;
 @end
 
@@ -80,8 +81,7 @@
     [self.view addSubview:self.tableV];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableV.tableHeaderView = self.MindUserV;
-    
-    
+    [self addGesture];
     // Do any additional setup after loading the view.
 }
 
@@ -247,6 +247,56 @@
 #pragma mark ----- 创建换头像方法 -----
 -(void)changeHead{
 
+}
+
+#pragma mark ----- 打开照相机 -----
+-(void)addGesture{
+    self.MindUserV.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(action)];
+    [self.MindUserV addGestureRecognizer:tap];
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"更换背景" preferredStyle:<#(UIAlertControllerStyle)#>]
+}
+
+-(void)action{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"选择背景图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        //判断设备是否存在相机，如果存在，那就弹出相机
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            //创建相机
+            UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            [self presentViewController:picker animated:YES completion:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"唉，你是对自拍没自信嘛？！" message:@"用美图秀秀吧" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:action];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+    [alertC addAction:action1];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.pickVC = [[UIImagePickerController alloc]init];
+        self.pickVC.allowsEditing = YES;
+        self.pickVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.pickVC.delegate = self;
+        [self presentViewController:_pickVC animated:YES completion:nil];
+    }];
+    [alertC addAction:action2];
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    }];
+    [alertC addAction:action3];
+    [self presentViewController:alertC animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[@"UIImagePickerControllerEditedImage"];
+    self.back2.backgroundColor = [UIColor colorWithPatternImage:image];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ----- 登录方法 -----

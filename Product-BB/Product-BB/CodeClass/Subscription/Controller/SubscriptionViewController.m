@@ -7,6 +7,7 @@
 //
 
 #import "SubscriptionViewController.h"
+#import "AlbumDetailViewController.h"
 #import "DetailListTableViewCell.h"
 #import "MyMusicDownLoadTable.h"
 #import "MusicplayViewController.h"
@@ -22,7 +23,6 @@
 @property (nonatomic, strong)NSString *URLStr;
 @property (nonatomic, strong)NSArray *SUBArr;
 @property (nonatomic, strong)NSArray *sqliteArr;
-@property (nonatomic, strong)NSArray *urlArr;
 @property (nonatomic, strong)NSMutableArray *urlidArr;
 @property (nonatomic, strong)NSMutableArray *modelArr;
 @property (nonatomic, strong)UITableView *tableV1;
@@ -30,6 +30,7 @@
 @property (nonatomic, strong)UITableView *tableV3;
 @property (nonatomic, strong)UIScrollView *scrollV;
 @property (nonatomic, strong)UIImageView *imageV2;
+@property (nonatomic, strong)UIImageView *imageV3;
 @property (nonatomic, strong)UIButton *checkB;
 @property (nonatomic, strong)UIButton *removeB;
 @property (nonatomic, strong)UILabel *label2;
@@ -43,13 +44,6 @@
         _KurlArr = [NSMutableArray arrayWithObjects:KFREE1URL,KFREE2URL,KFREE3URL,KFREE4URL,KFREE5URL,KFREE6URL, nil];
     }
     return _KurlArr;
-}
-
--(NSArray *)urlArr{
-    if (!_urlArr) {
-        _urlArr = @[@"http://mobile.ximalaya.com/mobile/v1/artist/albums?device=iPhone&pageId=1&pageSize=2&statEvent=pageview%2Fuserlist%40%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96&statModule=%E6%98%8E%E6%98%9F%E5%A4%A7%E5%92%96_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E4%B8%BB%E6%92%AD&statPosition=1&toUid=54060615",KtheSameURL,@"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=4345263&device=iPhone&isAsc=true&pageId=1&pageSize=20&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1",@"http://mobile.ximalaya.com/mobile/v1/album?albumId=308981&device=iPhone&pageSize=20&source=5&statEvent=pageview%2Falbum%40266276&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1",@"http://mobile.ximalaya.com/mobile/v1/album/detail?albumId=4345263&device=iPhone&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1"];
-    }
-    return _urlArr;
 }
 
 -(NSMutableArray *)recommendArr{
@@ -87,12 +81,19 @@
     return _urlidArr;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.segContoller removeFromSuperview];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController.view addSubview:self.segContoller];
     if (self.scrollV.contentOffset.x == 0) {
         //刷新请求数据
         self.tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [MBProgressHUD setUpHUDWithFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height) gifName:@"5562497_03" andShowToView:self.view];
+            self.isload = YES;
             [self.recommendArr removeAllObjects];
             [self requestData];
         }];
@@ -102,15 +103,19 @@
     }
     if (self.scrollV.contentOffset.x == kScreenWidth*2) {
         [self refreshData];
+        [self.scrollV addSubview:self.tableV2];
+        [self.scrollV addSubview:self.editV];
+        [self.editV addSubview:self.checkB];
+        [self.editV addSubview:self.removeB];
     }
-    if (self.scrollV.contentOffset.y == kScreenWidth) {
+    if (self.scrollV.contentOffset.x == kScreenWidth) {
         [self refreshWithData];
+        [self.scrollV addSubview:self.tableV3];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.view addSubview:self.segContoller];
     self.navigationController.navigationBar.translucent = NO;
     [self.segContoller addSubview:self.moveV];
     [self.view addSubview:self.scrollV];
@@ -134,8 +139,10 @@
         self.view.backgroundColor = PKCOLOR(211, 211, 211);
         for (NSArray *arr in self.sqliteArr) {
             BroadMusicModel *model = [[BroadMusicModel alloc]init];
+            model.musicURL = arr[0];
             model.totalTitle = arr[1];
             model.liveTitle = arr[2];
+            model.playCount = arr[3];
             model.bgImage = arr[4];
             [self.modelArr addObject:model];
         }
@@ -143,18 +150,25 @@
         [self.scrollV addSubview:self.editV];
         [self.editV addSubview:self.checkB];
         [self.editV addSubview:self.removeB];
+    }
     // Do any additional setup after loading the view.
-   }
+    //第二个界面
     self.SUBArr = [table selectAllInDingyue];
     if (self.SUBArr.count == 0) {
-        
+        //创建背景
+        self.imageV3 = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight - 64-self.tabBarController.tabBar.height)];
+        self.imageV3.image = [UIImage imageNamed:@"喵呜.png"];
+        [self.scrollV addSubview:self.imageV3];
+        //创建提醒标签
+        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/2+kScreenWidth, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+        self.label2.text = @"喵呜~ 说好的订阅呢...";
+        self.label2.textColor = [UIColor whiteColor];
+        self.label2.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label2];
     } else {
         self.urlidArr = [DingYueModel modelConfigureWithArray:self.SUBArr];
     }
-    for (DingYueModel *model in self.urlidArr) {
-        NSLog(@"%@",model.uid);
-    }
-    [self requestWithData];
+    [self.scrollV addSubview:self.tableV3];
 }
 
 #pragma mark ----- 创建滑块视图 -----
@@ -207,6 +221,9 @@
 
 #pragma mark ----- scrollView协议方法 -----
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if ( scrollView == self.tableV1 || scrollView == self.tableV2 || scrollView == self.tableV3) {
+        
+    } else {
     self.segContoller.selectedSegmentIndex = scrollView.contentOffset.x/kScreenWidth;
     CGRect frame = self.moveV.frame;
     frame.origin.x = self.segContoller.selectedSegmentIndex *kScreenWidth/3;
@@ -236,8 +253,16 @@
                 model.bgImage = arr[4];
                 [self.modelArr addObject:model];
             }
+            [self.imageV2 removeFromSuperview];
+            [self.tableV2 reloadData];
+            
             // Do any additional setup after loading the view.
         }
+    }
+    if (self.scrollV.contentOffset.x == kScreenWidth) {
+        [self refreshWithData];
+
+    }
     }
 }
 
@@ -258,7 +283,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 101) {
       return self.recommendArr.count;
-    } else {
+    } else if (tableView.tag == 103){
+        return self.urlidArr.count;
+    }
+    else {
       return self.modelArr.count;
     }
 }
@@ -277,7 +305,13 @@
         DetailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailCell" forIndexPath:indexPath];
         [cell CellConfigureWithModel:model];
         return cell;
-    } else{
+    } else if (tableView.tag == 103){
+        DingYueModel *model = self.urlidArr[indexPath.row];
+        HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
+        [cell CellConfigureWithModel:model];
+        return cell;
+    }
+    else{
         BroadMusicModel *model = self.modelArr[indexPath.row];
         HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
         [cell cellConfigureWithModel:model];
@@ -286,6 +320,21 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 101) {
+       AlbumDetailViewController *aDetailVC = [[AlbumDetailViewController alloc]init];
+        SUBModel *model = [[SUBModel alloc]init];
+        model = self.recommendArr[indexPath.row];
+        NSLog(@"%@",[NSString stringWithFormat:@"%ld",[model.albumId integerValue]]);
+        aDetailVC.url = [NSString stringWithFormat:@"%ld",[model.albumId integerValue]];
+        aDetailVC.inter = model.inter;
+        aDetailVC.isPaid = model.isPaid;
+        aDetailVC.row = model.row;
+        aDetailVC.nickName = model.nickname;
+        aDetailVC.uid = model.uid;
+        aDetailVC.score = model.score;
+        aDetailVC.displayPrice = model.displayPrice;
+       [self.navigationController pushViewController:aDetailVC animated:YES];
+    }
     if (tableView.tag == 102) {
         if (self.isClick == NO) {
             MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
@@ -307,6 +356,20 @@
         model.isSelect = !model.isSelect;
         }
     }
+    if (tableView.tag == 103) {
+        AlbumDetailViewController *aDetailVC = [[AlbumDetailViewController alloc]init];
+        DingYueModel *model = [[DingYueModel alloc]init];
+        model = self.urlidArr[indexPath.row];
+        aDetailVC.url = model.albumid;
+        aDetailVC.inter = [model.inter integerValue];
+        aDetailVC.isPaid = [model.isPaid integerValue];
+        aDetailVC.row = [model.row integerValue];
+        aDetailVC.nickName = model.nickName;
+        aDetailVC.uid = model.uid;
+        aDetailVC.score = model.score;
+        aDetailVC.displayPrice = model.displayPrice;
+        [self.navigationController pushViewController:aDetailVC animated:YES];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -320,10 +383,11 @@
 #pragma mark ----- 创建订阅界面 -----
 -(UITableView *)tableV3{
     if (!_tableV3) {
-        _tableV3 = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableV3 = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableV3.delegate = self;
         _tableV3.dataSource = self;
         _tableV3.tag = 103;
+        [_tableV3 registerClass:[HistoryOfPlayTableViewCell class] forCellReuseIdentifier:@"historyCell"];
     }
     return _tableV3;
 }
@@ -433,7 +497,16 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     self.sqliteArr = [table selectAllInHistoryOfPlay];
     if (self.sqliteArr.count == 0) {
-        
+        //创建背景
+        self.imageV2 = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight - 64-self.tabBarController.tabBar.height)];
+        self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
+        [self.scrollV addSubview:self.imageV2];
+        //创建提醒标签
+        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+        self.label2.text = @"你还没有收听过...";
+        self.label2.textColor = [UIColor whiteColor];
+        self.label2.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label2];
     }else {
         [self.modelArr removeAllObjects];
         for (NSArray *arr in self.sqliteArr) {
@@ -445,6 +518,7 @@
             model.bgImage = arr[4];
             [self.modelArr addObject:model];
         }
+        [self.imageV2 removeFromSuperview];
     }
     [self.tableV2 reloadData];
 }
@@ -453,12 +527,22 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     self.SUBArr = [table selectAllInDingyue];
     if (self.SUBArr.count == 0) {
-        
+        //创建背景
+        self.imageV3 = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight - 64-self.tabBarController.tabBar.height)];
+        self.imageV3.image = [UIImage imageNamed:@"喵呜.png"];
+        [self.scrollV addSubview:self.imageV3];
+        //创建提醒标签
+        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/2+kScreenWidth, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 150, 30)];
+        self.label2.text = @"喵呜~ 说好的订阅呢...";
+        self.label2.textColor = [UIColor whiteColor];
+        self.label2.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label2];
     }else {
         [self.urlidArr removeAllObjects];
         self.urlidArr = [DingYueModel modelConfigureWithArray:self.SUBArr];
+        [self.imageV3 removeFromSuperview];
     }
-//    [self.tableV3 reloadData];
+    [self.tableV3 reloadData];
 }
 
 #pragma mark ----- 数据请求 -----
@@ -479,33 +563,7 @@
 }
 
 -(void)requestWithData{
-//    for (DingYueModel *model in self.urlidArr) {
-//        if ([model.uid isEqualToString:@"2"]) {
-//            if ([model.isPaid isEqualToString:@"0"]&&[model.nickName isEqualToString:@"3"]&& ![model.inter isEqualToString:@"4"]) {
-//        self.URLStr = self.urlidArr[2];
-//                break;
-//            }
-//            if ([model.inter isEqualToString:@"4"]) {
-//                self.URLStr = KtheSameURL;
-//                break;
-//            }
-//            if (![model.nickName isEqualToString:@"3"]) {
-//                self.URLStr = self.urlidArr[3];
-//                break;
-//            }
-//        } else{
-//        self.URLStr = self.urlArr[0];
-//        self.URLStr = [self.URLStr stringByReplacingOccurrencesOfString:@"Uid=54060615" withString:[NSString stringWithFormat:@"Uid=%@",model.uid]];
-//            break;
-//        }
-//    }
-//    [RequestManager requestWithUrlString:self.URLStr requestType:RequestGET parDic:nil finish:^(NSData *data) {
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"%@",dic);
-//    
-//    } error:^(NSError *error) {
-//        NSLog(@"bottomData --- %@", error);
-//    }];
+
 }
 
 - (void)didReceiveMemoryWarning {

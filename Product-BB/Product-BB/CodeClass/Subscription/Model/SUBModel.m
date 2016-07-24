@@ -19,6 +19,14 @@
     NSArray *arr = data[@"list"];
     for (NSDictionary *dic in arr) {
         SUBModel *model = [[SUBModel alloc]init];
+//        model.albumId = dic[@"albumId"];
+        model.inter = 3;
+        model.isPaid = 0;
+        model.row = 0;
+        model.nickname = dic[@"nickname"];
+        model.uid = dic[@"uid"];
+        model.uid = 0;
+        model.displayPrice = 0;
         [model setValuesForKeysWithDictionary:dic];
         [Arr addObject:model];
     }

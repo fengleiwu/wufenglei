@@ -47,6 +47,12 @@ BOOL isClick = NO;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"playFrame" object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"playResume" object:nil];
 }
 
 - (void)viewDidLoad {
@@ -279,7 +285,7 @@ BOOL isClick = NO;
 #pragma mark ----- 创建webView -----
 -(UIWebView *)wView{
     if (!_wView) {
-        _wView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64,kScreenWidth,kScreenHeight)];
+        _wView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64,kScreenWidth,kScreenHeight-64)];
     }
     return _wView;
 }

@@ -46,11 +46,22 @@
 
 -(void)cellConfigureWithModel:(BroadMusicModel *)model{
     self.titleL.numberOfLines = 0;
-    self.titleL.font = [UIFont systemFontOfSize:18];
+    self.titleL.font = [UIFont systemFontOfSize:17];
     UIImage *image = [UIImage imageNamed:@"1004.jpg"];
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.bgImage] placeholderImage:image completed:nil];
     self.titleL.text = model.totalTitle;
     self.intoL.text = model.liveTitle;
+    self.intoL.textColor = [UIColor grayColor];
+    self.intoL.font = [UIFont systemFontOfSize:15];
+}
+
+-(void)CellConfigureWithModel:(DingYueModel *)model{
+    self.titleL.numberOfLines = 0;
+    self.titleL.font = [UIFont systemFontOfSize:17];
+    UIImage *image = [UIImage imageNamed:@"1004.jpg"];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:image completed:nil];
+    self.titleL.text = model.bigTitle;
+    self.intoL.text = model.smallTitle;
     self.intoL.textColor = [UIColor grayColor];
     self.intoL.font = [UIFont systemFontOfSize:15];
 }

@@ -11,4 +11,6 @@
 @interface SubscriptionViewController : UIViewController
 @property (nonatomic, assign)BOOL isClick;
 @property (nonatomic, assign)BOOL All;
+@property (nonatomic, assign)BOOL isload;
+@property (nonatomic, assign)BOOL isTable;
 @end

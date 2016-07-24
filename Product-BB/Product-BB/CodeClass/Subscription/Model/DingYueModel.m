@@ -25,6 +25,9 @@
         model.nickName = arr[5];
         model.score = arr[6];
         model.displayPrice = arr[7];
+        model.image = arr[8];
+        model.bigTitle = arr[9];
+        model.smallTitle = arr[10];
         [Arr addObject:model];
     }
     return Arr;

@@ -17,6 +17,9 @@
 @property (nonatomic, strong)NSString *nickName;
 @property (nonatomic, strong)NSString *score;
 @property (nonatomic, strong)NSString *displayPrice;
+@property (nonatomic, strong)NSString *image;
+@property (nonatomic, strong)NSString *bigTitle;
+@property (nonatomic, strong)NSString *smallTitle;
 
 +(NSMutableArray *)modelConfigureWithArray:(NSArray *)array;
 @end

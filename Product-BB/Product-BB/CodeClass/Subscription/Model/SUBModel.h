@@ -17,5 +17,15 @@
 @property (nonatomic, strong)NSString *tracks;
 @property (nonatomic, strong)NSString *recReason;
 
+@property (nonatomic, strong)NSString *albumId;
+@property (nonatomic, assign)NSInteger inter;
+@property(nonatomic , assign)BOOL isPaid;
+@property(nonatomic , assign)NSInteger row;//第几个
+@property(nonatomic , strong)NSString *uid;//uid
+@property(nonatomic , strong)NSString *nickname;
+
+@property(nonatomic , strong)NSString *score;
+@property(nonatomic , strong)NSString *displayPrice;
+
 + (NSMutableArray *)modelConfigureWithDic:(NSDictionary *)jsonDic;
 @end

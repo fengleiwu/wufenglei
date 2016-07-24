@@ -8,6 +8,9 @@
 
 #import "LoginViewController.h"
 #import "RegistViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 @interface LoginViewController ()<UITextFieldDelegate,XMPPStreamDelegate>
 @property (nonatomic, strong)UIButton *registB;
@@ -66,18 +69,21 @@
     self.QQB = [UIButton buttonWithType:UIButtonTypeSystem];
     self.QQB.frame = CGRectMake(-kScreenHeight/11-kScreenHeight/11-kScreenWidth/9, kScreenHeight*2/11, kScreenHeight/11,kScreenHeight/11);
     [self.QQB setImage:[UIImage imageNamed:@"QQ.png"] forState:UIControlStateNormal];
+    [self.QQB addTarget:self action:@selector(QQAction) forControlEvents:UIControlEventTouchUpInside];
     self.QQB.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.QQB];
     //创建微信button
     self.weiChatB = [UIButton buttonWithType:UIButtonTypeSystem];
     self.weiChatB.frame = CGRectMake(-kScreenHeight/11-kScreenWidth/9-kScreenHeight/22-kScreenHeight/11-kScreenWidth/9, kScreenHeight*2/11, kScreenHeight/11,kScreenHeight/11);
     [self.weiChatB setImage:[UIImage imageNamed:@"微信 (1).png"] forState:UIControlStateNormal];
+    [self.weiChatB addTarget:self action:@selector(weiChatAction) forControlEvents:UIControlEventTouchUpInside];
     self.weiChatB.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.weiChatB];
     //创建微博button
     self.weiBOB = [UIButton buttonWithType:UIButtonTypeSystem];
     self.weiBOB.frame = CGRectMake(-kScreenHeight/11, kScreenHeight*2/11, kScreenHeight/11,kScreenHeight/11);
     [self.weiBOB setImage:[UIImage imageNamed:@"微博 (3).png"] forState:UIControlStateNormal];
+    [self.weiBOB addTarget:self action:@selector(weiBOAction) forControlEvents:UIControlEventTouchUpInside];
     self.weiBOB.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.weiBOB];
     //创建账号TF
@@ -196,6 +202,38 @@
     [self.imageV addSubview:self.effectV];
     [self startAnimated];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark ----- 第三方登录按钮 -----
+-(void)QQAction{
+    [self connectShareSDKWithType:SSDKPlatformTypeQQ];
+}
+
+-(void)weiBOAction{
+    [self connectShareSDKWithType:SSDKPlatformTypeSinaWeibo];
+}
+
+-(void)weiChatAction{
+    [self connectShareSDKWithType:SSDKPlatformTypeWechat];
+}
+
+#pragma mark ----- 第三方登录调用此方法 -----
+-(void)connectShareSDKWithType:(SSDKPlatformType)type{
+    [SSEThirdPartyLoginHelper loginByPlatform:type onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler) {
+        //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
+        //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
+        associateHandler (user.uid, user, user);
+        NSLog(@"dd%@",user.rawData);
+        NSLog(@"dd%@",user.credential);
+    }onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
+        if (state == SSDKResponseStateSuccess)
+        {
+            NSLog(@"登录成功");
+        }
+        else {
+            NSLog(@"登录失败");
+        }
+    }];
 }
 
 -(UILabel *)dengluL{
