@@ -110,7 +110,7 @@
         _moreV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, self.view.height/12)];
         _moreV2.backgroundColor = [UIColor whiteColor];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        button.frame = CGRectMake(0, 10, 22, self.view.height/9 -34);
+        button.frame = CGRectMake(5, 20, 15, 15);
         [button setImage:[UIImage imageNamed:@"播放 (2).png"] forState:UIControlStateNormal];
         button.tintColor = [UIColor orangeColor];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(24, 0, 100, self.view.height/9-10)];
