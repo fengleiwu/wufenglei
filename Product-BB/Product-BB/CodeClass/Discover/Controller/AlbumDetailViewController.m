@@ -511,8 +511,6 @@
         return;
     }
 //    BOOL isFirstDownLoad = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstDownLoad"];
-    
-    
     if (self.inter <= 2 && self.inter >= 0) {
         if (self.isPaid == NO) {
             NSArray *arr = @[self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title];
@@ -590,8 +588,13 @@
             NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.albumModel.coverLarge]];
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
         }
+        model.type = DiDdwonload;
         [self.downLoadArray removeObject:model];
         [[ArrayManager shareManager].Array removeObject:model];
+        if ([ArrayManager shareManager].Array.count > 0) {
+            AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+            model.type = Downloadimg;
+        }
         [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
                 [self downloadAction];
 }];

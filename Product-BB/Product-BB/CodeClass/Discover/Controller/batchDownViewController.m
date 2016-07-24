@@ -287,6 +287,7 @@
     
     
     for (AlbumDetailModel *model in self.downArr) {
+        model.type = DownloadPause;
         [[ArrayManager shareManager].Array addObject:model];
     }
     NSLog(@"%ld",self.downArr.count);
@@ -332,6 +333,10 @@ NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.cove
             [self.downArr removeObject:model];
             [[ArrayManager shareManager].Array removeObject:model];
             [self.downDownDownArr addObject:model];
+            if ([ArrayManager shareManager].Array.count > 0) {
+                AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+                model.type = Downloadimg;
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
         [self downloadAction];
     }];

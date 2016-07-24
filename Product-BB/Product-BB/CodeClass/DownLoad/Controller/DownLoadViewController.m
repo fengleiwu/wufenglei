@@ -74,9 +74,6 @@
     self.titleArr = [NSMutableArray array];
     self.titleArr = [[NSUserDefaults standardUserDefaults]objectForKey:@"arr"];
     self.downLoadingArray = [ArrayManager shareManager].Array;
-    [self downloadAction];
-//    self.titleArr = [self.downLoadingArray lastObject];
-//    [self.downLoadingArray removeLastObject];
     [self.downingTab reloadData];
 }
 
@@ -152,8 +149,10 @@
     [self creatAlbumDic];
     [self creatVoiceArray];
     [self creatdownLoadingArray];
-    
-    
+    if ([ArrayManager shareManager].Array.count > 0) {
+        
+        [self viewWillAppearDownLoadAction];
+    }
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
@@ -297,10 +296,23 @@
         if (self.seg.selectedSegmentIndex == 1) {
             [cell1.rubbishBtn addTarget:self action:@selector(delegateOneMusicAction:) forControlEvents:(UIControlEventTouchUpInside)];
             NSArray *arr = self.voiceArr[indexPath.row];
+            cell1.titleL.textColor = [UIColor blackColor];
             [cell1 creatCell:arr];
         }else{
+            
             AlbumDetailModel *model = self.downLoadingArray[indexPath.row];
             [cell1 creatDownloadingCell:model];
+            
+            if (model.type == Downloadimg) {
+//                [[MyDownLoad shareMyDownLoad]start];
+                cell1.titleL.textColor = [UIColor redColor];
+            }if (model.type == DownloadPause){
+                cell1.titleL.textColor = [UIColor blackColor];
+//                [[MyDownLoad shareMyDownLoad]stop];
+
+            }
+            
+            
         }
         return cell1;
     }
@@ -308,7 +320,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.inter = indexPath.row;
     if (self.seg.selectedSegmentIndex == 0) {
         NSString *key = self.array[indexPath.row];
         NSArray *arr = self.dic[key];
@@ -343,76 +354,96 @@
         
     }if (self.seg.selectedSegmentIndex == 2) {
         AlbumDetailModel *model1 = self.downLoadingArray[indexPath.row];
-        MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-        NSString *url;
-        if (model1.playUrl64 == nil) {
-            url = model1.playPath64;
-        }else{
-            url = model1.playUrl64;
-        }
-        MyDownLoad *task = [manager creatDownload:url];
-        model1.isDownLoad = !model1.isDownLoad;
+        self.inter = indexPath.row;
         
-        [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
-                NSLog(@"%lld,%ld,%lld",bytesWritten,progress,allTimes);
-                model1.type = Downloadimg;
-//            CGFloat f = (CGFloat)progress / 100;
-//            cell.progress.progress = f;
-        } DidDownload:^(NSString *savePath, NSString *url) {
-            NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.titleArr[0]]];
-            MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-            [table creatTable];
-         if (model1.coverLarge.length == 0) {
-                    NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model1.smallLogo]];
-             if (musicData == nil) {
-                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
-             }
-             if (model1.playUrl64 == nil) {
-                 [table insertIntoTable:@[model1.title,model1.playPath64,musicData,savePath,model1.nickname,model1.playsCounts,@"111",model1.commentsCounts,model1.favoritesCounts,albumData,self.self.titleArr[1]]];
-
-             }else{
-                 [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
-             }
+        
+        MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+        if (self.downLoadingArray.count == 1) {
+            AlbumDetailModel *model = self.downLoadingArray[0];
+            if (model.type == Downloadimg) {
+                model.type = DownloadPause;
+                [[MyDownLoad shareMyDownLoad]stop];
+            }else if (model.type == DownloadPause){
+                model.type = Downloadimg;
+                if (model.playUrl64 == nil) {
+                    MyDownLoad *task = [manager creatDownload:model.playPath64];
+                    [self downLoad:task model:model];
                 }else{
-                    NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model1.coverLarge]];
-                    if (musicData == nil) {
-                        musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
-                    }
-                    if (model1.playUrl64 == nil) {
-                        [table insertIntoTable:@[model1.title,model1.playPath64,musicData,savePath,model1.nickname,model1.playsCounts,@"111",model1.commentsCounts,model1.favoritesCounts,albumData,self.self.titleArr[1]]];
-
-                    }else{
-                    [table insertIntoTable:@[model1.title,model1.playUrl64,musicData,savePath,model1.nickname,model1.playtimes,model1.albumId,model1.comments,model1.likes,albumData,self.titleArr[1]]];
-                    }
+                    MyDownLoad *task = [manager creatDownload:model.playUrl64];
+                    [self downLoad:task model:model];
                 }
-                [[ArrayManager shareManager].Array removeObject:model1];
-                [self.downLoadingArray removeObject:model1];
-                [self.downingTab reloadData];
-               [self creatAlbumDic];
-               [self creatVoiceArray];
-            [self downloadAction];
-            }];
-        if (model1.isDownLoad == NO) {
-            model1.type = Downloadimg;
-                        [task start];
-            }else{
-            model1.type = DownloadPause;
-                       [task stop];
+            }
+            return;
         }
+        
+        if (model1.type == Downloadimg) {
+            for (AlbumDetailModel *model in self.downLoadingArray) {
+                model.type = DownloadPause;
+            }
+            if (self.inter + 1 >= self.downLoadingArray.count) {
+            
+                AlbumDetailModel *model = self.downLoadingArray[0];
+                model.type = Downloadimg;
+            }else
+            {
+                AlbumDetailModel *model = self.downLoadingArray[self.inter + 1];
+                model.type = Downloadimg;
+                }
+        } else if (model1.type == DownloadPause) {
+            for (AlbumDetailModel *model in self.downLoadingArray) {
+                model.type = DownloadPause;
+            }
+            model1.type = Downloadimg;
+        }
+        [self cellDownLoadAction];
     }
 }
 
+-(void)cellDownLoadAction{
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    AlbumDetailModel *model = self.downLoadingArray[self.inter];
+    
+    if (model.playUrl64 == nil) {
+        MyDownLoad *task = [manager creatDownload:model.playPath64];
+        [task stop];
+}else{
+        MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        [task stop];
+}
+
+    for (AlbumDetailModel *model in self.downLoadingArray) {
+        if (model.type == Downloadimg) {
+            MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+            if (model.playUrl64 == nil) {
+                            MyDownLoad *task = [manager creatDownload:model.playPath64];
+                            [self downLoad:task model:model];
+                        }else{
+                            MyDownLoad *task = [manager creatDownload:model.playUrl64];
+                            [self downLoad:task model:model];
+                        }
+       }
+    }
+}
+
+-(void)viewWillAppearDownLoadAction{
+    AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+    if (model.playUrl64 == nil) {
+        MyDownLoad *task = [manager creatDownload:model.playPath64];
+        [self downLoad:task model:model];
+    }else{
+        MyDownLoad *task = [manager creatDownload:model.playUrl64];
+        [self downLoad:task model:model];
+    }
+
+}
 
 -(void)downloadAction
 {
-    
-    
     if (self.inter == self.downLoadingArray.count) {
         self.inter = 0;
     }
-    
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-    
     if (self.downLoadingArray.count == 0) {
         return;
     }
@@ -431,8 +462,7 @@
             if (model.playUrl64 == nil) {
                 MyDownLoad *task = [manager creatDownload:model.playPath64];
                 [self downLoad:task model:model];
-
-            }else{
+}else{
             MyDownLoad *task = [manager creatDownload:model.playUrl64];
             [self downLoad:task model:model];
         }
@@ -447,18 +477,11 @@
             }
 }
 }
-   
-    
-    
-    
-    
 }
-
 
 -(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
 {
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    //[[MyDownLoad shareMyDownLoad]start];
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
@@ -471,10 +494,8 @@
                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
             }
             if (model.playUrl64 == nil) {
-//                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
                 [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.self.titleArr[1]]];
-
-            }else{
+}else{
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
             }
         }else{
@@ -483,30 +504,24 @@
                 musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
             }
             if (model.playUrl64 == nil) {
-//                [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
-                
                 [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.self.titleArr[1]]];
-
-            }else{
+}else{
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
-                
-            }
+                }
         }
+        model.type = DiDdwonload;
         [[ArrayManager shareManager].Array removeObject:model];
         [self.downLoadingArray removeObject:model];
+        if ([ArrayManager shareManager].Array.count > 0) {
+            AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+            model.type = Downloadimg;
+        }
         [self.downingTab reloadData];
         [self creatAlbumDic];
         [self creatVoiceArray];
         [self downloadAction];
     }];
 }
-
-
-
-
-
-
-
 
 
 -(void)delegateOneMusicAction:(UIButton *)btn//单曲删除
@@ -516,11 +531,9 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
    NSArray *arr1 = self.voiceArr[indexPath.row];
     [table delegateNoteWithTableName:kMyDownloadTable musicUrl:arr1[1]];
-    
     [self.voiceArr removeObject:arr1];
     [self.voiceTab reloadData];
     [self creatAlbumDic];
-
 }
 
 -(void)delegateAction:(UIButton *)btn//专辑删除
@@ -551,7 +564,6 @@
     [alert addAction:quedingAction];
     
     [self showDetailViewController:alert sender:nil];
-    
 }
 
 
