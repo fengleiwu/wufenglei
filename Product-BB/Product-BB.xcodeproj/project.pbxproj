@@ -263,6 +263,11 @@
 		79CD0F9E1D3F90B40020AF6E /* 微博 (3).png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F991D3F90B40020AF6E /* 微博 (3).png */; };
 		79CD0F9F1D3F90B40020AF6E /* 微信 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F9A1D3F90B40020AF6E /* 微信 (1).png */; };
 		79CD0FA01D3F90B40020AF6E /* QQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD0F9B1D3F90B40020AF6E /* QQ.png */; };
+		79DB35C81D449DD700ACD1B6 /* find_book@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79DB35C31D449DD700ACD1B6 /* find_book@3x.png */; };
+		79DB35C91D449DD700ACD1B6 /* find_comic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79DB35C41D449DD700ACD1B6 /* find_comic@3x.png */; };
+		79DB35CA1D449DD700ACD1B6 /* find_kid@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79DB35C51D449DD700ACD1B6 /* find_kid@3x.png */; };
+		79DB35CB1D449DD700ACD1B6 /* find_music@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79DB35C61D449DD700ACD1B6 /* find_music@3x.png */; };
+		79DB35CC1D449DD700ACD1B6 /* find_other@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79DB35C71D449DD700ACD1B6 /* find_other@3x.png */; };
 		79E0738E1D40519B00131E7B /* MusicplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0737D1D40519B00131E7B /* MusicplayViewController.m */; };
 		79E0738F1D40519B00131E7B /* BroadMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E073801D40519B00131E7B /* BroadMusicModel.m */; };
 		79E073901D40519B00131E7B /* MusicplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E073831D40519B00131E7B /* MusicplayTableViewCell.m */; };
@@ -837,6 +842,11 @@
 		79CD0F991D3F90B40020AF6E /* 微博 (3).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微博 (3).png"; sourceTree = "<group>"; };
 		79CD0F9A1D3F90B40020AF6E /* 微信 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信 (1).png"; sourceTree = "<group>"; };
 		79CD0F9B1D3F90B40020AF6E /* QQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QQ.png; sourceTree = "<group>"; };
+		79DB35C31D449DD700ACD1B6 /* find_book@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find_book@3x.png"; sourceTree = "<group>"; };
+		79DB35C41D449DD700ACD1B6 /* find_comic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find_comic@3x.png"; sourceTree = "<group>"; };
+		79DB35C51D449DD700ACD1B6 /* find_kid@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find_kid@3x.png"; sourceTree = "<group>"; };
+		79DB35C61D449DD700ACD1B6 /* find_music@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find_music@3x.png"; sourceTree = "<group>"; };
+		79DB35C71D449DD700ACD1B6 /* find_other@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find_other@3x.png"; sourceTree = "<group>"; };
 		79E0737C1D40519B00131E7B /* MusicplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicplayViewController.h; sourceTree = "<group>"; };
 		79E0737D1D40519B00131E7B /* MusicplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicplayViewController.m; sourceTree = "<group>"; };
 		79E0737F1D40519B00131E7B /* BroadMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadMusicModel.h; sourceTree = "<group>"; };
@@ -2275,6 +2285,18 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		79DB35C21D449DD700ACD1B6 /* categoryImage */ = {
+			isa = PBXGroup;
+			children = (
+				79DB35C31D449DD700ACD1B6 /* find_book@3x.png */,
+				79DB35C41D449DD700ACD1B6 /* find_comic@3x.png */,
+				79DB35C51D449DD700ACD1B6 /* find_kid@3x.png */,
+				79DB35C61D449DD700ACD1B6 /* find_music@3x.png */,
+				79DB35C71D449DD700ACD1B6 /* find_other@3x.png */,
+			);
+			path = categoryImage;
+			sourceTree = "<group>";
+		};
 		79E0737A1D40519B00131E7B /* Play */ = {
 			isa = PBXGroup;
 			children = (
@@ -2402,6 +2424,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				79DB35C21D449DD700ACD1B6 /* categoryImage */,
 				7957E4BA1D436C640022C7F0 /* 下载.jpg */,
 				7981D7991D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png */,
 				7981D7941D41463E00ABC217 /* 奇幻森林.gif */,
@@ -2606,6 +2629,7 @@
 				7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */,
 				79F44CEF1D3A3C64002BE16F /* 取消 (1).png in Resources */,
 				79BE29FA1D3E7B70009CF446 /* 播放历史.png in Resources */,
+				79DB35CA1D449DD700ACD1B6 /* find_kid@3x.png in Resources */,
 				79F44CF31D3A3C64002BE16F /* 播放 (2).png in Resources */,
 				79F43F591D3A3AFB002BE16F /* RankListTableViewCell.xib in Resources */,
 				7957E4BB1D436C640022C7F0 /* 下载.jpg in Resources */,
@@ -2622,12 +2646,14 @@
 				79F446811D3A3C64002BE16F /* add_user_group.png in Resources */,
 				79F44CFC1D3A3C64002BE16F /* 箭头.png in Resources */,
 				7981D5BA1D41178E00ABC217 /* 盾牌 (1).png in Resources */,
+				79DB35CB1D449DD700ACD1B6 /* find_music@3x.png in Resources */,
 				79F44CFA1D3A3C64002BE16F /* 箭头 (2).png in Resources */,
 				7981D5BB1D41178E00ABC217 /* 灰底白狗加载背景图.png in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
 				79F44CEE1D3A3C64002BE16F /* 发现.png in Resources */,
 				7900E8581D3A796E00E3676C /* broadcast_bg.jpg in Resources */,
 				79F44CE81D3A3C64002BE16F /* speech_bubble.png in Resources */,
+				79DB35CC1D449DD700ACD1B6 /* find_other@3x.png in Resources */,
 				79F44CE61D3A3C64002BE16F /* pause.png in Resources */,
 				79F44CEC1D3A3C64002BE16F /* 五星国旗.png in Resources */,
 				79F44CF11D3A3C64002BE16F /* 娱乐_音乐电台.png in Resources */,
@@ -2639,6 +2665,7 @@
 				799073831D4054D400108E35 /* 2.png in Resources */,
 				79BE29FE1D3E7B70009CF446 /* 意见反馈.png in Resources */,
 				79BE2A011D3E7B70009CF446 /* dog.jpg in Resources */,
+				79DB35C91D449DD700ACD1B6 /* find_comic@3x.png in Resources */,
 				79F446871D3A3C64002BE16F /* guest_male.png in Resources */,
 				7900E85D1D3A796E00E3676C /* toolbar_back_n_p@3x.png in Resources */,
 				79CD0F9E1D3F90B40020AF6E /* 微博 (3).png in Resources */,
@@ -2655,6 +2682,7 @@
 				7981D77A1D41179C00ABC217 /* build-libidn.sh in Resources */,
 				79F44CEB1D3A3C64002BE16F /* V.png in Resources */,
 				79F44CF91D3A3C64002BE16F /* 箭头 (1).png in Resources */,
+				79DB35C81D449DD700ACD1B6 /* find_book@3x.png in Resources */,
 				7900E85A1D3A796E00E3676C /* broadcast_mask@2x.png in Resources */,
 				79F44CED1D3A3C64002BE16F /* 人气.png in Resources */,
 				7981D7081D41179C00ABC217 /* copying.txt in Resources */,

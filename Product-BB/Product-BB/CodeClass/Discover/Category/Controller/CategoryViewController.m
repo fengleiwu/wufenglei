@@ -119,17 +119,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    NSLog(@"11%ld",indexPath.section);
+    // 前五个图片不好看，换自己的。
+    NSArray *imageArr = @[@"find_book@3x",@"find_music@3x",@"find_other@3x",@"find_comic@3x",@"find_kid@3x"];
     CategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
    
     NSInteger index = indexPath.row * 2;
     if (index < self.tableArray.count) {
         CategoryBottomModel *modelLeft = self.tableArray[index];
-        [cell.leftImageV sd_setImageWithURL:[NSURL URLWithString:modelLeft.coverPath]];
+        if (index < 5) {
+            cell.leftImageV.image = [UIImage imageNamed:imageArr[index]];
+        } else {
+            [cell.leftImageV sd_setImageWithURL:[NSURL URLWithString:modelLeft.coverPath]];
+        }
         cell.leftTitleL.text = modelLeft.title;
         cell.leftBtn.tag = [modelLeft.myid integerValue];
         
         CategoryBottomModel *modelRight = self.tableArray[index + 1];
-        [cell.rightImageV sd_setImageWithURL:[NSURL URLWithString:modelRight.coverPath]];
+        if (index<3) {
+            cell.rightImageV.image = [UIImage imageNamed:imageArr[index +1]];
+        } else {
+            [cell.rightImageV sd_setImageWithURL:[NSURL URLWithString:modelRight.coverPath]];
+        }
         cell.rightTitleL.text = modelRight.title;
         cell.rightBtn.tag = [modelRight.myid integerValue];
         
