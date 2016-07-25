@@ -357,6 +357,8 @@
 		79FA04EF1D3CFF32000C3306 /* SUBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04EE1D3CFF32000C3306 /* SUBModel.m */; };
 		79FA04F21D3D001B000C3306 /* GFZtableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FA04F11D3D001B000C3306 /* GFZtableViewController.m */; };
 		79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FA04F31D3D005B000C3306 /* down_h@2x.png */; };
+		79FEE74B1D45983A008168C2 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FEE7481D45983A008168C2 /* SearchViewController.m */; };
+		79FEE74D1D459882008168C2 /* icon_search_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FEE74C1D459882008168C2 /* icon_search_n@3x.png */; };
 		F6560512CE78B4556703A01A /* libPods-Product-BB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */; };
 /* End PBXBuildFile section */
 
@@ -1000,6 +1002,9 @@
 		79FA04F01D3D001B000C3306 /* GFZtableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFZtableViewController.h; sourceTree = "<group>"; };
 		79FA04F11D3D001B000C3306 /* GFZtableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFZtableViewController.m; sourceTree = "<group>"; };
 		79FA04F31D3D005B000C3306 /* down_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_h@2x.png"; sourceTree = "<group>"; };
+		79FEE7471D45983A008168C2 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		79FEE7481D45983A008168C2 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		79FEE74C1D459882008168C2 /* icon_search_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_n@3x.png"; sourceTree = "<group>"; };
 		C4B52D992845D19AB2F9FC04 /* Pods-Product-BB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Product-BB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Product-BB/Pods-Product-BB.debug.xcconfig"; sourceTree = "<group>"; };
 		E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Product-BB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1327,6 +1332,7 @@
 		798076E61D33A05C0095911D /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				79FEE7451D45983A008168C2 /* Search */,
 				79118DFB1D3E027F00059969 /* Category */,
 				79F43EEE1D3A3AFB002BE16F /*  Broadcast */,
 				79F43F181D3A3AFB002BE16F /* Rank */,
@@ -2593,6 +2599,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				79FEE74C1D459882008168C2 /* icon_search_n@3x.png */,
 				7987F3491D44B272002A8858 /* 喵呜.png */,
 				79DB35C21D449DD700ACD1B6 /* categoryImage */,
 				7957E4BA1D436C640022C7F0 /* 下载.jpg */,
@@ -2660,6 +2667,39 @@
 				79F4467D1D3A3C64002BE16F /* 订阅.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		79FEE7451D45983A008168C2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				79FEE7461D45983A008168C2 /* Controller */,
+				79FEE7491D45983A008168C2 /* Model */,
+				79FEE74A1D45983A008168C2 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		79FEE7461D45983A008168C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				79FEE7471D45983A008168C2 /* SearchViewController.h */,
+				79FEE7481D45983A008168C2 /* SearchViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		79FEE7491D45983A008168C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		79FEE74A1D45983A008168C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9CE164D2FB68599E4C7833C7 /* Pods */ = {
@@ -2833,6 +2873,7 @@
 				798076BE1D339EAD0095911D /* LaunchScreen.storyboard in Resources */,
 				79F446801D3A3C64002BE16F /* grayplay.jpg in Resources */,
 				79F446831D3A3C64002BE16F /* comments.png in Resources */,
+				79FEE74D1D459882008168C2 /* icon_search_n@3x.png in Resources */,
 				79BE29FD1D3E7B70009CF446 /* 我的订阅.png in Resources */,
 				799073831D4054D400108E35 /* 2.png in Resources */,
 				79BE29FE1D3E7B70009CF446 /* 意见反馈.png in Resources */,
@@ -3109,6 +3150,7 @@
 				7981D73E1D41179C00ABC217 /* XMPPvCardTempLabel.m in Sources */,
 				7900E14A1D3A78A300E3676C /* BroadcastViewController.m in Sources */,
 				7981D7311D41179C00ABC217 /* XMPPMessage+XEP0045.m in Sources */,
+				79FEE74B1D45983A008168C2 /* SearchViewController.m in Sources */,
 				79F43F581D3A3AFB002BE16F /* RankListTableViewCell.m in Sources */,
 				7981D70E1D41179C00ABC217 /* XMPPParser.m in Sources */,
 				793F1A9E1D3E04C100C8FD01 /* MyDownLoadManager.m in Sources */,

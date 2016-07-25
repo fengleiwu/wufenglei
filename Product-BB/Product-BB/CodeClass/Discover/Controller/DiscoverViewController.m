@@ -22,7 +22,7 @@
 #import "qualityGoodsTableViewController.h"
 #import "ListenDetailViewController.h"
 //#import "AnchorTableView.h"
-
+#import "SearchViewController.h"
 #import "AnchorTableViewController.h"
 
 @interface DiscoverViewController ()<UIScrollViewDelegate , UITableViewDataSource , UITableViewDelegate>
@@ -102,6 +102,13 @@
     // 点击状态栏，回到顶部。
     [TopWindow show];
     self.controllers = [@[ @"CategoryViewController", @"BroadcastViewController",@"RankViewController"] mutableCopy];
+    // 添加搜索按钮。
+    UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    btn.frame = CGRectMake(kScreenWidth - 30, 35, 20, 20);
+    [btn setBackgroundImage:[UIImage imageNamed:@"icon_search_n@3x"] forState:(UIControlStateNormal)];
+    [btn addTarget:self action:@selector(searchAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.navigationController.view addSubview:btn];
+    
     [self creatScr];
     [self creatSeg];
     [self creatLine];
@@ -140,12 +147,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    
 
-
-    
-    
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.translucent = NO;
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 200, 40)];
@@ -156,20 +158,11 @@
 }
 
 
-
-
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.titleLabel removeFromSuperview];
     
-    
-    
-    
 }
-
-
-
 
 #pragma mark ----- 良品数据请求 -----
 -(void)creatBottomPic
@@ -573,7 +566,7 @@
     }
 }
 
-
+#pragma mark --- button 方法
 -(void)btnAction
 {
     self.seg.selectedSegmentIndex = 1;
@@ -607,6 +600,14 @@
     qualityGoodsTableViewController *quality = [[qualityGoodsTableViewController alloc]init];
     self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:quality animated:YES];
+}
+
+// 进入搜索页面
+- (void)searchAction:(UIButton *)btn {
+    SearchViewController *searchVC = [[SearchViewController alloc]init];
+    
+    UINavigationController *na = [[UINavigationController alloc]initWithRootViewController:searchVC];
+    [self presentViewController:na animated:YES completion:nil];
 }
 
 

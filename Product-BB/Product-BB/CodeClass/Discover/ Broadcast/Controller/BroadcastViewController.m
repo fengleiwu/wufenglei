@@ -173,7 +173,7 @@
     NSInteger count = 0;
     for (TypeModel *model in self.typeArr) {
         self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4-4, 30);
+        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4-4, 26);
         self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
         if (count == 7) {
             [self.typeBtn setImage:[UIImage imageNamed:@"箭头.png"] forState:UIControlStateNormal];
@@ -210,7 +210,7 @@
         if (count >= 7) {
             [button removeFromSuperview];
         self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4 -4, 30);
+        self.typeBtn.frame = CGRectMake(count%4 * (self.buttonView.width/4)-4,count/4 * 30,self.buttonView.width/4 -4, 26);
         self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
             self.typeBtn.tag = [model.idd integerValue];
             [self.typeBtn setTitle:model.name forState:UIControlStateNormal];
@@ -222,7 +222,7 @@
     }
     self.typeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    self.typeBtn.frame = CGRectMake(3 * (self.buttonView.width/4)-4,3 * 30,self.buttonView.width/4 -4, 30);
+    self.typeBtn.frame = CGRectMake(3 * (self.buttonView.width/4)-4,3 * 30,self.buttonView.width/4 -4, 26);
     self.typeBtn.backgroundColor = PKCOLOR(241, 241, 241);
     self.typeBtn.tag = 998;
     [self.typeBtn setImage:[UIImage imageNamed:@"箭头 (1).png"] forState:UIControlStateNormal];
