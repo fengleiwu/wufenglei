@@ -176,7 +176,11 @@
     NSData *data = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].Array arrayKey:@"array"];
     [data writeToFile:filePth atomically:YES];
     
-
+    
+    NSString *file = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"oneArray.tex" type:CachesType];
+    NSData *oneData = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].oneArray arrayKey:@"oneArray"];
+    [oneData writeToFile:file atomically:YES];
+    
 //    NSMutableArray *arr = [NSMutableArray array];
 //    for (AlbumDetailModel *model in [ArrayManager shareManager].Array) {
 //        [arr addObject:model];
@@ -199,7 +203,10 @@
     NSLog(@"%@",filePth);
 
     [ArrayManager shareManager].Array = [[[EncodeManager shareInstance]unArchiverArrayWithFilePath:filePth arrayKey:@"array"]mutableCopy];
-   
+    
+    NSString *file = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"oneArray.tex" type:CachesType];
+    [ArrayManager shareManager].oneArray = [[[EncodeManager shareInstance]unArchiverArrayWithFilePath:file arrayKey:@"oneArray"]mutableCopy];
+    
 //    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"arrManager"];
 //    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 //    [ArrayManager shareManager].Array = [arr mutableCopy];

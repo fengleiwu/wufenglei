@@ -77,9 +77,11 @@
         UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, kScreenWidth - 20, 150)];
         textLabel.text = self.model.intro;
         textLabel.numberOfLines = 0;
-        CGFloat f = [AdjustHeight adjustHeightByString:self.model.intro width:kScreenWidth - 20 font:12];
+        CGFloat f = [AdjustHeight adjustHeightByString:self.model.intro width:kScreenWidth - 20 font:17];
         CGRect rect = textLabel.frame;
-        rect.size.height = f;
+        rect.size.height = f + 50;
+        textLabel.frame = rect;
+        textLabel.font = [UIFont systemFontOfSize:17];
         UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth - 150, f + 100 + 100, 50, 20)];
         nameLabel.text = @"小编:";
         nameLabel.textAlignment = NSTextAlignmentRight;
@@ -223,7 +225,7 @@
     }
 
     NSArray *arr = @[self.model.smallLogo,self.model.title];
-    [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+    [[ArrayManager shareManager].oneArray addObject:arr];
     
 }
 
@@ -263,7 +265,6 @@
 
         [self downloadAction];
         
-        //[[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
     }];
     
 

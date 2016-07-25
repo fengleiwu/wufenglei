@@ -69,6 +69,7 @@
         self.progress = [[UIProgressView alloc]initWithProgressViewStyle:(UIProgressViewStyleBar)];
         self.progress.frame = CGRectMake(80, 110, 200, 20);
         self.progress.tintColor = [UIColor redColor];
+        self.progress.trackTintColor = [UIColor blackColor];
         [self.contentView addSubview:self.progress];
         [self.contentView addSubview:self.imageV];
         [self.contentView addSubview:self.titleL];

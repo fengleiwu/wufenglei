@@ -60,10 +60,13 @@
 
 @implementation AlbumDetailViewController
 
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -233,14 +236,10 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
                 pingfenLabel.text = [NSString stringWithFormat:@"评分:%@分",self.attentionModel.score];
                 priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.attentionModel.displayPrice];
             }
-            
             [self.tab reloadData];
-
-        } error:^(NSError *error) {
-            
-        }];
+} error:^(NSError *error) {
+            }];
     }
-    
     NSString *actionUrl = @"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=4345263&device=iPhone&isAsc=true&pageId=1&pageSize=20&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1";
     actionUrl = [actionUrl stringByReplacingOccurrencesOfString:@"albumId=4345263" withString:[NSString stringWithFormat:@"albumId=%@",self.url]];
     [RequestManager requestWithUrlString:actionUrl requestType:RequestGET parDic:0 finish:^(NSData *data) {
@@ -248,8 +247,7 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
         self.tracksArr = [AlbumDetailModel payArray:dic];
         [self.tab reloadData];
     } error:^(NSError *error) {
-        
-    }];
+        }];
 [self.veryBigTab.scr addSubview:self.tab];
 
 }
@@ -291,11 +289,7 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
             self.isDingYue = NO;
         }
     }
-
-    
-    
-    
-    [btn1.layer setMasksToBounds:YES];
+[btn1.layer setMasksToBounds:YES];
     [btn1.layer setCornerRadius:5];
     UIButton *btn2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
     btn2.frame = CGRectMake((kScreenWidth - 30) / 2 + 10 + 10, 120, (kScreenWidth - 30) / 2, 30);
@@ -462,27 +456,11 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
 }
 
 
-//@property(nonatomic , strong)NSString *url;//albumid
-//@property(nonatomic , assign)NSInteger inter;//有购买不传  没购买传>3
-//
-//
-//@property(nonatomic , assign)BOOL isPaid;
-//@property(nonatomic , assign)NSInteger row;//第几个
-//@property(nonatomic , strong)NSString *uid;//uid
-//@property(nonatomic , strong)NSString *nickName;
-//
-//@property(nonatomic , strong)NSString *score;
-//@property(nonatomic , strong)NSString *displayPrice;
+
 
 #pragma mark --- 订阅
 -(void)dingyueAction:(UIButton *)btn
 {
-    
-    
-    
-    
-    
-    
     self.isDingYue = !self.isDingYue;
     if (self.isDingYue == YES) {
         [btn setTitle:@"已订阅" forState:(UIControlStateNormal)];
@@ -510,14 +488,11 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
         if (self.isPaid == NO) {
             [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.albumModel.coverLarge,self.albumModel.title,self.albumModel.nickname]];
         }
-        
-
-    }else{
+        }else{
         [btn setTitle:@"订阅专辑" forState:(UIControlStateNormal)];
         [btn setBackgroundColor:[UIColor greenColor]];
         MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
         [table delegateNoteWithDingyueTableName:kHisDownLoadTable totalTitle:[NSString stringWithFormat:@"%@",self.url]];
-        
     }
 }
 
@@ -526,17 +501,14 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
 -(void)batchDownLoadAction{
     batchDownViewController *batch = [[batchDownViewController alloc]init];
     batch.arr = self.tracksArr;
-    
     if (self.inter <= 2 && self.inter >= 0) {
         if (self.isPaid == NO) {
             batch.coverMiddle = self.hotRecommendsModel.coverMiddle;
             batch.titleL = self.hotRecommendsModel.title;
-            
-        }else{
+            }else{
             batch.coverMiddle = self.attentionModel.coverLarge;
             batch.titleL = self.attentionModel.title;
-            
-        }
+            }
     }else{
         batch.coverMiddle = self.albumModel.coverLarge;
         batch.titleL = self.albumModel.title;
@@ -549,7 +521,7 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
 
 -(void)downLoadAction:(UIButton *)btn
 {
-    
+    [btn setTintColor:[UIColor grayColor]];
     AlbumDetailTableViewCell *cell = (AlbumDetailTableViewCell *)btn.superview.superview;
     NSIndexPath *indexPath = [self.tab indexPathForCell:cell];
     AlbumDetailModel *model = self.tracksArr[indexPath.row];
@@ -563,28 +535,31 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
             }
         }
     }
+    
+    
     if (model.type == Downloadimg || model.type == DownloadPause) {
         [self alertControllerShowWithTitle:@"正在下载或已在下载列表" message:nil];
         return;
     }
-//    BOOL isFirstDownLoad = [[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstDownLoad"];
     if (self.inter <= 2 && self.inter >= 0) {
         if (self.isPaid == NO) {
             NSArray *arr = @[self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title];
-            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+//            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+            
+            [[ArrayManager shareManager].oneArray addObject:arr];
         }else{
             NSArray *arr = @[self.attentionModel.coverLarge,self.attentionModel.title];
-            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+//            [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+            [[ArrayManager shareManager].oneArray addObject:arr];
 }
         }else{
-        
         NSArray *arr = @[self.albumModel.coverLarge,self.albumModel.title];
-        [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+//[[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
+            [[ArrayManager shareManager].oneArray addObject:arr];
 }
     [self.downLoadArray addObject:model];
     [[ArrayManager shareManager].Array addObject:model];
     model.type = DownloadPause;
-    
     for (AlbumDetailModel *model in [ArrayManager shareManager].Array) {
         if (model.type == Downloadimg) {
             break;
@@ -594,20 +569,32 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
             [self downLoad:task model:model];
         }
     }
-    
 }
 
 
 
 -(void)downloadAction
 {
+    NSArray *arr = [ArrayManager shareManager].oneArray[0];
+    if (self.inter <= 2 && self.inter >= 0) {
+        if (self.isPaid == NO) {
+            self.hotRecommendsModel.coverMiddle = arr[0];
+            self.hotRecommendsModel.title = arr[1];
+        }else{
+            self.attentionModel.coverLarge = arr[0];
+            self.attentionModel.title = arr[1];
+        }
+    }else{
+        self.albumModel.coverLarge = arr[0];
+        self.albumModel.title = arr[1];
+    }
+
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-    if (self.downLoadArray.count == 0) {
+    if ([ArrayManager shareManager].Array.count == 0) {
         return;
     }
-    if (self.downLoadArray.count > 0) {
-        
-        AlbumDetailModel *model = self.downLoadArray[0];
+    if ([ArrayManager shareManager].Array.count > 0) {
+        AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [self downLoad:task model:model];
     }
@@ -619,20 +606,18 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
 -(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
 {
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
+        [ArrayManager shareManager].progress = (CGFloat)progress / 100;
     } DidDownload:^(NSString *savePath, NSString *url) {
         NSLog(@"++++++++++++++++++++%@",savePath);
         [table creatTable];
-
-        NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
+ NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
         if (musicData == nil) {
             musicData = UIImageJPEGRepresentation([UIImage imageNamed:@"1004.jpg"], 0);
         }
-        
         if (self.inter <= 2 && self.inter >= 0) {
             if (self.isPaid == NO) {
                 NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.hotRecommendsModel.coverMiddle]];
@@ -646,40 +631,17 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
             [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.albumModel.title]];
         }
         model.type = DiDdwonload;
-        [self.downLoadArray removeObject:model];
         [[ArrayManager shareManager].Array removeObject:model];
+        [self.downLoadArray removeObject:model];
+        [[ArrayManager shareManager].oneArray removeObjectAtIndex:0];
         if ([ArrayManager shareManager].Array.count > 0) {
-            AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
-            model.type = Downloadimg;
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
+            [self downloadAction];
+        }if ([ArrayManager shareManager].Array.count == 0) {
+            
+            return ;
         }
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
-                [self downloadAction];
 }];
-
-    
-    
-    
-    
-    
-//    [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
-//        NSLog(@"%lld,%ld",bytesWritten,progress);
-//        model.type = Downloadimg;
-//        
-//        
-//    } DidDownload:^(NSString *savePath, NSString *url) {
-//        NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverMiddle]];
-//        if (model.coverLarge.length == 0) {
-//            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.smallLogo]];
-//            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
-//        }else{
-//            NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
-//            [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleL]];
-//        }
-//        [self.downArr removeObject:model];
-//        [[ArrayManager shareManager].Array removeObject:model];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:nil];
-//        [self downloadAction];
-//    }];
 }
 
 // 展示AlertController

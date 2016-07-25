@@ -13,6 +13,7 @@
 
 @property(nonatomic , strong)NSMutableArray *Array;
 @property(nonatomic , strong)NSMutableArray *oneArray;
+@property(nonatomic , assign)CGFloat progress;
 
 
 

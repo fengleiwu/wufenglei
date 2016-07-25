@@ -1,5 +1,5 @@
-//
 //  DownLoadViewController.m
+//
 //  Product-BB
 //
 //  Created by lanou on 16/7/11.
@@ -34,6 +34,7 @@
 
 
 @property (nonatomic , assign)NSInteger inter;
+
 
 @end
 
@@ -72,7 +73,11 @@
 
 -(void)creatdownLoadingArray{
     self.titleArr = [NSMutableArray array];
-    self.titleArr = [[NSUserDefaults standardUserDefaults]objectForKey:@"arr"];
+    
+    if ([ArrayManager shareManager].oneArray.count > 0) {
+        self.titleArr = [ArrayManager shareManager].oneArray[0];
+    }
+    
     self.downLoadingArray = [ArrayManager shareManager].Array;
     [self.downingTab reloadData];
 }
@@ -80,7 +85,7 @@
 
 -(void)creatAlbumTab
 {
-    self.albumTab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
+    self.albumTab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 - 84) style:(UITableViewStylePlain)];
     self.albumTab.delegate = self;
     self.albumTab.dataSource = self;
     self.albumTab.rowHeight = 120;
@@ -92,7 +97,7 @@
 
 -(void)creatVoiceTab
 {
-    self.voiceTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
+    self.voiceTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight - 44 - 84) style:(UITableViewStylePlain)];
     self.voiceTab.delegate = self;
     self.voiceTab.dataSource = self;
     self.voiceTab.rowHeight = 120;
@@ -102,7 +107,7 @@
 
 -(void)creatDownlingTab
 {
-    self.downingTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 2, 0, kScreenWidth, kScreenHeight - 44 - 74) style:(UITableViewStylePlain)];
+    self.downingTab = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth * 2, 0, kScreenWidth, kScreenHeight - 44 - 84) style:(UITableViewStylePlain)];
     self.downingTab.delegate = self;
     self.downingTab.dataSource = self;
     self.downingTab.rowHeight = 140;
@@ -150,7 +155,6 @@
     [self creatVoiceArray];
     [self creatdownLoadingArray];
     if ([ArrayManager shareManager].Array.count > 0) {
-        
         [self viewWillAppearDownLoadAction];
     }
     self.navigationController.navigationBar.translucent = NO;
@@ -181,7 +185,6 @@
         ) {
         return NSNotFound;
     }
-    
     return taskInfo.resident_size / 1024.0 / 1024.0;
 }
 
@@ -202,7 +205,6 @@
     self.lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, kScreenWidth / 3, 2)];
     self.lineView.backgroundColor = [UIColor redColor];
     [self.seg addTarget:self action:@selector(segAction) forControlEvents:(UIControlEventValueChanged)];
-    
     [self.seg addSubview:self.lineView];
     [self.navigationController.view addSubview:self.seg];
 }
@@ -218,6 +220,7 @@
     self.scr = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20 - 44 - 74)];
     self.scr.contentSize = CGSizeMake(kScreenWidth * 3, 0);
     self.scr.pagingEnabled = YES;
+    self.scr.showsHorizontalScrollIndicator = NO;
     self.scr.delegate = self;
     self.scr.contentOffset = CGPointMake(0, 0);
     [self.view addSubview:self.scr];
@@ -228,7 +231,6 @@
 {
     self.seg.selectedSegmentIndex = self.scr.contentOffset.x / kScreenWidth;
     self.lineView.frame = CGRectMake(kScreenWidth / 3 * self.seg.selectedSegmentIndex, 42, kScreenWidth / 3, 2);
-    
     [self creatVoiceArray];
     [self creatAlbumDic];
     [self creatdownLoadingArray];
@@ -259,7 +261,6 @@
     self.memoryLabel.backgroundColor = [UIColor grayColor];
     double userMemory = [self usedMemory];
     double available = [self availableMemory];
-    
     self.memoryLabel.text = [NSString stringWithFormat:@"已占用%.2fMB,可用%.2fMB",userMemory,available];
     [self.view addSubview:self.memoryLabel];
 }
@@ -302,16 +303,15 @@
             
             AlbumDetailModel *model = self.downLoadingArray[indexPath.row];
             [cell1 creatDownloadingCell:model];
-            
             if (model.type == Downloadimg) {
                 cell1.titleL.textColor = [UIColor redColor];
+                cell1.progress.hidden = NO;
+                cell1.progress.progress = [ArrayManager shareManager].progress;
             }if (model.type == DownloadPause){
                 cell1.titleL.textColor = [UIColor blackColor];
-
+                cell1.progress.hidden = YES;
             }
-            
-            
-        }
+            }
         return cell1;
     }
 }
@@ -347,14 +347,10 @@
         playVC.newmodelArray = array;
         [MyPlayerManager defaultManager].index = indexPath.row;
         [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
-        
         [self presentViewController:playVC animated:YES completion:nil];
-        
     }if (self.seg.selectedSegmentIndex == 2) {
         AlbumDetailModel *model1 = self.downLoadingArray[indexPath.row];
         self.inter = indexPath.row;
-        
-        
         MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
         if (self.downLoadingArray.count == 1) {
             AlbumDetailModel *model = self.downLoadingArray[0];
@@ -382,7 +378,8 @@
                 model.type = Downloadimg;
             }else
             {
-                AlbumDetailModel *model = self.downLoadingArray[self.inter + 1];
+                self.inter++;
+                AlbumDetailModel *model = self.downLoadingArray[self.inter];
                 model.type = Downloadimg;
                 }
         } else if (model1.type == DownloadPause) {
@@ -395,18 +392,17 @@
     }
 }
 
--(void)cellDownLoadAction{
-    MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-    AlbumDetailModel *model = self.downLoadingArray[self.inter];
-    if (model.playUrl64 == nil) {
+   -(void)cellDownLoadAction{
+       MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
+      AlbumDetailModel *model = self.downLoadingArray[self.inter];
+      if (model.playUrl64 == nil) {
         MyDownLoad *task = [manager creatDownload:model.playPath64];
         [task stop];
-}else{
+    }else{
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [task stop];
-}
-
-    for (AlbumDetailModel *model in self.downLoadingArray) {
+   }
+   for (AlbumDetailModel *model in self.downLoadingArray) {
         if (model.type == Downloadimg) {
             MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
             if (model.playUrl64 == nil) {
@@ -422,9 +418,9 @@
 
 -(void)viewWillAppearDownLoadAction{
     AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+    self.titleArr = [ArrayManager shareManager].oneArray[0];
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
     if (model.playUrl64 == nil) {
-        
         MyDownLoad *task = [manager creatDownload:model.playPath64];
         [self downLoad:task model:model];
     }else{
@@ -436,6 +432,8 @@
 
 -(void)downloadAction
 {
+    self.titleArr = [ArrayManager shareManager].oneArray[0];
+
     if (self.inter == self.downLoadingArray.count) {
         self.inter = 0;
     }
@@ -477,11 +475,19 @@
 
 -(void)downLoad:(MyDownLoad *)task model:(AlbumDetailModel *)model
 {
+    
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     [task start];
+    
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
         NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
+        [ArrayManager shareManager].progress = (CGFloat)progress / 100;
+        if (self.seg.selectedSegmentIndex == 2) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:self.inter inSection:0];
+            DownLoadMusicTableViewCell *cell = [self.downingTab cellForRowAtIndexPath:index];
+            cell.progress.progress =(CGFloat)progress / 100;
+        }
     } DidDownload:^(NSString *savePath, NSString *url) {
         [table creatTable];
         NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.titleArr[0]]];
@@ -512,6 +518,12 @@
         if ([ArrayManager shareManager].Array.count > 0) {
             AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
             model.type = Downloadimg;
+            [[ArrayManager shareManager].oneArray removeObjectAtIndex:0];
+        }
+        if ([ArrayManager shareManager].Array.count == 0) {
+            [self.downingTab reloadData];
+            
+            return ;
         }
         [self.downingTab reloadData];
         [self creatAlbumDic];
