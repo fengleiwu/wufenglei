@@ -206,7 +206,54 @@
 
 #pragma mark ----- 第三方登录按钮 -----
 -(void)QQAction{
-    [self connectShareSDKWithType:SSDKPlatformTypeQQ];
+    [SSEThirdPartyLoginHelper loginByPlatform:SSDKPlatformTypeQQ
+                                   onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler) {
+                                       
+     //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
+     //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
+          associateHandler (user.uid, user, user);
+          NSLog(@"dd%@",user.rawData);
+          NSLog(@"dd%@",user.credential);
+        // 记录登录成功的用户名和密码
+        [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"nickname"] forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults]setObject:@"QQ" forKey:@"type"];
+        [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"figureurl_qq_2"] forKey:@"picture"];
+    // 本地存储
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        if (self.block11 != nil) {
+                        self.block11(user.rawData[@"nickname"]);
+        }
+       [self dismissViewControllerAnimated:YES completion:nil];
+                                   }
+          onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
+                                    if (state == SSDKResponseStateSuccess) {
+                                        
+                                    }
+                                }];
+//    [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+//           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+//     {
+//         if (state == SSDKResponseStateSuccess)
+//         {
+//             
+//             NSLog(@"uid=%@",user.uid);
+//             NSLog(@"%@",user.credential);
+//             NSLog(@"token=%@",user.credential.token);
+//             NSLog(@"nickname=%@",user.nickname);
+//             dispatch_async(dispatch_get_main_queue(), ^{
+//                 if (self.block11 != nil) {
+//                     self.block11(user.nickname);
+//                 }
+//                 [self dismissViewControllerAnimated:YES completion:nil];
+//             });
+//         }
+//         
+//         else
+//         {
+//             NSLog(@"%@",error);
+//         }
+//         
+//     }];
 }
 
 -(void)weiBOAction{
@@ -214,7 +261,30 @@
 }
 
 -(void)weiChatAction{
-    [self connectShareSDKWithType:SSDKPlatformTypeWechat];
+    [SSEThirdPartyLoginHelper loginByPlatform:SSDKPlatformTypeWechat
+                                   onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler) {
+                                       
+    //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
+    //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
+    associateHandler (user.uid, user, user);
+    NSLog(@"dd%@",user.rawData);
+    NSLog(@"dd%@",user.credential);
+    // 记录登录成功的用户名和密码
+    [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"nickname"] forKey:@"user"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"wechat" forKey:@"type"];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"picture"];
+     // 本地存储
+     [[NSUserDefaults standardUserDefaults] synchronize];
+     if (self.block11 != nil) {
+          self.block11(user.rawData[@"nickname"]);
+                                       }
+        [self dismissViewControllerAnimated:YES completion:nil];
+                                   }
+                                onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
+                                    if (state == SSDKResponseStateSuccess) {
+                                        
+                                    }
+                                }];
 }
 
 #pragma mark ----- 第三方登录调用此方法 -----
@@ -225,10 +295,23 @@
         associateHandler (user.uid, user, user);
         NSLog(@"dd%@",user.rawData);
         NSLog(@"dd%@",user.credential);
+        NSString *picture = user.rawData[@"avatar_hd"];
+        // 记录登录成功的用户名和密码
+        [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"name"] forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults]setObject:picture forKey:@"picture"];
+        if (type ==SSDKPlatformTypeSinaWeibo) {
+           [[NSUserDefaults standardUserDefaults]setObject:@"weibo" forKey:@"type"];
+        }
+        if (type == SSDKPlatformTypeQQ) {
+            [[NSUserDefaults standardUserDefaults]setObject:@"QQ" forKey:@"type"];
+        }
+        // 本地存储
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)
         {
             NSLog(@"登录成功");
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
             NSLog(@"登录失败");

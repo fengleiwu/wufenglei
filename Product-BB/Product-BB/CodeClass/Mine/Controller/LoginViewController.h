@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void(^block11)(NSString *);
 @interface LoginViewController : UIViewController
-
+@property (nonatomic, copy)block11 block11;
 @end

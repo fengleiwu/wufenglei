@@ -34,6 +34,7 @@
 @property (nonatomic, strong)UIButton *checkB;
 @property (nonatomic, strong)UIButton *removeB;
 @property (nonatomic, strong)UILabel *label2;
+@property (nonatomic, strong)UILabel *label3;
 @property (nonatomic, strong)UIView *moveV;
 @property (nonatomic, strong)UIView *editV;
 @end
@@ -83,11 +84,13 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self.segContoller removeFromSuperview];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
     [self.navigationController.view addSubview:self.segContoller];
     if (self.scrollV.contentOffset.x == 0) {
         //刷新请求数据
@@ -130,11 +133,11 @@
         self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
         [self.scrollV addSubview:self.imageV2];
         //创建提醒标签
-        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
-        self.label2.text = @"你还没有收听过...";
-        self.label2.textColor = [UIColor whiteColor];
-        self.label2.font = [UIFont systemFontOfSize:15];
-        [self.scrollV addSubview:self.label2];
+        self.label3 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+        self.label3.text = @"你还没有收听过...";
+        self.label3.textColor = [UIColor whiteColor];
+        self.label3.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label3];
     }else {
         self.view.backgroundColor = PKCOLOR(211, 211, 211);
         for (NSArray *arr in self.sqliteArr) {
@@ -237,11 +240,11 @@
             self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
             [self.scrollV addSubview:self.imageV2];
             //创建提醒标签
-            self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
-            self.label2.text = @"你还没有收听过...";
-            self.label2.textColor = [UIColor whiteColor];
-            self.label2.font = [UIFont systemFontOfSize:15];
-            [self.scrollV addSubview:self.label2];
+            self.label3 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+            self.label3.text = @"你还没有收听过...";
+            self.label3.textColor = [UIColor whiteColor];
+            self.label3.font = [UIFont systemFontOfSize:15];
+            [self.scrollV addSubview:self.label3];
         }else {
             [self.modelArr removeAllObjects];
             for (NSArray *arr in self.sqliteArr) {
@@ -254,6 +257,7 @@
                 [self.modelArr addObject:model];
             }
             [self.imageV2 removeFromSuperview];
+            [self.label3 removeFromSuperview];
             [self.tableV2 reloadData];
             
             // Do any additional setup after loading the view.
@@ -502,11 +506,11 @@
         self.imageV2.image = [UIImage imageNamed:@"屏幕快照 2016-07-22 下午7.20.34.png"];
         [self.scrollV addSubview:self.imageV2];
         //创建提醒标签
-        self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
-        self.label2.text = @"你还没有收听过...";
-        self.label2.textColor = [UIColor whiteColor];
-        self.label2.font = [UIFont systemFontOfSize:15];
-        [self.scrollV addSubview:self.label2];
+        self.label3 = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth*2/3+kScreenWidth*2, (kScreenHeight-self.tabBarController.tabBar.height)*1/3, 120, 30)];
+        self.label3.text = @"你还没有收听过...";
+        self.label3.textColor = [UIColor whiteColor];
+        self.label3.font = [UIFont systemFontOfSize:15];
+        [self.scrollV addSubview:self.label3];
     }else {
         [self.modelArr removeAllObjects];
         for (NSArray *arr in self.sqliteArr) {
@@ -519,6 +523,7 @@
             [self.modelArr addObject:model];
         }
         [self.imageV2 removeFromSuperview];
+        [self.label3 removeFromSuperview];
     }
     [self.tableV2 reloadData];
 }
@@ -541,6 +546,7 @@
         [self.urlidArr removeAllObjects];
         self.urlidArr = [DingYueModel modelConfigureWithArray:self.SUBArr];
         [self.imageV3 removeFromSuperview];
+        [self.label2 removeFromSuperview];
     }
     [self.tableV3 reloadData];
 }

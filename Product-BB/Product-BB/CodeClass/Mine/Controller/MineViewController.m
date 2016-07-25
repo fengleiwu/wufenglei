@@ -11,13 +11,14 @@
 #import "HFStretchableTableHeaderView.h"
 #import "LoginViewController.h"
 #import "RecommendViewController.h"
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate,XMPPRosterDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic, strong)UIView *MindUserV;
 @property (nonatomic, strong)UIView *backV1;
 @property (nonatomic, strong)UIView *back2;
 @property (nonatomic, strong)UILabel *label;
-@property (nonatomic, strong)UIButton *headB;
+@property (nonatomic, strong)UIImageView *headB;
 @property (nonatomic, strong)UIButton *login;
 @property (nonatomic, strong)UIButton *settingB;
 @property (nonatomic, strong)UITableView *tableV;
@@ -49,21 +50,32 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDir = [paths objectAtIndex:0];
-    NSLog(@"%@",cachesDir);
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+//    NSString *cachesDir = [paths objectAtIndex:0];
     //设置代理
-    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     //取上一次登录的用户名密码
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
-    //证明之前没有登陆过
+    NSString *picture = [[NSUserDefaults standardUserDefaults] objectForKey:@"picture"];
+//    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+//    //证明之前没有登陆过
+//    if (username == nil) {
+//        [self.login setTitle:@"点击登录" forState:UIControlStateNormal];
+//        self.label.text = @"1秒登录，专享个性化服务";
+//    } else {
+//        //如果登录过 就取上一次登录的账号和密码
+//        [[XMPPManager shareInstance]loginWithUserName:username password:password];
+//    }
     if (username == nil) {
         [self.login setTitle:@"点击登录" forState:UIControlStateNormal];
         self.label.text = @"1秒登录，专享个性化服务";
     } else {
-        //如果登录过 就取上一次登录的账号和密码
-        [[XMPPManager shareInstance]loginWithUserName:username password:password];
+        [self.login setTitle:username forState:UIControlStateNormal];
+        self.label.text = @"注销";
+        NSLog(@"%@",picture);
+//        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"type"] isEqualToString:@"weibo"]) {
+            [self.headB sd_setImageWithURL:[NSURL URLWithString:picture] completed:nil];
+//        }
     }
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = NO;
@@ -88,7 +100,6 @@
 #pragma mark ----- XMPP协议方法 -----
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
     NSLog(@"登录验证成功");
-    NSLog(@"好友列表界面当前用户 = %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]);
     NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     [self.login setTitle:name forState:UIControlStateNormal];
     self.label.text = @"关注 0 | 粉丝 0";
@@ -118,17 +129,18 @@
     [self.MindUserV addSubview:self.backV1];
     [self.view addSubview:self.MindUserV];
     //添加头像button
-    self.headB = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.headB.frame = CGRectMake(0, 0, kScreenWidth/4,kScreenWidth/4);
+    self.headB = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/4,kScreenWidth/4)];
+//    self.headB.frame = CGRectMake(0, 0, kScreenWidth/4,kScreenWidth/4);
     self.headB.center = self.backV1.center;
     self.headB.layer.masksToBounds = YES;
     self.headB.layer.cornerRadius = kScreenWidth/8;
-    [self.headB setImage:[UIImage imageNamed:@"dog.jpg"] forState:UIControlStateNormal];
-    [self.headB addTarget:self action:@selector(changeHead) forControlEvents:UIControlEventTouchUpInside];
+    self.headB.image = [UIImage imageNamed:@"dog.jpg"];
+//    [self.headB setImage:[UIImage imageNamed:@"dog.jpg"] forState:UIControlStateNormal];
+//    [self.headB addTarget:self action:@selector(changeHead) forControlEvents:UIControlEventTouchUpInside];
     [self.MindUserV addSubview:self.headB];
     //创建登录按钮
     self.login = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.login.frame = CGRectMake(kScreenWidth/2-60, kScreenHeight/4-10, 120,25);
+    self.login.frame = CGRectMake(kScreenWidth/2-70, kScreenHeight/4-10, 140,25);
     self.login.titleLabel.font = [UIFont systemFontOfSize:18];
     [self.login setTitle:@"点击登录" forState:UIControlStateNormal];
     [self.login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -144,8 +156,10 @@
     self.settingB = [UIButton buttonWithType:UIButtonTypeSystem];
     self.settingB.frame = CGRectMake(10, 30, 30,30);
     [self.settingB setImage:[UIImage imageNamed:@"设置 (1).png"] forState:UIControlStateNormal];
+    [self.settingB addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
     self.settingB.tintColor = [UIColor whiteColor];
     [self.MindUserV addSubview:self.settingB];
+    //设置下拉变大
     self.stretchHeaderView = [HFStretchableTableHeaderView new];
     [self.stretchHeaderView stretchHeaderForTableView:self.tableV withView:self.back2 subViews:self.MindUserV];
 }
@@ -232,6 +246,9 @@
     if (indexPath.section == 2 && indexPath.row == 0) {
         recommendVC.index = indexPath.section * 2 + indexPath.row;
     }
+    if (indexPath.section == 2 && indexPath.row == 1) {
+        recommendVC.index = indexPath.section * 2 + indexPath.row;
+    }
     [self.navigationController pushViewController:recommendVC animated:YES];
 }
 
@@ -254,9 +271,9 @@
     self.MindUserV.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(action)];
     [self.MindUserV addGestureRecognizer:tap];
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"更换背景" preferredStyle:<#(UIAlertControllerStyle)#>]
 }
 
+#pragma mark ----- 相机提示框 -----
 -(void)action{
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"选择背景图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -302,8 +319,36 @@
 #pragma mark ----- 登录方法 -----
 -(void)loginAction{
     LoginViewController *loginVC = [[LoginViewController alloc]init];
+     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+     NSString *usertype = [[NSUserDefaults standardUserDefaults] objectForKey:@"type"];
+    if (username == nil) {
+        
+    } else {
+        if ([usertype isEqualToString:@"QQ"]) {
+            [ShareSDK cancelAuthorize:SSDKPlatformTypeQQ];
+        }
+        if ([usertype isEqualToString:@"weibo"]) {
+            [ShareSDK cancelAuthorize:SSDKPlatformTypeSinaWeibo];
+        }
+        if ([usertype isEqualToString:@"wechat"]) {
+            [ShareSDK cancelAuthorize:SSDKPlatformTypeWechat];
+        }
+        // 记录登录成功的用户名和密码
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"type"];
+        // 本地存储
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
     [self presentViewController:naVC animated:YES completion:nil];
+    self.headB.image = [UIImage imageNamed:@"dog.jpg"];
+}
+
+#pragma mark ----- 设置按钮方法 -----
+-(void)settingAction{
+   RecommendViewController *recommendVC = [[RecommendViewController alloc]init];
+   recommendVC.index = 5;
+   [self.navigationController pushViewController:recommendVC animated:YES];
 }
 
 #pragma mark ----- 创建滤镜 -----

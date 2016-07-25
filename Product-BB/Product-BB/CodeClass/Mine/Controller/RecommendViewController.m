@@ -11,21 +11,30 @@
 #import "MyMusicDownLoadTable.h"
 #import "HistoryOfPlayTableViewCell.h"
 #import "MusicplayViewController.h"
+#import "PingLunTableViewCell.h"
 #import "BroadMusicModel.h"
 BOOL All = YES;
 BOOL isClick = NO;
 
-@interface RecommendViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface RecommendViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic, strong)UIImageView *imageV;
 @property (nonatomic, strong)UILabel *label;
+@property (nonatomic, strong)UIView *speakTV;
+@property (nonatomic, strong)UITextField *speakTF;
+@property (nonatomic, strong)UITextField *phoneTF;
+@property (nonatomic, strong)UITextField *QQTF;
 @property (nonatomic, strong)UIView *editV;
 @property (nonatomic, strong)UIWebView *wView;
 @property (nonatomic, strong)UITableView *tableV1;
+@property (nonatomic, strong)UITableView *tablev2;
+@property (nonatomic, strong)UITableView *tableV3;
 @property (nonatomic, strong)MyMusicDownLoadTable *table;
 @property (nonatomic, strong)UIButton *lookRecommendB;
 @property (nonatomic, strong)UIButton *checkB;
+@property (nonatomic, strong)UIButton *sendB;
 @property (nonatomic, strong)UIButton *removeB;
 @property (nonatomic, strong)NSArray *sqliteArr;
+@property (nonatomic, strong)NSMutableArray *pingArr;
 @property (nonatomic, strong)NSMutableArray *modelArr;
 @end
 
@@ -42,6 +51,13 @@ BOOL isClick = NO;
         _modelArr = [NSMutableArray array];
     }
     return _modelArr;
+}
+
+-(NSMutableArray *)pingArr{
+    if (!_pingArr) {
+        _pingArr = [NSMutableArray array];
+    }
+    return _pingArr;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -119,8 +135,102 @@ BOOL isClick = NO;
     //意见反馈
     if (self.index == 4) {
         self.navigationItem.title = @"意见反馈";
+        //键盘将要出来
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+        //键盘将要消失
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHidden:) name:UIKeyboardWillHideNotification object:nil];
+        //创建手机号TF
+        self.phoneTF = [[UITextField alloc]initWithFrame:CGRectMake(20, 64, kScreenWidth, kScreenHeight/15)];
+        self.phoneTF.keyboardType = UIKeyboardTypeNumberPad;
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+        label1.text = @"手机：";
+        self.phoneTF.leftView = label1;
+        self.phoneTF.leftViewMode = UITextFieldViewModeAlways;
+        self.phoneTF.textColor = [UIColor whiteColor];
+        [self.view addSubview:self.phoneTF];
+        //创建QQTF
+        self.QQTF = [[UITextField alloc]initWithFrame:CGRectMake(20, 64+kScreenHeight/15, kScreenWidth, kScreenHeight/15)];
+        self.QQTF.keyboardType = UIKeyboardTypeNumberPad;
+        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+        label2.text = @"QQ：";
+        self.QQTF.leftView = label2;
+        self.QQTF.leftViewMode = UITextFieldViewModeAlways;
+        self.QQTF.textColor = [UIColor whiteColor];
+        [self.view addSubview:self.QQTF];
+        [self.view addSubview:self.tableV3];
+        [self.view addSubview:self.speakTV];
+        [self.speakTV addSubview:self.speakTF];
+        [self.speakTV addSubview:self.sendB];
+        }
+    if (self.index == 5) {
+        self.navigationItem.title = @"设置";
     }
     // Do any additional setup after loading the view.
+}
+
+#pragma mark ----- 创建意见反馈 -----
+-(UITableView *)tableV3{
+    if (!_tableV3) {
+        _tableV3 = [[UITableView alloc]initWithFrame:CGRectMake(0, 64+kScreenHeight*2/15, kScreenWidth, kScreenHeight-64-kScreenHeight*2/15-40) style:UITableViewStyleGrouped];
+        _tableV3.delegate = self;
+        _tableV3.dataSource = self;
+        _tableV3.tag = 103;
+        _tableV3.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableV3 registerClass:[PingLunTableViewCell class] forCellReuseIdentifier:@"PingCell"];
+    }
+    return _tableV3;
+}
+
+#pragma mark ----- 创建评论框 -----
+-(UIView *)speakTV{
+    if (!_speakTV) {
+        _speakTV = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight-40, kScreenWidth, 40)];
+        _speakTV.backgroundColor = PKCOLOR(180, 170, 190);
+    }
+    return _speakTV;
+}
+
+-(UITextField *)speakTF{
+    if (!_speakTF) {
+        _speakTF = [[UITextField alloc]initWithFrame:CGRectMake(5, 3, kScreenWidth-60, 34)];
+        _speakTF.backgroundColor = [UIColor whiteColor];
+        _speakTF.delegate = self;
+    }
+    return _speakTF;
+}
+
+-(UIButton *)sendB{
+    if (!_sendB) {
+        _sendB = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sendB.frame = CGRectMake(kScreenWidth - 53, 4,  48, 32);
+        [_sendB setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendB addTarget:self action:@selector(sendA) forControlEvents:UIControlEventTouchUpInside];
+        [_sendB setTintColor:[UIColor whiteColor]];
+        _sendB.backgroundColor = [UIColor blueColor];
+        _sendB.layer.masksToBounds = YES;
+        _sendB.layer.cornerRadius = 8;
+    }
+    return _sendB;
+}
+
+#pragma mark ----- 键盘 -----
+-(void)keyBoardShow:(NSNotification *)note{
+    CGRect newRect = [note.userInfo [UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.speakTV.transform = CGAffineTransformMakeTranslation(0, -newRect.size.height);
+}
+
+-(void)keyBoardHidden:(NSNotification *)note{
+     self.speakTV.transform = CGAffineTransformIdentity;
+}
+
+#pragma mark ----- 是textfile成为第一响应者 -----
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+   [self.speakTF resignFirstResponder];
+    return  YES;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.speakTF resignFirstResponder];
 }
 
 #pragma mark ----- 创建已下载歌曲界面 -----
@@ -129,6 +239,7 @@ BOOL isClick = NO;
         _tableV1 = [[UITableView alloc]initWithFrame:CGRectMake(0,60, kScreenWidth, kScreenHeight) style:(UITableViewStyleGrouped)];
         _tableV1.delegate = self;
         _tableV1.dataSource = self;
+        _tableV1.tag = 101;
         [_tableV1 registerClass:[HistoryOfPlayTableViewCell class] forCellReuseIdentifier:@"historyCell"];
     }
     return _tableV1;
@@ -136,21 +247,44 @@ BOOL isClick = NO;
 
 #pragma mark ----- tableView协议方法 -----
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.modelArr.count;
+    if (tableView.tag == 103) {
+        return self.pingArr.count;
+    } else {
+        return self.modelArr.count;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 103) {
+        CGFloat H = [AdjustHeight adjustHeightByString:self.pingArr[indexPath.row] width:100 font:15];
+        self.height = H +20;
+        return H +20;
+    } else {
     return kScreenHeight/7;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 103) {
+        PingLunTableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"PingCell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor clearColor];
+         cell.label.layer.masksToBounds = YES;
+        cell.label.layer.cornerRadius = 2;
+        cell.label.text = self.pingArr[indexPath.row];
+        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+        return cell;
+    } else {
     BroadMusicModel *model = self.modelArr[indexPath.row];
     HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
     [cell cellConfigureWithModel:model];
     return cell;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 103) {
+        
+    } else {
     if (isClick == NO) {
         MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
         playVC.newmodelArray = self.modelArr;
@@ -170,12 +304,17 @@ BOOL isClick = NO;
     }
     model.isSelect = !model.isSelect;
     }
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 103) {
+        
+    } else {
     NSInteger cc = indexPath.row;
     BroadMusicModel *model = self.modelArr[cc];
     model.isSelect = NO;
+    }
 }
 
 #pragma mark ----- 创建编辑界面 -----
@@ -236,6 +375,16 @@ BOOL isClick = NO;
             BroadMusicModel *model = self.modelArr[i];
             model.isSelect = NO;
         }
+    }
+}
+
+-(void)sendA{
+    [self.pingArr addObject:self.speakTF.text];
+    NSLog(@"%ld",self.pingArr.count);
+    [self.tableV3 reloadData];
+    if (self.pingArr.count * self.height > kScreenHeight-64-kScreenHeight*2/15-40) {
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.pingArr.count-1 inSection:0];
+        [self.tableV3 scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
 

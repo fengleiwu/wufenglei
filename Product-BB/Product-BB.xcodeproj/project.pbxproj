@@ -255,6 +255,8 @@
 		7987F3841D44B2D5002A8858 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7987F3831D44B2D5002A8858 /* ImageIO.framework */; };
 		7987F3861D44B2E0002A8858 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7987F3851D44B2E0002A8858 /* libsqlite3.tbd */; };
 		7987F3881D44B2FE002A8858 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7987F3871D44B2FE002A8858 /* MessageUI.framework */; };
+		7987F38F1D45D9BF002A8858 /* 对话框实心.png in Resources */ = {isa = PBXBuildFile; fileRef = 7987F38E1D45D9BF002A8858 /* 对话框实心.png */; };
+		7987F3921D45D9D1002A8858 /* PingLunTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */; };
 		799073821D4054D400108E35 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073801D4054D400108E35 /* 1.png */; };
 		799073831D4054D400108E35 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073811D4054D400108E35 /* 2.png */; };
 		799073861D40C6EE00108E35 /* ArrayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 799073851D40C6EE00108E35 /* ArrayManager.m */; };
@@ -858,6 +860,9 @@
 		7987F3831D44B2D5002A8858 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		7987F3851D44B2E0002A8858 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		7987F3871D44B2FE002A8858 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7987F38E1D45D9BF002A8858 /* 对话框实心.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "对话框实心.png"; sourceTree = "<group>"; };
+		7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingLunTableViewCell.m; sourceTree = "<group>"; };
+		7987F3911D45D9D1002A8858 /* PingLunTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingLunTableViewCell.h; sourceTree = "<group>"; };
 		799073801D4054D400108E35 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		799073811D4054D400108E35 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		799073841D40C6EE00108E35 /* ArrayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayManager.h; sourceTree = "<group>"; };
@@ -1511,6 +1516,8 @@
 		798076F11D33A05C0095911D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */,
+				7987F3911D45D9D1002A8858 /* PingLunTableViewCell.h */,
 				79BE29ED1D3E7B5A009CF446 /* MySettingTableViewCell.h */,
 				79BE29EE1D3E7B5A009CF446 /* MySettingTableViewCell.m */,
 				7981D7961D41F40300ABC217 /* HistoryOfPlayTableViewCell.h */,
@@ -2599,6 +2606,7 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				7987F38E1D45D9BF002A8858 /* 对话框实心.png */,
 				79FEE74C1D459882008168C2 /* icon_search_n@3x.png */,
 				7987F3491D44B272002A8858 /* 喵呜.png */,
 				79DB35C21D449DD700ACD1B6 /* categoryImage */,
@@ -2859,6 +2867,7 @@
 				79F44CFC1D3A3C64002BE16F /* 箭头.png in Resources */,
 				7981D5BA1D41178E00ABC217 /* 盾牌 (1).png in Resources */,
 				79DB35CB1D449DD700ACD1B6 /* find_music@3x.png in Resources */,
+				7987F38F1D45D9BF002A8858 /* 对话框实心.png in Resources */,
 				79F44CFA1D3A3C64002BE16F /* 箭头 (2).png in Resources */,
 				7981D5BB1D41178E00ABC217 /* 灰底白狗加载背景图.png in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
@@ -3077,6 +3086,7 @@
 				79E323421D38AF2200B716B5 /* qualityGoodsTableViewController.m in Sources */,
 				7981D75B1D41179C00ABC217 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				7981D76E1D41179C00ABC217 /* DDAbstractDatabaseLogger.m in Sources */,
+				7987F3921D45D9D1002A8858 /* PingLunTableViewCell.m in Sources */,
 				7946EBDF1D35E7C400AA9712 /* AdjustHeight.m in Sources */,
 				7981D70D1D41179C00ABC217 /* XMPPModule.m in Sources */,
 				7980771B1D33A2260095911D /* DiscoverViewController.m in Sources */,
