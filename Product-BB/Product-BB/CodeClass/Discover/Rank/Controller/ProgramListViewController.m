@@ -27,6 +27,7 @@
 @property (nonatomic, strong)UIView *ALLV;
 @property (nonatomic, strong)UIView *selectV;
 @property (nonatomic, strong)UIView *backV;
+@property (nonatomic, strong)UIButton *moreB;
 // 用于判断使用哪种 cell
 @property (nonatomic, strong)NSString *cellName;
 
@@ -66,6 +67,9 @@
     self.navigationItem.title = self.titleStr;
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    //更多按钮
+    self.moreB = [UIButton buttonWithType:UIButtonTypeSystem];
+//    self.moreB
     [self requestData];
     // Do any additional setup after loading the view.
 }

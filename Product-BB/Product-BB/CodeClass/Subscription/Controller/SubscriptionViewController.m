@@ -84,7 +84,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = YES;
     [self.segContoller removeFromSuperview];
 }
 
@@ -337,6 +336,7 @@
         aDetailVC.uid = model.uid;
         aDetailVC.score = model.score;
         aDetailVC.displayPrice = model.displayPrice;
+         self.tabBarController.tabBar.hidden = YES;
        [self.navigationController pushViewController:aDetailVC animated:YES];
     }
     if (tableView.tag == 102) {
@@ -345,7 +345,7 @@
             playVC.newmodelArray = self.modelArr;
             [MyPlayerManager defaultManager].index = indexPath.row;
             [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
-            
+             self.tabBarController.tabBar.hidden = YES;
             [self presentViewController:playVC animated:YES completion:nil];
         } else {
         BroadMusicModel *model = self.modelArr[indexPath.row];
@@ -372,6 +372,7 @@
         aDetailVC.uid = model.uid;
         aDetailVC.score = model.score;
         aDetailVC.displayPrice = model.displayPrice;
+         self.tabBarController.tabBar.hidden = YES;
         [self.navigationController pushViewController:aDetailVC animated:YES];
     }
 }

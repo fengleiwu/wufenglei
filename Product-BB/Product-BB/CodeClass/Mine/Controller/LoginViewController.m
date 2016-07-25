@@ -212,8 +212,8 @@
      //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
      //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
           associateHandler (user.uid, user, user);
-          NSLog(@"dd%@",user.rawData);
-          NSLog(@"dd%@",user.credential);
+//          NSLog(@"dd%@",user.rawData);
+//          NSLog(@"dd%@",user.credential);
         // 记录登录成功的用户名和密码
         [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"nickname"] forKey:@"user"];
         [[NSUserDefaults standardUserDefaults]setObject:@"QQ" forKey:@"type"];
@@ -346,7 +346,7 @@
 #pragma mark ----- 键盘弹出隐藏方法 -----
 -(void)keyBoardShow:(NSNotification *)note{
         CGRect frame = self.view.frame;
-        frame.origin.y = - self.passwordTF.height;
+        frame.origin.y = - self.passwordTF.height*2;
         self.view.frame =frame;
 }
 

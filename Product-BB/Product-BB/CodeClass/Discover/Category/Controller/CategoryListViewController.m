@@ -109,7 +109,7 @@
         tableView.dataSource = self;
         tableView.showsVerticalScrollIndicator = NO;
         [tableView registerNib:[UINib nibWithNibName:@"DetailListTableViewCell" bundle:nil] forCellReuseIdentifier:@"detailCell"];
-        // 上拉刷新
+               // 上拉刷新
         tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [self.tableArr removeAllObjects];
             self.start = 0;

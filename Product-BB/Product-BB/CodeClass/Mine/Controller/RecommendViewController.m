@@ -7,8 +7,10 @@
 //
 
 #import "RecommendViewController.h"
+#import "AppDelegate.h"
 #import "TuiJianViewController.h"
 #import "MyMusicDownLoadTable.h"
+#import "YourSettingTableViewCell.h"
 #import "HistoryOfPlayTableViewCell.h"
 #import "MusicplayViewController.h"
 #import "PingLunTableViewCell.h"
@@ -24,16 +26,23 @@ BOOL isClick = NO;
 @property (nonatomic, strong)UITextField *phoneTF;
 @property (nonatomic, strong)UITextField *QQTF;
 @property (nonatomic, strong)UIView *editV;
+@property (nonatomic, strong)UIView *timeV;
+@property (nonatomic, strong)UIView *bacKV;
 @property (nonatomic, strong)UIWebView *wView;
 @property (nonatomic, strong)UITableView *tableV1;
 @property (nonatomic, strong)UITableView *tablev2;
 @property (nonatomic, strong)UITableView *tableV3;
+@property (nonatomic, strong)UITableView *tableV4;
 @property (nonatomic, strong)MyMusicDownLoadTable *table;
 @property (nonatomic, strong)UIButton *lookRecommendB;
 @property (nonatomic, strong)UIButton *checkB;
 @property (nonatomic, strong)UIButton *sendB;
 @property (nonatomic, strong)UIButton *removeB;
+@property (nonatomic, strong)UIButton *closeB;
+@property (nonatomic, strong)NSTimer *timer;
 @property (nonatomic, strong)NSArray *sqliteArr;
+@property (nonatomic, strong)NSMutableArray *settingArr;
+@property (nonatomic, strong)NSMutableArray *timeArr;
 @property (nonatomic, strong)NSMutableArray *pingArr;
 @property (nonatomic, strong)NSMutableArray *modelArr;
 @end
@@ -58,6 +67,25 @@ BOOL isClick = NO;
         _pingArr = [NSMutableArray array];
     }
     return _pingArr;
+}
+
+-(NSMutableArray *)timeArr{
+    if (!_timeArr) {
+        _timeArr = [NSMutableArray arrayWithObjects:@"不开启",@"立即退出",@"20分钟后",@"30分钟后",@"60分钟后",@"90分钟后", nil];
+    }
+    return _timeArr;
+}
+
+-(NSMutableArray *)settingArr{
+    if (!_settingArr) {
+        NSArray *arr1 = @[@"特色闹铃",@"定时关闭"];
+        NSArray *arr2 = @[@"账号绑定"];
+        NSArray *arr3 = @[@"断点续听",@"2G/3G/4G播放和下载",@"推送设置",@"隐私设置",@"修改密码"];
+        NSArray *arr4 = @[@"帮助中心"];
+        NSArray *arr5 = @[@"亲，请评价，支持我们做得更好！",@"关于"];
+        _settingArr = [NSMutableArray arrayWithObjects:arr1,arr2,arr3,arr4,arr5, nil];
+    }
+    return _settingArr;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -164,8 +192,25 @@ BOOL isClick = NO;
         }
     if (self.index == 5) {
         self.navigationItem.title = @"设置";
+        [self.view addSubview:self.tableV4];
+        [self.view addSubview:self.timeV];
+        [self.view addSubview:self.bacKV];
+        [self.timeV addSubview:self.closeB];
+        [self creatLandB];
     }
     // Do any additional setup after loading the view.
+}
+
+#pragma mark ----- 创建设置界面 -----
+-(UITableView *)tableV4{
+    if (!_tableV4) {
+        _tableV4 = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableV4.delegate = self;
+        _tableV4.dataSource = self;
+        _tableV4.tag = 104;
+        [_tableV4 registerClass:[YourSettingTableViewCell class] forCellReuseIdentifier:@"SETTINGCell"];
+    }
+    return _tableV4;
 }
 
 #pragma mark ----- 创建意见反馈 -----
@@ -246,10 +291,20 @@ BOOL isClick = NO;
 }
 
 #pragma mark ----- tableView协议方法 -----
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView.tag == 104) {
+        return self.settingArr.count;
+    } else {
+        return 1;
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 103) {
         return self.pingArr.count;
-    } else {
+    } else if (tableView.tag == 104){
+        return [self.settingArr[section] count];
+    }else {
         return self.modelArr.count;
     }
 }
@@ -259,7 +314,9 @@ BOOL isClick = NO;
         CGFloat H = [AdjustHeight adjustHeightByString:self.pingArr[indexPath.row] width:100 font:15];
         self.height = H +20;
         return H +20;
-    } else {
+    } else if (tableView.tag == 104){
+        return kScreenHeight/10;
+    }else {
     return kScreenHeight/7;
     }
 }
@@ -273,6 +330,16 @@ BOOL isClick = NO;
         cell.label.text = self.pingArr[indexPath.row];
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         return cell;
+    } else if (tableView.tag == 104){
+        YourSettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SETTINGCell" forIndexPath:indexPath];
+        cell.label.text = self.settingArr[indexPath.section][indexPath.row];
+        if ((indexPath.row == 0 || indexPath.row == 1  )&& indexPath.section == 2) {
+            cell.nextV.image = [UIImage imageNamed:@""];
+            UISwitch *sw = [[UISwitch alloc]initWithFrame:CGRectMake(kScreenWidth*6/7, (kScreenHeight/10 - kScreenWidth/11)/2, kScreenWidth/11, kScreenWidth/11)];
+            sw.transform =CGAffineTransformMakeScale(1,1);
+            [cell addSubview:sw];
+        }
+        return cell;
     } else {
     BroadMusicModel *model = self.modelArr[indexPath.row];
     HistoryOfPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
@@ -284,6 +351,11 @@ BOOL isClick = NO;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag == 103) {
         
+    } else if (tableView.tag == 104){
+        if (indexPath.section == 0 && indexPath.row == 1) {
+            self.timeV.frame = CGRectMake(0, kScreenHeight*4/11, kScreenWidth, kScreenHeight*7/11);
+            self.bacKV.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight*4/11-64);
+        }
     } else {
     if (isClick == NO) {
         MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
@@ -308,13 +380,184 @@ BOOL isClick = NO;
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView.tag == 103) {
+    if (tableView.tag == 103 || tableView.tag == 104) {
         
     } else {
     NSInteger cc = indexPath.row;
     BroadMusicModel *model = self.modelArr[cc];
     model.isSelect = NO;
     }
+}
+
+#pragma mark ----- 创建背景界面 -----
+-(UIView *)bacKV{
+    if (!_bacKV) {
+        _bacKV = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 0)];
+        _bacKV.backgroundColor = [UIColor grayColor];
+        _bacKV.alpha = 0.7;
+    }
+    return _bacKV;
+}
+
+-(void)creatLandB{
+    for (int i = 0; i < 6; i++) {
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, kScreenHeight/11 * i, kScreenWidth/2, kScreenHeight/11)];
+        label.text = self.timeArr[i];
+        label.textColor = [UIColor blackColor];
+        [self.timeV addSubview:label];
+        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(8, kScreenHeight/11*(i+1)-1, kScreenWidth-16, 1)];
+        lineV.backgroundColor = [UIColor lightGrayColor];
+        [self.timeV addSubview:lineV];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        button.tintColor = [UIColor orangeColor];
+        button.frame = CGRectMake(kScreenWidth - 40, kScreenHeight/22-15 + kScreenHeight/11 * i, 30, 30);
+        button.tag = 200+i;
+        NSString *str = [NSString stringWithFormat:@"%d",200+i];
+        if ([[TimeDisManager defaultManager].timeDic[str] isEqualToString:@"NO"]) {
+        [button setImage:[UIImage imageNamed:@"圈.png"] forState:UIControlStateNormal];
+        } else {
+        [button setImage:[UIImage imageNamed:@"圈 YES.png"] forState:UIControlStateNormal];
+        }
+        [button addTarget:self action:@selector(sureAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.layer.masksToBounds = YES;
+        button.layer.cornerRadius = 15;
+        [self.timeV addSubview:button];
+    }
+}
+
+-(void)sureAction:(UIButton *)button{
+     NSInteger ii = button.tag;
+    for (int i = 0; i < 6; i++) {
+        NSString *str = [NSString stringWithFormat:@"%d",200+i];
+        [[TimeDisManager defaultManager].timeDic setValue:@"NO" forKey:str];
+        if (ii == i +200) {
+            [[TimeDisManager defaultManager].timeDic setValue:@"YES" forKey:str];
+        }
+        button = [self.view viewWithTag:200+i];
+        if ([[TimeDisManager defaultManager].timeDic[str] isEqualToString:@"NO"]) {
+            [button setImage:[UIImage imageNamed:@"圈.png"] forState:UIControlStateNormal];
+        } else {
+            [button setImage:[UIImage imageNamed:@"圈 YES.png"] forState:UIControlStateNormal];
+        }
+    }
+}
+
+#pragma mark ----- 创建定时界面 -----
+-(UIView *)timeV{
+    if (!_timeV) {
+        _timeV = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth , 0)];
+        _timeV.backgroundColor = [UIColor whiteColor];
+    }
+    return _timeV;
+}
+
+#pragma mark ----- 创建定时界面关闭按钮 -----
+-(UIButton *)closeB{
+    if (!_closeB) {
+        _closeB = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeB.frame = CGRectMake(0, kScreenHeight*6/11, kScreenWidth, kScreenHeight/11);
+        [_closeB setTitle:@"关闭" forState:UIControlStateNormal];
+        [_closeB setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_closeB addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _closeB;
+}
+
+#pragma mark ----- 关闭界面方法 -----
+-(void)closeAction{
+    self.timeV.frame = CGRectMake(0, kScreenHeight, kScreenWidth , 0);
+    self.bacKV.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 0);
+    YourSettingTableViewCell *cell = (YourSettingTableViewCell*)[_tableV4 cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    int ii = 0;
+    for (int i = 0; i < 6; i++) {
+        NSString *str = [NSString stringWithFormat:@"%d",200+i];
+        NSString *value = [TimeDisManager defaultManager].timeDic[str];
+        if ([value isEqualToString:@"YES"]) {
+            ii = i;
+            break;
+        }
+        ii++;
+    }
+    switch (ii) {
+        case 0:{
+            break;}
+        case 1:{
+            [self timeOut:5];
+            break;}
+        case 2:{
+            cell.timeL.text = [NSString stringWithFormat:@"%2d:00",1200/60];
+            self.timeNumber = 1200;
+            [self timer];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self timeOut:1200];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                });
+            });
+            break;
+        }
+        case 3:{
+            cell.timeL.text = [NSString stringWithFormat:@"%2d:00",1800/60];
+            self.timeNumber = 1800;
+            [self timer];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self timeOut:1800];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                });
+            });
+        }
+        case 4:{
+            cell.timeL.text = [NSString stringWithFormat:@"%2d:00",3600/60];
+            self.timeNumber = 3600;
+            [self timer];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self timeOut:3600];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                });
+            });
+        }
+        case 5:{
+            cell.timeL.text = [NSString stringWithFormat:@"%2d:00",5400/60];
+            self.timeNumber = 5400;
+            [self timer];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self timeOut:5400];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                });
+            });
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark 计时器
+-(NSTimer *)timer{
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(time) userInfo:nil repeats:YES];
+    
+    return _timer;
+}
+
+#pragma mark 倒计时
+-(void)time{
+  YourSettingTableViewCell *cell = (YourSettingTableViewCell*)[_tableV4 cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    self.timeNumber--;
+    if (self.timeNumber <= 0) {
+        [_timer invalidate];
+        
+    }
+    cell.timeL.text = [NSString stringWithFormat:@"%2ld:%2ld",self.timeNumber/60,self.timeNumber%60];
+    
+}
+
+#pragma mark ----- 退出程序方法 -----
+-(void)timeOut:(NSInteger)time{
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    UIWindow *window = app.window;
+    [UIView animateWithDuration:time animations:^{
+//        window.alpha = 0;
+    } completion:^(BOOL finished) {
+            exit(0);
+    }];
 }
 
 #pragma mark ----- 创建编辑界面 -----

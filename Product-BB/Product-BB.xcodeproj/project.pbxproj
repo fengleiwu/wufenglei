@@ -257,6 +257,10 @@
 		7987F3881D44B2FE002A8858 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7987F3871D44B2FE002A8858 /* MessageUI.framework */; };
 		7987F38F1D45D9BF002A8858 /* 对话框实心.png in Resources */ = {isa = PBXBuildFile; fileRef = 7987F38E1D45D9BF002A8858 /* 对话框实心.png */; };
 		7987F3921D45D9D1002A8858 /* PingLunTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */; };
+		7987F3CC1D4664D1002A8858 /* 圈 YES.png in Resources */ = {isa = PBXBuildFile; fileRef = 7987F3CA1D4664D1002A8858 /* 圈 YES.png */; };
+		7987F3CD1D4664D1002A8858 /* 圈.png in Resources */ = {isa = PBXBuildFile; fileRef = 7987F3CB1D4664D1002A8858 /* 圈.png */; };
+		7987F3D01D4664ED002A8858 /* YourSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7987F3CF1D4664ED002A8858 /* YourSettingTableViewCell.m */; };
+		7987F3D31D466501002A8858 /* TimeDisManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7987F3D21D466501002A8858 /* TimeDisManager.m */; };
 		799073821D4054D400108E35 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073801D4054D400108E35 /* 1.png */; };
 		799073831D4054D400108E35 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 799073811D4054D400108E35 /* 2.png */; };
 		799073861D40C6EE00108E35 /* ArrayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 799073851D40C6EE00108E35 /* ArrayManager.m */; };
@@ -864,6 +868,12 @@
 		7987F38E1D45D9BF002A8858 /* 对话框实心.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "对话框实心.png"; sourceTree = "<group>"; };
 		7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingLunTableViewCell.m; sourceTree = "<group>"; };
 		7987F3911D45D9D1002A8858 /* PingLunTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingLunTableViewCell.h; sourceTree = "<group>"; };
+		7987F3CA1D4664D1002A8858 /* 圈 YES.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "圈 YES.png"; sourceTree = "<group>"; };
+		7987F3CB1D4664D1002A8858 /* 圈.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "圈.png"; sourceTree = "<group>"; };
+		7987F3CE1D4664ED002A8858 /* YourSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourSettingTableViewCell.h; sourceTree = "<group>"; };
+		7987F3CF1D4664ED002A8858 /* YourSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourSettingTableViewCell.m; sourceTree = "<group>"; };
+		7987F3D11D466501002A8858 /* TimeDisManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDisManager.h; sourceTree = "<group>"; };
+		7987F3D21D466501002A8858 /* TimeDisManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeDisManager.m; sourceTree = "<group>"; };
 		799073801D4054D400108E35 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		799073811D4054D400108E35 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		799073841D40C6EE00108E35 /* ArrayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayManager.h; sourceTree = "<group>"; };
@@ -1512,6 +1522,8 @@
 		798076F01D33A05C0095911D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7987F3D11D466501002A8858 /* TimeDisManager.h */,
+				7987F3D21D466501002A8858 /* TimeDisManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1519,6 +1531,8 @@
 		798076F11D33A05C0095911D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7987F3CE1D4664ED002A8858 /* YourSettingTableViewCell.h */,
+				7987F3CF1D4664ED002A8858 /* YourSettingTableViewCell.m */,
 				7987F3901D45D9D1002A8858 /* PingLunTableViewCell.m */,
 				7987F3911D45D9D1002A8858 /* PingLunTableViewCell.h */,
 				79BE29ED1D3E7B5A009CF446 /* MySettingTableViewCell.h */,
@@ -2612,6 +2626,8 @@
 			isa = PBXGroup;
 			children = (
 				7987F38E1D45D9BF002A8858 /* 对话框实心.png */,
+				7987F3CA1D4664D1002A8858 /* 圈 YES.png */,
+				7987F3CB1D4664D1002A8858 /* 圈.png */,
 				79FEE74C1D459882008168C2 /* icon_search_n@3x.png */,
 				7987F3491D44B272002A8858 /* 喵呜.png */,
 				79DB35C21D449DD700ACD1B6 /* categoryImage */,
@@ -2852,6 +2868,7 @@
 				79F446821D3A3C64002BE16F /* audio_wave.png in Resources */,
 				7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */,
 				79F44CEF1D3A3C64002BE16F /* 取消 (1).png in Resources */,
+				7987F3CC1D4664D1002A8858 /* 圈 YES.png in Resources */,
 				79BE29FA1D3E7B70009CF446 /* 播放历史.png in Resources */,
 				79DB35CA1D449DD700ACD1B6 /* find_kid@3x.png in Resources */,
 				79F44CF31D3A3C64002BE16F /* 播放 (2).png in Resources */,
@@ -2877,6 +2894,7 @@
 				7981D5BB1D41178E00ABC217 /* 灰底白狗加载背景图.png in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
 				79F44CEE1D3A3C64002BE16F /* 发现.png in Resources */,
+				7987F3CD1D4664D1002A8858 /* 圈.png in Resources */,
 				7900E8581D3A796E00E3676C /* broadcast_bg.jpg in Resources */,
 				79F44CE81D3A3C64002BE16F /* speech_bubble.png in Resources */,
 				79DB35CC1D449DD700ACD1B6 /* find_other@3x.png in Resources */,
@@ -3084,6 +3102,7 @@
 				7981D7451D41179C00ABC217 /* TURNSocket.m in Sources */,
 				79FEE7561D45E0AE008168C2 /* PlayHistoryView.m in Sources */,
 				7981D7131D41179C00ABC217 /* XMPPGoogleSharedStatus.m in Sources */,
+				7987F3D31D466501002A8858 /* TimeDisManager.m in Sources */,
 				7981D7601D41179C00ABC217 /* NSXMLElement+XEP_0203.m in Sources */,
 				7981D7551D41179C00ABC217 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				7981D7291D41179C00ABC217 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
@@ -3163,6 +3182,7 @@
 				7900E14B1D3A78A300E3676C /* BroadListModel.m in Sources */,
 				7981D7341D41179C00ABC217 /* XMPPvCard.xcdatamodeld in Sources */,
 				79AB5FB81D4317900091E438 /* DingYueModel.m in Sources */,
+				7987F3D01D4664ED002A8858 /* YourSettingTableViewCell.m in Sources */,
 				7981D73E1D41179C00ABC217 /* XMPPvCardTempLabel.m in Sources */,
 				7900E14A1D3A78A300E3676C /* BroadcastViewController.m in Sources */,
 				7981D7311D41179C00ABC217 /* XMPPMessage+XEP0045.m in Sources */,

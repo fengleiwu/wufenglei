@@ -12,4 +12,5 @@
 @property (nonatomic, assign)NSInteger index;
 @property (nonatomic, strong)NSString *webStr;
 @property (nonatomic, assign)CGFloat height;
+@property (nonatomic, assign)NSInteger timeNumber;
 @end
