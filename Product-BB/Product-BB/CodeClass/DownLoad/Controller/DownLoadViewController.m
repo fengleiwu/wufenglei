@@ -304,11 +304,9 @@
             [cell1 creatDownloadingCell:model];
             
             if (model.type == Downloadimg) {
-//                [[MyDownLoad shareMyDownLoad]start];
                 cell1.titleL.textColor = [UIColor redColor];
             }if (model.type == DownloadPause){
                 cell1.titleL.textColor = [UIColor blackColor];
-//                [[MyDownLoad shareMyDownLoad]stop];
 
             }
             
@@ -375,14 +373,12 @@
             }
             return;
         }
-        
         if (model1.type == Downloadimg) {
             for (AlbumDetailModel *model in self.downLoadingArray) {
                 model.type = DownloadPause;
             }
             if (self.inter + 1 >= self.downLoadingArray.count) {
-            
-                AlbumDetailModel *model = self.downLoadingArray[0];
+            AlbumDetailModel *model = self.downLoadingArray[0];
                 model.type = Downloadimg;
             }else
             {
@@ -402,7 +398,6 @@
 -(void)cellDownLoadAction{
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
     AlbumDetailModel *model = self.downLoadingArray[self.inter];
-    
     if (model.playUrl64 == nil) {
         MyDownLoad *task = [manager creatDownload:model.playPath64];
         [task stop];
@@ -429,6 +424,7 @@
     AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
     MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
     if (model.playUrl64 == nil) {
+        
         MyDownLoad *task = [manager creatDownload:model.playPath64];
         [self downLoad:task model:model];
     }else{
@@ -487,6 +483,7 @@
         NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
     } DidDownload:^(NSString *savePath, NSString *url) {
+        [table creatTable];
         NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.titleArr[0]]];
         if (model.coverLarge.length == 0) {
             NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.smallLogo]];

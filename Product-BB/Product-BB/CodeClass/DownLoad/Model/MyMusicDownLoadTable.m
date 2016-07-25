@@ -246,7 +246,7 @@
 
 //删除数据
 -(void)delegateNoteWithDingyueTableName:(NSString *)tableName totalTitle:(NSString *)totalTitle{
-    NSString *string = [NSString stringWithFormat:@"delete from %@ where totalTitle = ?",tableName];
+    NSString *string = [NSString stringWithFormat:@"delete from %@ where albumid = ?",tableName];
     NSString *myIDString = [NSString stringWithFormat:@"%@",totalTitle];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
     NSLog(@"删除数据flag==%d",flag);

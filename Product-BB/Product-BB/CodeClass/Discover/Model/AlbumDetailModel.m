@@ -41,7 +41,11 @@
 //}if (h <= 10000) {
 //    self.label3.text = [NSString stringWithFormat:@"%@",model.comments];
 //}
-
+//if (model.playUrl64 == nil) {
+//    [table insertIntoTable:@[model.title,model.playPath64,musicData,savePath,model.nickname,model.playsCounts,@"111",model.commentsCounts,model.favoritesCounts,albumData,self.self.titleArr[1]]];
+//}else{
+//    [table insertIntoTable:@[model.title,model.playUrl64,musicData,savePath,model.nickname,model.playtimes,model.albumId,model.comments,model.likes,albumData,self.titleArr[1]]];
+//
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.smallLogo forKey:@"smallLogo"];
@@ -50,6 +54,10 @@
     [aCoder encodeObject:self.playtimes forKey:@"playtimes"];
     [aCoder encodeObject:self.likes forKey:@"likes"];
     [aCoder encodeObject:self.comments forKey:@"comments"];
+    [aCoder encodeObject:self.playPath64 forKey:@"playPath64"];
+    [aCoder encodeObject:self.playUrl64 forKey:@"playUrl64"];
+    [aCoder encodeObject:self.albumId forKey:@"albumId"];
+    
 }
 
 
@@ -63,6 +71,9 @@
         self.playtimes = [aDecoder decodeObjectForKey:@"playtimes"];
         self.likes = [aDecoder decodeObjectForKey:@"likes"];
         self.comments = [aDecoder decodeObjectForKey:@"comments"];
+        self.playPath64 = [aDecoder decodeObjectForKey:@"playPath64"];
+        self.playUrl64 = [aDecoder decodeObjectForKey:@"playUrl64"];
+        self.albumId = [aDecoder decodeObjectForKey:@"albumId"];
     }
     return self;
 }

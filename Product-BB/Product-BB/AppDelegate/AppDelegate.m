@@ -172,10 +172,18 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
     NSString *filePth = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"array.txt" type:CachesType];
-
+    NSLog(@"%@",filePth);
     NSData *data = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].Array arrayKey:@"array"];
     [data writeToFile:filePth atomically:YES];
     
+
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (AlbumDetailModel *model in [ArrayManager shareManager].Array) {
+//        [arr addObject:model];
+//    }
+//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+//    [[NSUserDefaults standardUserDefaults]setObject:data forKey:@"arrManager"];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
     [[MyDownLoad shareMyDownLoad] stop];
 }
 
@@ -188,8 +196,16 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
     NSString *filePth = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"array.txt" type:CachesType];
+    NSLog(@"%@",filePth);
+
     [ArrayManager shareManager].Array = [[[EncodeManager shareInstance]unArchiverArrayWithFilePath:filePth arrayKey:@"array"]mutableCopy];
    
+//    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"arrManager"];
+//    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//    [ArrayManager shareManager].Array = [arr mutableCopy];
+//    AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
+//    
+    
     [[MyDownLoad shareMyDownLoad] start];
 
 }

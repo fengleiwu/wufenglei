@@ -49,9 +49,9 @@
 
 @property (nonatomic , strong)attentionModel *attentionModel;
 
+@property (nonatomic , assign)BOOL isDingYue;
 
-
-
+@property (nonatomic , strong)NSMutableArray *isDingYueArr;
 
 //@property (nonatomic , strong)UITextView *contentView;
 //@property (nonatomic , strong)UILabel *contentLabel;
@@ -130,6 +130,21 @@
     [btn1 addTarget:self action:@selector(dingyueAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [btn1 setTintColor:[UIColor whiteColor]];
     [btn1 setBackgroundColor:[UIColor greenColor]];
+    self.url = [NSString stringWithFormat:@"%@",self.url];
+MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    self.isDingYueArr = [[table selectAllInDingyue]mutableCopy];
+    for (NSArray *arr in self.isDingYueArr) {
+        if ([arr containsObject:self.url]) {
+            [btn1 setTitle:@"已订阅" forState:(UIControlStateNormal)];
+            [btn1 setBackgroundColor:[UIColor grayColor]];
+            self.isDingYue = YES;
+            break;
+        }else{
+            self.isDingYue = NO;
+        }
+    }
+
+    
     [btn1.layer setMasksToBounds:YES];
     [btn1.layer setCornerRadius:5];
     UIButton *btn2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -255,6 +270,26 @@
     [btn1 addTarget:self action:@selector(dingyueAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [btn1 setTintColor:[UIColor whiteColor]];
     [btn1 setBackgroundColor:[UIColor greenColor]];
+    
+    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+    self.isDingYueArr = [[table selectAllInDingyue]mutableCopy];
+    self.url = [NSString stringWithFormat:@"%@",self.url];
+    for (NSArray *arr in self.isDingYueArr) {
+        
+        if ([arr containsObject:self.url]) {
+            [btn1 setTitle:@"已订阅" forState:(UIControlStateNormal)];
+            [btn1 setBackgroundColor:[UIColor grayColor]];
+            self.isDingYue = YES;
+            break;
+        }else
+        {
+            self.isDingYue = NO;
+        }
+    }
+
+    
+    
+    
     [btn1.layer setMasksToBounds:YES];
     [btn1.layer setCornerRadius:5];
     UIButton *btn2 = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -437,31 +472,48 @@
 #pragma mark --- 订阅
 -(void)dingyueAction:(UIButton *)btn
 {
-    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-    [table creatDingyueTable];
-    if (self.uid == nil) {
-        self.uid = @"2";
-    }if (self.nickName == nil) {
-        self.nickName = @"3";
-    }if (self.score == nil) {
-        self.score = @"4";
-    }if (self.displayPrice == nil) {
-        self.displayPrice = @"5";
-    }
-    self.uid = [NSString stringWithFormat:@"%@",self.uid];
-    if (![self.uid isEqualToString:@"2"]) {
-        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.attentionModel.coverLarge,self.attentionModel.title,self.nickName]];
-        return;
-    }
-    if (self.inter>=0 && self.inter<=3){
-        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title,self.hotRecommendsModel.nickname]];
-        return;
-    }
-    if (self.isPaid == NO) {
-        [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.albumModel.coverLarge,self.albumModel.title,self.albumModel.nickname]];
-    }
-    [btn setTitle:@"已订阅" forState:(UIControlStateNormal)];
+    
+    
+    
+    
+    
+    
+    self.isDingYue = !self.isDingYue;
+    if (self.isDingYue == YES) {
+        [btn setTitle:@"已订阅" forState:(UIControlStateNormal)];
+        [btn setBackgroundColor:[UIColor grayColor]];
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        [table creatDingyueTable];
+        if (self.uid == nil) {
+            self.uid = @"2";
+        }if (self.nickName == nil) {
+            self.nickName = @"3";
+        }if (self.score == nil) {
+            self.score = @"4";
+        }if (self.displayPrice == nil) {
+            self.displayPrice = @"5";
+        }
+        self.uid = [NSString stringWithFormat:@"%@",self.uid];
+        if (![self.uid isEqualToString:@"2"]) {
+            [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.attentionModel.coverLarge,self.attentionModel.title,self.nickName]];
+            return;
+        }
+        if (self.inter>=0 && self.inter<=3){
+            [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"1",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.hotRecommendsModel.coverMiddle,self.hotRecommendsModel.title,self.hotRecommendsModel.nickname]];
+            return;
+        }
+        if (self.isPaid == NO) {
+            [table insertIntoDingyueTable:@[self.url,[NSString stringWithFormat:@"%ld",self.inter],@"0",[NSString stringWithFormat:@"%ld",self.row],self.uid,self.nickName,self.score,self.displayPrice,self.albumModel.coverLarge,self.albumModel.title,self.albumModel.nickname]];
+        }
+        
 
+    }else{
+        [btn setTitle:@"订阅专辑" forState:(UIControlStateNormal)];
+        [btn setBackgroundColor:[UIColor greenColor]];
+        MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
+        [table delegateNoteWithDingyueTableName:kHisDownLoadTable totalTitle:[NSString stringWithFormat:@"%@",self.url]];
+        
+    }
 }
 
 

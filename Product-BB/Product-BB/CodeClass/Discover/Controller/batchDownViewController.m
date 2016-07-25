@@ -266,26 +266,6 @@
     NSArray *arr = @[self.coverMiddle,self.titleL];
     [[NSUserDefaults standardUserDefaults]setObject:arr forKey:@"arr"];
     
-    
-    
-    
-//    MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
-//    NSArray *tableArray = [table selectAll];
-//    
-//    for (AlbumDetailModel *model in self.downArr) {
-//        if (tableArray.count > 0) {
-//            for (NSArray *arr1 in tableArray) {
-//                if ([arr1 containsObject:model.playUrl64] || model.type == DownloadPause || model.type == Downloadimg) {
-//                    [self.downArr removeObject:model];
-//                }
-//            }
-//        }
-//
-//    }
-    
-    
-    
-    
     for (AlbumDetailModel *model in self.downArr) {
         model.type = DownloadPause;
         [[ArrayManager shareManager].Array addObject:model];
@@ -293,11 +273,16 @@
     NSLog(@"%ld",self.downArr.count);
 //    [[ArrayManager shareManager].Array addObject:arr];
 MyDownLoadManager *manager = [MyDownLoadManager defaultManager];
-if (self.downArr.count == 0) {
+if ([ArrayManager shareManager].Array.count == 0) {
         return;
     }
-    if (self.downArr.count > 0) {
-        AlbumDetailModel *model = self.downArr[0];
+    if ([ArrayManager shareManager].Array.count > 0) {
+        for (AlbumDetailModel *model in [ArrayManager shareManager].Array) {
+            if (model.type == Downloadimg) {
+                return;
+            }
+        }
+        AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
         MyDownLoad *task = [manager creatDownload:model.playUrl64];
         [self downLoad:task model:model];
     }
@@ -333,10 +318,7 @@ NSData *albumData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.cove
             [self.downArr removeObject:model];
             [[ArrayManager shareManager].Array removeObject:model];
             [self.downDownDownArr addObject:model];
-            if ([ArrayManager shareManager].Array.count > 0) {
-                AlbumDetailModel *model = [ArrayManager shareManager].Array[0];
-                model.type = Downloadimg;
-            }
+            
             [[NSNotificationCenter defaultCenter]postNotificationName:@"reload" object:model];
         [self downloadAction];
     }];

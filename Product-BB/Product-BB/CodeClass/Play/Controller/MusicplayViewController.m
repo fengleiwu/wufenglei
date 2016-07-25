@@ -282,6 +282,7 @@
 // 定时关闭 方法
 - (void)timeCloseAction:(UIButton *)button {
     NSLog(@"ding shi");
+    
 }
 
 #pragma mark --- 定时器，滑动条-----
