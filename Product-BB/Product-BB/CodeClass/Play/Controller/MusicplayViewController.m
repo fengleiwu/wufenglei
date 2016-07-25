@@ -9,8 +9,10 @@
 #import "MusicplayViewController.h"
 #import "MusicplayTableViewCell.h"
 #import "PlayListView.h"
+#import "PlayHistoryView.h"
 // 将播放过的音频存入播放历史数据库
 #import "MyMusicDownLoadTable.h"
+#import "RecommendViewController.h"
 
 @interface MusicplayViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -38,10 +40,15 @@
 @property (nonatomic, strong) UILabel *topLabel;
 // 创建播放列表页面
 @property (nonatomic, strong) PlayListView *playListView;
+@property (nonatomic, strong) PlayHistoryView *playHistoryView;
 
 @end
 
 @implementation MusicplayViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,6 +66,9 @@
     self.playListView = [[PlayListView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
     self.playListView.tableViewArr = self.newmodelArray;
     [self.view addSubview:self.playListView];
+    // 创建播放历史页面
+    self.playHistoryView = [[PlayHistoryView alloc]initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight)];
+    [self.view addSubview:self.playHistoryView];
     
     // 添加通知，在播放列表切歌后，刷新界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playListNotification:) name:@"playListNotification" object:nil];
@@ -164,19 +174,19 @@
     listLab.textColor = [UIColor lightGrayColor];
     [listBtn addSubview:listLab];
     
-    // 定时关闭 视图
-    UIButton *timeBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-    timeBtn.frame = CGRectMake(kScreenWidth - 70, 40, 60, 50);
-    [timeBtn addTarget:self action:@selector(timeCloseAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.BtnView addSubview:timeBtn];
-    UIImageView *timeImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 0, 30, 30)];
-    timeImageV.image = [UIImage imageNamed:@"time"];
-    [timeBtn addSubview:timeImageV];
-    UILabel *timeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 20)];
-    timeLab.text = @"定时关闭";
-    timeLab.font = [UIFont systemFontOfSize:13];
-    timeLab.textColor = [UIColor lightGrayColor];
-    [timeBtn addSubview:timeLab];
+    // 播放历史 视图
+    UIButton *historyBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    historyBtn.frame = CGRectMake(kScreenWidth - 70, 40, 60, 50);
+    [historyBtn addTarget:self action:@selector(historyAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.BtnView addSubview:historyBtn];
+    UIImageView *historyImageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
+    historyImageV.image = [UIImage imageNamed:@"drag_list_up"];
+    [historyBtn addSubview:historyImageV];
+    UILabel *historyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 60, 20)];
+    historyLab.text = @"播放历史";
+    historyLab.font = [UIFont systemFontOfSize:13];
+    historyLab.textColor = [UIColor lightGrayColor];
+    [historyBtn addSubview:historyLab];
     
     // 播放按钮、上一首、下一首
     self.playBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -277,12 +287,12 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.playListView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     }];
-    
 }
 // 定时关闭 方法
-- (void)timeCloseAction:(UIButton *)button {
-    NSLog(@"ding shi");
-    
+- (void)historyAction:(UIButton *)button {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.playHistoryView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    }];
 }
 
 #pragma mark --- 定时器，滑动条-----
@@ -337,7 +347,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableAction" object:nil];
     }
     self.isPlay = YES;
-
+    
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"toolbar_pause_n_p@3x"] forState:(UIControlStateNormal)];
     
     if ([MyPlayerManager defaultManager].blockWithArray != nil) {
@@ -365,7 +375,6 @@
         }
     }
     [table insertIntoHistoryOfPlayTable:@[model.musicURL,model.totalTitle,model.liveTitle,model.playCount,model.bgImage]];
-    self.automaticallyAdjustsScrollViewInsets =NO;
 }
 
 

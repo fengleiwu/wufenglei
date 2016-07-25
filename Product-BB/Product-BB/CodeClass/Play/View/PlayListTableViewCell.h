@@ -14,7 +14,6 @@
 @property (nonatomic, strong) UIImageView *playImageV;
 @property (nonatomic, strong) UIImageView *downloadImageV;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, assign) BOOL isPlay;
 
 - (void)cellConfigureWithModel:(BroadMusicModel *)model;
 

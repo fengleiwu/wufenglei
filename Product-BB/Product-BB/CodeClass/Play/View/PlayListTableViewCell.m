@@ -45,7 +45,7 @@
 - (void)cellConfigureWithModel:(BroadMusicModel *)model {
     self.titleLabel.text = model.totalTitle;
     
-    if (self.isPlay == YES) {
+    if (model.isPlay == YES) {
         [UIView animateWithDuration:1 animations:^{
             self.titleLabel.frame = CGRectMake(60,10, self.width-60, 30);
         }];

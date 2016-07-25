@@ -32,11 +32,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.i = 0;
     
@@ -73,25 +73,29 @@
     self.search = [[UISearchController alloc]initWithSearchResultsController:nil];
     //设置显示搜索结果的显示器
     self.search.searchResultsUpdater = self;
-//    //自适应屏幕大小
-//    [self.search.searchBar sizeToFit];
     //设置开始搜索时, 背景显示与否
     self.search.dimsBackgroundDuringPresentation = NO;
     self.search.searchBar.delegate = self;
     //searchController的代理
     self.search.delegate = self;
     self.search.searchBar.placeholder = @"请输入专辑名称";
-//    self.search.searchBar.frame = CGRectMake(0, 20, kScreenWidth, 40);
-//    [self.view addSubview:self.search.searchBar];
+    // 修改取消按钮
+    self.search.searchBar.showsCancelButton = YES;
+    UIButton *btn = [self.search.searchBar valueForKey:@"cancelButton"];
+    [btn setTitle:@"取消" forState:(UIControlStateNormal)];
+    [btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
 }
 
 - (void)creatTableView {
-    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
+    self.tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
     self.tableV.rowHeight = 50;
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
     [self.tableV registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableV];
+    // scrollview 上面有20的空，
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 #pragma mark - UISearchResultsUpdating
@@ -110,34 +114,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-#pragma mark -- UISearchControllerDelegate
-//将要模态出searchController时触发
-- (void)willPresentSearchController:(UISearchController *)searchController
-{searchController.searchBar.text = nil;
-//    NSLog(@"将要模态出现searchController");
-}
-//模态推出searchController 时触发, 点击搜索弹出搜索框之前触发
-- (void)presentSearchController:(UISearchController *)searchController
-{
-//    self.navigationController.navigationBar.hidden = YES;
-}
-//已经模态出searchController时触发
-- (void)didPresentSearchController:(UISearchController *)searchController
-{
-//    NSLog(@"已经模态出现searchController");
-}
-//将要模态消失searchController时触发
-- (void)willDismissSearchController:(UISearchController *)searchController
-{
-//    NSLog(@"将要模态消失searchController");
-}
-//已经模态消失searchController时触发
-- (void)didDismissSearchController:(UISearchController *)searchController
-{
-//    self.navigationController.navigationBar.hidden = NO;
-//    [self.tableV reloadData];
-}
-
 
 #pragma mark - UITableViewDelegate
 //点击cell触发, 可以在这个方法中处理cell的点击事件
@@ -173,7 +149,7 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         self.i++;
     }
-    self.navigationController.navigationBarHidden = NO;
+    
     [self.navigationController pushViewController:album animated:YES];
 }
 
@@ -195,6 +171,10 @@
     // 显示搜索结果数组的值
     cell.textLabel.text = self.resultArr[indexPath.row];
     return cell;
+}
+#pragma mark --- 键盘隐藏
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.search.searchBar resignFirstResponder];
 }
 
 

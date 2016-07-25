@@ -161,10 +161,8 @@
     PlayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BroadMusicModel *model = self.tableViewArr[indexPath.row];
     if (model.isPlay == YES) {
-        cell.isPlay = YES;
         cell.titleLabel.textColor = [UIColor orangeColor];
     } else {
-        cell.isPlay = NO;
         cell.titleLabel.textColor = [UIColor blackColor];
     }
     [cell cellConfigureWithModel:model];

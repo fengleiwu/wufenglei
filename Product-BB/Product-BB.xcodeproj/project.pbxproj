@@ -361,6 +361,7 @@
 		79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FA04F31D3D005B000C3306 /* down_h@2x.png */; };
 		79FEE74B1D45983A008168C2 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FEE7481D45983A008168C2 /* SearchViewController.m */; };
 		79FEE74D1D459882008168C2 /* icon_search_n@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FEE74C1D459882008168C2 /* icon_search_n@3x.png */; };
+		79FEE7561D45E0AE008168C2 /* PlayHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FEE7551D45E0AE008168C2 /* PlayHistoryView.m */; };
 		F6560512CE78B4556703A01A /* libPods-Product-BB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */; };
 /* End PBXBuildFile section */
 
@@ -1010,6 +1011,8 @@
 		79FEE7471D45983A008168C2 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		79FEE7481D45983A008168C2 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		79FEE74C1D459882008168C2 /* icon_search_n@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_n@3x.png"; sourceTree = "<group>"; };
+		79FEE7541D45E0AE008168C2 /* PlayHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayHistoryView.h; sourceTree = "<group>"; };
+		79FEE7551D45E0AE008168C2 /* PlayHistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayHistoryView.m; sourceTree = "<group>"; };
 		C4B52D992845D19AB2F9FC04 /* Pods-Product-BB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Product-BB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Product-BB/Pods-Product-BB.debug.xcconfig"; sourceTree = "<group>"; };
 		E23D260BC180D4AB585F8723 /* libPods-Product-BB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Product-BB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2510,6 +2513,8 @@
 		79E073811D40519B00131E7B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				79FEE7541D45E0AE008168C2 /* PlayHistoryView.h */,
+				79FEE7551D45E0AE008168C2 /* PlayHistoryView.m */,
 				79E073821D40519B00131E7B /* MusicplayTableViewCell.h */,
 				79E073831D40519B00131E7B /* MusicplayTableViewCell.m */,
 				79E073841D40519B00131E7B /* PlayListTableViewCell.h */,
@@ -3077,6 +3082,7 @@
 				7981D7701D41179C00ABC217 /* DDFileLogger.m in Sources */,
 				7981D7161D41179C00ABC217 /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				7981D7451D41179C00ABC217 /* TURNSocket.m in Sources */,
+				79FEE7561D45E0AE008168C2 /* PlayHistoryView.m in Sources */,
 				7981D7131D41179C00ABC217 /* XMPPGoogleSharedStatus.m in Sources */,
 				7981D7601D41179C00ABC217 /* NSXMLElement+XEP_0203.m in Sources */,
 				7981D7551D41179C00ABC217 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
