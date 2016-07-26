@@ -97,9 +97,11 @@
 -(void)finishAction{
     if ([self validatePassword:self.petTF.text]) {
         //  stream 设置代理
-        [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-        [[XMPPManager shareInstance] registWithUserName:self.phoneStr petName:self.petName password:self.petTF.text];
+//        [nsuser]
+//        [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//        [[XMPPManager shareInstance] registWithUserName:self.phoneStr petName:self.petName password:self.petTF.text];
 //        NSLog(@"电话号码：%@  昵称：%@  密码：%@",self.phoneStr,self.petName,self.petTF.text);
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提醒" message:@"密码格式不正确" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *aAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:nil];

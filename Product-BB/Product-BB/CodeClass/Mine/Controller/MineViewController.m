@@ -75,6 +75,9 @@
 //        NSLog(@"%@",picture);
 //        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"type"] isEqualToString:@"weibo"]) {
             [self.headB sd_setImageWithURL:[NSURL URLWithString:picture] completed:nil];
+        if (picture == nil) {
+            self.headB.image = [UIImage imageNamed:@"dog.jpg"];
+        }
 //        }
     }
     self.navigationController.navigationBar.hidden = YES;

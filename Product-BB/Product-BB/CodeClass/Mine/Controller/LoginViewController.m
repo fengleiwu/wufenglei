@@ -415,8 +415,15 @@
         [a addAction:a1];
         [self presentViewController:a animated:YES completion:nil];
     } else{
-    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [[XMPPManager shareInstance] loginWithUserName:self.emailOrPhoneTF.text password:self.passwordTF.text];
+        // 记录登录成功的用户名和密码
+        [[NSUserDefaults standardUserDefaults]setObject:self.emailOrPhoneTF.text forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"type"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"picture"];
+        // 本地存储
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//    [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    [[XMPPManager shareInstance] loginWithUserName:self.emailOrPhoneTF.text password:self.passwordTF.text];
     }
 }
 
