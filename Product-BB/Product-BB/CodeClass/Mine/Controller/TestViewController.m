@@ -155,32 +155,32 @@
 #pragma mark ----- 下一步方法 -----
 -(void)nextAction{
     PetNameViewController *petVC = [[PetNameViewController alloc]init];
-//    [self.view endEditing:YES];
-//     __weak __typeof__(self) weakSelf = self;
-//    if (self.timeNumber <= 0) {
-//        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证码时间过期" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-//        [a addAction:a1];
-//        [self presentViewController:a animated:YES completion:nil];
-//    } else if (weakSelf.tipTF.text.length != 6) {
-//        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证码错误" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-//        [a addAction:a1];
-//        [self presentViewController:a animated:YES completion:nil];
-//    } else {
-//    [JSMSSDK commitWithPhoneNumber:weakSelf.phoneStr verificationCode:weakSelf.tipTF.text completionHandler:^(id resultObject, NSError *error) {
-//    if (!error) {
+    [self.view endEditing:YES];
+     __weak __typeof__(self) weakSelf = self;
+    if (self.timeNumber <= 0) {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证码时间过期" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    } else if (weakSelf.tipTF.text.length != 6) {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证码错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    } else {
+    [JSMSSDK commitWithPhoneNumber:weakSelf.phoneStr verificationCode:weakSelf.tipTF.text completionHandler:^(id resultObject, NSError *error) {
+    if (!error) {
          petVC.phoneStr = self.phoneStr;
         [self.navigationController pushViewController:petVC animated:YES];
-//            }
-//    else {
-//        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证错误" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-//        [a addAction:a1];
-//        [self presentViewController:a animated:YES completion:nil];
-//            }
-//        }];
-//    }
+            }
+    else {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"短信验证错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+            }
+        }];
+    }
 }
 
 

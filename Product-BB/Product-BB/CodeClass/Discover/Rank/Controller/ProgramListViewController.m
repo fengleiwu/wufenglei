@@ -12,7 +12,10 @@
 #import "AllMoreTableViewCell.h"
 #import "AllHotModel.h"
 #import "HotTitleModel.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "attentionViewController.h"
+
 @interface ProgramListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray *HotArr;
 @property (nonatomic,strong)NSMutableArray *iidArr;
@@ -62,6 +65,11 @@
     return _urlIdArr;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.moreB removeFromSuperview];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.titleStr;
@@ -69,9 +77,57 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     //更多按钮
     self.moreB = [UIButton buttonWithType:UIButtonTypeSystem];
-//    self.moreB
+    self.moreB.tintColor = [UIColor blackColor];
+    self.moreB.backgroundColor = [UIColor whiteColor];
+    self.moreB.frame = CGRectMake(kScreenWidth-70, 10, 30, 30);
+    [self.moreB setImage:[UIImage imageNamed:@"更多.png"] forState:UIControlStateNormal];
+    [self.moreB addTarget:self action:@selector(moreAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:self.moreB];
     [self requestData];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark ----- 分享方法 -----
+-(void)moreAction{
+    //分享
+    //1、创建分享参数
+    NSArray* imageArray = @[[UIImage imageNamed:@"1004.jpg"]];
+    //    （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+    if (imageArray) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                   }];
+    }
+
 }
 
 #pragma mark ----- 创建标题collectionTitle -----
@@ -135,8 +191,8 @@
     
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0]];
     
-//        NSLog(@"%ld",(long)self.conset);
-//        NSLog(@"%f",scrollView.contentOffset.x);
+        NSLog(@"%ld",(long)self.conset);
+        NSLog(@"%f",scrollView.contentOffset.x);
     if (scrollView.contentOffset.x > 0 ||scrollView.contentOffset.x >self.conset) {
         TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)-1 inSection:0]];
         cell.label.textColor = [UIColor grayColor];
@@ -162,7 +218,7 @@
         }
     }
         self.conset = scrollView.contentOffset.x;
-//        NSLog(@"%ld",(long)self.conset);
+        NSLog(@"%ld",(long)self.conset);
     
     }
 }
@@ -407,7 +463,7 @@
         [self.collectionV addSubview:self.moveV];
         [self requestDataWithIndex:1000];
     } error:^(NSError *error) {
-//        NSLog(@"errpr == %@",error);
+        NSLog(@"errpr == %@",error);
     }];
 }
 
@@ -432,7 +488,7 @@
         [tableView reloadData];
 //        NSLog(@"%@",dic);
     } error:^(NSError *error) {
-//        NSLog(@"errpr == %@",error);
+        NSLog(@"errpr == %@",error);
     }];
 }
 

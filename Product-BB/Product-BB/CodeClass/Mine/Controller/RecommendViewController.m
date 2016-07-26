@@ -480,11 +480,14 @@ BOOL isClick = NO;
     }
     switch (ii) {
         case 0:{
+            [_timer invalidate];
+            cell.timeL.text = @"";
             break;}
         case 1:{
-            [self timeOut:5];
+            [self timeOut1:5];
             break;}
         case 2:{
+            [_timer invalidate];
             cell.timeL.text = [NSString stringWithFormat:@"%2d:00",1200/60];
             self.timeNumber = 1200;
             [self timer];
@@ -496,6 +499,7 @@ BOOL isClick = NO;
             break;
         }
         case 3:{
+            [_timer invalidate];
             cell.timeL.text = [NSString stringWithFormat:@"%2d:00",1800/60];
             self.timeNumber = 1800;
             [self timer];
@@ -504,8 +508,10 @@ BOOL isClick = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
                 });
             });
+            break;
         }
         case 4:{
+            [_timer invalidate];
             cell.timeL.text = [NSString stringWithFormat:@"%2d:00",3600/60];
             self.timeNumber = 3600;
             [self timer];
@@ -514,8 +520,10 @@ BOOL isClick = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
                 });
             });
+            break;
         }
         case 5:{
+            [_timer invalidate];
             cell.timeL.text = [NSString stringWithFormat:@"%2d:00",5400/60];
             self.timeNumber = 5400;
             [self timer];
@@ -524,6 +532,7 @@ BOOL isClick = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
                 });
             });
+            break;
         }
         default:
             break;
@@ -551,12 +560,22 @@ BOOL isClick = NO;
 
 #pragma mark ----- 退出程序方法 -----
 -(void)timeOut:(NSInteger)time{
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    UIWindow *window = app.window;
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    UIWindow *window = app.window;
     [UIView animateWithDuration:time animations:^{
 //        window.alpha = 0;
     } completion:^(BOOL finished) {
             exit(0);
+    }];
+}
+
+-(void)timeOut1:(NSInteger)time{
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    UIWindow *window = app.window;
+    [UIView animateWithDuration:time animations:^{
+                window.alpha = 0;
+    } completion:^(BOOL finished) {
+        exit(0);
     }];
 }
 
@@ -623,7 +642,7 @@ BOOL isClick = NO;
 
 -(void)sendA{
     [self.pingArr addObject:self.speakTF.text];
-//    NSLog(@"%ld",self.pingArr.count);
+    NSLog(@"%ld",self.pingArr.count);
     [self.tableV3 reloadData];
     if (self.pingArr.count * self.height > kScreenHeight-64-kScreenHeight*2/15-40) {
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.pingArr.count-1 inSection:0];
@@ -691,7 +710,7 @@ BOOL isClick = NO;
         self.webStr = Dic[@"link"];
         [self requestData1];
     } error:^(NSError *error) {
-//        NSLog(@"errpr == %@",error);
+        NSLog(@"errpr == %@",error);
     }];
 }
 

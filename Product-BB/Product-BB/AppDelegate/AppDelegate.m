@@ -50,9 +50,7 @@
                             @(SSDKPlatformTypeSMS),
                             @(SSDKPlatformTypeCopy),
                             @(SSDKPlatformTypeWechat),
-                            @(SSDKPlatformTypeQQ),
-                            @(SSDKPlatformTypeRenren),
-                            @(SSDKPlatformTypeGooglePlus)]
+                            @(SSDKPlatformTypeQQ)]
                  onImport:^(SSDKPlatformType platformType)
      {
          switch (platformType)
@@ -91,17 +89,6 @@
                  [appInfo SSDKSetupQQByAppId:@"100371282"
                                       appKey:@"aed9b0303e3ed1e27bae87c33761161d"
                                     authType:SSDKAuthTypeBoth];
-                 break;
-             case SSDKPlatformTypeRenren:
-                 [appInfo        SSDKSetupRenRenByAppId:@"226427"
-                                                 appKey:@"fc5b8aed373c4c27a05b712acba0f8c3"
-                                              secretKey:@"f29df781abdd4f49beca5a2194676ca4"
-                                               authType:SSDKAuthTypeBoth];
-                 break;
-             case SSDKPlatformTypeGooglePlus:
-                 [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
-                                           clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
-                                            redirectUri:@"http://localhost"];
                  break;
              default:
                  break;

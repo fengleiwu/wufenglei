@@ -135,28 +135,28 @@
 
 #pragma mark ----- 创建下一步方法 -----
 -(void)nextAction{
-//    if ([self validateMobile:self.phoneTF.text]) {
-//    [self.view endEditing: YES];
-//    __weak __typeof__(self) weakSelf = self;
-//    [JSMSSDK getVerificationCodeWithPhoneNumber:weakSelf.phoneTF.text andTemplateID:[NSString stringWithFormat:@"%d",1] completionHandler:^(id resultObject, NSError *error) {
-//    if (!error) {
+    if ([self validateMobile:self.phoneTF.text]) {
+    [self.view endEditing: YES];
+    __weak __typeof__(self) weakSelf = self;
+    [JSMSSDK getVerificationCodeWithPhoneNumber:weakSelf.phoneTF.text andTemplateID:[NSString stringWithFormat:@"%d",1] completionHandler:^(id resultObject, NSError *error) {
+    if (!error) {
         TestViewController *testVC = [[TestViewController alloc]init];
         testVC.phoneStr = self.phoneTF.text;
         [self.navigationController pushViewController:testVC animated:YES];
-//    }
-//    else {
-//        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"上传手机号失败" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-//        [a addAction:a1];
-//        [self presentViewController:a animated:YES completion:nil];
-//    }
-//        }];
-//    } else {
-//        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"手机格式不对" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-//        [a addAction:a1];
-//        [self presentViewController:a animated:YES completion:nil];
-//    }
+    }
+    else {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"上传手机号失败" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
+        }];
+    } else {
+        UIAlertController *a = [UIAlertController alertControllerWithTitle:@"提醒" message:@"手机格式不对" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
+        [a addAction:a1];
+        [self presentViewController:a animated:YES completion:nil];
+    }
 }
 
 #pragma mark ----- 判断手机格式 -----
