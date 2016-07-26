@@ -59,8 +59,6 @@
     [_avPlayer play];
     _playState = Play;
   
-    // 通知，播放后，动画恢复playNotication
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"playNotication" object:nil];
     
 }
 - (void)pause{
@@ -128,8 +126,8 @@
 -(void)changeMusicWith:(NSInteger )index{
     _index = index;
     BroadMusicModel *model = _musicLists[_index];
-    if (model.savePath) {
-        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:model.savePath]];
+    if ([model.musicURL containsString:@"Caches/"]) {
+        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:model.musicURL]];
         [_avPlayer replaceCurrentItemWithPlayerItem:playerItem];
     } else{
         AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:model.musicURL]];

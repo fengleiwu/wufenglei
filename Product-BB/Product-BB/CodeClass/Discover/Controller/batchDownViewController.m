@@ -283,7 +283,7 @@ if ([ArrayManager shareManager].Array.count == 0) {
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
      [task start];
      [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
-        NSLog(@"%lld,%ld",bytesWritten,progress);
+//        NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
          [ArrayManager shareManager].progress = (CGFloat)progress / 100;
         } DidDownload:^(NSString *savePath, NSString *url) {

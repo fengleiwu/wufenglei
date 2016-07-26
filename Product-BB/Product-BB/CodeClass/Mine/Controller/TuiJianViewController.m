@@ -94,7 +94,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     } error:^(NSError *error) {
-        NSLog(@"bottomData --- %@", error);
+//        NSLog(@"bottomData --- %@", error);
     }];
 }
 

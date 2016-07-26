@@ -229,7 +229,7 @@
         self.tableV.tableHeaderView = self.headView;
 //        NSLog(@"%@",dic);
     } error:^(NSError *error) {
-        NSLog(@"errpr == %@",error);
+//        NSLog(@"errpr == %@",error);
     }];
 }
 

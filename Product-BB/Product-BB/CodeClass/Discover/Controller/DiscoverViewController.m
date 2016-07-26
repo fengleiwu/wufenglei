@@ -131,7 +131,7 @@
         self.cellArray = [focusImagesModel editorRecommendAlbums:dic];
         [self.tableView reloadData];
         } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 
     [RequestManager requestWithUrlString:KfocusImagesURL requestType:RequestGET parDic:nil finish:^(NSData *data) {
@@ -141,7 +141,7 @@
         self.specialColumnArray = [focusImagesModel specialColumn:dic];
         [self.tableView reloadData];
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 }
 
@@ -214,7 +214,7 @@
         
         [self.tableView reloadData];
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 }
 
@@ -237,7 +237,7 @@
         [self.tableView reloadData];
         //NSLog(@"+++++++++%@ %ld",self.bigArray,self.bigArray.count);
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 }
 
@@ -257,7 +257,7 @@
             [self.tableView reloadData];
         
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 
 }

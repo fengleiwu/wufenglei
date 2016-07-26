@@ -246,7 +246,7 @@
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
-        NSLog(@"%lld,%ld",bytesWritten,progress);
+//        NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
         
     } DidDownload:^(NSString *savePath, NSString *url) {

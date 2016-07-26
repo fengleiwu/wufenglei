@@ -623,7 +623,7 @@ BOOL isClick = NO;
 
 -(void)sendA{
     [self.pingArr addObject:self.speakTF.text];
-    NSLog(@"%ld",self.pingArr.count);
+//    NSLog(@"%ld",self.pingArr.count);
     [self.tableV3 reloadData];
     if (self.pingArr.count * self.height > kScreenHeight-64-kScreenHeight*2/15-40) {
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.pingArr.count-1 inSection:0];
@@ -691,7 +691,7 @@ BOOL isClick = NO;
         self.webStr = Dic[@"link"];
         [self requestData1];
     } error:^(NSError *error) {
-        NSLog(@"errpr == %@",error);
+//        NSLog(@"errpr == %@",error);
     }];
 }
 

@@ -60,7 +60,7 @@
         NSString *string = [NSString stringWithFormat:@"%@=%@",key,parDic[key]];
         [array addObject:string];
     }
-    NSLog(@"array === %@",array);
+//    NSLog(@"array === %@",array);
     NSString *postString = [array componentsJoinedByString:@"&"];
     return [postString dataUsingEncoding:NSUTF8StringEncoding];
     

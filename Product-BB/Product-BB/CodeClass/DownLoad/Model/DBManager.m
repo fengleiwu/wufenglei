@@ -42,14 +42,14 @@ static DBManager *manager = nil;
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(9, 1, 1)lastObject];
     NSString *filePath = [documentPath stringByAppendingString:[NSString stringWithFormat:@"/%@",name]];
     _path = filePath;
-    NSLog(@"================%@",filePath);
+//    NSLog(@"================%@",filePath);
     NSFileManager *fm = [NSFileManager defaultManager];
     BOOL exist = [fm fileExistsAtPath:filePath];
     [self connect];
     if (exist) {
-        NSLog(@"数据库%@存在",name);
+//        NSLog(@"数据库%@存在",name);
     }else{
-        NSLog(@"数据库%@不存在",name);
+//        NSLog(@"数据库%@不存在",name);
     }
 }
 - (void)connect
@@ -58,9 +58,9 @@ static DBManager *manager = nil;
         _dataBase = [FMDatabase databaseWithPath:_path];
     }
     if (![_dataBase open]) {
-        NSLog(@"数据库打开失败");
+//        NSLog(@"数据库打开失败");
     }else{
-        NSLog(@"数据库打开成功");
+//        NSLog(@"数据库打开成功");
     }
     
     

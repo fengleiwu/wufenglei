@@ -19,7 +19,7 @@
 
 -(void)dealloc{
     _delegate = nil;
-    NSLog(@"%s",__FUNCTION__);
+//    NSLog(@"%s",__FUNCTION__);
 }
 
 +(MyDownLoad *)shareMyDownLoad
@@ -71,9 +71,9 @@ didFinishDownloadingToURL:(NSURL *)location
     NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(13, 1, 1)lastObject];
     //拼接下载文件路径
     NSString *filePath = [cachesPath stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
-    NSLog(@"文件路径------>%@",downloadTask.response.suggestedFilename);
+//    NSLog(@"文件路径------>%@",downloadTask.response.suggestedFilename);
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSLog(@"原始保存路径------>%@",location.path);
+//    NSLog(@"原始保存路径------>%@",location.path);
     [fm moveItemAtPath:location.path toPath:filePath error:nil];
     if (_didDownload) {
         _didDownload(filePath,_url);

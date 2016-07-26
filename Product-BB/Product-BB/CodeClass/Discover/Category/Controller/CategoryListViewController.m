@@ -261,7 +261,7 @@
         [tableView.mj_header beginRefreshing];
 //        [self requestData2:self.urlIdArr[0] index:1000];
     } error:^(NSError *error) {
-        NSLog(@"bottomData --- %@", error);
+//        NSLog(@"bottomData --- %@", error);
     }];
 }
 

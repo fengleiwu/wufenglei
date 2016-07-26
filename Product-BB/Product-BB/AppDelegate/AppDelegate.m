@@ -30,6 +30,18 @@
     RootTabBarViewController *root = [[RootTabBarViewController alloc]init];
     self.window.rootViewController = root;
     
+    // 设置开机页面
+    UIViewController *viewController = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil]instantiateInitialViewController];
+    UIView *vi = viewController.view;
+    UIWindow *wi = [UIApplication sharedApplication].delegate.window;
+    [wi addSubview:vi];
+    [UIView animateWithDuration:3 delay:0 options:(UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        vi.alpha = 0.0;
+        vi.layer.transform = CATransform3DMakeScale(1.3f, 1.3f, 1.0f);
+    } completion:^(BOOL finished) {
+        [vi removeFromSuperview];
+    }];
+    
     [ShareSDK registerApp:@"iosv1101"
      
           activePlatforms:@[
@@ -113,7 +125,7 @@
 
 // 后台可以处理多媒体的事件
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event {
-    NSLog(@"%ld", event.subtype);
+//    NSLog(@"%ld", event.subtype);
     switch (event.subtype) {
         case UIEventSubtypeRemoteControlPlay:
             //点击播放按钮或者耳机线控中间那个按钮
@@ -172,7 +184,7 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
     NSString *filePth = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"array.txt" type:CachesType];
-    NSLog(@"%@",filePth);
+//    NSLog(@"%@",filePth);
     NSData *data = [[EncodeManager shareInstance]archiverArray:[ArrayManager shareManager].Array arrayKey:@"array"];
     [data writeToFile:filePth atomically:YES];
     
@@ -200,7 +212,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
     NSString *filePth = [[EncodeManager shareInstance]creatOrGetDocWithWithDocName:@"array.txt" type:CachesType];
-    NSLog(@"%@",filePth);
+//    NSLog(@"%@",filePth);
 
     [ArrayManager shareManager].Array = [[[EncodeManager shareInstance]unArchiverArrayWithFilePath:filePth arrayKey:@"array"]mutableCopy];
     

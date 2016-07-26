@@ -62,7 +62,7 @@
     [self creatbottomView];
     [self requestTableViewData];
 } error:^(NSError *error) {
-    NSLog(@"errpr == %@",error);
+//    NSLog(@"errpr == %@",error);
 }];
 }
 
@@ -74,7 +74,7 @@
         // 创建tableView
         [self creatTableView];
     } error:^(NSError *error) {
-        NSLog(@"bottomData --- %@", error);
+//        NSLog(@"bottomData --- %@", error);
     }];
 }
 

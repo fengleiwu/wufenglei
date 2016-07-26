@@ -101,7 +101,7 @@
         [self creatTableView];
         [self.tableV reloadData];
     } error:^(NSError *error) {
-        NSLog(@"error == %@",error);
+//        NSLog(@"error == %@",error);
     }];
 }
 

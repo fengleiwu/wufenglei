@@ -327,7 +327,7 @@
        AlbumDetailViewController *aDetailVC = [[AlbumDetailViewController alloc]init];
         SUBModel *model = [[SUBModel alloc]init];
         model = self.recommendArr[indexPath.row];
-        NSLog(@"%@",[NSString stringWithFormat:@"%ld",[model.albumId integerValue]]);
+//        NSLog(@"%@",[NSString stringWithFormat:@"%ld",[model.albumId integerValue]]);
         aDetailVC.url = [NSString stringWithFormat:@"%ld",[model.albumId integerValue]];
         aDetailVC.inter = model.inter;
         aDetailVC.isPaid = model.isPaid;
@@ -565,7 +565,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     } error:^(NSError *error) {
-        NSLog(@"bottomData --- %@", error);
+//        NSLog(@"bottomData --- %@", error);
     }];
 }
 

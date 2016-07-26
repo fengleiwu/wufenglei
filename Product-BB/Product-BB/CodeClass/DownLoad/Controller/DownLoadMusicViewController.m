@@ -90,9 +90,14 @@
         model.liveTitle = arr[4];
         model.playCount = arr[5];
         model.dataImage = arr[2];
-        model.musicURL = arr[1];
+        // 从数据库获取下载的音频。
+        NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)firstObject]stringByAppendingPathComponent:kMyDownloadTable];
+        NSString *path = arr[3];
+        NSString *music = [[path componentsSeparatedByString:@"/"]lastObject];
+        filePath = [filePath stringByReplacingOccurrencesOfString:@"Documents/一身辣条味儿" withString:[NSString stringWithFormat:@"Library/Caches/%@",music]];
+        model.musicURL = filePath;
         if (model.musicURL == nil || [model.musicURL isEqualToString:@""]) {
-            NSLog(@"需要购买才能播放");
+//            NSLog(@"需要购买才能播放");
         }else {
             [array addObject:model];
         }

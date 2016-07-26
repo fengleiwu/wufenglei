@@ -370,7 +370,7 @@
     NSArray *playedArray = [table selectAllInHistoryOfPlay];
     for (NSArray *arr in playedArray) {
         if ([arr[0] isEqualToString:model.musicURL]) {
-            NSLog(@"该播放记录在数据库已存在");
+//            NSLog(@"该播放记录在数据库已存在");
             return;
         }
     }

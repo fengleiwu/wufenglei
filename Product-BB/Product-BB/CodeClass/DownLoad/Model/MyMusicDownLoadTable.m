@@ -28,17 +28,17 @@
     int count = [set intForColumnIndex:0];
     BOOL exist = count;
     if (exist) {
-        NSLog(@"%@表存在",kMyDownloadTable);
+//        NSLog(@"%@表存在",kMyDownloadTable);
     }else{
         // 建表
         // create table 表名(给一个ID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL，参数)
         NSString *updata = [NSString stringWithFormat:@"create table %@(musicID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,title text,musicUrl text,musicImg text,musicPath text,musicName text,musicCount text,musicAlbumid text,musicComments text,musicLikes text,musicCoverMiddle text,musicTitle text)",kMyDownloadTable];
         BOOL result = [_dataBase executeUpdate:updata];
         if (result) {
-            NSLog(@"%@创建成功",kMyDownloadTable);
+//            NSLog(@"%@创建成功",kMyDownloadTable);
         }else
         {
-            NSLog(@"%@创建失败",kMyDownloadTable);
+//            NSLog(@"%@创建失败",kMyDownloadTable);
         }
     }
     
@@ -48,9 +48,9 @@
     NSString *updata = [NSString stringWithFormat:@"INSERT INTO %@ (title,musicUrl,musicImg,musicPath,musicName,musicCount,musicAlbumid,musicComments,musicLikes,musicCoverMiddle,musicTitle) values(?,?,?,?,?,?,?,?,?,?,?)",kMyDownloadTable];
     BOOL result = [_dataBase executeUpdate:updata withArgumentsInArray:Info];
     if (result) {
-        NSLog(@"插入数据成功");
+//        NSLog(@"插入数据成功");
     }else{
-        NSLog(@"插入数据失败");
+//        NSLog(@"插入数据失败");
     }
 }
 - (NSArray *)selectAll
@@ -88,7 +88,7 @@
     NSString *string = [NSString stringWithFormat:@"delete from %@ where musicAlbumid = ?",tableName];
     NSString *myIDString = [NSString stringWithFormat:@"%@",myID];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
-       NSLog(@"删除数据flag==%d",flag);
+//       NSLog(@"删除数据flag==%d",flag);
 //    [_dataBase close];
     
 }
@@ -98,7 +98,7 @@
     NSString *string = [NSString stringWithFormat:@"delete from %@ where musicUrl = ?",tableName];
     NSString *myIDString = [NSString stringWithFormat:@"%@",musicUrl];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
-    NSLog(@"删除数据flag==%d",flag);
+//    NSLog(@"删除数据flag==%d",flag);
 
 }
 
@@ -112,17 +112,17 @@
     int count = [set intForColumnIndex:0];
     BOOL exist = count;
     if (exist) {
-        NSLog(@"%@表存在",kYourDownloadTable);
+//        NSLog(@"%@表存在",kYourDownloadTable);
     }else{
         // 建表
         // create table 表名(给一个ID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL，参数)
         NSString *updata = [NSString stringWithFormat:@"create table %@(musicID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,musicURL text,totalTitle text,liveTitle text,playCount text,bgImage text)",kYourDownloadTable];
         BOOL result = [_dataBase executeUpdate:updata];
         if (result) {
-            NSLog(@"%@创建成功",kYourDownloadTable);
+//            NSLog(@"%@创建成功",kYourDownloadTable);
         }else
         {
-            NSLog(@"%@创建失败",kYourDownloadTable);
+//            NSLog(@"%@创建失败",kYourDownloadTable);
         }
     }
 }
@@ -133,9 +133,9 @@
     NSString *updata = [NSString stringWithFormat:@"INSERT INTO %@ (musicURL,totalTitle,liveTitle,playCount,bgImage) values(?,?,?,?,?)",kYourDownloadTable];
     BOOL result = [_dataBase executeUpdate:updata withArgumentsInArray:Info];
     if (result) {
-        NSLog(@"插入数据成功");
+//        NSLog(@"插入数据成功");
     }else{
-        NSLog(@"插入数据失败");
+//        NSLog(@"插入数据失败");
     }
 }
 
@@ -163,7 +163,7 @@
     NSString *string = [NSString stringWithFormat:@"delete from %@ where totalTitle = ?",tableName];
     NSString *myIDString = [NSString stringWithFormat:@"%@",totalTitle];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
-    NSLog(@"删除数据flag==%d",flag);
+//    NSLog(@"删除数据flag==%d",flag);
     
 }
 
@@ -181,17 +181,17 @@
     int count = [set intForColumnIndex:0];
     BOOL exist = count;
     if (exist) {
-        NSLog(@"%@表存在",kHisDownLoadTable);
+//        NSLog(@"%@表存在",kHisDownLoadTable);
     }else{
         // 建表
         // create table 表名(给一个ID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL，参数)
         NSString *updata = [NSString stringWithFormat:@"create table %@(musicID  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,albumid text,inter integer,isPaid integer,row integer,uid text,nickName text,score text,displayPrice text,image text,bigTitle text,smallTitle text)",kHisDownLoadTable];
         BOOL result = [_dataBase executeUpdate:updata];
         if (result) {
-            NSLog(@"%@创建成功",kHisDownLoadTable);
+//            NSLog(@"%@创建成功",kHisDownLoadTable);
         }else
         {
-            NSLog(@"%@创建失败",kHisDownLoadTable);
+//            NSLog(@"%@创建失败",kHisDownLoadTable);
         }
     }
 
@@ -202,9 +202,9 @@
     NSString *updata = [NSString stringWithFormat:@"INSERT INTO %@ (albumid,inter,isPaid,row,uid,nickName,score,displayPrice,image,bigTitle,smallTitle) values(?,?,?,?,?,?,?,?,?,?,?)",kHisDownLoadTable];
     BOOL result = [_dataBase executeUpdate:updata withArgumentsInArray:Info];
     if (result) {
-        NSLog(@"插入数据成功");
+//        NSLog(@"插入数据成功");
     }else{
-        NSLog(@"插入数据失败");
+//        NSLog(@"插入数据失败");
     }
 
 }
@@ -249,7 +249,7 @@
     NSString *string = [NSString stringWithFormat:@"delete from %@ where albumid = ?",tableName];
     NSString *myIDString = [NSString stringWithFormat:@"%@",totalTitle];
     BOOL flag = [_dataBase executeUpdate:string,myIDString];
-    NSLog(@"删除数据flag==%d",flag);
+//    NSLog(@"删除数据flag==%d",flag);
 }
 
 

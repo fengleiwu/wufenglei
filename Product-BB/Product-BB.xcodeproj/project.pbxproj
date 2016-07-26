@@ -40,6 +40,29 @@
 		79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79118E111D3E027F00059969 /* DetailListTableViewCell.xib */; };
 		79118E1E1D3E027F00059969 /* TitleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79118E131D3E027F00059969 /* TitleListCollectionViewCell.m */; };
 		7916686A1D3671D2009A3613 /* VeryBigTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791668691D3671D2009A3613 /* VeryBigTabView.m */; };
+		791CD0AD1D46EBD200941C41 /* 更多.png in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0AB1D46EBD200941C41 /* 更多.png */; };
+		791CD0AE1D46EBD200941C41 /* lauimage-700.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0AC1D46EBD200941C41 /* lauimage-700.jpg */; };
+		791CD0C51D46EBE500941C41 /* cf－10（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B01D46EBE500941C41 /* cf－10（被拖移）.tiff */; };
+		791CD0C61D46EBE500941C41 /* cf－11（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B11D46EBE500941C41 /* cf－11（被拖移）.tiff */; };
+		791CD0C71D46EBE500941C41 /* cf－12（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B21D46EBE500941C41 /* cf－12（被拖移）.tiff */; };
+		791CD0C81D46EBE500941C41 /* cf－13（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B31D46EBE500941C41 /* cf－13（被拖移）.tiff */; };
+		791CD0C91D46EBE500941C41 /* cf－14（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B41D46EBE500941C41 /* cf－14（被拖移）.tiff */; };
+		791CD0CA1D46EBE500941C41 /* cf－15（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B51D46EBE500941C41 /* cf－15（被拖移）.tiff */; };
+		791CD0CB1D46EBE500941C41 /* cf－16（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B61D46EBE500941C41 /* cf－16（被拖移）.tiff */; };
+		791CD0CC1D46EBE500941C41 /* cf－17（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B71D46EBE500941C41 /* cf－17（被拖移）.tiff */; };
+		791CD0CD1D46EBE500941C41 /* cf－18（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B81D46EBE500941C41 /* cf－18（被拖移）.tiff */; };
+		791CD0CE1D46EBE500941C41 /* cf－19（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0B91D46EBE500941C41 /* cf－19（被拖移）.tiff */; };
+		791CD0CF1D46EBE500941C41 /* cf－1（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BA1D46EBE500941C41 /* cf－1（被拖移）.tiff */; };
+		791CD0D01D46EBE500941C41 /* cf－20（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BB1D46EBE500941C41 /* cf－20（被拖移）.tiff */; };
+		791CD0D11D46EBE500941C41 /* cf－21（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BC1D46EBE500941C41 /* cf－21（被拖移）.tiff */; };
+		791CD0D21D46EBE500941C41 /* cf－2（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BD1D46EBE500941C41 /* cf－2（被拖移）.tiff */; };
+		791CD0D31D46EBE500941C41 /* cf－3（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BE1D46EBE500941C41 /* cf－3（被拖移）.tiff */; };
+		791CD0D41D46EBE500941C41 /* cf－4（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0BF1D46EBE500941C41 /* cf－4（被拖移）.tiff */; };
+		791CD0D51D46EBE500941C41 /* cf－5（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0C01D46EBE500941C41 /* cf－5（被拖移）.tiff */; };
+		791CD0D61D46EBE500941C41 /* cf－6（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0C11D46EBE500941C41 /* cf－6（被拖移）.tiff */; };
+		791CD0D71D46EBE500941C41 /* cf－7（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0C21D46EBE500941C41 /* cf－7（被拖移）.tiff */; };
+		791CD0D81D46EBE500941C41 /* cf－8（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0C31D46EBE500941C41 /* cf－8（被拖移）.tiff */; };
+		791CD0D91D46EBE500941C41 /* cf－9（被拖移）.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 791CD0C41D46EBE500941C41 /* cf－9（被拖移）.tiff */; };
 		791D94581D3CF39300A2DABB /* MBProgressHUD+GifHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */; };
 		791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 791D94611D3CF9D400A2DABB /* 5562497_03.gif */; };
 		793F1A9C1D3E04C100C8FD01 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F1A971D3E04C100C8FD01 /* DBManager.m */; };
@@ -443,6 +466,29 @@
 		79118E131D3E027F00059969 /* TitleListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleListCollectionViewCell.m; sourceTree = "<group>"; };
 		791668681D3671D2009A3613 /* VeryBigTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeryBigTabView.h; sourceTree = "<group>"; };
 		791668691D3671D2009A3613 /* VeryBigTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeryBigTabView.m; sourceTree = "<group>"; };
+		791CD0AB1D46EBD200941C41 /* 更多.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "更多.png"; sourceTree = "<group>"; };
+		791CD0AC1D46EBD200941C41 /* lauimage-700.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "lauimage-700.jpg"; sourceTree = "<group>"; };
+		791CD0B01D46EBE500941C41 /* cf－10（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－10（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B11D46EBE500941C41 /* cf－11（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－11（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B21D46EBE500941C41 /* cf－12（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－12（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B31D46EBE500941C41 /* cf－13（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－13（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B41D46EBE500941C41 /* cf－14（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－14（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B51D46EBE500941C41 /* cf－15（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－15（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B61D46EBE500941C41 /* cf－16（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－16（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B71D46EBE500941C41 /* cf－17（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－17（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B81D46EBE500941C41 /* cf－18（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－18（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0B91D46EBE500941C41 /* cf－19（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－19（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BA1D46EBE500941C41 /* cf－1（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－1（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BB1D46EBE500941C41 /* cf－20（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－20（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BC1D46EBE500941C41 /* cf－21（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－21（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BD1D46EBE500941C41 /* cf－2（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－2（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BE1D46EBE500941C41 /* cf－3（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－3（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0BF1D46EBE500941C41 /* cf－4（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－4（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0C01D46EBE500941C41 /* cf－5（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－5（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0C11D46EBE500941C41 /* cf－6（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－6（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0C21D46EBE500941C41 /* cf－7（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－7（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0C31D46EBE500941C41 /* cf－8（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－8（被拖移）.tiff"; sourceTree = "<group>"; };
+		791CD0C41D46EBE500941C41 /* cf－9（被拖移）.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "cf－9（被拖移）.tiff"; sourceTree = "<group>"; };
 		791D94551D3CF37900A2DABB /* Color_Marco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color_Marco.h; sourceTree = "<group>"; };
 		791D94561D3CF38800A2DABB /* MBProgressHUD+GifHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GifHUD.h"; sourceTree = "<group>"; };
 		791D94571D3CF39300A2DABB /* MBProgressHUD+GifHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GifHUD.m"; sourceTree = "<group>"; };
@@ -1192,6 +1238,34 @@
 				79118E131D3E027F00059969 /* TitleListCollectionViewCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		791CD0AF1D46EBE500941C41 /* cf */ = {
+			isa = PBXGroup;
+			children = (
+				791CD0B01D46EBE500941C41 /* cf－10（被拖移）.tiff */,
+				791CD0B11D46EBE500941C41 /* cf－11（被拖移）.tiff */,
+				791CD0B21D46EBE500941C41 /* cf－12（被拖移）.tiff */,
+				791CD0B31D46EBE500941C41 /* cf－13（被拖移）.tiff */,
+				791CD0B41D46EBE500941C41 /* cf－14（被拖移）.tiff */,
+				791CD0B51D46EBE500941C41 /* cf－15（被拖移）.tiff */,
+				791CD0B61D46EBE500941C41 /* cf－16（被拖移）.tiff */,
+				791CD0B71D46EBE500941C41 /* cf－17（被拖移）.tiff */,
+				791CD0B81D46EBE500941C41 /* cf－18（被拖移）.tiff */,
+				791CD0B91D46EBE500941C41 /* cf－19（被拖移）.tiff */,
+				791CD0BA1D46EBE500941C41 /* cf－1（被拖移）.tiff */,
+				791CD0BB1D46EBE500941C41 /* cf－20（被拖移）.tiff */,
+				791CD0BC1D46EBE500941C41 /* cf－21（被拖移）.tiff */,
+				791CD0BD1D46EBE500941C41 /* cf－2（被拖移）.tiff */,
+				791CD0BE1D46EBE500941C41 /* cf－3（被拖移）.tiff */,
+				791CD0BF1D46EBE500941C41 /* cf－4（被拖移）.tiff */,
+				791CD0C01D46EBE500941C41 /* cf－5（被拖移）.tiff */,
+				791CD0C11D46EBE500941C41 /* cf－6（被拖移）.tiff */,
+				791CD0C21D46EBE500941C41 /* cf－7（被拖移）.tiff */,
+				791CD0C31D46EBE500941C41 /* cf－8（被拖移）.tiff */,
+				791CD0C41D46EBE500941C41 /* cf－9（被拖移）.tiff */,
+			);
+			path = cf;
 			sourceTree = "<group>";
 		};
 		7955C8941D39C2910052EBBC /* Anchor */ = {
@@ -2625,6 +2699,9 @@
 		79F43F5A1D3A3C62002BE16F /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				791CD0AF1D46EBE500941C41 /* cf */,
+				791CD0AB1D46EBD200941C41 /* 更多.png */,
+				791CD0AC1D46EBD200941C41 /* lauimage-700.jpg */,
 				7987F38E1D45D9BF002A8858 /* 对话框实心.png */,
 				7987F3CA1D4664D1002A8858 /* 圈 YES.png */,
 				7987F3CB1D4664D1002A8858 /* 圈.png */,
@@ -2849,6 +2926,7 @@
 			files = (
 				79F4467E1D3A3C64002BE16F /* 0001 2.png in Resources */,
 				79F44CE91D3A3C64002BE16F /* tabbar_bg@3x.png in Resources */,
+				791CD0AE1D46EBD200941C41 /* lauimage-700.jpg in Resources */,
 				799073821D4054D400108E35 /* 1.png in Resources */,
 				791D94621D3CF9D400A2DABB /* 5562497_03.gif in Resources */,
 				79CD0F9C1D3F90B40020AF6E /* 冰封王座之巅.png in Resources */,
@@ -2857,13 +2935,17 @@
 				7900E1501D3A78A300E3676C /* LocationTableViewCell.xib in Resources */,
 				79F44CF21D3A3C64002BE16F /* 我的.png in Resources */,
 				79F44CF51D3A3C64002BE16F /* 暂停.png in Resources */,
+				791CD0D21D46EBE500941C41 /* cf－2（被拖移）.tiff in Resources */,
 				79FA04F41D3D005B000C3306 /* down_h@2x.png in Resources */,
 				7900E85F1D3A796E00E3676C /* toolbar_pause_n_p@3x.png in Resources */,
 				7900E85C1D3A796E00E3676C /* time.png in Resources */,
+				791CD0C91D46EBE500941C41 /* cf－14（被拖移）.tiff in Resources */,
 				79F44CE41D3A3C64002BE16F /* music_icon_play_highlighted@3x.png in Resources */,
 				79F446861D3A3C64002BE16F /* download下载.png in Resources */,
 				79F44CE51D3A3C64002BE16F /* music_icon_stop_highlighted@3x.png in Resources */,
+				791CD0CD1D46EBE500941C41 /* cf－18（被拖移）.tiff in Resources */,
 				79F44CF01D3A3C64002BE16F /* 大播放.png in Resources */,
+				791CD0D61D46EBE500941C41 /* cf－6（被拖移）.tiff in Resources */,
 				7981D7751D41179C00ABC217 /* README.txt in Resources */,
 				79F446821D3A3C64002BE16F /* audio_wave.png in Resources */,
 				7981D7951D41463E00ABC217 /* 奇幻森林.gif in Resources */,
@@ -2877,11 +2959,16 @@
 				79F44CF61D3A3C64002BE16F /* 本地.png in Resources */,
 				79F4467F1D3A3C64002BE16F /* 1004.jpg in Resources */,
 				79BE29F91D3E7B70009CF446 /* 冰封王座.png in Resources */,
+				791CD0D01D46EBE500941C41 /* cf－20（被拖移）.tiff in Resources */,
 				79F44CEA1D3A3C64002BE16F /* user_group_man_man.png in Resources */,
+				791CD0AD1D46EBD200941C41 /* 更多.png in Resources */,
 				7900E85B1D3A796E00E3676C /* drag_list_up.png in Resources */,
 				79BE29FF1D3E7B70009CF446 /* 游戏_选中.png in Resources */,
+				791CD0CC1D46EBE500941C41 /* cf－17（被拖移）.tiff in Resources */,
+				791CD0D91D46EBE500941C41 /* cf－9（被拖移）.tiff in Resources */,
 				79F44CF71D3A3C64002BE16F /* 电波-01.png in Resources */,
 				7981D7901D41377C00ABC217 /* 喵.png in Resources */,
+				791CD0D71D46EBE500941C41 /* cf－7（被拖移）.tiff in Resources */,
 				7987F3701D44B281002A8858 /* ShareSDKUI.bundle in Resources */,
 				79CD0FA01D3F90B40020AF6E /* QQ.png in Resources */,
 				79F44CFB1D3A3C64002BE16F /* 箭头 (3).png in Resources */,
@@ -2892,6 +2979,7 @@
 				7987F38F1D45D9BF002A8858 /* 对话框实心.png in Resources */,
 				79F44CFA1D3A3C64002BE16F /* 箭头 (2).png in Resources */,
 				7981D5BB1D41178E00ABC217 /* 灰底白狗加载背景图.png in Resources */,
+				791CD0CB1D46EBE500941C41 /* cf－16（被拖移）.tiff in Resources */,
 				79118E1D1D3E027F00059969 /* DetailListTableViewCell.xib in Resources */,
 				79F44CEE1D3A3C64002BE16F /* 发现.png in Resources */,
 				7987F3CD1D4664D1002A8858 /* 圈.png in Resources */,
@@ -2908,39 +2996,51 @@
 				79FEE74D1D459882008168C2 /* icon_search_n@3x.png in Resources */,
 				79BE29FD1D3E7B70009CF446 /* 我的订阅.png in Resources */,
 				799073831D4054D400108E35 /* 2.png in Resources */,
+				791CD0D41D46EBE500941C41 /* cf－4（被拖移）.tiff in Resources */,
 				79BE29FE1D3E7B70009CF446 /* 意见反馈.png in Resources */,
 				79BE2A011D3E7B70009CF446 /* dog.jpg in Resources */,
+				791CD0D31D46EBE500941C41 /* cf－3（被拖移）.tiff in Resources */,
 				79DB35C91D449DD700ACD1B6 /* find_comic@3x.png in Resources */,
+				791CD0CE1D46EBE500941C41 /* cf－19（被拖移）.tiff in Resources */,
+				791CD0C51D46EBE500941C41 /* cf－10（被拖移）.tiff in Resources */,
 				79F446871D3A3C64002BE16F /* guest_male.png in Resources */,
+				791CD0D51D46EBE500941C41 /* cf－5（被拖移）.tiff in Resources */,
 				7900E85D1D3A796E00E3676C /* toolbar_back_n_p@3x.png in Resources */,
 				79CD0F9E1D3F90B40020AF6E /* 微博 (3).png in Resources */,
 				7980770C1D33A12C0095911D /* style.css in Resources */,
 				79BE2A001D3E7B70009CF446 /* 珠穆朗玛.jpg in Resources */,
 				79F446851D3A3C64002BE16F /* download.png in Resources */,
+				791CD0C61D46EBE500941C41 /* cf－11（被拖移）.tiff in Resources */,
+				791CD0C81D46EBE500941C41 /* cf－13（被拖移）.tiff in Resources */,
 				793F1AA81D3E207C00C8FD01 /* trash.png in Resources */,
 				793F1AA61D3E205900C8FD01 /* folder.png in Resources */,
 				79BE29FB1D3E7B70009CF446 /* 商城.png in Resources */,
 				79F44CE71D3A3C64002BE16F /* play.png in Resources */,
+				791CD0C71D46EBE500941C41 /* cf－12（被拖移）.tiff in Resources */,
 				7900E8591D3A796E00E3676C /* broadcast_DownButtonBg@2x.png in Resources */,
 				7981D79A1D4239B600ABC217 /* 屏幕快照 2016-07-22 下午7.20.34.png in Resources */,
 				79F44CE31D3A3C64002BE16F /* like_outline.png in Resources */,
 				7987F3791D44B281002A8858 /* ShareSDK.bundle in Resources */,
 				7981D77A1D41179C00ABC217 /* build-libidn.sh in Resources */,
 				79F44CEB1D3A3C64002BE16F /* V.png in Resources */,
+				791CD0D11D46EBE500941C41 /* cf－21（被拖移）.tiff in Resources */,
 				7987F3751D44B281002A8858 /* WeiboSDK.bundle in Resources */,
 				79F44CF91D3A3C64002BE16F /* 箭头 (1).png in Resources */,
 				7987F34A1D44B272002A8858 /* 喵呜.png in Resources */,
 				79DB35C81D449DD700ACD1B6 /* find_book@3x.png in Resources */,
+				791CD0CF1D46EBE500941C41 /* cf－1（被拖移）.tiff in Resources */,
 				7900E85A1D3A796E00E3676C /* broadcast_mask@2x.png in Resources */,
 				7987F3731D44B281002A8858 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				79F44CED1D3A3C64002BE16F /* 人气.png in Resources */,
 				7981D7081D41179C00ABC217 /* copying.txt in Resources */,
+				791CD0CA1D46EBE500941C41 /* cf－15（被拖移）.tiff in Resources */,
 				79F44CFD1D3A3C64002BE16F /* 订阅.png in Resources */,
 				798076BB1D339EAD0095911D /* Assets.xcassets in Resources */,
 				7900E8601D3A796E00E3676C /* toolbar_play_n_p@3x.png in Resources */,
 				798076B91D339EAD0095911D /* Main.storyboard in Resources */,
 				79F44CF81D3A3C64002BE16F /* 省_1.png in Resources */,
 				79CD0F9D1D3F90B40020AF6E /* 密码.png in Resources */,
+				791CD0D81D46EBE500941C41 /* cf－8（被拖移）.tiff in Resources */,
 				79F446841D3A3C64002BE16F /* dot_circle.png in Resources */,
 				79F44CF41D3A3C64002BE16F /* 播放.png in Resources */,
 				79BE29FC1D3E7B70009CF446 /* 设置 (1).png in Resources */,

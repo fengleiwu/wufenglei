@@ -72,7 +72,7 @@
     } else {
         [self.login setTitle:username forState:UIControlStateNormal];
         self.label.text = @"注销";
-        NSLog(@"%@",picture);
+//        NSLog(@"%@",picture);
 //        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"type"] isEqualToString:@"weibo"]) {
             [self.headB sd_setImageWithURL:[NSURL URLWithString:picture] completed:nil];
 //        }
@@ -99,7 +99,7 @@
 
 #pragma mark ----- XMPP协议方法 -----
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
-    NSLog(@"登录验证成功");
+//    NSLog(@"登录验证成功");
     NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     [self.login setTitle:name forState:UIControlStateNormal];
     self.label.text = @"关注 0 | 粉丝 0";
@@ -111,7 +111,7 @@
 
 // 登陆验证失败后调用的方法
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
-    NSLog(@"登录验证失败");
+//    NSLog(@"登录验证失败");
 }
 
 #pragma mark ----- 创建登录界面 -----

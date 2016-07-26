@@ -79,7 +79,7 @@
 }
 // 切换方法
 - (void)playTypeAction:(UIButton *)button {
-    NSLog(@"qie huan");
+//    NSLog(@"qie huan");
     NSString *playType = [[NSUserDefaults standardUserDefaults] objectForKey:@"playType"];
     if ([playType isEqualToString:@"repeat"] || playType == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:@"refresh" forKey:@"playType"];

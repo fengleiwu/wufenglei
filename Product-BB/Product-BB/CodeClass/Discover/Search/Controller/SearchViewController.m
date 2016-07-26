@@ -65,7 +65,7 @@
         self.searchArr = titleArr;
         self.modelArr = modelA;
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 }
 
@@ -125,7 +125,7 @@
     for (hotRecommendsModel *mo in self.modelArr) {
         if ([titleString isEqualToString:mo.title]) {
             model = mo;
-            NSLog(@"werer");
+//            NSLog(@"werer");
         }
     }
     AlbumDetailViewController *album = [[AlbumDetailViewController alloc]init];

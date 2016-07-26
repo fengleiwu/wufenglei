@@ -267,8 +267,8 @@
     //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
     //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
     associateHandler (user.uid, user, user);
-    NSLog(@"dd%@",user.rawData);
-    NSLog(@"dd%@",user.credential);
+//    NSLog(@"dd%@",user.rawData);
+//    NSLog(@"dd%@",user.credential);
     // 记录登录成功的用户名和密码
     [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"nickname"] forKey:@"user"];
     [[NSUserDefaults standardUserDefaults]setObject:@"wechat" forKey:@"type"];
@@ -293,8 +293,8 @@
         //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
         //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
         associateHandler (user.uid, user, user);
-        NSLog(@"dd%@",user.rawData);
-        NSLog(@"dd%@",user.credential);
+//        NSLog(@"dd%@",user.rawData);
+//        NSLog(@"dd%@",user.credential);
         NSString *picture = user.rawData[@"avatar_hd"];
         // 记录登录成功的用户名和密码
         [[NSUserDefaults standardUserDefaults]setObject:user.rawData[@"name"] forKey:@"user"];
@@ -310,11 +310,11 @@
     }onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)
         {
-            NSLog(@"登录成功");
+//            NSLog(@"登录成功");
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
-            NSLog(@"登录失败");
+//            NSLog(@"登录失败");
         }
     }];
 }
@@ -422,12 +422,12 @@
 
 #pragma mark ----- XMPP协议方法 -----
 -(void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
-    NSLog(@"登录验证成功");
+//    NSLog(@"登录验证成功");
     // 如果用户登录了 要将该用户变成上线状态
     XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
     [[XMPPManager shareInstance].stream sendElement:presence];
     
-    NSLog(@"登陆界面界面当前用户 = %@",self.emailOrPhoneTF.text);
+//    NSLog(@"登陆界面界面当前用户 = %@",self.emailOrPhoneTF.text);
     
     // 记录登录成功的用户名和密码
     [[NSUserDefaults standardUserDefaults]setObject:self.emailOrPhoneTF.text forKey:@"user"];

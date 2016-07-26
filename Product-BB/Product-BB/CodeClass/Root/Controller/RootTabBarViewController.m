@@ -82,8 +82,6 @@
     
     // 通知，暂停后，改变底部按钮的图片
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseNotication:) name:@"pauseNotication" object:nil];
-    // 通知，播放后，动画恢复playNotication
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNotication:) name:@"playNotication" object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playChangeFrame:) name:@"playFrame" object:nil];
@@ -127,16 +125,6 @@
 //    [self.btn.layer pauseAnimate];
     [self.btn.layer removeAllAnimations];
 }
-// 动画旋转没有效果啊。
-- (void)playNotication:(NSNotification *)noti {
-//    [self.btn.layer resumeAnimate];
-    self.btnAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    self.btnAnimation.toValue = [NSNumber numberWithFloat:(M_PI *2)];
-    self.btnAnimation.duration = 8;
-    self.btnAnimation.repeatCount = MAXFLOAT;
-    [self.btn.layer addAnimation:self.btnAnimation forKey:nil];
-//    [self.btn.layer pauseAnimate];
-}
 
 #pragma mark ---btnAction
 -(void)playAction
@@ -146,7 +134,7 @@
         musicp.newmodelArray = self.playArray;
         [self presentViewController:musicp animated:YES completion:nil];
     }else {
-        NSLog(@"没有正在播放");
+//        NSLog(@"没有正在播放");
     }
 }
 

@@ -135,8 +135,8 @@
     
     TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth) inSection:0]];
     
-        NSLog(@"%ld",(long)self.conset);
-        NSLog(@"%f",scrollView.contentOffset.x);
+//        NSLog(@"%ld",(long)self.conset);
+//        NSLog(@"%f",scrollView.contentOffset.x);
     if (scrollView.contentOffset.x > 0 ||scrollView.contentOffset.x >self.conset) {
         TitleListCollectionViewCell *cell = (TitleListCollectionViewCell*)[_collectionV cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(NSInteger)(scrollView.contentOffset.x / kScreenWidth)-1 inSection:0]];
         cell.label.textColor = [UIColor grayColor];
@@ -162,7 +162,7 @@
         }
     }
         self.conset = scrollView.contentOffset.x;
-        NSLog(@"%ld",(long)self.conset);
+//        NSLog(@"%ld",(long)self.conset);
     
     }
 }
@@ -407,7 +407,7 @@
         [self.collectionV addSubview:self.moveV];
         [self requestDataWithIndex:1000];
     } error:^(NSError *error) {
-        NSLog(@"errpr == %@",error);
+//        NSLog(@"errpr == %@",error);
     }];
 }
 
@@ -432,7 +432,7 @@
         [tableView reloadData];
 //        NSLog(@"%@",dic);
     } error:^(NSError *error) {
-        NSLog(@"errpr == %@",error);
+//        NSLog(@"errpr == %@",error);
     }];
 }
 

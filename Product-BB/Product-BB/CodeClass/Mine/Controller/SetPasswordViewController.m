@@ -99,7 +99,7 @@
         //  stream 设置代理
         [[XMPPManager shareInstance].stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
         [[XMPPManager shareInstance] registWithUserName:self.phoneStr petName:self.petName password:self.petTF.text];
-        NSLog(@"电话号码：%@  昵称：%@  密码：%@",self.phoneStr,self.petName,self.petTF.text);
+//        NSLog(@"电话号码：%@  昵称：%@  密码：%@",self.phoneStr,self.petName,self.petTF.text);
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提醒" message:@"密码格式不正确" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *aAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:nil];
@@ -110,13 +110,13 @@
 
 #pragma mark ------ XMPPStreamDelegate -----
 -(void)xmppStreamDidRegister:(XMPPStream *)sender{
-    NSLog(@"注册成功");
+//    NSLog(@"注册成功");
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
 -(void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error{
-    NSLog(@"注册失败：%@",error);
+//    NSLog(@"注册失败：%@",error);
 }
 
 #pragma mark ----- 判断密码格式是否正确 -----

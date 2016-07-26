@@ -64,7 +64,7 @@
         url = @"http://live.ximalaya.com/live-web/v2/radio/network?device=iPhone&pageNum=1&pageSize=30&statEvent=pageview%2Fradiolist%40%E7%BD%91%E7%BB%9C%E5%8F%B0&statModule=%E7%BD%91%E7%BB%9C%E5%8F%B0&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%B9%BF%E6%92%AD";
         self.navigationItem.title = @"网络台";
     } else {
-        NSLog(@"cuo wu");
+//        NSLog(@"cuo wu");
     }
     
     [RequestManager requestWithUrlString:url requestType:RequestGET parDic:nil finish:^(NSData *data) {

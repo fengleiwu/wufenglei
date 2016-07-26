@@ -57,7 +57,7 @@
         
        //self.contentTextView.editable = NO;
             } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
     
 }

@@ -42,7 +42,7 @@
     self.squareArr = [AllHotModel modelConfigureWithDic:dic];
     [self.view addSubview:self.tableV];
 } error:^(NSError *error) {
-    NSLog(@"error == %@",error);
+//    NSLog(@"error == %@",error);
 }];
 }
 

@@ -85,7 +85,7 @@
             [self.tab reloadData];
             [self.detailTableView reloadData];
         } error:^(NSError *error) {
-            NSLog(@"%@",error);
+//            NSLog(@"%@",error);
         }];
     }else{
         self.isPay = NO;
@@ -201,7 +201,7 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
             priceLabel.text = [NSString stringWithFormat:@"价格:%@",self.hotRecommendsModel.displayPrice];
             [self.tab reloadData];
         } error:^(NSError *error) {
-            NSLog(@"%@",error);
+//            NSLog(@"%@",error);
         }];
     }else{
         
@@ -334,7 +334,7 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
    
         [self.tab reloadData];
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
   [self.veryBigTab.scr addSubview:self.tab];
 }
@@ -608,11 +608,11 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
     [task start];
     [task monitorDownload:^(long long bytesWritten, NSInteger progress, long long allTimes) {
-        NSLog(@"%lld,%ld",bytesWritten,progress);
+//        NSLog(@"%lld,%ld",bytesWritten,progress);
         model.type = Downloadimg;
         [ArrayManager shareManager].progress = (CGFloat)progress / 100;
     } DidDownload:^(NSString *savePath, NSString *url) {
-        NSLog(@"++++++++++++++++++++%@",savePath);
+//        NSLog(@"++++++++++++++++++++%@",savePath);
         [table creatTable];
  NSData *musicData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.coverLarge]];
         if (musicData == nil) {
@@ -723,20 +723,20 @@ MyMusicDownLoadTable *table = [[MyMusicDownLoadTable alloc]init];
         model.isPlay = NO;
     }
     
-    AlbumDetailModel *model = self.tracksArr[indexPath.row];
-    model.isPlay = YES;
-    [self.tab reloadData];
-    if (model.playUrl64 == nil) {
-        NSLog(@"播放地址不存在");
-        return;
+    if (self.veryBigTab.seg.selectedSegmentIndex == 1) {
+        AlbumDetailModel *model = self.tracksArr[indexPath.row];
+        model.isPlay = YES;
+        [self.tab reloadData];
+        if (model.playUrl64 == nil) {
+//            NSLog(@"播放地址不存在");
+            return;
+        }
+        MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
+        playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
+        [MyPlayerManager defaultManager].index = indexPath.row;
+        [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
+        [self presentViewController:playVC animated:YES completion:nil];
     }
-    MusicplayViewController *playVC = [[MusicplayViewController alloc]init];
-    playVC.newmodelArray = [BroadMusicModel modelCOnfigureWithAlbumDetailModel:self.tracksArr];
-    
-    [MyPlayerManager defaultManager].index = indexPath.row;
-    [MyPlayerManager defaultManager].musicLists = playVC.newmodelArray;
-    
-    [self presentViewController:playVC animated:YES completion:nil];
 }
 
 

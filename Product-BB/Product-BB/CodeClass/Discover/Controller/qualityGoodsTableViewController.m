@@ -47,7 +47,7 @@
         //NSLog(@"%@",self.setArr);
         //NSLog(@"%@",self.bigArr);
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
     
     
