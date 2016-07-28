@@ -1,0 +1,94 @@
+//
+//  PrefixHeader.pch
+//  Product-BB
+//
+//  Created by 吴峰磊 on 16/7/11.
+//  Copyright © 2016年 吴峰磊. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#define  PKCOLOR(R,G,B) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:1.0]
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#import <UIImageView+WebCache.h>
+#import <MBProgressHUD.h>
+#import <MJRefresh.h>
+#import <FMDB.h>
+#import <POP.h>
+#import <AFNetworking.h>
+#import "XMPPFramework.h"
+#import "XMPPManager.h"
+#import "RequestManager.h"
+#import "UIView+TWFrame.h"
+#import "AdjustHeight.h"
+#import "MyPlayerManager.h"
+#import "MBProgressHUD+GifHUD.h"
+#import "JSMSSDK.h"
+#import "ArrayManager.h"
+// 点击状态栏，回到顶部。
+#import "TopWindow.h"
+#import "TimeDisManager.h"
+
+#define kMySqliteName @"勃起吧!兄弟.sqlite"
+#define kMyDownloadTable @"一身辣条味儿"
+#define kYourDownloadTable @"还是一身辣条味儿"
+#define kHisDownLoadTable @"怎么还吃辣条"
+
+
+
+
+#define KfocusImagesURL @"http://mobile.ximalaya.com/mobile/discovery/v4/recommends?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
+#define KShanghaiURL @"http://mobile.ximalaya.com/mobile/discovery/v1/city/tab?code=43_310000_3100&device=iPhone&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&version=4.3.9"
+#define KShanghaiTableURL @"http://mobile.ximalaya.com/mobile/discovery/v1/city/metadataAlbum?calcDimension=hot&categoryId=22&code=43_310000_3100&device=iPhone&pageId=1&pageSize=20&version=4.3.98"
+#define KMustListenURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=ranking%3Aalbum%3Asubscribed%3A30%3A0&pageId=1&pageSize=1&scale=2"
+#define KMustListenTableURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_3_ranking%3Aalbum%3Asubscribed%3A30%3A3&pageId=1&pageSize=20&scale=2"
+#define KBuyGoodURL @"http://mobile.ximalaya.com/mobile/discovery/v3/category/recommends?categoryId=33&contentType=album&device=iPhone&scale=2&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&version=4.3.98"
+#define KBuyGoodTableURL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/keyword/albums?calcDimension=hot&categoryId=33&device=iPhone&keywordId=373&pageId=1&pageSize=20&statEvent=pageview%2Fcategory%40%E5%90%AC%E5%81%A5%E5%BA%B7&statModule=%E5%90%AC%E5%81%A5%E5%BA%B7_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1&status=0"
+// 最下面的 collection
+#define KCategoryBottomURL @"http://mobile.ximalaya.com/mobile/discovery/v1/categories?device=android&picVersion=11&scale=2"
+#define KbroadcastURL @"http://live.ximalaya.com/live-web/v4/homepage?device=iPhone"
+#define KtheSameURL @"http://mobile.ximalaya.com/mobile/discovery/v2/recommend/hotAndGuess?code=43_310000_3100&device=iPhone&version=4.3.98"
+#define KwebViewURL @"http://adse.ximalaya.com/ting?appid=0&device=iPhone&name=find_banner&network=WIFI&operator=3&scale=2&version=4.3.98"
+#define KrecommendMoreURL  @"http://mobile.ximalaya.com/mobile/discovery/v1/recommend/editor?device=iPhone&pageId=1&pageSize=20&statEvent=pageview%2Falbumlist%40%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90&statModule=%E5%B0%8F%E7%BC%96%E6%8E%A8%E8%8D%90_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1"
+#define KpayDetailURL @"http://mobile.ximalaya.com/mobile/v1/album/detail?albumId=4345263&device=iPhone&statEvent=pageview%2Falbum%404345263&statModule=%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=1"
+#define  KqualityGoodURL @"http://mobile.ximalaya.com/m/subject_list?device=iPhone&page=1&per_page=20&scale=2&statEvent=pageview%2Fsubjectlist%40%E7%B2%BE%E5%93%81%E5%90%AC%E5%8D%95&statModule=%E7%B2%BE%E5%93%81%E5%90%AC%E5%8D%95_%E6%9B%B4%E5%A4%9A&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%8E%A8%E8%8D%90&statPosition=2"
+
+#define KanchorURL @"http://mobile.ximalaya.com/mobile/discovery/v1/anchor/recommend?device=iPhone&version=4.3.98"
+
+#define KnovelURL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/keywords?categoryId=3&device=iPhone&statEvent=pageview%2Fcategory%40%E6%9C%89%E5%A3%B0%E4%B9%A6&statModule=%E6%9C%89%E5%A3%B0%E4%B9%A6&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%88%86%E7%B1%BB"
+#define KtableURL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/keyword/albums?calcDimension=hot&categoryId=3&device=iPhone&keywordId=232&pageId=1&pageSize=20&statEvent=pageview%2Fcategory%40%E6%9C%89%E5%A3%B0%E4%B9%A6&statModule=%E6%9C%89%E5%A3%B0%E4%B9%A6&statPage=tab%40%E5%8F%91%E7%8E%B0_%E5%88%86%E7%B1%BB&status=0"
+#define KTuiGuangURL @"http://adse.ximalaya.com/ting/feed?appid=0&device=iPhone&name=find_native&network=WIFI&operator=3&scale=2&version=4.3.98"
+#define KRankUrl @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/group?channel=ios-b1&device=iPhone&includeActivity=true&includeSpecial=true&scale=2&version=4.3.98"
+#define KFocusImageURL @"http://m.ximalaya.com/xmposter/top_list?app=iting&version=4.3.98&impl=com.gemd.iting"
+#define KHotRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/track?device=iPhone&key=1_57_ranking%3Atrack%3AscoreByTime%3A1%3A0&pageId=1&pageSize=20&scale=2"
+#define KMoreRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_21_ranking%3Aalbum%3Asubscribed%3A30%3A0&pageId=1&pageSize=20&scale=2"
+#define KPrefectURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_63_ranking%3Aalbum%3Ascore%3A7%3A0&pageId=1&pageSize=20&scale=2"
+#define KBuyRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_66_ranking%3Aalbum%3Apaid%3A30%3A0&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E4%BB%98%E8%B4%B9%E7%B2%BE%E5%93%81%E7%95%85%E9%94%80%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=3"
+#define KShareRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/track?device=iPhone&key=1_54_ranking%3Atrack%3Ashared%3A1%3A0&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Ftracklist%40%E7%83%AD%E9%97%A8%E5%88%86%E4%BA%AB%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=4"
+#define KNovelRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_42_ranking%3Aalbum%3Acustom%3A42&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E6%9C%89%E5%A3%B0%E5%B0%8F%E8%AF%B4%E9%A3%8E%E4%BA%91%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=5"
+#define KLanguageRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_51_ranking%3Aalbum%3Adownloaded%3A7%3A5&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E6%9C%80%E6%BD%AE%E5%A4%96%E8%AF%AD%E6%94%B6%E5%90%AC%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=6"
+#define KEducationRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_49_ranking%3Aalbum%3Asubscribed%3A30%3A13&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E6%9C%80%E5%8F%97%E6%AC%A2%E8%BF%8E%E6%95%99%E8%82%B2%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=7"
+#define KEntertainmentRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/track?device=iPhone&key=1_52_ranking%3Atrack%3Acommented%3A7%3A4&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Ftracklist%40%E5%A8%B1%E4%B9%90%E7%83%AD%E6%92%AD%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=8"
+#define KMUsicRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/track?device=iPhone&key=1_55_ranking%3Atrack%3Aplayed%3A1%3A2&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Ftracklist%40%E9%9F%B3%E4%B9%90%E7%83%AD%E6%92%AD%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=9"
+#define KBusinessRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_59_ranking%3Aalbum%3Asubscribed%3A1%3A8&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E5%95%86%E4%B8%9A%E8%B4%A2%E7%BB%8F%E7%83%AD%E6%92%AD%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=10"
+#define KNewsRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_56_ranking%3Aalbum%3Asubscribed%3A1%3A1&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E9%80%9A%E6%99%93%E5%A4%A9%E4%B8%8B%E6%96%B0%E9%97%BB%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=11"
+#define KScienceRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_60_ranking%3Aalbum%3Asubscribed%3A1%3A18&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E7%A7%91%E6%8A%80%E6%92%AD%E5%AE%A2%E7%B2%BE%E9%80%89%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=12"
+#define KHistoryRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/album?device=iPhone&key=1_61_ranking%3Aalbum%3Asubscribed%3A1%3A9&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Franklist%40%E6%B6%A8%E7%9F%A5%E8%AF%86%E5%8E%86%E5%8F%B2%E4%BA%BA%E6%96%87%E6%A6%9C&statModule=%E8%8A%82%E7%9B%AE%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=13"
+#define KWomanRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/anchor?device=iPhone&key=1_43_ranking%3Aanchor%3Acustom%3A43&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Fuserlist%40%E5%A4%A9%E5%A3%B0%E5%B0%A4%E7%89%A9%E5%A5%B3%E7%A5%9E%E6%A6%9C&statModule=%E4%B8%BB%E6%92%AD%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=1"
+#define KManRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/anchor?device=iPhone&key=1_44_ranking%3Aanchor%3Acustom%3A44&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Fuserlist%40%E4%BC%98%E5%A3%B0%E4%BC%98%E8%89%B2%E7%94%B7%E7%A5%9E%E6%A6%9C&statModule=%E4%B8%BB%E6%92%AD%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=2"
+#define KNewManRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/anchor?device=iPhone&key=1_45_ranking%3Aanchor%3Acustom%3A45&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Fuserlist%40%E5%90%8E%E5%A3%B0%E5%8F%AF%E7%95%8F%E6%96%B0%E4%BA%BA%E6%A6%9C&statModule=%E4%B8%BB%E6%92%AD%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=3"
+#define KAnchorRankURL @"http://mobile.ximalaya.com/mobile/discovery/v2/rankingList/anchor?device=iPhone&key=1_53_ranking%3Aanchor%3Acustom%3A53&pageId=1&pageSize=20&scale=2&statEvent=pageview%2Fuserlist%40%E4%B8%BB%E6%92%AD%E8%B5%8F%E9%87%91%E6%A6%9C&statModule=%E4%B8%BB%E6%92%AD%E6%A6%9C%E5%8D%95&statPage=tab%40%E5%8F%91%E7%8E%B0_%E6%A6%9C%E5%8D%95&statPosition=4"
+
+#define KFREE1URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468830908.859938&tsuid=33152580"
+#define KFREE2URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468830956.581501&tsuid=33152580"
+#define KFREE3URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831001.116896&tsuid=33152580"
+#define KFREE4URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831041.354182&tsuid=33152580"
+#define KFREE5URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831063.273350&tsuid=33152580"
+#define KFREE6URL @"http://mobile.ximalaya.com/feed/v1/recommend/classic?device=iPhone&pageId=1&pageSize=20&ts=1468831081.706197&tsuid=33152580"
+
+#define KGameURL @"http://game.ximalaya.com/games-operation/v1/games/list?app=iting&device=iPhone&impl=com.gemd.iting&ly=wo&type=btnbottom&version=5.4.9"
+#endif /* PrefixHeader_pch */
